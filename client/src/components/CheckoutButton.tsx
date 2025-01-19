@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const handleClick = async () => {
-  const URL = "http://localhost:4000";
+  const URL = import.meta.env.VITE_API_URL as string;
   const { data } = await axios(URL, { method: "GET" });
   console.log(data);
 };
