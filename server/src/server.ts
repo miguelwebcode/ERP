@@ -18,7 +18,7 @@ server.get("/", (req, res) => {
 });
 
 server.get("/customers", (req, res) => {
-  res.json("Desde GET users");
+  res.json("Desde GET customers");
 });
 
 server.get("/projects", (req, res) => {
