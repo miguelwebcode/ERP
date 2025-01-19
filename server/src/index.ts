@@ -1,5 +1,10 @@
 import server from "./server";
+import dotenv from "dotenv";
 
-server.listen(4000, () => {
-  console.log("REST API en el puerto 4000");
+dotenv.config();
+
+const PORT = process.env.PORT;
+
+server.listen(PORT, () => {
+  console.log(`REST API from PORT ${PORT}`);
 });
