@@ -3,7 +3,13 @@ import cors from "cors";
 
 const server = express();
 
-server.use(cors({ origin: process.env.CLIENT_URL }));
+const corsOptions = {
+  origin: "http://localhost:5173", // Permitir solicitudes solo desde esta URL
+  methods: ["GET", "POST", "PUT", "DELETE"], // Métodos permitidos
+  allowedHeaders: ["Content-Type", "Authorization"], // Encabezados permitidos
+};
+
+server.use(cors(corsOptions));
 
 // Routing
 
