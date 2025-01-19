@@ -17,6 +17,14 @@ server.get("/", (req, res) => {
   res.json("Desde GET");
 });
 
+server.get("/customers", (req, res) => {
+  res.json("Desde GET users");
+});
+
+server.get("/projects", (req, res) => {
+  res.json("Desde GET projects");
+});
+
 server.post("/", (req, res) => {
   res.json("Desde POST");
 });
