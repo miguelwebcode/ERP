@@ -14,7 +14,7 @@ server.use(cors(corsOptions));
 // Routing
 
 server.get("/", (req, res) => {
-  res.json("Desde GET");
+  res.json("Desde GET Root");
 });
 
 server.get("/customers", (req, res) => {
@@ -25,20 +25,41 @@ server.get("/projects", (req, res) => {
   res.json("Desde GET projects");
 });
 
+server.get("/users", (req, res) => {
+  res.json("Desde GET users");
+});
+
 server.post("/", (req, res) => {
-  res.json("Desde POST");
+  res.json("Desde POST root");
+});
+
+server.post("/customers", (req, res) => {
+  const customer = req.body;
+  res.json({ message: "Customer created", customer });
+});
+
+server.post("/projects", (req, res) => {
+  const project = req.body;
+  res.json({ message: "Project created", project: project });
+});
+
+server.post("/users", (req, res) => {
+  console.log(req);
+  const user = req.body;
+  console.log(user);
+  res.json({ message: "User created", user });
 });
 
 server.put("/", (req, res) => {
-  res.json("Desde PUT");
+  res.json("Desde PUT root");
 });
 
 server.patch("/", (req, res) => {
-  res.json("Desde Patch");
+  res.json("Desde Patch root");
 });
 
 server.delete("/", (req, res) => {
-  res.json("Desde Delete");
+  res.json("Desde Delete root");
 });
 
 export default server;
