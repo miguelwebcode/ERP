@@ -1,8 +1,7 @@
-import axios from "axios";
+import { fetchCustomerData } from "../api";
 
 const handleClick = async () => {
-  const URL = import.meta.env.VITE_API_URL as string;
-  const { data } = await axios(URL, { method: "GET" });
+  const data = await fetchCustomerData();
   console.log(data);
 };
 
