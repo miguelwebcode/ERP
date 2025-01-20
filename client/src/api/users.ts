@@ -8,11 +8,7 @@ export const fetchUserData = async () => {
 };
 
 export const createUser = async (user: { name: string; email: string }) => {
-  const response = await axios.post(`${BASE_URL}/users`, user, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  const response = await axios.post(`${BASE_URL}/users`, user);
 
   return response.data;
 };
