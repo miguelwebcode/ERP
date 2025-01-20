@@ -7,7 +7,10 @@ export const fetchProjectData = async () => {
   return response.data as JSON;
 };
 
-export const createProject = async (user: { name: string; email: string }) => {
-  const response = await axios.post(`${BASE_URL}/projects`, user);
+export const createProject = async (project: {
+  name: string;
+  email: string;
+}) => {
+  const response = await axios.post(`${BASE_URL}/projects`, project);
   return response.data;
 };

@@ -7,7 +7,10 @@ export const fetchCustomerData = async () => {
   return response.data;
 };
 
-export const createCustomer = async (user: { name: string; email: string }) => {
-  const response = await axios.post(`${BASE_URL}/customers`, user);
+export const createCustomer = async (customer: {
+  name: string;
+  email: string;
+}) => {
+  const response = await axios.post(`${BASE_URL}/customers`, customer);
   return response.data;
 };
