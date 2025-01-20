@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 
 const server = express();
+server.use(express.json());
 
 const corsOptions = {
   origin: "http://localhost:5173", // Permitir solicitudes solo desde esta URL
@@ -44,9 +45,7 @@ server.post("/projects", (req, res) => {
 });
 
 server.post("/users", (req, res) => {
-  console.log(req);
   const user = req.body;
-  console.log(user);
   res.json({ message: "User created", user });
 });
 
