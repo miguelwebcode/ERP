@@ -1,5 +1,9 @@
 import { testWriteCustomer, testReadCustomers } from "../../api/testFirestore";
 
+/* 
+ TODO: DELETE component
+*/
+
 const CustomersTestComponent = () => {
   const handleWriteCustomer = async () => {
     await testWriteCustomer();

@@ -1,6 +1,10 @@
 import { auth, db } from "../firebaseConfig";
 import { collection, addDoc, getDocs } from "firebase/firestore";
 
+/* 
+ TODO: DELETE file
+*/
+
 export const testWriteCustomer = async () => {
   const user = auth.currentUser; // Obtén al usuario autenticado
   if (!user) {
