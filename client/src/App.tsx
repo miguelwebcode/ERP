@@ -7,6 +7,7 @@ import Register from "./components/Register";
 
 const App = () => {
   const [user, setUser] = useState<User | null>(null);
+  const [showRegister, setShowRegister] = useState(false);
 
   useEffect(() => {
     watchAuthState(setUser);
@@ -20,7 +21,37 @@ const App = () => {
           <CustomersTestComponent />
         </div>
       ) : (
-        <Register />
+        <>
+          {showRegister ? (
+            <div>
+              <Register />
+              <div>
+                <p>Do you have an account?</p>
+                <button
+                  onClick={() => {
+                    setShowRegister(false);
+                  }}
+                >
+                  Login
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div>
+              <Login />
+              <div>
+                <p>Don't have an account?</p>
+                <button
+                  onClick={() => {
+                    setShowRegister(true);
+                  }}
+                >
+                  Register
+                </button>
+              </div>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
