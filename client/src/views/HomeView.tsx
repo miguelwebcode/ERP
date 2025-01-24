@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { LogoutButton } from "../components/ui/LogoutButton";
 import { useEffect } from "react";
-import { watchAuthState } from "../services/auth";
 import { useAppStore } from "../stores/app-store";
 
 export const HomeView = () => {
