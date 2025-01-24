@@ -41,11 +41,12 @@ const Register: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-      <h2 className="text-2xl font-bold mb-4">Register</h2>
       <form
         onSubmit={handleRegister}
         className="bg-white p-6 rounded shadow-md w-96"
       >
+        <h1 className="text-2xl font-bold mb-4">Register</h1>
+
         <div className="mb-4">
           <label htmlFor="name" className="block text-sm font-medium">
             Name
