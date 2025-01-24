@@ -27,6 +27,7 @@ export const login = async (email: string, password: string) => {
 export const watchAuthState = (callback: (user: User | null) => void) => {
   onAuthStateChanged(auth, (user) => {
     // El parámetro 'user' ya tiene el tipo 'User | null' gracias al SDK de Firebase
+    console.log("authStateChanged, user is ", user);
     callback(user);
   });
 };
