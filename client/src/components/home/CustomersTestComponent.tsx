@@ -1,4 +1,4 @@
-import { testWriteCustomer, testReadCustomers } from "../api/testFirestore";
+import { testWriteCustomer, testReadCustomers } from "../../api/testFirestore";
 
 const CustomersTestComponent = () => {
   const handleWriteCustomer = async () => {

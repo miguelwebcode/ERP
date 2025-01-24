@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebaseConfig"; // Asegúrate de que el auth esté configurado correctamente
-import { saveUserData } from "../services/users";
+import { auth } from "../../firebaseConfig"; // Asegúrate de que el auth esté configurado correctamente
+import { saveUserData } from "../../services/users";
 
 type RegisterProps = {
   callback: () => void;

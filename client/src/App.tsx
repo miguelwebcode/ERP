@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { User } from "firebase/auth";
-import Login from "./components/Login";
+import Login from "./components/login/Login";
 import { watchAuthState } from "./services/auth";
-import Register from "./components/Register";
-import { HomePage } from "./components/HomePage";
+import Register from "./components/register/Register";
+import { HomePage } from "./components/home/HomePage";
 
 const App = () => {
   /* 

@@ -1,6 +1,6 @@
 import { User } from "firebase/auth";
 import CustomersTestComponent from "./CustomersTestComponent";
-import { logout } from "../services/auth";
+import { logout } from "../../services/auth";
 
 type HomePageProps = {
   user: User;
@@ -16,7 +16,7 @@ export const HomePage = ({ user }: HomePageProps) => {
       <h1>Welcome, {user.email}</h1>
       <CustomersTestComponent />
       <button
-        className="text-white p-3 mt-5 bg-slate-500 hover:bg-slate-600 uppercase rounded-lg"
+        className="bg-blue-500 text-white py-2 px-4 mt-5 rounded hover:bg-blue-600"
         onClick={handleClick}
       >
         Logout
