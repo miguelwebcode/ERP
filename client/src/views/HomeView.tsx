@@ -7,10 +7,8 @@ import { useAppStore } from "../stores/app-store";
 export const HomeView = () => {
   const navigate = useNavigate();
   const user = useAppStore((state) => state.user);
-  const setUser = useAppStore((state) => state.setUser);
 
   useEffect(() => {
-    watchAuthState(setUser);
     if (user === null) {
       navigate("/login");
     }
