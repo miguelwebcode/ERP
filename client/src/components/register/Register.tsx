@@ -12,9 +12,10 @@ type RegisterProps = {
 */
 
 const Register = ({ callback }: RegisterProps) => {
+  const [name, setName] = useState("");
+  const [role, setRole] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
@@ -35,7 +36,7 @@ const Register = ({ callback }: RegisterProps) => {
       const { user } = userCredential;
 
       // Opcional: Guardar datos adicionales en Firestore
-      await saveUserData(user.uid, { name, email });
+      await saveUserData(user.uid, { name, role, email });
 
       setSuccess("User registered successfully!");
       setEmail("");
@@ -64,6 +65,19 @@ const Register = ({ callback }: RegisterProps) => {
             id="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            required
+            className="w-full p-2 border rounded"
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="role" className="block text-sm font-medium">
+            Role
+          </label>
+          <input
+            type="text"
+            id="role"
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
             required
             className="w-full p-2 border rounded"
           />
