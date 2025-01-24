@@ -5,6 +5,9 @@ type LoginProps = {
   callback: () => void;
 };
 
+/* 
+ TODO: Manage with Formik and Yup
+*/
 const Login = ({ callback }: LoginProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

@@ -7,6 +7,10 @@ type RegisterProps = {
   callback: () => void;
 };
 
+/* 
+ TODO: Manage with Formik and Yup
+*/
+
 const Register = ({ callback }: RegisterProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
