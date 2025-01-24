@@ -6,6 +6,9 @@ import { watchAuthState } from "./services/auth";
 import Register from "./components/Register";
 
 const App = () => {
+  /* 
+   TODO: Manage state with zustand
+  */
   const [user, setUser] = useState<User | null>(null);
   const [showRegister, setShowRegister] = useState(false);
 
