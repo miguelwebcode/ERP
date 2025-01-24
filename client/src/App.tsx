@@ -23,33 +23,17 @@ const App = () => {
       ) : (
         <>
           {showRegister ? (
-            <div>
-              <Register />
-              <div>
-                <p>Do you have an account?</p>
-                <button
-                  onClick={() => {
-                    setShowRegister(false);
-                  }}
-                >
-                  Login
-                </button>
-              </div>
-            </div>
+            <Register
+              callback={() => {
+                setShowRegister(false);
+              }}
+            />
           ) : (
-            <div>
-              <Login />
-              <div>
-                <p>Don't have an account?</p>
-                <button
-                  onClick={() => {
-                    setShowRegister(true);
-                  }}
-                >
-                  Register
-                </button>
-              </div>
-            </div>
+            <Login
+              callback={() => {
+                setShowRegister(true);
+              }}
+            />
           )}
         </>
       )}
