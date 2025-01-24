@@ -12,8 +12,6 @@ export const HomeView = () => {
   useEffect(() => {
     watchAuthState(setUser);
     if (user === null) {
-      console.log("User is still null");
-      console.log("navigate to login");
       navigate("/login");
     }
   }, []);

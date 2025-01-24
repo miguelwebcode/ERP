@@ -16,7 +16,6 @@ const LoginForm = () => {
     setError("");
     try {
       await login(email, password);
-      console.log("Login successful!");
       navigate("/");
     } catch (err) {
       setError("Failed to login. Please check your credentials.");

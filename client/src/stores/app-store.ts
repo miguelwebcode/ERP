@@ -20,7 +20,6 @@ export const useAppStore = create<AppStore>()(
   devtools((set) => ({
     user: null,
     setUser: (user) => {
-      console.log("Desde el store");
       set(() => ({
         user,
       }));
