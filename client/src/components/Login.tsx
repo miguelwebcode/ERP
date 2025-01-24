@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { login } from "../services/auth";
 
-const Login = () => {
+type LoginProps = {
+  callback: () => void;
+};
+
+const Login = ({ callback }: LoginProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -62,6 +66,12 @@ const Login = () => {
           Login
         </button>
       </form>
+      <div className="p-3">
+        <span>Don't have an account? </span>
+        <button className="text-blue-500" onClick={callback}>
+          Register
+        </button>
+      </div>
     </div>
   );
 };

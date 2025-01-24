@@ -3,7 +3,11 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebaseConfig"; // Asegúrate de que el auth esté configurado correctamente
 import { saveUserData } from "../services/users";
 
-const Register: React.FC = () => {
+type RegisterProps = {
+  callback: () => void;
+};
+
+const Register = ({ callback }: RegisterProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -95,6 +99,12 @@ const Register: React.FC = () => {
           Register
         </button>
       </form>
+      <div className="p-3">
+        <span>Do you have an account? </span>
+        <button className="text-blue-500" onClick={callback}>
+          Login
+        </button>
+      </div>
     </div>
   );
 };
