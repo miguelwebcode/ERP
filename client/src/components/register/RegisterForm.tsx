@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import SharedForm from "../formik/SharedForm";
 import { CustomInput } from "../formik/CustomInput";
 import { registerFormValidationSchema } from "../../schemas";
+import { CustomSelect } from "../formik/CustomSelect";
+import { roles } from "../../data";
 
 type RegisterFormValues = {
   name: string;
@@ -63,12 +65,14 @@ const RegisterForm = () => {
             name="name"
             placeholder="Enter your name"
           />
-          <CustomInput
-            type="text"
-            label="Role"
-            name="role"
-            placeholder="Enter your role"
-          />
+          <CustomSelect label="Role" name="role">
+            <option value="" className="text-center">
+              -- Select an option --
+            </option>
+            {roles.map((role) => {
+              return <option key={role.id}>{role.value}</option>;
+            })}
+          </CustomSelect>
           <CustomInput
             type="text"
             label="Email"
