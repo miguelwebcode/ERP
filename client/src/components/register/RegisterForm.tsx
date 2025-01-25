@@ -16,15 +16,12 @@ type RegisterFormValues = {
 const RegisterForm = () => {
   const navigate = useNavigate();
 
-const initialValues: RegisterFormValues = {
-  name: "",
-  role: "",
-  email: "",
-  password: "",
-};
-
-const RegisterForm = () => {
-  const navigate = useNavigate();
+  const initialValues: RegisterFormValues = {
+    name: "",
+    role: "",
+    email: "",
+    password: "",
+  };
 
   const onSubmit = async (values: RegisterFormValues) => {
     console.log("Form data", values);
@@ -87,7 +84,7 @@ const RegisterForm = () => {
         </div>
         <button
           type="submit"
-          className="w-fit bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+          className="w-4/5 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
         >
           Register
         </button>
