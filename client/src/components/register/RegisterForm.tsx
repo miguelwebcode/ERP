@@ -13,6 +13,9 @@ type RegisterFormValues = {
   password: string;
 };
 
+const RegisterForm = () => {
+  const navigate = useNavigate();
+
 const initialValues: RegisterFormValues = {
   name: "",
   role: "",
