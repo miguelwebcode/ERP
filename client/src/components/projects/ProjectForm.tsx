@@ -87,7 +87,9 @@ const ProjectForm = () => {
             <option className="text-center">-- Select an option --</option>
             {projectStates.map((projectState) => {
               return (
-                <option key={projectState.id}>{projectState.value}</option>
+                <option key={projectState.id} value={projectState.id}>
+                  {projectState.value}
+                </option>
               );
             })}
           </CustomSelect>
