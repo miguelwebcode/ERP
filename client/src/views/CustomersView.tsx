@@ -1,9 +1,9 @@
-import CustomersForm from "../components/customers/CustomersForm";
+import CustomerForm from "../components/customers/CustomerForm";
 
 export const CustomersView = () => {
   return (
     <div className="flex justify-center">
-      <CustomersForm />
+      <CustomerForm />
     </div>
   );
 };
