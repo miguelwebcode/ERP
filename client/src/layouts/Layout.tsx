@@ -7,7 +7,7 @@ export default function Layout() {
     <>
       <Header />
       {/* Inyecta las rutas que estén agrupadas en este layout */}
-      <main className="container mx-auto py-16">
+      <main className="container mx-auto py-4">
         <Outlet />
       </main>
     </>
