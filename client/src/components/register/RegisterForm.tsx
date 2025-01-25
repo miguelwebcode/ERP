@@ -1,27 +1,31 @@
-import React, { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebaseConfig"; // Asegúrate de que el auth esté configurado correctamente
+import { auth } from "../../firebaseConfig";
 import { saveUserData } from "../../services/users";
 import { useNavigate } from "react-router-dom";
+import SharedForm from "../formik/SharedForm";
+import { CustomInput } from "../formik/CustomInput";
+import { registerFormValidationSchema } from "../../schemas";
 
-/* 
- TODO: Manage with Formik and Yup
-*/
+type RegisterFormValues = {
+  name: string;
+  role: string;
+  email: string;
+  password: string;
+};
+
+const initialValues: RegisterFormValues = {
+  name: "",
+  role: "",
+  email: "",
+  password: "",
+};
 
 const RegisterForm = () => {
   const navigate = useNavigate();
 
-  const [name, setName] = useState("");
-  const [role, setRole] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
-
-  const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-    setSuccess(null);
+  const onSubmit = async (values: RegisterFormValues) => {
+    console.log("Form data", values);
+    const { name, role, email, password } = values;
 
     try {
       // Crear usuario con Firebase Authentication
@@ -36,98 +40,67 @@ const RegisterForm = () => {
 
       // Opcional: Guardar datos adicionales en Firestore
       await saveUserData(user.uid, { name, role, email });
-
-      setSuccess("User registered successfully!");
-      setEmail("");
-      setPassword("");
-      setName("");
+      navigate("/");
     } catch (err: any) {
       console.error("Error registering user: ", err);
-      setError(err.message || "Failed to register user.");
     }
   };
-
+  /* 
+ TODO: Change role to CustomSelect
+*/
   return (
-    <div className="flex flex-col items-center justify-center">
-      <form
-        onSubmit={handleRegister}
-        className="bg-white p-6 rounded shadow-md w-96"
-      >
+    <SharedForm<RegisterFormValues>
+      initialValues={initialValues}
+      validationSchema={registerFormValidationSchema}
+      onSubmit={onSubmit}
+    >
+      <div className="flex flex-col items-center justify-center bg-slate-50 p-6 rounded shadow-md w-96">
         <h1 className="text-2xl font-bold mb-4">Register</h1>
-
-        <div className="mb-4">
-          <label htmlFor="name" className="block text-sm font-medium">
-            Name
-          </label>
-          <input
+        <div className="flex flex-col w-4/5">
+          <CustomInput
             type="text"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-            className="w-full p-2 border rounded"
+            label="Name"
+            name="name"
+            placeholder="Enter your name"
           />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="role" className="block text-sm font-medium">
-            Role
-          </label>
-          <input
+          <CustomInput
             type="text"
-            id="role"
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
-            required
-            className="w-full p-2 border rounded"
+            label="Role"
+            name="role"
+            placeholder="Enter your role"
           />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="email" className="block text-sm font-medium">
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="w-full p-2 border rounded"
+          <CustomInput
+            type="text"
+            label="Email"
+            name="email"
+            placeholder="Enter your email"
           />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="password" className="block text-sm font-medium">
-            Password
-          </label>
-          <input
+          <CustomInput
             type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            className="w-full p-2 border rounded"
+            label="Password"
+            name="password"
+            placeholder="Enter your password"
           />
         </div>
-        {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
-        {success && <p className="text-green-500 text-sm mb-4">{success}</p>}
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+          className="w-fit bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
         >
           Register
         </button>
-      </form>
-      <div className="p-3">
-        <span>Do you have an account? </span>
-        <button
-          className="text-blue-500"
-          onClick={() => {
-            navigate("/login");
-          }}
-        >
-          Login
-        </button>
+        <div className="p-3">
+          <span>Do you have an account? </span>
+          <button
+            className="text-blue-500"
+            onClick={() => {
+              navigate("/login");
+            }}
+          >
+            Login
+          </button>
+        </div>
       </div>
-    </div>
+    </SharedForm>
   );
 };
 
