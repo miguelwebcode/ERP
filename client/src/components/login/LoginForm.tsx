@@ -1,84 +1,72 @@
-import { useState } from "react";
 import { login } from "../../services/auth";
 import { useNavigate } from "react-router-dom";
+import SharedForm from "../formik/SharedForm";
+import { loginFormValidationSchema } from "../../schemas";
+import { CustomInput } from "../formik/CustomInput";
 
-/* 
- TODO: Manage with Formik and Yup
-*/
+type LoginFormValues = {
+  email: string;
+  password: string;
+};
+
 const LoginForm = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
+  const initialValues: LoginFormValues = {
+    email: "",
+    password: "",
+  };
+
+  const onSubmit = async (values: LoginFormValues) => {
+    const { email, password } = values;
     try {
       await login(email, password);
       navigate("/");
     } catch (err) {
-      setError("Failed to login. Please check your credentials.");
+      console.log(err);
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      <form
-        onSubmit={handleLogin}
-        className="bg-white p-6 rounded shadow-md w-96"
-      >
-        <h1 className="text-2xl font-bold mb-4">Login</h1>
-        {error && <p className="text-red-500 mb-4">{error}</p>}
-        <div className="mb-4">
-          <label
-            htmlFor="email"
-            className="block mb-2 text-sm font-medium text-gray-700"
-          >
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-3 py-2 border rounded"
+    <SharedForm<LoginFormValues>
+      initialValues={initialValues}
+      validationSchema={loginFormValidationSchema}
+      onSubmit={onSubmit}
+    >
+      <div className="flex flex-col items-center justify-center bg-white p-6 rounded shadow-md w-96">
+        <div className="flex flex-col w-4/5">
+          <CustomInput
+            label="Email"
+            name="email"
+            type="text"
+            placeholder="Enter your email"
           />
-        </div>
-        <div className="mb-6">
-          <label
-            htmlFor="password"
-            className="block mb-2 text-sm font-medium text-gray-700"
-          >
-            Password
-          </label>
-          <input
+          <CustomInput
+            label="Password"
+            name="password"
             type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-3 py-2 border rounded"
+            placeholder="Enter your password"
           />
         </div>
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+          className="w-4/5 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
         >
           Login
         </button>
-      </form>
-      <div className="p-3">
-        <span>Don't have an account? </span>
-        <button
-          className="text-blue-500"
-          onClick={() => {
-            navigate("/register");
-          }}
-        >
-          Register
-        </button>
+        <div className="p-3">
+          <span>Don't have an account? </span>
+          <button
+            className="text-blue-500"
+            onClick={() => {
+              navigate("/register");
+            }}
+          >
+            Register
+          </button>
+        </div>
       </div>
-    </div>
+    </SharedForm>
   );
 };
 
