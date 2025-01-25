@@ -35,3 +35,16 @@ export const customerFormValidationSchema = yup.object({
   phone: yup.string().required("Phone is required").default(""),
   project: yup.string().required("Project is required").default(""),
 });
+
+export const projectFormValidationSchema = yup.object({
+  name: yup.string().required("Name is required").default(""),
+  description: yup.string().required("Description is required").default(""),
+  customerId: yup.string().required("Customer ID is required").default(""),
+  startDate: yup.date().nullable().required("Start date is required"),
+  endDate: yup.date().nullable().required("End date is required"),
+  state: yup.string().required("Project's state is required").default(""),
+  developer: yup
+    .string()
+    .required("Project's developer is required")
+    .default(""),
+});
