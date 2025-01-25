@@ -17,7 +17,7 @@ const LoginForm = () => {
     password: "",
   };
 
-  const onSubmit = async (values: LoginFormValues) => {
+  const handleSubmit = async (values: LoginFormValues) => {
     const { email, password } = values;
     try {
       await login(email, password);
@@ -31,7 +31,7 @@ const LoginForm = () => {
     <SharedForm<LoginFormValues>
       initialValues={initialValues}
       validationSchema={loginFormValidationSchema}
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit}
     >
       <div className="flex flex-col items-center justify-center bg-white p-6 rounded shadow-md w-96">
         <h1 className="text-2xl font-bold mb-4">Login</h1>

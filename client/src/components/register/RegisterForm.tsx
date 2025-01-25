@@ -27,7 +27,7 @@ const RegisterForm = () => {
     confirmPassword: "",
   };
 
-  const onSubmit = async (values: RegisterFormValues) => {
+  const handleSubmit = async (values: RegisterFormValues) => {
     console.log("Form data", values);
     const { name, role, email, password } = values;
 
@@ -56,7 +56,7 @@ const RegisterForm = () => {
     <SharedForm<RegisterFormValues>
       initialValues={initialValues}
       validationSchema={registerFormValidationSchema}
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit}
     >
       <div className="flex flex-col items-center justify-center bg-white p-6 rounded shadow-md w-96">
         <h1 className="text-2xl font-bold mb-4">Register</h1>
