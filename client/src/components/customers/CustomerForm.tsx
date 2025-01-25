@@ -3,6 +3,7 @@ import { db } from "../../firebaseConfig";
 import SharedForm from "../formik/SharedForm";
 import { customerFormValidationSchema } from "../../schemas";
 import { CustomInput } from "../formik/CustomInput";
+import { FormikHelpers } from "formik";
 
 type CustomerFormValues = {
   address: string;
@@ -43,7 +44,10 @@ const CustomerForm = () => {
   //   }
   // };
 
-  const handleSubmit = async (values: CustomerFormValues) => {
+  const handleSubmit = async (
+    values: CustomerFormValues,
+    formikHelpers: FormikHelpers<CustomerFormValues>
+  ) => {
     try {
       await addDoc(collection(db, "customers"), {
         ...values,
@@ -53,9 +57,7 @@ const CustomerForm = () => {
        TODO: Show notification
       */
       alert("Customer created successfully!");
-      /* 
-       TODO: Clear form
-      */
+      formikHelpers.resetForm();
     } catch (error) {
       console.error("Error creating customer: ", error);
       alert("Error creating customer!");
