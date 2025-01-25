@@ -1,34 +1,43 @@
-import React, { useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
+import { FormikHelpers } from "formik";
+import SharedForm from "../formik/SharedForm";
+import { projectFormValidationSchema } from "../../schemas";
+import { CustomInput } from "../formik/CustomInput";
+import { CustomSelect } from "../formik/CustomSelect";
+import { projectStates } from "../../data";
+
+type ProjectFormValues = {
+  customerId: string;
+  description: string;
+  startDate: Date | null;
+  endDate: Date | null;
+  name: string;
+  state: string;
+  developer: string;
+};
 
 const ProjectForm = () => {
-  const initialFormState = {
+  const initialValues: ProjectFormValues = {
     customerId: "",
     description: "",
-    endDate: "",
+    startDate: null,
+    endDate: null,
     name: "",
-    startDate: "",
     state: "",
     developer: "",
   };
-  const [formData, setFormData] = useState(initialFormState);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (
+    values: ProjectFormValues,
+    formikHelpers: FormikHelpers<ProjectFormValues>
+  ) => {
     try {
       await addDoc(collection(db, "projects"), {
-        ...formData,
-        startDate: new Date(formData.startDate).toISOString(),
-        endDate: new Date(formData.endDate).toISOString(),
+        ...values,
       });
-      setFormData(initialFormState);
       alert("Project created successfully!");
+      formikHelpers.resetForm();
     } catch (error) {
       console.error("Error creating project: ", error);
       alert("Error creating project!");
@@ -36,138 +45,61 @@ const ProjectForm = () => {
   };
 
   return (
-    <div className="flex justify-center items-center w-96">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-8 rounded-md shadow-md w-full max-w-md space-y-6"
-      >
-        <h2 className="text-2xl font-bold text-center">Create Project</h2>
-        <div>
-          <label
-            htmlFor="customerId"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Customer ID
-          </label>
-          <input
-            id="customerId"
+    <SharedForm<ProjectFormValues>
+      initialValues={initialValues}
+      validationSchema={projectFormValidationSchema}
+      onSubmit={handleSubmit}
+    >
+      <div className="flex flex-col items-center justify-center bg-white p-6 rounded shadow-md w-96">
+        <h1 className="text-2xl font-bold mb-4">New Project</h1>
+        <div className="w-4/5">
+          <CustomInput
             type="text"
-            name="customerId"
-            value={formData.customerId}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
-        </div>
-        <div>
-          <label
-            htmlFor="description"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Description
-          </label>
-          <input
-            id="description"
-            type="text"
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
-        </div>
-        <div>
-          <label
-            htmlFor="startDate"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Start Date
-          </label>
-          <input
-            id="startDate"
-            type="date"
-            name="startDate"
-            value={formData.startDate}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
-        </div>
-        <div>
-          <label
-            htmlFor="endDate"
-            className="block text-sm font-medium text-gray-700"
-          >
-            End Date
-          </label>
-          <input
-            id="endDate"
-            type="date"
-            name="endDate"
-            value={formData.endDate}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
-        </div>
-        <div>
-          <label
-            htmlFor="name"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Project Name
-          </label>
-          <input
-            id="name"
-            type="text"
+            label="Name"
             name="name"
-            value={formData.name}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
+            placeholder="Enter project's name"
           />
-        </div>
-        <div>
-          <label
-            htmlFor="state"
-            className="block text-sm font-medium text-gray-700"
-          >
-            State
-          </label>
-          <input
-            id="state"
+          <CustomInput
             type="text"
-            name="state"
-            value={formData.state}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
+            label="Description"
+            name="description"
+            placeholder="Enter project's description"
           />
-        </div>
-        <div>
-          <label
-            htmlFor="developer"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Developer
-          </label>
-          <input
-            id="developer"
+          <CustomInput
             type="text"
-            name="developer"
-            value={formData.developer}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            label="Customer ID"
+            name="customerId"
+            placeholder="Enter project's customer id"
           />
+          <CustomInput
+            type="date"
+            label="Start Date"
+            name="startDate"
+            placeholder="Enter project's startDate"
+          />
+          <CustomInput
+            type="date"
+            label="End Date"
+            name="endDate"
+            placeholder="Enter project's endDate"
+          />
+          <CustomSelect label="Project State" name="state">
+            <option className="text-center">-- Select an option --</option>
+            {projectStates.map((projectState) => {
+              return (
+                <option key={projectState.id}>{projectState.value}</option>
+              );
+            })}
+          </CustomSelect>
         </div>
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300"
+          className="w-4/5 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
         >
           Create Project
         </button>
-      </form>
-    </div>
+      </div>
+    </SharedForm>
   );
 };
 
