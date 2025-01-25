@@ -6,3 +6,8 @@ export const registerFormValidationSchema = yup.object({
   email: yup.string().email("Invalid email").required("Email is required"),
   password: yup.string().required("Password is required"),
 });
+
+export const loginFormValidationSchema = yup.object({
+  email: yup.string().email("Invalid email").required("Email is required"),
+  password: yup.string().required("Password is required"),
+});
