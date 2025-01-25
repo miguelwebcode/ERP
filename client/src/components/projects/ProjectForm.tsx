@@ -10,8 +10,8 @@ import { projectStates } from "../../data";
 type ProjectFormValues = {
   customerId: string;
   description: string;
-  startDate: Date | null;
-  endDate: Date | null;
+  startDate: Date | "";
+  endDate: Date | "";
   name: string;
   state: string;
   developer: string;
@@ -21,8 +21,8 @@ const ProjectForm = () => {
   const initialValues: ProjectFormValues = {
     customerId: "",
     description: "",
-    startDate: null,
-    endDate: null,
+    startDate: "",
+    endDate: "",
     name: "",
     state: "",
     developer: "",
