@@ -54,7 +54,7 @@ const RegisterForm = () => {
       validationSchema={registerFormValidationSchema}
       onSubmit={onSubmit}
     >
-      <div className="flex flex-col items-center justify-center bg-slate-50 p-6 rounded shadow-md w-96">
+      <div className="flex flex-col items-center justify-center bg-white p-6 rounded shadow-md w-96">
         <h1 className="text-2xl font-bold mb-4">Register</h1>
         <div className="flex flex-col w-4/5">
           <CustomInput
