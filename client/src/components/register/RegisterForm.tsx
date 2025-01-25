@@ -13,6 +13,7 @@ type RegisterFormValues = {
   role: string;
   email: string;
   password: string;
+  confirmPassword: string;
 };
 
 const RegisterForm = () => {
@@ -23,6 +24,7 @@ const RegisterForm = () => {
     role: "",
     email: "",
     password: "",
+    confirmPassword: "",
   };
 
   const onSubmit = async (values: RegisterFormValues) => {
@@ -84,6 +86,12 @@ const RegisterForm = () => {
             label="Password"
             name="password"
             placeholder="Enter your password"
+          />
+          <CustomInput
+            type="password"
+            label="Confirm password"
+            name="confirmPassword"
+            placeholder="Enter your password again"
           />
         </div>
         <button
