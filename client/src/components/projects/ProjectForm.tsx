@@ -84,7 +84,9 @@ const ProjectForm = () => {
             placeholder="Enter project's endDate"
           />
           <CustomSelect label="Project State" name="state">
-            <option className="text-center">-- Select an option --</option>
+            <option className="text-center" value="">
+              -- Select an option --
+            </option>
             {projectStates.map((projectState) => {
               return (
                 <option key={projectState.id} value={projectState.id}>
@@ -93,6 +95,12 @@ const ProjectForm = () => {
               );
             })}
           </CustomSelect>
+          <CustomInput
+            type="text"
+            label="Assigned Developer"
+            name="developer"
+            placeholder="Enter project's assigned developer"
+          />
         </div>
         <button
           type="submit"
