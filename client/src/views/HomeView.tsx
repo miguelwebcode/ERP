@@ -2,8 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { LogoutButton } from "../components/ui/LogoutButton";
 import { useEffect } from "react";
 import { useAppStore } from "../stores/app-store";
-import { HomeButton } from "../components/home/HomeButton";
-import { getAllCustomers } from "../services/customers";
+import { SharedButton } from "../components/home/HomeButton";
 
 export const HomeView = () => {
   const navigate = useNavigate();
@@ -19,25 +18,25 @@ export const HomeView = () => {
     <div className="flex flex-col items-center justify-center p-5">
       <h1 className="uppercase font-bold">Welcome, {user && user.email} </h1>
       <div className="flex flex-col gap-3 mt-10">
-        <HomeButton
+        <SharedButton
           text="Add Customer"
           handleClick={() => {
             navigate("/customers/add");
           }}
         />
-        <HomeButton
+        <SharedButton
           text="Edit Customer"
           handleClick={() => {
             navigate("/customers/edit");
           }}
         />
-        <HomeButton
+        <SharedButton
           text="Add Project"
           handleClick={() => {
             navigate("/projects/add");
           }}
         />
-        <HomeButton
+        <SharedButton
           text="Edit Project"
           handleClick={() => {
             navigate("/projects/edit");
