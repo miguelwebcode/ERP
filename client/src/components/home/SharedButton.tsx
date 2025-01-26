@@ -18,7 +18,7 @@ export const SharedButton = ({
         handleClick();
       }}
     >
-      {text}
+      s{text}
     </button>
   );
 };
