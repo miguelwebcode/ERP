@@ -7,14 +7,7 @@ import { CustomInput } from "../formik/CustomInput";
 import { registerFormValidationSchema } from "../../schemas";
 import { CustomSelect } from "../formik/CustomSelect";
 import { roles } from "../../data";
-
-type RegisterFormValues = {
-  name: string;
-  role: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-};
+import { RegisterFormValues } from "../../types/form-values-types";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
@@ -49,9 +42,7 @@ const RegisterForm = () => {
       console.error("Error registering user: ", err);
     }
   };
-  /* 
- TODO: Change role to CustomSelect
-*/
+
   return (
     <SharedForm<RegisterFormValues>
       initialValues={initialValues}

@@ -6,16 +6,7 @@ import { projectFormValidationSchema } from "../../schemas";
 import { CustomInput } from "../formik/CustomInput";
 import { CustomSelect } from "../formik/CustomSelect";
 import { projectStates } from "../../data";
-
-type ProjectFormValues = {
-  customerId: string;
-  description: string;
-  startDate: Date | "";
-  endDate: Date | "";
-  name: string;
-  state: string;
-  developer: string;
-};
+import { ProjectFormValues } from "../../types/form-values-types";
 
 const ProjectForm = () => {
   const initialValues: ProjectFormValues = {
