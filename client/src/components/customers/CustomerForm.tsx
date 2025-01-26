@@ -24,26 +24,6 @@ const CustomerForm = () => {
     project: "",
   };
 
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name, value } = e.target;
-  //   setFormData({ ...formData, [name]: value });
-  // };
-
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   try {
-  //     await addDoc(collection(db, "customers"), {
-  //       ...formData,
-  //       createdAt: new Date().toISOString(),
-  //     });
-  //     alert("Customer created successfully!");
-  //     setFormData(initialFormState);
-  //   } catch (error) {
-  //     console.error("Error creating customer: ", error);
-  //     alert("Error creating customer!");
-  //   }
-  // };
-
   const handleSubmit = async (
     values: CustomerFormValues,
     formikHelpers: FormikHelpers<CustomerFormValues>
