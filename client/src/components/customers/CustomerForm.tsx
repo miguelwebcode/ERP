@@ -3,18 +3,27 @@ import { db } from "../../firebaseConfig";
 import SharedForm from "../formik/SharedForm";
 import { customerFormValidationSchema } from "../../schemas";
 import { CustomInput } from "../formik/CustomInput";
-import { FormikHelpers } from "formik";
+import { FormikHelpers, FormikProps } from "formik";
+import { CustomerFormValues } from "../../types/form-values-types";
+import { useRef, useEffect } from "react";
+import { getCustomerById } from "../../services/customers";
+import { useAppStore } from "../../stores/app-store";
 
-type CustomerFormValues = {
-  address: string;
-  company: string;
-  email: string;
-  name: string;
-  phone: string;
-  project: string;
+type CustomerFormProps = {
+  titleText: string;
+  submitButtonText: string;
+  onSubmit: (
+    values: CustomerFormValues,
+    formikHelpers: FormikHelpers<CustomerFormValues>
+  ) => void;
 };
 
-const CustomerForm = () => {
+const CustomerForm = ({
+  titleText,
+  submitButtonText,
+  onSubmit: handleSubmit,
+}: CustomerFormProps) => {
+  const formikRef = useRef<FormikProps<CustomerFormValues>>(null);
   const initialValues: CustomerFormValues = {
     address: "",
     company: "",
@@ -49,9 +58,10 @@ const CustomerForm = () => {
       initialValues={initialValues}
       validationSchema={customerFormValidationSchema}
       onSubmit={handleSubmit}
+      innerRef={formikRef}
     >
       <div className="flex flex-col items-center justify-center bg-white p-6 rounded shadow-md w-96">
-        <h1 className="text-2xl font-bold mb-4">New Customer</h1>
+        <h1 className="text-2xl font-bold mb-4">{titleText}</h1>
         <div className="w-4/5">
           <CustomInput
             type="text"
@@ -94,7 +104,7 @@ const CustomerForm = () => {
           type="submit"
           className="w-4/5 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
         >
-          Create Customer
+          {submitButtonText}
         </button>
       </div>
     </SharedForm>
