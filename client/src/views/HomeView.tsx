@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { LogoutButton } from "../components/ui/LogoutButton";
 import { useEffect } from "react";
 import { useAppStore } from "../stores/app-store";
-import { SharedButton } from "../components/home/SharedButton";
+import { SharedButton } from "../components/ui/SharedButton";
 
 export const HomeView = () => {
   const navigate = useNavigate();
