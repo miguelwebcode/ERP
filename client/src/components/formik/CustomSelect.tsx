@@ -5,7 +5,7 @@ type CustomSelectProps = {
   label: string;
   name: string;
   children: ReactNode;
-};
+} & React.SelectHTMLAttributes<HTMLSelectElement>;
 
 export const CustomSelect = ({
   label,
