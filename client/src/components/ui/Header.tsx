@@ -11,12 +11,12 @@ export default function Header() {
     <header className="bg-slate-800">
       <div className="mx-auto container px-5 py-8">
         {needsNavigation && (
-          <div className="flex justify-between items-center">
-            <nav className="flex gap-4">
+          <div className="flex justify-center items-center">
+            <nav className="flex gap-4 text-xl">
               <NavLink
                 className={({ isActive }) =>
                   isActive
-                    ? "text-orange-500 uppercase font-bold"
+                    ? "text-blue-400 uppercase font-bold"
                     : "text-white uppercase font-bold"
                 }
                 to="/"
@@ -26,7 +26,7 @@ export default function Header() {
               <NavLink
                 className={({ isActive }) =>
                   isActive
-                    ? "text-orange-500 uppercase font-bold"
+                    ? "text-blue-400 uppercase font-bold"
                     : "text-white uppercase font-bold"
                 }
                 to="/customers"
@@ -36,7 +36,7 @@ export default function Header() {
               <NavLink
                 className={({ isActive }) =>
                   isActive
-                    ? "text-orange-500 uppercase font-bold"
+                    ? "text-blue-400 uppercase font-bold"
                     : "text-white uppercase font-bold"
                 }
                 to="/projects"
