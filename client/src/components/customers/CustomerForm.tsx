@@ -1,5 +1,3 @@
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "../../firebaseConfig";
 import SharedForm from "../formik/SharedForm";
 import { customerFormValidationSchema } from "../../schemas";
 import { CustomInput } from "../formik/CustomInput";
