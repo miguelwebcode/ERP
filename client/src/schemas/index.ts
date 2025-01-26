@@ -48,3 +48,7 @@ export const projectFormValidationSchema = yup.object({
     .required("Project's developer is required")
     .default(""),
 });
+
+export const editCustomerFormValidationSchema = yup.object({
+  customerId: yup.string().required("Customer ID is required").default(""),
+});
