@@ -33,25 +33,27 @@ const CustomerForm = ({
     project: "",
   };
 
-  const handleSubmit = async (
-    values: CustomerFormValues,
-    formikHelpers: FormikHelpers<CustomerFormValues>
-  ) => {
-    try {
-      await addDoc(collection(db, "customers"), {
-        ...values,
-        createdAt: new Date().toISOString(),
-      });
-      /* 
-       TODO: Show notification
-      */
-      alert("Customer created successfully!");
-      formikHelpers.resetForm();
-    } catch (error) {
-      console.error("Error creating customer: ", error);
-      alert("Error creating customer!");
+  const selectedCustomerId = useAppStore((state) => state.selectedCustomerId);
+
+  useEffect(() => {
+    const setFormValues = async (formik: FormikProps<CustomerFormValues>) => {
+      const selectedCustomer = await getCustomerById(selectedCustomerId);
+      if (selectedCustomer) {
+        const newValues: CustomerFormValues = {
+          address: selectedCustomer["address"],
+          company: selectedCustomer["company"],
+          email: selectedCustomer["email"],
+          name: selectedCustomer["name"],
+          phone: selectedCustomer["phone"],
+          project: selectedCustomer["project"],
+        };
+        formik.setValues(newValues);
+      }
+    };
+    if (formikRef.current) {
+      setFormValues(formikRef.current);
     }
-  };
+  }, [selectedCustomerId]);
 
   return (
     <SharedForm<CustomerFormValues>
