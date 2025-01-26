@@ -1,9 +1,22 @@
-import ProjectForm from "../components/projects/ProjectForm";
+import { useNavigate } from "react-router-dom";
+import { SharedButton } from "../components/ui/SharedButton";
 
 export const ProjectsView = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="flex justify-center">
-      <ProjectForm />
+      <div className="flex flex-col items-center justify-center bg-white p-6 rounded shadow-md gap-4">
+        <h1 className="uppercase font-bold text-xl">Project's VIEW</h1>
+        <SharedButton
+          text="Add Project"
+          handleClick={() => navigate("/projects/add")}
+        />
+        <SharedButton
+          text="Edit Project"
+          handleClick={() => navigate("/projects/edit")}
+        />
+      </div>
     </div>
   );
 };
