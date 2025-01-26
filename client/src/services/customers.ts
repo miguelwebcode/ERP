@@ -1,4 +1,12 @@
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  query,
+  where,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
 import { auth, db } from "../firebaseConfig";
 import { v4 as uuidv4 } from "uuid";
 import { FormikHelpers } from "formik";
@@ -85,5 +93,39 @@ export const handleCreateCustomer = async (
   } catch (error) {
     console.error("Error creating customer: ", error);
     alert("Error creating customer!");
+  }
+};
+
+export const handleEditCustomer = async (
+  selectedCustomerId: string,
+  values: CustomerFormValues,
+  formikHelpers: FormikHelpers<CustomerFormValues>
+) => {
+  const customersCollection = collection(db, "customers");
+  const q = query(
+    customersCollection,
+    where("customerId", "==", selectedCustomerId)
+  );
+  try {
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.empty) {
+      console.log("No matching documents.");
+      return null;
+    }
+
+    const documentId = querySnapshot.docs[0].id;
+
+    const customerDocRef = doc(db, "customers", documentId);
+
+    await updateDoc(customerDocRef, {
+      ...values,
+      updatedAt: new Date().toISOString(),
+    });
+    alert("Customer updated successfully!");
+    formikHelpers.resetForm();
+  } catch (error) {
+    console.error("Error updating customer: ", error);
+    alert("Error updating customer!");
   }
 };
