@@ -10,7 +10,7 @@ export const LogoutButton = () => {
   };
   return (
     <button
-      className="bg-blue-500 text-white py-2 px-4 mt-5 rounded hover:bg-blue-600"
+      className="bg-slate-600 hover:bg-slate-800 text-white py-2 px-4 mt-5 rounded"
       onClick={handleClick}
     >
       Logout
