@@ -13,8 +13,6 @@ export const CustomSelect = ({
   ...props
 }: CustomSelectProps) => {
   const [field, meta] = useField(props);
-  console.log("field", field);
-  console.log("meta", meta);
 
   return (
     <div className="flex flex-col mb-4">
