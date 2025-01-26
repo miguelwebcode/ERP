@@ -4,7 +4,15 @@ import { NavLink, useLocation } from "react-router-dom";
 export default function Header() {
   const { pathname } = useLocation();
   const needsNavigation = useMemo(() => {
-    const paths = ["/", "/customers", "/projects"];
+    const paths = [
+      "/",
+      "/customers",
+      "/projects",
+      "/customers/add",
+      "/customers/edit",
+      "/projects/add",
+      "/projects/edit",
+    ];
     return paths.includes(pathname);
   }, [pathname]);
   return (
