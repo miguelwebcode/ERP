@@ -27,7 +27,7 @@ const SharedForm = <T extends FormikValues>({
     onSubmit={onSubmit}
     innerRef={innerRef}
   >
-    {() => <Form className="flex justify-center">{children}</Form>}
+    <Form className="flex justify-center">{children}</Form>
   </Formik>
 );
 
