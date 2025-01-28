@@ -5,6 +5,7 @@ type CustomInputProps = {
   name: string;
   type: string;
   placeholder?: string;
+  disabled?: boolean;
 };
 
 export const CustomInput = ({ label, ...props }: CustomInputProps) => {
