@@ -10,8 +10,12 @@ export default function Header() {
       "/projects",
       "/customers/add",
       "/customers/edit",
+      "/customers/read",
+      "/customers/delete",
       "/projects/add",
       "/projects/edit",
+      "/projects/read",
+      "/projects/delete",
     ];
     return paths.includes(pathname);
   }, [pathname]);
