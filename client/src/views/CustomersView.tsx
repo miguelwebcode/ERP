@@ -9,12 +9,28 @@ export const CustomersView = () => {
         <h1 className="uppercase font-bold text-xl">Customer's VIEW</h1>
 
         <SharedButton
-          text="Add Customer"
-          handleClick={() => navigate("/customers/add")}
+          text="CREATE Customer"
+          handleClick={() => {
+            navigate("/customers/add");
+          }}
         />
         <SharedButton
-          text="Edit Customer"
-          handleClick={() => navigate("/customers/edit")}
+          text="READ Customers"
+          handleClick={() => {
+            navigate("/customers/read");
+          }}
+        />
+        <SharedButton
+          text="UPDATE Customer"
+          handleClick={() => {
+            navigate("/customers/edit");
+          }}
+        />
+        <SharedButton
+          text="DELETE Customer"
+          handleClick={() => {
+            navigate("/customers/delete");
+          }}
         />
       </div>
     </div>
