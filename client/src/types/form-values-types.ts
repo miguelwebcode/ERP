@@ -11,6 +11,10 @@ export type EditCustomerFormValues = {
   customerId: string;
 };
 
+export type DeleteCustomerFormValues = {
+  customerId: string;
+};
+
 export type LoginFormValues = {
   email: string;
   password: string;
