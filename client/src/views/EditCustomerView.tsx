@@ -26,6 +26,7 @@ export const EditCustomerView = () => {
           <CustomerForm
             titleText="EDIT CUSTOMER"
             submitButtonText="UPDATE CUSTOMER"
+            canBeDisabled={true}
             onSubmit={async (
               values: CustomerFormValues,
               formikHelpers: FormikHelpers<CustomerFormValues>
