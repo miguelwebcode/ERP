@@ -9,9 +9,7 @@ import { EditCustomerFormValues } from "../../types/form-values-types";
 
 const EditCustomerForm = () => {
   const [customerIds, setCustomerIds] = useState<string[]>([]);
-  const setIsEditingCustomer = useAppStore(
-    (state) => state.setIsEditingCustomer
-  );
+
   const setSelectedCustomerId = useAppStore(
     (state) => state.setSelectedCustomerId
   );
@@ -41,7 +39,6 @@ const EditCustomerForm = () => {
   ) => {
     try {
       setSelectedCustomerId(values.customerId);
-      setIsEditingCustomer(true);
       formikHelpers.resetForm();
     } catch (error) {
       console.error("Error getting customer: ", error);
