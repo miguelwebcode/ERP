@@ -1,3 +1,5 @@
+import DeleteCustomerForm from "../components/customers/DeleteCustomerForm";
+
 export const DeleteCustomerView = () => {
-  return <div>DeleteCustomerView</div>;
+  return <DeleteCustomerForm />;
 };
