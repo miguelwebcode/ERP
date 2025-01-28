@@ -17,33 +17,63 @@ export const HomeView = () => {
   return (
     <div className="flex justify-center">
       <div className="flex flex-col items-center justify-center bg-white p-6 rounded shadow-md w-fit">
-        <h1 className="uppercase font-bold text-xl">Customer's VIEW</h1>
-        <h2 className="uppercase font-bold">Welcome, {user && user.email} </h2>
-        <div className="flex flex-col gap-3 mt-4">
-          <SharedButton
-            text="Add Customer"
-            handleClick={() => {
-              navigate("/customers/add");
-            }}
-          />
-          <SharedButton
-            text="Edit Customer"
-            handleClick={() => {
-              navigate("/customers/edit");
-            }}
-          />
-          <SharedButton
-            text="Add Project"
-            handleClick={() => {
-              navigate("/projects/add");
-            }}
-          />
-          <SharedButton
-            text="Edit Project"
-            handleClick={() => {
-              navigate("/projects/edit");
-            }}
-          />
+        <h1 className="uppercase font-bold text-xl">HOME VIEW</h1>
+        <h2 className="my-4">Welcome, {user && user.email} </h2>
+        <div className="flex flex-col gap-4 md:flex-row md:gap-10 mt-4">
+          <div className="flex flex-col gap-3">
+            <h3 className="uppercase font-bold text-center">CUSTOMER CRUD</h3>
+            <SharedButton
+              text="CREATE Customer"
+              handleClick={() => {
+                navigate("/customers/add");
+              }}
+            />
+            <SharedButton
+              text="READ Customers"
+              handleClick={() => {
+                navigate("/customers/read");
+              }}
+            />
+            <SharedButton
+              text="UPDATE Customer"
+              handleClick={() => {
+                navigate("/customers/edit");
+              }}
+            />
+            <SharedButton
+              text="DELETE Customer"
+              handleClick={() => {
+                navigate("/customers/delete");
+              }}
+            />
+          </div>
+          <div className="flex flex-col gap-3">
+            <h3 className="uppercase font-bold text-center">PROJECT CRUD</h3>
+            <SharedButton
+              text="CREATE Project"
+              handleClick={() => {
+                navigate("/projects/add");
+              }}
+            />
+            <SharedButton
+              text="READ Projects"
+              handleClick={() => {
+                navigate("/projects/read");
+              }}
+            />
+            <SharedButton
+              text="UPDATE Project"
+              handleClick={() => {
+                navigate("/projects/edit");
+              }}
+            />
+            <SharedButton
+              text="DELETE Project"
+              handleClick={() => {
+                navigate("/projects/delete");
+              }}
+            />
+          </div>
         </div>
         <LogoutButton />
       </div>
