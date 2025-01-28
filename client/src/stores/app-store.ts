@@ -4,13 +4,11 @@ import { devtools } from "zustand/middleware";
 
 export type AppState = {
   user: User | null;
-  isEditingCustomer: boolean;
   selectedCustomerId: string;
 };
 
 export type AppActions = {
   setUser: (user: User | null) => void;
-  setIsEditingCustomer: (isEditingCustomer: boolean) => void;
   setSelectedCustomerId: (selectedCustomerId: string) => void;
 };
 
@@ -28,9 +26,6 @@ export const useAppStore = create<AppStore>()(
       set(() => ({
         user,
       }));
-    },
-    setIsEditingCustomer: (isEditingCustomer) => {
-      set({ isEditingCustomer });
     },
     setSelectedCustomerId: (selectedCustomerId) => {
       set({ selectedCustomerId });
