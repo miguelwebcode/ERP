@@ -3,7 +3,7 @@ import { customerFormValidationSchema } from "../../schemas";
 import { CustomInput } from "../formik/CustomInput";
 import { FormikHelpers, FormikProps } from "formik";
 import { CustomerFormValues } from "../../types/form-values-types";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useMemo } from "react";
 import { getCustomerById } from "../../services/customers";
 import { useAppStore } from "../../stores/app-store";
 
@@ -53,6 +53,11 @@ const CustomerForm = ({
     }
   }, [selectedCustomerId]);
 
+  const fieldDisabled = useMemo(
+    () => selectedCustomerId === "",
+    [selectedCustomerId]
+  );
+
   return (
     <SharedForm<CustomerFormValues>
       initialValues={initialValues}
@@ -68,41 +73,48 @@ const CustomerForm = ({
             label="Address"
             name="address"
             placeholder="Enter customer's address"
+            disabled={fieldDisabled}
           />
           <CustomInput
             type="text"
             label="Company"
             name="company"
             placeholder="Enter customer's company"
+            disabled={fieldDisabled}
           />
           <CustomInput
             type="text"
             label="Email"
             name="email"
             placeholder="Enter customer's email"
+            disabled={fieldDisabled}
           />
           <CustomInput
             type="text"
             label="Name"
             name="name"
             placeholder="Enter customer's name"
+            disabled={fieldDisabled}
           />
           <CustomInput
             type="text"
             label="Phone"
             name="phone"
             placeholder="Enter customer's phone"
+            disabled={fieldDisabled}
           />
           <CustomInput
             type="text"
             label="Project"
             name="project"
             placeholder="Enter customer's project"
+            disabled={fieldDisabled}
           />
         </div>
         <button
           type="submit"
-          className="w-4/5 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 uppercase font-bold"
+          className="w-4/5 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 uppercase font-bold disabled:bg-gray-500"
+          disabled={fieldDisabled}
         >
           {submitButtonText}
         </button>
