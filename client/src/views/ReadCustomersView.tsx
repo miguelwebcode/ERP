@@ -13,7 +13,7 @@ export const ReadCustomersView = () => {
     fetchAllCustomers();
   }, []);
   return (
-    <div className="flex flex-wrap">
+    <div className="flex justify-center flex-wrap">
       {customers.map((customer) => {
         return <CustomerCard customer={customer} />;
       })}
