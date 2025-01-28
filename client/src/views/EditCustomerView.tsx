@@ -9,6 +9,18 @@ export const EditCustomerView = () => {
   const isEditingCustomer = useAppStore((state) => state.isEditingCustomer);
   const selectedCustomerId = useAppStore((state) => state.selectedCustomerId);
 
+  /* 
+   TODO: Show form always, form fields disabled until customer fetch is done
+  When this view is render, inside useEffect:
+   isEditingCustomer = false
+   selectedCustomerID = ""
+
+   When UPDATE is done, inside onSubmit:
+   isEditingCustomer = false
+   selectedCustomerID = ""
+
+   
+  */
   return (
     <div className="flex flex-col md:flex-row justify-center px-5">
       <EditCustomerForm />
