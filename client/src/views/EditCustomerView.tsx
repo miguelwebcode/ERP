@@ -7,19 +7,6 @@ import { CustomerFormValues } from "../types/form-values-types";
 import { useState, useEffect } from "react";
 
 export const EditCustomerView = () => {
-  /* 
-  TODO: Show form always, form fields disabled until customer fetch is done
-  When this view is render, inside useEffect:
-  isEditingCustomer = false
-  selectedCustomerID = ""
-  
-  When UPDATE is done, inside onSubmit:
-  isEditingCustomer = false
-  selectedCustomerID = ""
-  
-  
-  */
-
   const [isRenderDone, setIsRenderDone] = useState(false);
   const selectedCustomerId = useAppStore((state) => state.selectedCustomerId);
 
