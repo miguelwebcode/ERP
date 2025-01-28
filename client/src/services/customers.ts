@@ -22,11 +22,9 @@ export const getAllCustomers = async () => {
   const customersCollection = collection(db, "customers");
   try {
     const querySnapshot = await getDocs(customersCollection);
-    querySnapshot.forEach((doc) => {
-      console.log(doc.id, " => ", doc.data());
-    });
 
-    return querySnapshot;
+    const customers = querySnapshot.docs.map((doc) => doc.data());
+    return customers;
   } catch (error) {
     console.error("Error reading customers: ", error);
   }
