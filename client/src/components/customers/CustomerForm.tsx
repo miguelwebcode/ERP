@@ -14,12 +14,14 @@ type CustomerFormProps = {
     values: CustomerFormValues,
     formikHelpers: FormikHelpers<CustomerFormValues>
   ) => void;
+  canBeDisabled?: boolean;
 };
 
 const CustomerForm = ({
   titleText,
   submitButtonText,
   onSubmit: handleSubmit,
+  canBeDisabled,
 }: CustomerFormProps) => {
   const formikRef = useRef<FormikProps<CustomerFormValues>>(null);
   const initialValues: CustomerFormValues = {
@@ -54,7 +56,7 @@ const CustomerForm = ({
   }, [selectedCustomerId]);
 
   const fieldDisabled = useMemo(
-    () => selectedCustomerId === "",
+    () => canBeDisabled && selectedCustomerId === "",
     [selectedCustomerId]
   );
 
