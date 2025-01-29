@@ -14,6 +14,7 @@ const DeleteProjectForm = () => {
     (state) => state.setSelectedProjectId
   );
   const selectedProjectId = useAppStore((state) => state.selectedProjectId);
+
   const initialValues: DeleteProjectFormValues = {
     projectId: "",
   };
@@ -26,6 +27,7 @@ const DeleteProjectForm = () => {
       console.error("Error fetching project IDs: ", error);
     }
   };
+
   useEffect(() => {
     fetchProjectIds();
   }, [selectedProjectId]);
@@ -37,7 +39,6 @@ const DeleteProjectForm = () => {
     try {
       setSelectedProjectId(values.projectId);
       formikHelpers.resetForm();
-      fetchProjectIds();
     } catch (error) {
       console.error("Error getting project: ", error);
       alert("Error getting project!");
