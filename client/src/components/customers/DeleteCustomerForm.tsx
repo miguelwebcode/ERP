@@ -40,19 +40,6 @@ const SelectCustomerForm = ({
     fetchCustomerIds();
   }, [selectedCustomerId]);
 
-  // const handleSubmit = async (
-  //   values: SelectCustomerFormValues,
-  //   formikHelpers: FormikHelpers<SelectCustomerFormValues>
-  // ) => {
-  //   try {
-  //     setSelectedCustomerId(values.customerId);
-  //     formikHelpers.resetForm();
-  //   } catch (error) {
-  //     console.error("Error getting customer: ", error);
-  //     alert("Error getting customer!");
-  //   }
-  // };
-
   return (
     <SharedForm<SelectCustomerFormValues>
       initialValues={initialValues}
