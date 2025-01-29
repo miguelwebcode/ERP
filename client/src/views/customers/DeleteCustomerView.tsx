@@ -59,13 +59,15 @@ export const DeleteCustomerView = () => {
         {selectedCustomerId && (
           <SharedCard>
             <CustomerCard customer={selectedCustomer} />
-            <SharedButton
-              text="DELETE Customer"
-              handleClick={async () => {
-                await deleteCustomerById(selectedCustomerId);
-                setSelectedCustomerId("");
-              }}
-            />
+            <div className="flex justify-center">
+              <SharedButton
+                text="DELETE Customer"
+                handleClick={async () => {
+                  await deleteCustomerById(selectedCustomerId);
+                  setSelectedCustomerId("");
+                }}
+              />
+            </div>
           </SharedCard>
         )}
       </>
