@@ -20,6 +20,14 @@ export type LoginFormValues = {
   password: string;
 };
 
+export type RegisterFormValues = {
+  name: string;
+  role: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+};
+
 export type ProjectFormValues = {
   customerId: string;
   description: string;
@@ -28,12 +36,4 @@ export type ProjectFormValues = {
   name: string;
   state: string;
   developer: string;
-};
-
-export type RegisterFormValues = {
-  name: string;
-  role: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
 };
