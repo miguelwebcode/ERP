@@ -14,7 +14,6 @@ export const CustomerCard = ({ customer }: CustomerCardProps) => {
       <CardField label="Company" value={customer.company} />
       <CardField label="Project" value={customer.project} />
       <CardField label="Created at" value={customer.createdAt} />
-
       {customer.updatedAt && (
         <CardField label="Updated at" value={customer.updatedAt} />
       )}
