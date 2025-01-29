@@ -11,10 +11,6 @@ export type EditCustomerFormValues = {
   customerId: string;
 };
 
-export type EditProjectFormValues = {
-  projectId: string;
-};
-
 export type DeleteCustomerFormValues = {
   customerId: string;
 };
