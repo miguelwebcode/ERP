@@ -18,7 +18,7 @@ export const HomeView = () => {
     <div className="flex justify-center">
       <div className="flex flex-col items-center justify-center bg-white p-6 rounded shadow-md w-fit">
         <h1 className="uppercase font-bold text-3xl">HOME</h1>
-        <h2 className="my-4">Welcome, {user && user.email} </h2>
+        <h2 className="my-8">Welcome, {user && user.email} </h2>
         <div className="flex flex-col gap-4 md:flex-row md:gap-10 mt-4">
           <div className="flex flex-col gap-3">
             <h3 className="uppercase font-bold text-center text-xl">
