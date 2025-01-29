@@ -2,20 +2,27 @@ import { FormikHelpers } from "formik";
 import { useState, useEffect } from "react";
 import { deleteProjectFormValidationSchema } from "../../schemas";
 import { getAllProjectIds } from "../../services/projects";
-import { DeleteProjectFormValues } from "../../types/form-values-types";
+import { SelectProjectFormValues } from "../../types/form-values-types";
 import { CustomSelect } from "../formik/CustomSelect";
 import SharedForm from "../formik/SharedForm";
 import { useAppStore } from "../../stores/app-store";
 
-const DeleteProjectForm = () => {
-  const [projectIds, setProjectIds] = useState<string[]>([]);
+type SelectProjectFormProps = {
+  buttonText: string;
+  onSubmit: (
+    values: SelectProjectFormValues,
+    formikHelpers: FormikHelpers<SelectProjectFormValues>
+  ) => Promise<void>;
+};
 
-  const setSelectedProjectId = useAppStore(
-    (state) => state.setSelectedProjectId
-  );
+const SelectProjectForm = ({
+  buttonText,
+  onSubmit: handleSubmit,
+}: SelectProjectFormProps) => {
+  const [projectIds, setProjectIds] = useState<string[]>([]);
   const selectedProjectId = useAppStore((state) => state.selectedProjectId);
 
-  const initialValues: DeleteProjectFormValues = {
+  const initialValues: SelectProjectFormValues = {
     projectId: "",
   };
 
@@ -32,21 +39,8 @@ const DeleteProjectForm = () => {
     fetchProjectIds();
   }, [selectedProjectId]);
 
-  const handleSubmit = async (
-    values: DeleteProjectFormValues,
-    formikHelpers: FormikHelpers<DeleteProjectFormValues>
-  ) => {
-    try {
-      setSelectedProjectId(values.projectId);
-      formikHelpers.resetForm();
-    } catch (error) {
-      console.error("Error getting project: ", error);
-      alert("Error getting project!");
-    }
-  };
-
   return (
-    <SharedForm<DeleteProjectFormValues>
+    <SharedForm<SelectProjectFormValues>
       initialValues={initialValues}
       validationSchema={deleteProjectFormValidationSchema}
       onSubmit={handleSubmit}
@@ -70,7 +64,7 @@ const DeleteProjectForm = () => {
             type="submit"
             className="w-4/5 bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600"
           >
-            FETCH PROJECT
+            {buttonText}
           </button>
         </div>
       </div>
@@ -78,4 +72,4 @@ const DeleteProjectForm = () => {
   );
 };
 
-export default DeleteProjectForm;
+export default SelectProjectForm;
