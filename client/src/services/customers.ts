@@ -12,6 +12,7 @@ import { auth, db } from "../firebaseConfig";
 import { v4 as uuidv4 } from "uuid";
 import { FormikHelpers } from "formik";
 import { CustomerFormValues } from "../types/form-values-types";
+import { formatDate } from ".";
 
 export const getAllCustomers = async () => {
   const user = auth.currentUser; // Obtén al usuario autenticado
@@ -81,7 +82,7 @@ export const handleCreateCustomer = async (
   try {
     await addDoc(collection(db, "customers"), {
       ...values,
-      createdAt: new Date().toISOString(),
+      createdAt: formatDate(new Date()),
       customerId: uuidv4(),
     });
     /* 
@@ -119,7 +120,7 @@ export const handleEditCustomer = async (
 
     await updateDoc(customerDocRef, {
       ...values,
-      updatedAt: new Date().toISOString(),
+      updatedAt: formatDate(new Date()),
     });
     alert("Customer updated successfully!");
     formikHelpers.resetForm();

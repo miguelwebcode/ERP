@@ -13,6 +13,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { FormikHelpers } from "formik";
 import { ProjectFormValues } from "../types/form-values-types";
+import { formatDate } from ".";
 
 export const getAllProjects = async () => {
   const user = auth.currentUser; // Obtén al usuario autenticado
@@ -81,7 +82,7 @@ export const handleCreateProject = async (
   try {
     await addDoc(collection(db, "projects"), {
       ...values,
-      createdAt: new Date().toISOString(),
+      createdAt: formatDate(new Date()),
       projectId: uuidv4(),
     });
     /* 
@@ -119,7 +120,7 @@ export const handleEditProject = async (
 
     await updateDoc(customerDocRef, {
       ...values,
-      updatedAt: new Date().toISOString(),
+      updatedAt: formatDate(new Date()),
     });
     alert("Customer updated successfully!");
     formikHelpers.resetForm();
