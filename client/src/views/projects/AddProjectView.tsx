@@ -1,4 +1,4 @@
-import ProjectForm from "../components/projects/ProjectForm";
+import ProjectForm from "../../components/projects/ProjectForm";
 
 export const AddProjectView = () => {
   return (
