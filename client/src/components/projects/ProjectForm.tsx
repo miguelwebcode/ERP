@@ -65,6 +65,12 @@ const ProjectForm = ({
     [selectedProjectId]
   );
 
+  /* 
+   TODO: 
+   - Assigned Developer as CustomSelect, fetch developers from firebase
+   - Customer ID as CustomSelect, fetch customer ids from firebase
+  */
+
   return (
     <SharedForm<ProjectFormValues>
       initialValues={initialValues}
