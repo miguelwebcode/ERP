@@ -19,7 +19,7 @@ export type DeleteCustomerFormValues = {
   customerId: string;
 };
 
-export type DeleteProjectFormValues = {
+export type SelectProjectFormValues = {
   projectId: string;
 };
 
