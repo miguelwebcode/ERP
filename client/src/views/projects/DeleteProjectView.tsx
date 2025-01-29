@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import DeleteProjectForm from "../../components/projects/DeleteProjectForm";
 import { useAppStore } from "../../stores/app-store";
-import ProjectForm from "../../components/projects/ProjectForm";
 import { deleteProjectById, getProjectById } from "../../services/projects";
 import { Project } from "../../types";
 import { SharedCard } from "../../components/ui/SharedCard";
@@ -9,7 +8,6 @@ import { ProjectCard } from "../../components/projects/ProjectCard";
 import { SharedButton } from "../../components/ui/SharedButton";
 
 export const DeleteProjectView = () => {
-  const [isRenderDone, setIsRenderDone] = useState(false);
   const selectedProjectId = useAppStore((state) => state.selectedProjectId);
   const [selectedProject, setSelectedProject] = useState<Project>(
     {} as Project
@@ -34,8 +32,6 @@ export const DeleteProjectView = () => {
     if (selectedProjectId) {
       fetchProject();
     }
-
-    setIsRenderDone(true);
   }, [selectedProjectId]);
   return (
     <div className="flex flex-col md:flex-row justify-center px-5">
