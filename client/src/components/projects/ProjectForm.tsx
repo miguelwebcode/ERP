@@ -28,6 +28,7 @@ const ProjectForm = ({
   const formikRef = useRef<FormikProps<ProjectFormValues>>(null);
 
   const initialValues: ProjectFormValues = {
+    customerId: "",
     description: "",
     startDate: "",
     endDate: "",
@@ -43,6 +44,7 @@ const ProjectForm = ({
       const selectedProject = await getProjectById(selectedProjectId);
       if (selectedProject) {
         const newValues: ProjectFormValues = {
+          customerId: selectedProject["customerId"],
           description: selectedProject["description"],
           startDate: selectedProject["startDate"],
           endDate: selectedProject["endDate"],
