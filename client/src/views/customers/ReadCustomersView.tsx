@@ -14,7 +14,7 @@ export const ReadCustomersView = () => {
     fetchAllCustomers();
   }, []);
   return (
-    <div className="flex justify-center flex-wrap">
+    <div className="flex justify-center flex-wrap gap-6">
       {customers.map((customer) => {
         return (
           <SharedCard>

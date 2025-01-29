@@ -14,7 +14,7 @@ export const ReadProjectsView = () => {
     fetchAllprojects();
   }, []);
   return (
-    <div className="flex justify-center flex-wrap">
+    <div className="flex justify-center flex-wrap gap-6">
       {projects.map((project) => {
         return (
           <SharedCard>
