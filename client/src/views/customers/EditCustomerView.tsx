@@ -7,7 +7,7 @@ import {
   SelectCustomerFormValues,
 } from "../../types/form-values-types";
 import { useState, useEffect } from "react";
-import SelectCustomerForm from "../../components/customers/DeleteCustomerForm";
+import SelectCustomerForm from "../../components/customers/SelectCustomerForm";
 
 export const EditCustomerView = () => {
   const [isRenderDone, setIsRenderDone] = useState(false);
