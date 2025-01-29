@@ -146,7 +146,7 @@ const ProjectForm = ({
         </div>
         <button
           type="submit"
-          className="w-3/5 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 uppercase font-bold disabled:bg-gray-500"
+          className="w-3/5 bg-blue-500 text-white mt-4 py-2 px-4 rounded hover:bg-blue-600 uppercase font-bold disabled:bg-gray-500"
           disabled={fieldDisabled}
         >
           {submitButtonText}
