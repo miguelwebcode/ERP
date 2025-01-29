@@ -11,11 +11,23 @@ export type ProjectState = {
 export type Customer = {
   address: string;
   company: string;
-  createdAt: string;
   customerId: string;
   email: string;
   name: string;
   phone: string;
   project: string;
+  createdAt: string;
+  updatedAt?: string;
+};
+
+export type Project = {
+  name: string;
+  description: string;
+  customerId: string;
+  startDate: string;
+  endDate: string;
+  state: string;
+  developer: string;
+  createdAt: string;
   updatedAt?: string;
 };
