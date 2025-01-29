@@ -7,12 +7,20 @@ import { getAllCustomerIds } from "../../services/customers";
 import { SelectCustomerFormValues } from "../../types/form-values-types";
 import { useAppStore } from "../../stores/app-store";
 
-const SelectCustomerForm = () => {
+type SelectCustomerForm = {
+  buttonText: string;
+  onSubmit: (
+    values: SelectCustomerFormValues,
+    formikHelpers: FormikHelpers<SelectCustomerFormValues>
+  ) => Promise<void>;
+};
+
+const SelectCustomerForm = ({
+  buttonText,
+  onSubmit: handleSubmit,
+}: SelectCustomerForm) => {
   const [customerIds, setCustomerIds] = useState<string[]>([]);
 
-  const setSelectedCustomerId = useAppStore(
-    (state) => state.setSelectedCustomerId
-  );
   const selectedCustomerId = useAppStore((state) => state.selectedCustomerId);
 
   const initialValues: SelectCustomerFormValues = {
@@ -32,18 +40,18 @@ const SelectCustomerForm = () => {
     fetchCustomerIds();
   }, [selectedCustomerId]);
 
-  const handleSubmit = async (
-    values: SelectCustomerFormValues,
-    formikHelpers: FormikHelpers<SelectCustomerFormValues>
-  ) => {
-    try {
-      setSelectedCustomerId(values.customerId);
-      formikHelpers.resetForm();
-    } catch (error) {
-      console.error("Error getting customer: ", error);
-      alert("Error getting customer!");
-    }
-  };
+  // const handleSubmit = async (
+  //   values: SelectCustomerFormValues,
+  //   formikHelpers: FormikHelpers<SelectCustomerFormValues>
+  // ) => {
+  //   try {
+  //     setSelectedCustomerId(values.customerId);
+  //     formikHelpers.resetForm();
+  //   } catch (error) {
+  //     console.error("Error getting customer: ", error);
+  //     alert("Error getting customer!");
+  //   }
+  // };
 
   return (
     <SharedForm<SelectCustomerFormValues>
@@ -70,7 +78,7 @@ const SelectCustomerForm = () => {
             type="submit"
             className="w-4/5 bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600"
           >
-            FETCH CUSTOMER
+            {buttonText}
           </button>
         </div>
       </div>
