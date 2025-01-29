@@ -53,7 +53,7 @@ export const editCustomerFormValidationSchema = yup.object({
   customerId: yup.string().required("Customer ID is required").default(""),
 });
 
-export const deleteCustomerFormValidationSchema = yup.object({
+export const selectCustomerFormValidationSchema = yup.object({
   customerId: yup.string().required("Customer ID is required").default(""),
 });
 

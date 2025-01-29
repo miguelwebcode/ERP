@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { FormikHelpers } from "formik";
-import { deleteCustomerFormValidationSchema } from "../../schemas";
+import { selectCustomerFormValidationSchema } from "../../schemas";
 import { CustomSelect } from "../formik/CustomSelect";
 import SharedForm from "../formik/SharedForm";
 import { getAllCustomerIds } from "../../services/customers";
@@ -56,7 +56,7 @@ const SelectCustomerForm = ({
   return (
     <SharedForm<SelectCustomerFormValues>
       initialValues={initialValues}
-      validationSchema={deleteCustomerFormValidationSchema}
+      validationSchema={selectCustomerFormValidationSchema}
       onSubmit={handleSubmit}
     >
       <div className="flex flex-col md:flex-row justify-between px-5">
