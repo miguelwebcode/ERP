@@ -1,14 +1,19 @@
 import { FormikHelpers } from "formik";
 import { useState, useEffect } from "react";
 import { deleteProjectFormValidationSchema } from "../../schemas";
-import { getAllProjectIds, deleteProjectById } from "../../services/projects";
+import { getAllProjectIds } from "../../services/projects";
 import { DeleteProjectFormValues } from "../../types/form-values-types";
 import { CustomSelect } from "../formik/CustomSelect";
 import SharedForm from "../formik/SharedForm";
+import { useAppStore } from "../../stores/app-store";
 
 const DeleteProjectForm = () => {
   const [projectIds, setProjectIds] = useState<string[]>([]);
 
+  const setSelectedProjectId = useAppStore(
+    (state) => state.setSelectedProjectId
+  );
+  const selectedProjectId = useAppStore((state) => state.selectedProjectId);
   const initialValues: DeleteProjectFormValues = {
     projectId: "",
   };
@@ -23,14 +28,14 @@ const DeleteProjectForm = () => {
   };
   useEffect(() => {
     fetchProjectIds();
-  }, []);
+  }, [selectedProjectId]);
 
   const handleSubmit = async (
     values: DeleteProjectFormValues,
     formikHelpers: FormikHelpers<DeleteProjectFormValues>
   ) => {
     try {
-      deleteProjectById(values.projectId);
+      setSelectedProjectId(values.projectId);
       formikHelpers.resetForm();
       fetchProjectIds();
     } catch (error) {
@@ -64,7 +69,7 @@ const DeleteProjectForm = () => {
             type="submit"
             className="w-4/5 bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600"
           >
-            DELETE PROJECT
+            FETCH PROJECT
           </button>
         </div>
       </div>
