@@ -6,7 +6,7 @@ export const CustomersView = () => {
   return (
     <div className="flex justify-center">
       <div className="flex flex-col items-center justify-center bg-white p-6 rounded shadow-md gap-4">
-        <h1 className="uppercase font-bold text-xl">Customer's VIEW</h1>
+        <h1 className="uppercase font-bold text-xl">Customer CRUD</h1>
         <div className="flex flex-col gap-3">
           <SharedButton
             text="CREATE Customer"
