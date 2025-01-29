@@ -29,7 +29,6 @@ export type RegisterFormValues = {
 };
 
 export type ProjectFormValues = {
-  customerId: string;
   description: string;
   startDate: Date | "";
   endDate: Date | "";
