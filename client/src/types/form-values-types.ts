@@ -7,6 +7,9 @@ export type CustomerFormValues = {
   project: string;
 };
 
+/* 
+ TODO: DELETE EditCustomerFormValues when selectCustomer component is unified
+*/
 export type EditCustomerFormValues = {
   customerId: string;
 };
