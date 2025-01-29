@@ -49,10 +49,6 @@ export const projectFormValidationSchema = yup.object({
     .default(""),
 });
 
-export const editCustomerFormValidationSchema = yup.object({
-  customerId: yup.string().required("Customer ID is required").default(""),
-});
-
 export const selectCustomerFormValidationSchema = yup.object({
   customerId: yup.string().required("Customer ID is required").default(""),
 });
