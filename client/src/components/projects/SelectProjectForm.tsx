@@ -1,6 +1,6 @@
 import { FormikHelpers } from "formik";
 import { useState, useEffect } from "react";
-import { deleteProjectFormValidationSchema } from "../../schemas";
+import { selectProjectFormValidationSchema } from "../../schemas";
 import { getAllProjectIds } from "../../services/projects";
 import { SelectProjectFormValues } from "../../types/form-values-types";
 import { CustomSelect } from "../formik/CustomSelect";
@@ -42,7 +42,7 @@ const SelectProjectForm = ({
   return (
     <SharedForm<SelectProjectFormValues>
       initialValues={initialValues}
-      validationSchema={deleteProjectFormValidationSchema}
+      validationSchema={selectProjectFormValidationSchema}
       onSubmit={handleSubmit}
     >
       <div className="flex flex-col md:flex-row justify-between px-5">
