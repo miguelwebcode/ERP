@@ -32,6 +32,31 @@ export const getAllProjects = async () => {
   }
 };
 
+export const getProjectById = async (projectId: string) => {
+  const user = auth.currentUser; // Obtén al usuario autenticado
+  if (!user) {
+    console.error("User not authenticated. Cannot read from Firestore.");
+    return;
+  }
+
+  const projectsCollection = collection(db, "projects");
+  const q = query(projectsCollection, where("projectId", "==", projectId));
+
+  try {
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot.empty) {
+      console.log("No matching documents.");
+      return null;
+    }
+
+    const projectData = querySnapshot.docs[0].data();
+    console.log("project data: ", projectData);
+    return projectData;
+  } catch (error) {
+    console.error("Error reading project: ", error);
+  }
+};
+
 export const getAllProjectIds = async () => {
   const user = auth.currentUser; // Obtén al usuario autenticado
   if (!user) {
