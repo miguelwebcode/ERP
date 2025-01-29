@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Project } from "../../types";
 import { getAllProjects } from "../../services/projects";
 import { ProjectCard } from "../../components/projects/ProjectCard";
+import { SharedCard } from "../../components/ui/SharedCard";
 
 export const ReadProjectsView = () => {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -15,7 +16,11 @@ export const ReadProjectsView = () => {
   return (
     <div className="flex justify-center flex-wrap">
       {projects.map((project) => {
-        return <ProjectCard project={project} />;
+        return (
+          <SharedCard>
+            <ProjectCard project={project} />
+          </SharedCard>
+        );
       })}
     </div>
   );

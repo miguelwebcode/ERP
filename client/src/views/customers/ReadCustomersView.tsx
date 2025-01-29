@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getAllCustomers } from "../../services/customers";
 import { Customer } from "../../types";
 import { CustomerCard } from "../../components/customers/CustomerCard";
+import { SharedCard } from "../../components/ui/SharedCard";
 
 export const ReadCustomersView = () => {
   const [customers, setCustomers] = useState<Customer[]>([]);
@@ -15,7 +16,11 @@ export const ReadCustomersView = () => {
   return (
     <div className="flex justify-center flex-wrap">
       {customers.map((customer) => {
-        return <CustomerCard customer={customer} />;
+        return (
+          <SharedCard>
+            <CustomerCard customer={customer} />
+          </SharedCard>
+        );
       })}
     </div>
   );
