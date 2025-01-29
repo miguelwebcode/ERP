@@ -17,11 +17,13 @@ export const HomeView = () => {
   return (
     <div className="flex justify-center">
       <div className="flex flex-col items-center justify-center bg-white p-6 rounded shadow-md w-fit">
-        <h1 className="uppercase font-bold text-xl">HOME</h1>
+        <h1 className="uppercase font-bold text-3xl">HOME</h1>
         <h2 className="my-4">Welcome, {user && user.email} </h2>
         <div className="flex flex-col gap-4 md:flex-row md:gap-10 mt-4">
           <div className="flex flex-col gap-3">
-            <h3 className="uppercase font-bold text-center">CUSTOMER CRUD</h3>
+            <h3 className="uppercase font-bold text-center text-xl">
+              CUSTOMER CRUD
+            </h3>
             <SharedButton
               text="CREATE Customer"
               handleClick={() => {
@@ -48,7 +50,9 @@ export const HomeView = () => {
             />
           </div>
           <div className="flex flex-col gap-3">
-            <h3 className="uppercase font-bold text-center">PROJECT CRUD</h3>
+            <h3 className="uppercase font-bold text-center text-xl">
+              PROJECT CRUD
+            </h3>
             <SharedButton
               text="CREATE Project"
               handleClick={() => {
