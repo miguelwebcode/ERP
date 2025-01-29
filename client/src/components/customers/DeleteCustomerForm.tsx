@@ -4,7 +4,7 @@ import { deleteCustomerFormValidationSchema } from "../../schemas";
 import { CustomSelect } from "../formik/CustomSelect";
 import SharedForm from "../formik/SharedForm";
 import { getAllCustomerIds } from "../../services/customers";
-import { DeleteCustomerFormValues } from "../../types/form-values-types";
+import { SelectCustomerFormValues } from "../../types/form-values-types";
 import { useAppStore } from "../../stores/app-store";
 
 const DeleteCustomerForm = () => {
@@ -15,7 +15,7 @@ const DeleteCustomerForm = () => {
   );
   const selectedCustomerId = useAppStore((state) => state.selectedCustomerId);
 
-  const initialValues: DeleteCustomerFormValues = {
+  const initialValues: SelectCustomerFormValues = {
     customerId: "",
   };
 
@@ -33,8 +33,8 @@ const DeleteCustomerForm = () => {
   }, [selectedCustomerId]);
 
   const handleSubmit = async (
-    values: DeleteCustomerFormValues,
-    formikHelpers: FormikHelpers<DeleteCustomerFormValues>
+    values: SelectCustomerFormValues,
+    formikHelpers: FormikHelpers<SelectCustomerFormValues>
   ) => {
     try {
       setSelectedCustomerId(values.customerId);
@@ -46,7 +46,7 @@ const DeleteCustomerForm = () => {
   };
 
   return (
-    <SharedForm<DeleteCustomerFormValues>
+    <SharedForm<SelectCustomerFormValues>
       initialValues={initialValues}
       validationSchema={deleteCustomerFormValidationSchema}
       onSubmit={handleSubmit}
