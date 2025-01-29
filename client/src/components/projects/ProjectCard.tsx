@@ -1,4 +1,5 @@
 import { Project } from "../../types";
+import { CardField } from "../ui/CardField";
 
 type ProjectCardProps = {
   project: Project;
@@ -6,45 +7,16 @@ type ProjectCardProps = {
 export const ProjectCard = ({ project }: ProjectCardProps) => {
   return (
     <>
-      <div className="flex flex-col mb-4 gap-1 ">
-        <label className="block text-sm font-medium">Name:</label>
-        <span className="text-md">{project.name}</span>
-      </div>
-      <div className="flex flex-col mb-4  gap-1 ">
-        <label className="block text-sm font-medium">Description:</label>
-        <span>{project.description}</span>
-      </div>
-
-      <div className="flex flex-col mb-4  gap-1 ">
-        <label className="block text-sm font-medium">Customer ID:</label>
-        <span className="text-md">{project.customerId}</span>
-      </div>
-      <div className="flex flex-col mb-4  gap-1 ">
-        <label className="block text-sm font-medium">Start Date:</label>
-        <span>{project.startDate}</span>
-      </div>
-
-      <div className="flex flex-col mb-4  gap-1 ">
-        <label className="block text-sm font-medium">End Date:</label>
-        <span className="text-md">{project.endDate}</span>
-      </div>
-      <div className="flex flex-col mb-4  gap-1 ">
-        <label className="block text-sm font-medium">State:</label>
-        <span>{project.state}</span>
-      </div>
-      <div className="flex flex-col mb-4  gap-1 ">
-        <label className="block text-sm font-medium">Developer:</label>
-        <span>{project.developer}</span>
-      </div>
-      <div className="flex flex-col mb-4 gap-1">
-        <label className="block text-sm font-medium">Created at:</label>
-        <span className="text-md">{project.createdAt}</span>
-      </div>
+      <CardField label="Name" value={project.name} />
+      <CardField label="Description" value={project.description} />
+      <CardField label="Customer ID" value={project.customerId} />
+      <CardField label="Start Date" value={project.startDate} />
+      <CardField label="End Date" value={project.endDate} />
+      <CardField label="State" value={project.state} />
+      <CardField label="Developer" value={project.developer} />
+      <CardField label="Created at" value={project.createdAt} />
       {project.updatedAt && (
-        <div className="flex flex-col mb-4 gap-1">
-          <label className="block text-sm font-medium">Updated at:</label>
-          <span>{project.updatedAt}</span>
-        </div>
+        <CardField label="Updated at" value={project.updatedAt} />
       )}
     </>
   );
