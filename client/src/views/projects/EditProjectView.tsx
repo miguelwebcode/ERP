@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { useAppStore } from "../../stores/app-store";
-import { EditProjectForm } from "../../components/projects/EditProjectForm";
 import ProjectForm from "../../components/projects/ProjectForm";
-import { ProjectFormValues } from "../../types/form-values-types";
+import {
+  ProjectFormValues,
+  SelectProjectFormValues,
+} from "../../types/form-values-types";
 import { FormikHelpers } from "formik";
 import { handleEditProject } from "../../services/projects";
+import SelectProjectForm from "../../components/projects/SelectProjectForm";
 
 export const EditProjectView = () => {
   const [isRenderDone, setIsRenderDone] = useState(false);
@@ -18,11 +21,28 @@ export const EditProjectView = () => {
     setSelectedProjectId("");
     setIsRenderDone(true);
   }, []);
+
+  const handleSubmit = async (
+    values: SelectProjectFormValues,
+    formikHelpers: FormikHelpers<SelectProjectFormValues>
+  ) => {
+    try {
+      setSelectedProjectId(values.projectId);
+      formikHelpers.resetForm();
+    } catch (error) {
+      console.error("Error getting project: ", error);
+      alert("Error getting project!");
+    }
+  };
+
   return (
     <div className="flex flex-col md:flex-row justify-center px-5">
       {isRenderDone && (
         <>
-          <EditProjectForm />
+          <SelectProjectForm
+            buttonText="FETCH PROJECT"
+            onSubmit={handleSubmit}
+          />
           <ProjectForm
             titleText="EDIT PROJECT"
             submitButtonText="UPDATE PROJECT"
