@@ -15,12 +15,6 @@ export const AddCustomerView = () => {
     setIsRenderDone(true);
   });
   return (
-    /* 
-     TODO: On render, 
-     isEditingCustomer = false
-     selectedCustomerId = ""
-    */
-
     <div className="flex justify-center">
       {isRenderDone && (
         <CustomerForm
