@@ -3,14 +3,17 @@ import { FormikHelpers } from "formik";
 import { deleteCustomerFormValidationSchema } from "../../schemas";
 import { CustomSelect } from "../formik/CustomSelect";
 import SharedForm from "../formik/SharedForm";
-import {
-  deleteCustomerById,
-  getAllCustomerIds,
-} from "../../services/customers";
+import { getAllCustomerIds } from "../../services/customers";
 import { DeleteCustomerFormValues } from "../../types/form-values-types";
+import { useAppStore } from "../../stores/app-store";
 
 const DeleteCustomerForm = () => {
   const [customerIds, setCustomerIds] = useState<string[]>([]);
+
+  const setSelectedCustomerId = useAppStore(
+    (state) => state.setSelectedCustomerId
+  );
+  const selectedCustomerId = useAppStore((state) => state.selectedCustomerId);
 
   const initialValues: DeleteCustomerFormValues = {
     customerId: "",
@@ -24,18 +27,18 @@ const DeleteCustomerForm = () => {
       console.error("Error fetching customer IDs: ", error);
     }
   };
+
   useEffect(() => {
     fetchCustomerIds();
-  }, []);
+  }, [selectedCustomerId]);
 
   const handleSubmit = async (
     values: DeleteCustomerFormValues,
     formikHelpers: FormikHelpers<DeleteCustomerFormValues>
   ) => {
     try {
-      deleteCustomerById(values.customerId);
+      setSelectedCustomerId(values.customerId);
       formikHelpers.resetForm();
-      fetchCustomerIds();
     } catch (error) {
       console.error("Error getting customer: ", error);
       alert("Error getting customer!");
