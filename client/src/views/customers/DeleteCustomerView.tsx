@@ -6,6 +6,8 @@ import { deleteCustomerById, getCustomerById } from "../../services/customers";
 import { SharedButton } from "../../components/ui/SharedButton";
 import { CustomerCard } from "../../components/customers/CustomerCard";
 import { SharedCard } from "../../components/ui/SharedCard";
+import { SelectCustomerFormValues } from "../../types/form-values-types";
+import { FormikHelpers } from "formik";
 
 export const DeleteCustomerView = () => {
   const selectedCustomerId = useAppStore((state) => state.selectedCustomerId);
@@ -34,10 +36,26 @@ export const DeleteCustomerView = () => {
     }
   }, [selectedCustomerId]);
 
+  const handleSubmit = async (
+    values: SelectCustomerFormValues,
+    formikHelpers: FormikHelpers<SelectCustomerFormValues>
+  ) => {
+    try {
+      setSelectedCustomerId(values.customerId);
+      formikHelpers.resetForm();
+    } catch (error) {
+      console.error("Error getting customer: ", error);
+      alert("Error getting customer!");
+    }
+  };
+
   return (
     <div className="flex flex-col md:flex-row justify-center px-5">
       <>
-        <SelectCustomerForm />
+        <SelectCustomerForm
+          buttonText="FETCH CUSTOMER"
+          onSubmit={handleSubmit}
+        />
         {selectedCustomerId && (
           <SharedCard>
             <CustomerCard customer={selectedCustomer} />
