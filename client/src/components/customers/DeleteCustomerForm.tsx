@@ -70,7 +70,7 @@ const DeleteCustomerForm = () => {
             type="submit"
             className="w-4/5 bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600"
           >
-            DELETE CUSTOMER
+            FETCH CUSTOMER
           </button>
         </div>
       </div>
