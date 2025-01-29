@@ -54,5 +54,5 @@ export const selectCustomerFormValidationSchema = yup.object({
 });
 
 export const selectProjectFormValidationSchema = yup.object({
-  projectId: yup.string().required("Customer ID is required").default(""),
+  projectId: yup.string().required("Project ID is required").default(""),
 });
