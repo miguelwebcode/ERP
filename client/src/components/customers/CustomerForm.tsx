@@ -67,55 +67,59 @@ const CustomerForm = ({
       onSubmit={handleSubmit}
       innerRef={formikRef}
     >
-      <div className="flex flex-col items-center justify-center bg-white p-6 rounded shadow-md w-96">
+      <div className="flex flex-col items-center justify-center bg-white p-6 rounded shadow-md">
         <h1 className="text-2xl font-bold mb-4">{titleText}</h1>
-        <div className="w-4/5">
-          <CustomInput
-            type="text"
-            label="Address"
-            name="address"
-            placeholder="Enter customer's address"
-            disabled={fieldDisabled}
-          />
-          <CustomInput
-            type="text"
-            label="Company"
-            name="company"
-            placeholder="Enter customer's company"
-            disabled={fieldDisabled}
-          />
-          <CustomInput
-            type="text"
-            label="Email"
-            name="email"
-            placeholder="Enter customer's email"
-            disabled={fieldDisabled}
-          />
-          <CustomInput
-            type="text"
-            label="Name"
-            name="name"
-            placeholder="Enter customer's name"
-            disabled={fieldDisabled}
-          />
-          <CustomInput
-            type="text"
-            label="Phone"
-            name="phone"
-            placeholder="Enter customer's phone"
-            disabled={fieldDisabled}
-          />
-          <CustomInput
-            type="text"
-            label="Project"
-            name="project"
-            placeholder="Enter customer's project"
-            disabled={fieldDisabled}
-          />
+        <div className="flex flex-col md:flex-row md:gap-10">
+          <div className="flex flex-col w-fit">
+            <CustomInput
+              type="text"
+              label="Address"
+              name="address"
+              placeholder="Enter customer's address"
+              disabled={fieldDisabled}
+            />
+            <CustomInput
+              type="text"
+              label="Company"
+              name="company"
+              placeholder="Enter customer's company"
+              disabled={fieldDisabled}
+            />
+            <CustomInput
+              type="text"
+              label="Email"
+              name="email"
+              placeholder="Enter customer's email"
+              disabled={fieldDisabled}
+            />
+          </div>
+          <div className="flex flex-col w-fit">
+            <CustomInput
+              type="text"
+              label="Name"
+              name="name"
+              placeholder="Enter customer's name"
+              disabled={fieldDisabled}
+            />
+            <CustomInput
+              type="text"
+              label="Phone"
+              name="phone"
+              placeholder="Enter customer's phone"
+              disabled={fieldDisabled}
+            />
+            <CustomInput
+              type="text"
+              label="Project"
+              name="project"
+              placeholder="Enter customer's project"
+              disabled={fieldDisabled}
+            />
+          </div>
         </div>
         <button
           type="submit"
-          className="w-4/5 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 uppercase font-bold disabled:bg-gray-500"
+          className="w-3/5 bg-blue-500 text-white mt-4 py-2 px-4 rounded hover:bg-blue-600 uppercase font-bold disabled:bg-gray-500"
           disabled={fieldDisabled}
         >
           {submitButtonText}
