@@ -5,7 +5,7 @@ type SharedCard = {
 };
 export const SharedCard = ({ children }: SharedCard) => {
   return (
-    <div className="flex flex-col bg-slate-50 rounded-xl shadow-lg p-4 w-fit h-fit">
+    <div className="bg-slate-50 rounded-xl shadow-lg p-4 w-fit h-fit">
       {children}
     </div>
   );
