@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import DeleteCustomerForm from "../../components/customers/DeleteCustomerForm";
+import SelectCustomerForm from "../../components/customers/DeleteCustomerForm";
 import { useAppStore } from "../../stores/app-store";
 import { Customer } from "../../types";
 import { deleteCustomerById, getCustomerById } from "../../services/customers";
@@ -37,7 +37,7 @@ export const DeleteCustomerView = () => {
   return (
     <div className="flex flex-col md:flex-row justify-center px-5">
       <>
-        <DeleteCustomerForm />
+        <SelectCustomerForm />
         {selectedCustomerId && (
           <SharedCard>
             <CustomerCard customer={selectedCustomer} />

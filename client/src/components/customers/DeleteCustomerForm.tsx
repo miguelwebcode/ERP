@@ -7,7 +7,7 @@ import { getAllCustomerIds } from "../../services/customers";
 import { SelectCustomerFormValues } from "../../types/form-values-types";
 import { useAppStore } from "../../stores/app-store";
 
-const DeleteCustomerForm = () => {
+const SelectCustomerForm = () => {
   const [customerIds, setCustomerIds] = useState<string[]>([]);
 
   const setSelectedCustomerId = useAppStore(
@@ -78,4 +78,4 @@ const DeleteCustomerForm = () => {
   );
 };
 
-export default DeleteCustomerForm;
+export default SelectCustomerForm;
