@@ -11,8 +11,16 @@ export type EditCustomerFormValues = {
   customerId: string;
 };
 
+export type EditProjectFormValues = {
+  projectId: string;
+};
+
 export type DeleteCustomerFormValues = {
   customerId: string;
+};
+
+export type DeleteProjectFormValues = {
+  projectId: string;
 };
 
 export type LoginFormValues = {
@@ -29,6 +37,7 @@ export type RegisterFormValues = {
 };
 
 export type ProjectFormValues = {
+  customerId: string;
   description: string;
   startDate: Date | "";
   endDate: Date | "";
