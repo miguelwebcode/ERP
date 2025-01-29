@@ -55,13 +55,15 @@ export const DeleteProjectView = () => {
         {selectedProjectId && (
           <SharedCard>
             <ProjectCard project={selectedProject} />
-            <SharedButton
-              text="DELETE PROJECT"
-              handleClick={async () => {
-                await deleteProjectById(selectedProjectId);
-                setSelectedProjectId("");
-              }}
-            />
+            <div className="flex justify-center">
+              <SharedButton
+                text="DELETE PROJECT"
+                handleClick={async () => {
+                  await deleteProjectById(selectedProjectId);
+                  setSelectedProjectId("");
+                }}
+              />
+            </div>
           </SharedCard>
         )}
       </>
