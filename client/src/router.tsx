@@ -5,12 +5,12 @@ import { RegisterView } from "./views/RegisterView";
 import { HomeView } from "./views/HomeView";
 import { CustomersView } from "./views/CustomersView";
 import { ProjectsView } from "./views/ProjectsView";
-import { AddCustomerView } from "./views/AddCustomerView";
-import { EditCustomerView } from "./views/EditCustomerView";
+import { AddCustomerView } from "./views/customers/AddCustomerView";
+import { EditCustomerView } from "./views/customers/EditCustomerView";
 import { AddProjectView } from "./views/AddProjectView";
 import { EditProjectView } from "./views/EditProjectView";
-import { ReadCustomersView } from "./views/ReadCustomersView";
-import { DeleteCustomerView } from "./views/DeleteCustomerView";
+import { ReadCustomersView } from "./views/customers/ReadCustomersView";
+import { DeleteCustomerView } from "./views/customers/DeleteCustomerView";
 import { ReadProjectsView } from "./views/ReadProjectsView";
 import { DeleteProjectView } from "./views/DeleteProjectView";
 

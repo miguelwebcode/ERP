@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { getAllCustomers } from "../services/customers";
-import { Customer } from "../types";
-import { CustomerCard } from "../components/customers/CustomerCard";
+import { getAllCustomers } from "../../services/customers";
+import { Customer } from "../../types";
+import { CustomerCard } from "../../components/customers/CustomerCard";
 
 export const ReadCustomersView = () => {
   const [customers, setCustomers] = useState<Customer[]>([]);

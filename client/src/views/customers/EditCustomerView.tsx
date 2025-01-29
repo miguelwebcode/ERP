@@ -1,9 +1,9 @@
 import { FormikHelpers } from "formik";
-import CustomerForm from "../components/customers/CustomerForm";
-import EditCustomerForm from "../components/customers/EditCustomerForm";
-import { handleEditCustomer } from "../services/customers";
-import { useAppStore } from "../stores/app-store";
-import { CustomerFormValues } from "../types/form-values-types";
+import CustomerForm from "../../components/customers/CustomerForm";
+import EditCustomerForm from "../../components/customers/EditCustomerForm";
+import { handleEditCustomer } from "../../services/customers";
+import { useAppStore } from "../../stores/app-store";
+import { CustomerFormValues } from "../../types/form-values-types";
 import { useState, useEffect } from "react";
 
 export const EditCustomerView = () => {
