@@ -20,7 +20,14 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+    "types": ["jest", "vitest"]
   },
-  "include": ["src"]
+  "include": [
+    "src/**/*",
+    "jest.config.ts",
+    "vitest.config.ts",
+    "vite.config.ts"
+  ]
 }
