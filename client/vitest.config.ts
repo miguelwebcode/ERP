@@ -5,5 +5,8 @@ export default defineConfig({
     environment: "jsdom",
     globals: true,
     setupFiles: "./vitest.setup.ts",
+    include: [
+      "**/?(*.)+(vitest.test).[jt]s?(x)", // Busca archivos con sufijo .vitest.test.ts o .vitest.test.tsx
+    ],
   },
 });
