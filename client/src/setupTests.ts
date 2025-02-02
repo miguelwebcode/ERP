@@ -10,6 +10,7 @@ import { readFileSync } from "fs";
 export let testEnv: RulesTestEnvironment | null = null;
 
 beforeAll(async () => {
+  // Se usa testEnv en vez de db en los tests?
   testEnv = await initializeTestEnvironment({
     projectId: "erp-fire",
     hub: {
