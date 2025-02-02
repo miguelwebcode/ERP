@@ -7,7 +7,7 @@ import {
 } from "firebase/auth";
 import { auth } from "../firebaseConfig";
 
-// Función para iniciar sesión
+// Función para iniciar sesión, testear con firebase emulator
 export const login = async (email: string, password: string) => {
   try {
     const userCredential = await signInWithEmailAndPassword(
