@@ -4,6 +4,7 @@ import react from "@vitejs/plugin-react";
 import viteTsConfigPaths from "vite-tsconfig-paths";
 import path from "path";
 
+// Que nombre le doy a este archivo? está en el lugar correcto? (/client/viteConfig.ts)
 export default defineConfig({
   base: "/",
   resolve: {
