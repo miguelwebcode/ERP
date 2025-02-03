@@ -1,5 +1,5 @@
 import { Customer } from "../../types";
-import { CardField } from "../ui/CardField";
+import { CardField } from "../ui/CardField/CardField";
 
 type CustomerCardProps = {
   customer: Customer;
