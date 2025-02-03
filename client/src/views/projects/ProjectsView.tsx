@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { SharedButton } from "../../components/ui/SharedButton";
+import { SharedButton } from "../../components/ui/SharedButton/SharedButton";
 
 export const ProjectsView = () => {
   const navigate = useNavigate();

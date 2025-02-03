@@ -5,7 +5,7 @@ import { deleteProjectById, getProjectById } from "../../services/projects";
 import { Project } from "../../types";
 import { SharedCard } from "../../components/ui/SharedCard";
 import { ProjectCard } from "../../components/projects/ProjectCard";
-import { SharedButton } from "../../components/ui/SharedButton";
+import { SharedButton } from "../../components/ui/SharedButton/SharedButton";
 import { SelectProjectFormValues } from "../../types/form-values-types";
 import { FormikHelpers } from "formik";
 

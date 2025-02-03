@@ -3,7 +3,7 @@ import SelectCustomerForm from "../../components/customers/SelectCustomerForm";
 import { useAppStore } from "../../stores/app-store";
 import { Customer } from "../../types";
 import { deleteCustomerById, getCustomerById } from "../../services/customers";
-import { SharedButton } from "../../components/ui/SharedButton";
+import { SharedButton } from "../../components/ui/SharedButton/SharedButton";
 import { CustomerCard } from "../../components/customers/CustomerCard";
 import { SharedCard } from "../../components/ui/SharedCard";
 import { SelectCustomerFormValues } from "../../types/form-values-types";
