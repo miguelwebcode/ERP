@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Project } from "../../types";
 import { getAllProjects } from "../../services/projects";
 import { ProjectCard } from "../../components/projects/ProjectCard";
-import { SharedCard } from "../../components/ui/SharedCard";
+import { SharedCard } from "../../components/ui/SharedCard/SharedCard";
 
 export const ReadProjectsView = () => {
   const [projects, setProjects] = useState<Project[]>([]);

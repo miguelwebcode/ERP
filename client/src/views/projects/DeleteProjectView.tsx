@@ -3,7 +3,7 @@ import SelectProjectForm from "../../components/projects/SelectProjectForm";
 import { useAppStore } from "../../stores/app-store";
 import { deleteProjectById, getProjectById } from "../../services/projects";
 import { Project } from "../../types";
-import { SharedCard } from "../../components/ui/SharedCard";
+import { SharedCard } from "../../components/ui/SharedCard/SharedCard";
 import { ProjectCard } from "../../components/projects/ProjectCard";
 import { SharedButton } from "../../components/ui/SharedButton/SharedButton";
 import { SelectProjectFormValues } from "../../types/form-values-types";

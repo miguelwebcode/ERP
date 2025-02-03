@@ -5,7 +5,7 @@ import { Customer } from "../../types";
 import { deleteCustomerById, getCustomerById } from "../../services/customers";
 import { SharedButton } from "../../components/ui/SharedButton/SharedButton";
 import { CustomerCard } from "../../components/customers/CustomerCard";
-import { SharedCard } from "../../components/ui/SharedCard";
+import { SharedCard } from "../../components/ui/SharedCard/SharedCard";
 import { SelectCustomerFormValues } from "../../types/form-values-types";
 import { FormikHelpers } from "formik";
 
