@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllCustomers } from "../../services/customers";
+import { getAllCustomers } from "../../services/customers/customers";
 import { Customer } from "../../types";
 import { CustomerCard } from "../../components/customers/CustomerCard";
 import { SharedCard } from "../../components/ui/SharedCard/SharedCard";

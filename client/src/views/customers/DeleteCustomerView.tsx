@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import SelectCustomerForm from "../../components/customers/SelectCustomerForm";
 import { useAppStore } from "../../stores/app-store";
 import { Customer } from "../../types";
-import { deleteCustomerById, getCustomerById } from "../../services/customers";
+import { deleteCustomerById, getCustomerById } from "../../services/customers/customers";
 import { SharedButton } from "../../components/ui/SharedButton/SharedButton";
 import { CustomerCard } from "../../components/customers/CustomerCard";
 import { SharedCard } from "../../components/ui/SharedCard/SharedCard";
