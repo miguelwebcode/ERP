@@ -16,10 +16,6 @@ export type AppActions = {
 
 export type AppStore = AppState & AppActions;
 
-// export const defaultInitState: AppState = {
-//   user: null,
-// };
-
 export const useAppStore = create<AppStore>()(
   devtools((set) => ({
     user: null,
