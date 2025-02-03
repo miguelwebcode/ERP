@@ -35,21 +35,22 @@ const CustomerForm = ({
 
   const selectedCustomerId = useAppStore((state) => state.selectedCustomerId);
 
+  const setFormValues = async (formik: FormikProps<CustomerFormValues>) => {
+    const selectedCustomer = await getCustomerById(selectedCustomerId);
+    if (selectedCustomer) {
+      const newValues: CustomerFormValues = {
+        address: selectedCustomer["address"],
+        company: selectedCustomer["company"],
+        email: selectedCustomer["email"],
+        name: selectedCustomer["name"],
+        phone: selectedCustomer["phone"],
+        project: selectedCustomer["project"],
+      };
+      formik.setValues(newValues);
+    }
+  };
+
   useEffect(() => {
-    const setFormValues = async (formik: FormikProps<CustomerFormValues>) => {
-      const selectedCustomer = await getCustomerById(selectedCustomerId);
-      if (selectedCustomer) {
-        const newValues: CustomerFormValues = {
-          address: selectedCustomer["address"],
-          company: selectedCustomer["company"],
-          email: selectedCustomer["email"],
-          name: selectedCustomer["name"],
-          phone: selectedCustomer["phone"],
-          project: selectedCustomer["project"],
-        };
-        formik.setValues(newValues);
-      }
-    };
     if (formikRef.current) {
       setFormValues(formikRef.current);
     }
