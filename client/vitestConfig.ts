@@ -5,6 +5,7 @@ import viteTsConfigPaths from "vite-tsconfig-paths";
 import path from "path";
 
 // Que nombre le doy a este archivo? está en el lugar correcto? (/client/viteConfig.ts)
+// Respuesta, este archivo deberia ser vitest.config.ts
 export default defineConfig({
   base: "/",
   resolve: {
