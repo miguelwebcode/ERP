@@ -5,7 +5,7 @@ import {
   User,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
-import { auth } from "../firebaseConfig";
+import { auth } from "../../firebaseConfig";
 
 // Función para iniciar sesión, testear con firebase emulator
 export const login = async (email: string, password: string) => {

@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, Mock } from "vitest";
 import { login } from "./auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebaseConfig";
+import { auth } from "../../firebaseConfig";
 
 vi.mock("firebase/auth", () => ({
   signInWithEmailAndPassword: vi.fn(),

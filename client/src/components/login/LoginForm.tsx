@@ -1,4 +1,4 @@
-import { login } from "../../services/auth";
+import { login } from "../../services/auth/auth";
 import { useNavigate } from "react-router-dom";
 import SharedForm from "../formik/SharedForm";
 import { loginFormValidationSchema } from "../../schemas";

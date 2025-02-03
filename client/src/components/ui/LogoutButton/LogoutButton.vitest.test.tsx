@@ -2,7 +2,7 @@ import { describe, it, expect, vi, Mock } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { useNavigate } from "react-router-dom";
 import { LogoutButton } from "./LogoutButton";
-import { logout } from "../../../services/auth";
+import { logout } from "../../../services/auth/auth";
 
 // TODO: Check again when more knowledge, TEST PASS
 
