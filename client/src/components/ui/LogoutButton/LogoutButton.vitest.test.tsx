@@ -1,29 +1,30 @@
-import { describe, it, expect, vi, Mock } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { useNavigate } from "react-router-dom";
-import { LogoutButton } from "./LogoutButton";
-import { logout } from "../../../services/auth/auth";
+import { describe, it, expect, vi, Mock } from "vitest";
 
-// TODO: Check again when more knowledge, TEST PASS
-
+// Asegurarse de hacer los mocks antes de importar el componente
 vi.mock("react-router-dom", () => ({
   useNavigate: vi.fn(),
 }));
 
-vi.mock("../../services/auth", () => ({
-  logout: vi.fn(),
+vi.mock("../../../services/auth/auth", () => ({
+  logout: vi.fn(() => Promise.resolve()),
 }));
+
+import { useNavigate } from "react-router-dom";
+import { logout } from "../../../services/auth/auth";
+import { LogoutButton } from "./LogoutButton";
 
 describe("LogoutButton", () => {
   it("should call logout and navigate to /login when clicked", () => {
     const mockNavigate = vi.fn();
+    // Convertir useNavigate en spy y devolver nuestro mock
     (useNavigate as Mock).mockReturnValue(mockNavigate);
 
     render(<LogoutButton />);
-
     const button = screen.getByText("Logout");
     fireEvent.click(button);
 
+    // logout ya es un spy (vi.fn), se puede verificar su llamada
     expect(logout).toHaveBeenCalled();
     expect(mockNavigate).toHaveBeenCalledWith("/login");
   });
