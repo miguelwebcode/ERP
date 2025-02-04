@@ -35,24 +35,12 @@ const CustomerForm = ({
 
   const selectedCustomerId = useAppStore((state) => state.selectedCustomerId);
 
-  const setCustomerFormValues = async (
-    formik: FormikProps<CustomerFormValues>
-  ) => {
-    const selectedCustomer = await getCustomerById(selectedCustomerId);
-    if (selectedCustomer) {
-      const newValues: CustomerFormValues = {
-        address: selectedCustomer["address"],
-        company: selectedCustomer["company"],
-        email: selectedCustomer["email"],
-        name: selectedCustomer["name"],
-        phone: selectedCustomer["phone"],
-        project: selectedCustomer["project"],
-      };
-      formik.setValues(newValues);
-    }
-  };
-
   useEffect(() => {
+    /* 
+     On first useEffect, form is not mounted yet, its reference formikRef.current
+     is null. Then, on selectedCustomerId change, useEffect is executed again...
+     this second time form is rendered, so it executes the function inside if statement 
+    */
     if (formikRef.current) {
       setCustomerFormValues(formikRef.current, selectedCustomerId);
     }
