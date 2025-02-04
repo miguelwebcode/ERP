@@ -3,7 +3,7 @@ import { FormikHelpers } from "formik";
 import { selectCustomerFormValidationSchema } from "../../schemas";
 import { CustomSelect } from "../formik/CustomSelect";
 import SharedForm from "../formik/SharedForm";
-import { getAllCustomerIds } from "../../services/customers/customers";
+import { fetchCustomerIds } from "../../services/customers/customers";
 import { SelectCustomerFormValues } from "../../types/form-values-types";
 import { useAppStore } from "../../stores/app-store";
 
@@ -27,17 +27,8 @@ const SelectCustomerForm = ({
     customerId: "",
   };
 
-  const fetchCustomerIds = async () => {
-    try {
-      const ids: string[] = (await getAllCustomerIds()) || [];
-      setCustomerIds(ids);
-    } catch (error) {
-      console.error("Error fetching customer IDs: ", error);
-    }
-  };
-
   useEffect(() => {
-    fetchCustomerIds();
+    fetchCustomerIds(setCustomerIds);
   }, [selectedCustomerId]);
 
   return (

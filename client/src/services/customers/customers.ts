@@ -156,3 +156,12 @@ export const deleteCustomerById = async (customerId: string) => {
     console.error("Error deleting customer: ", error);
   }
 };
+
+export const fetchCustomerIds = async (callback: (ids: string[]) => void) => {
+  try {
+    const ids: string[] = (await getAllCustomerIds()) || [];
+    callback(ids);
+  } catch (error) {
+    console.error("Error fetching customer IDs: ", error);
+  }
+};
