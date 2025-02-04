@@ -1,7 +1,7 @@
 import { FormikHelpers } from "formik";
 import { useState, useEffect } from "react";
 import { selectProjectFormValidationSchema } from "../../schemas";
-import { getAllProjectIds } from "../../services/projects";
+import { fetchProjectIds, getAllProjectIds } from "../../services/projects";
 import { SelectProjectFormValues } from "../../types/form-values-types";
 import { CustomSelect } from "../formik/CustomSelect";
 import SharedForm from "../formik/SharedForm";
@@ -26,17 +26,8 @@ const SelectProjectForm = ({
     projectId: "",
   };
 
-  const fetchProjectIds = async () => {
-    try {
-      const ids: string[] = (await getAllProjectIds()) || [];
-      setProjectIds(ids);
-    } catch (error) {
-      console.error("Error fetching project IDs: ", error);
-    }
-  };
-
   useEffect(() => {
-    fetchProjectIds();
+    fetchProjectIds(setProjectIds);
   }, [selectedProjectId]);
 
   return (

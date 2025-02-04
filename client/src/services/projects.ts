@@ -156,3 +156,12 @@ export const deleteProjectById = async (projectId: string) => {
     console.error("Error deleting project: ", error);
   }
 };
+
+export const fetchProjectIds = async (callback: (ids: string[]) => void) => {
+  try {
+    const ids: string[] = (await getAllProjectIds()) || [];
+    callback(ids);
+  } catch (error) {
+    console.error("Error fetching project IDs: ", error);
+  }
+};
