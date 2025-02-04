@@ -6,6 +6,8 @@ import Header from "./Header";
 describe("Header", () => {
   it("should render the header with navigation links when pathname matches", () => {
     render(
+      // There is no browser url in a test, so initialEntries creates a routing context
+      // and sets the initial route
       <MemoryRouter initialEntries={["/customers"]}>
         <Header />
       </MemoryRouter>
