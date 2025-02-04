@@ -55,6 +55,11 @@ const ProjectForm = ({
         formik.setValues(newValues);
       }
     };
+    /* 
+     On first useEffect, form is not mounted yet, its reference formikRef.current
+     is null. Then, on selectedCustomerId change, useEffect is executed again...
+     this second time form is rendered, so it executes the function inside if statement 
+    */
     if (formikRef.current) {
       setFormValues(formikRef.current);
     }
