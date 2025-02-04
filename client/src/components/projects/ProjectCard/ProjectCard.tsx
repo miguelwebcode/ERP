@@ -1,5 +1,5 @@
-import { Project } from "../../types";
-import { CardField } from "../ui/CardField/CardField";
+import { Project } from "../../../types";
+import { CardField } from "../../ui/CardField/CardField";
 
 type ProjectCardProps = {
   project: Project;

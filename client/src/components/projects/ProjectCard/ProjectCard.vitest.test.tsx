@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { ProjectCard } from "./ProjectCard";
-import { Project } from "../../types";
+import { Project } from "../../../types";
+import { describe, it, expect } from "vitest";
 
 describe("ProjectCard", () => {
   it("should render all project fields correctly", () => {

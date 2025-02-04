@@ -4,7 +4,7 @@ import { useAppStore } from "../../stores/app-store";
 import { deleteProjectById, getProjectById } from "../../services/projects";
 import { Project } from "../../types";
 import { SharedCard } from "../../components/ui/SharedCard/SharedCard";
-import { ProjectCard } from "../../components/projects/ProjectCard";
+import { ProjectCard } from "../../components/projects/ProjectCard/ProjectCard";
 import { SharedButton } from "../../components/ui/SharedButton/SharedButton";
 import { SelectProjectFormValues } from "../../types/form-values-types";
 import { FormikHelpers } from "formik";
