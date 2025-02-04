@@ -3,7 +3,7 @@ import { auth } from "../../firebaseConfig";
 import { saveUserData } from "../../services/users";
 import { useNavigate } from "react-router-dom";
 import SharedForm from "../formik/SharedForm";
-import { CustomInput } from "../formik/CustomInput";
+import { CustomInput } from "../formik/CustomInput/CustomInput";
 import { registerFormValidationSchema } from "../../schemas";
 import { CustomSelect } from "../formik/CustomSelect";
 import { roles } from "../../data";

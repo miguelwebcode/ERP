@@ -2,7 +2,7 @@ import { login } from "../../services/auth/auth";
 import { useNavigate } from "react-router-dom";
 import SharedForm from "../formik/SharedForm";
 import { loginFormValidationSchema } from "../../schemas";
-import { CustomInput } from "../formik/CustomInput";
+import { CustomInput } from "../formik/CustomInput/CustomInput";
 import { LoginFormValues } from "../../types/form-values-types";
 
 const LoginForm = () => {

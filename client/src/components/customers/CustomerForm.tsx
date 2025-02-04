@@ -1,6 +1,6 @@
 import SharedForm from "../formik/SharedForm";
 import { customerFormValidationSchema } from "../../schemas";
-import { CustomInput } from "../formik/CustomInput";
+import { CustomInput } from "../formik/CustomInput/CustomInput";
 import { FormikHelpers, FormikProps } from "formik";
 import { CustomerFormValues } from "../../types/form-values-types";
 import { useRef, useEffect, useMemo } from "react";
