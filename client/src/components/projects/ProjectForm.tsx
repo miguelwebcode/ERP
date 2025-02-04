@@ -40,7 +40,9 @@ const ProjectForm = ({
   const selectedProjectId = useAppStore((state) => state.selectedProjectId);
 
   useEffect(() => {
-    const setFormValues = async (formik: FormikProps<ProjectFormValues>) => {
+    const setProjectFormValues = async (
+      formik: FormikProps<ProjectFormValues>
+    ) => {
       const selectedProject = await getProjectById(selectedProjectId);
       if (selectedProject) {
         const newValues: ProjectFormValues = {
@@ -61,7 +63,7 @@ const ProjectForm = ({
      this second time form is rendered, so it executes the function inside if statement 
     */
     if (formikRef.current) {
-      setFormValues(formikRef.current);
+      setProjectFormValues(formikRef.current);
     }
   }, [selectedProjectId]);
 
