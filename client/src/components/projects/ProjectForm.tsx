@@ -6,7 +6,7 @@ import { CustomSelect } from "../formik/CustomSelect";
 import { projectStates } from "../../data";
 import { ProjectFormValues } from "../../types/form-values-types";
 import { useEffect, useMemo, useRef } from "react";
-import { getProjectById } from "../../services/projects";
+import { setProjectFormValues } from "../../services/projects";
 import { useAppStore } from "../../stores/app-store";
 
 type ProjectFormProps = {
@@ -40,30 +40,13 @@ const ProjectForm = ({
   const selectedProjectId = useAppStore((state) => state.selectedProjectId);
 
   useEffect(() => {
-    const setProjectFormValues = async (
-      formik: FormikProps<ProjectFormValues>
-    ) => {
-      const selectedProject = await getProjectById(selectedProjectId);
-      if (selectedProject) {
-        const newValues: ProjectFormValues = {
-          customerId: selectedProject["customerId"],
-          description: selectedProject["description"],
-          startDate: selectedProject["startDate"],
-          endDate: selectedProject["endDate"],
-          name: selectedProject["name"],
-          state: selectedProject["state"],
-          developer: selectedProject["developer"],
-        };
-        formik.setValues(newValues);
-      }
-    };
     /* 
      On first useEffect, form is not mounted yet, its reference formikRef.current
      is null. Then, on selectedCustomerId change, useEffect is executed again...
      this second time form is rendered, so it executes the function inside if statement 
     */
     if (formikRef.current) {
-      setProjectFormValues(formikRef.current);
+      setProjectFormValues(formikRef.current, selectedProjectId);
     }
   }, [selectedProjectId]);
 

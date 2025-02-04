@@ -11,7 +11,7 @@ import {
 import { auth, db } from "../firebaseConfig";
 import { v4 as uuidv4 } from "uuid";
 
-import { FormikHelpers } from "formik";
+import { FormikHelpers, FormikProps } from "formik";
 import { ProjectFormValues } from "../types/form-values-types";
 import { formatDate } from ".";
 
@@ -163,5 +163,24 @@ export const fetchProjectIds = async (callback: (ids: string[]) => void) => {
     callback(ids);
   } catch (error) {
     console.error("Error fetching project IDs: ", error);
+  }
+};
+
+export const setProjectFormValues = async (
+  formik: FormikProps<ProjectFormValues>,
+  selectedProjectId: string
+) => {
+  const selectedProject = await getProjectById(selectedProjectId);
+  if (selectedProject) {
+    const newValues: ProjectFormValues = {
+      customerId: selectedProject["customerId"],
+      description: selectedProject["description"],
+      startDate: selectedProject["startDate"],
+      endDate: selectedProject["endDate"],
+      name: selectedProject["name"],
+      state: selectedProject["state"],
+      developer: selectedProject["developer"],
+    };
+    formik.setValues(newValues);
   }
 };
