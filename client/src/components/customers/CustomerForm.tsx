@@ -4,7 +4,7 @@ import { CustomInput } from "../formik/CustomInput";
 import { FormikHelpers, FormikProps } from "formik";
 import { CustomerFormValues } from "../../types/form-values-types";
 import { useRef, useEffect, useMemo } from "react";
-import { getCustomerById } from "../../services/customers/customers";
+import { setCustomerFormValues } from "../../services/customers/customers";
 import { useAppStore } from "../../stores/app-store";
 
 type CustomerFormProps = {
@@ -54,7 +54,7 @@ const CustomerForm = ({
 
   useEffect(() => {
     if (formikRef.current) {
-      setCustomerFormValues(formikRef.current);
+      setCustomerFormValues(formikRef.current, selectedCustomerId);
     }
   }, [selectedCustomerId]);
 

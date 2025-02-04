@@ -10,7 +10,7 @@ import {
 } from "firebase/firestore";
 import { auth, db } from "../../firebaseConfig";
 import { v4 as uuidv4 } from "uuid";
-import { FormikHelpers } from "formik";
+import { FormikHelpers, FormikProps } from "formik";
 import { CustomerFormValues } from "../../types/form-values-types";
 import { formatDate } from "..";
 
@@ -163,5 +163,23 @@ export const fetchCustomerIds = async (callback: (ids: string[]) => void) => {
     callback(ids);
   } catch (error) {
     console.error("Error fetching customer IDs: ", error);
+  }
+};
+
+export const setCustomerFormValues = async (
+  formik: FormikProps<CustomerFormValues>,
+  selectedCustomerId: string
+) => {
+  const selectedCustomer = await getCustomerById(selectedCustomerId);
+  if (selectedCustomer) {
+    const newValues: CustomerFormValues = {
+      address: selectedCustomer["address"],
+      company: selectedCustomer["company"],
+      email: selectedCustomer["email"],
+      name: selectedCustomer["name"],
+      phone: selectedCustomer["phone"],
+      project: selectedCustomer["project"],
+    };
+    formik.setValues(newValues);
   }
 };
