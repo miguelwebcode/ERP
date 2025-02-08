@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { selectProjectFormValidationSchema } from "../../schemas";
 import { fetchProjectIds } from "../../services/projects";
 import { SelectProjectFormValues } from "../../types/form-values-types";
-import { CustomSelect } from "../formik/CustomSelect";
+import { CustomSelect } from "../formik/CustomSelect/CustomSelect";
 import SharedForm from "../formik/SharedForm";
 import { useAppStore } from "../../stores/app-store";
 
