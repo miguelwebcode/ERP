@@ -19,7 +19,6 @@ export type AppStore = AppState & AppActions;
 export const useAppStore = create<AppStore>()(
   devtools((set) => ({
     user: null,
-    editCustomer: false,
     setUser: (user) => {
       set(() => ({
         user,
