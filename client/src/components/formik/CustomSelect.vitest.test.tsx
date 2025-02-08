@@ -7,17 +7,6 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi, Mock } from "vitest";
 import { CustomSelect } from "./CustomSelect";
 
-// <CustomSelect label="Project ID" name="projectId">
-//   <option value="" className="text-center">
-//     -- Select project ID --
-//   </option>
-//   {projectIds.map((id, index) => (
-//     <option key={index} value={id}>
-//       {id}
-//     </option>
-//   ))}
-// </CustomSelect>
-
 describe("CustomSelect", () => {
   it("label element has correct text, select element has correct name and id", () => {
     (useField as Mock).mockReturnValue([
