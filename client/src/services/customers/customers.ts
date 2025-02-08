@@ -39,6 +39,11 @@ export const getCustomerById = async (customerId: string) => {
     return;
   }
 
+  if (!customerId) {
+    console.log("Customer ID is empty");
+    return;
+  }
+
   const customersCollection = collection(db, "customers");
   const q = query(customersCollection, where("customerId", "==", customerId));
 
