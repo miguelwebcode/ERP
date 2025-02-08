@@ -16,6 +16,9 @@ export type AppActions = {
 
 export type AppStore = AppState & AppActions;
 
+/* 
+ TODO: Add selectedCustomerId initializer ("")
+*/
 export const useAppStore = create<AppStore>()(
   devtools((set) => ({
     user: null,
