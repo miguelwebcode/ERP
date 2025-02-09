@@ -12,7 +12,7 @@ describe("SelectCustomerForm", () => {
   beforeEach(() => {
     vi.clearAllMocks();
 
-    let mockCustomerIds = ["customer1", "customer2", "customer3"];
+    const mockCustomerIds = ["customer1", "customer2", "customer3"];
     (useState as Mock).mockReturnValue([mockCustomerIds]);
   });
   it("check correct texts: title, label, select options, buttonText", () => {
