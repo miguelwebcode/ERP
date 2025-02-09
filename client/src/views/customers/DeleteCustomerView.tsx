@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import SelectCustomerForm from "../../components/customers/SelectCustomerForm";
+import SelectCustomerForm from "../../components/customers/SelectCustomerForm/SelectCustomerForm";
 import { useAppStore } from "../../stores/app-store";
 import { Customer } from "../../types";
 import { deleteCustomerById, getCustomerById } from "../../services/customers/customers";
