@@ -7,7 +7,7 @@ import {
 } from "../../types/form-values-types";
 import { FormikHelpers } from "formik";
 import { handleEditProject } from "../../services/projects";
-import SelectProjectForm from "../../components/projects/SelectProjectForm";
+import SelectProjectForm from "../../components/projects/SelectProjectForm/SelectProjectForm";
 
 export const EditProjectView = () => {
   const [isRenderDone, setIsRenderDone] = useState(false);
