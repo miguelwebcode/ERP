@@ -48,7 +48,7 @@ describe("SelectCustomerForm", () => {
     expect(button).toBeInTheDocument();
   });
 
-  it("calls onSubmit when button is clicked", async () => {
+  it("calls onSubmit when: option selected, then button is clicked", async () => {
     const mockOnSubmit = vi.fn();
     render(<SelectCustomerForm buttonText="Submit" onSubmit={mockOnSubmit} />);
 
