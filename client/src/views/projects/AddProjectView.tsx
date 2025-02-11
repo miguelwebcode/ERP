@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import ProjectForm from "../../components/projects/ProjectForm";
+import ProjectForm from "../../components/projects/ProjectForm/ProjectForm";
 import { handleCreateProject } from "../../services/projects";
 import { useAppStore } from "../../stores/app-store";
 

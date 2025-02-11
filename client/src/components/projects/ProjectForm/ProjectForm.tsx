@@ -1,13 +1,13 @@
 import { FormikHelpers, FormikProps } from "formik";
-import SharedForm from "../formik/SharedForm";
-import { projectFormValidationSchema } from "../../schemas";
-import { CustomInput } from "../formik/CustomInput/CustomInput";
-import { CustomSelect } from "../formik/CustomSelect/CustomSelect";
-import { projectStates } from "../../data";
-import { ProjectFormValues } from "../../types/form-values-types";
+import SharedForm from "../../formik/SharedForm";
+import { projectFormValidationSchema } from "../../../schemas";
+import { CustomInput } from "../../formik/CustomInput/CustomInput";
+import { CustomSelect } from "../../formik/CustomSelect/CustomSelect";
+import { projectStates } from "../../../data";
+import { ProjectFormValues } from "../../../types/form-values-types";
 import { useEffect, useMemo, useRef } from "react";
-import { setProjectFormValues } from "../../services/projects";
-import { useAppStore } from "../../stores/app-store";
+import { setProjectFormValues } from "../../../services/projects";
+import { useAppStore } from "../../../stores/app-store";
 
 type ProjectFormProps = {
   titleText: string;
