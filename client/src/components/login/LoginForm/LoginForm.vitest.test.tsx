@@ -6,6 +6,8 @@ import { describe, it, expect, vi, Mock } from "vitest";
 import LoginForm from "./LoginForm";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../../services/auth/auth";
+import * as authModule from "../../../services/auth/auth";
+import { User } from "firebase/auth";
 
 describe("LoginForm", () => {
   //   beforeEach(() => {
@@ -55,9 +57,11 @@ describe("LoginForm", () => {
     });
   });
   it("Empty credentials, Login button enabled, doesn't call handleSubmit", async () => {
-    vi.mock("../../services/auth/auth", () => ({
-      login: vi.fn(),
-    }));
+    // vi.mock("../../services/auth/auth", () => ({
+    //   login: vi.fn(),
+    // }));
+
+    vi.spyOn(authModule, "login");
 
     const mockNavigate = vi.fn();
     (useNavigate as Mock).mockReturnValue(mockNavigate);
