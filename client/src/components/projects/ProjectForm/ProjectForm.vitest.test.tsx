@@ -105,9 +105,10 @@ describe("ProjectForm", () => {
   });
 
   it("fields and button are disabled when arg canBeDisabled equals true", () => {
-    vi.mock("../../stores/app-store", () => ({
-      useAppStore: () => "",
+    vi.mock("../../../stores/app-store", () => ({
+      useAppStore: vi.fn(() => ""),
     }));
+
     render(
       <ProjectForm
         titleText="Title"
