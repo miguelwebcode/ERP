@@ -93,4 +93,56 @@ describe("CustomerForm", () => {
       expect(mockOnSubmit).not.toHaveBeenCalled();
     });
   });
+  it("fields and button are disabled when arg canBeDisabled equals true", () => {
+    vi.mock("../../../stores/app-store", () => ({
+      useAppStore: () => "",
+    }));
+    render(
+      <CustomerForm
+        titleText="Title"
+        submitButtonText="Button text"
+        onSubmit={vi.fn()}
+        canBeDisabled={true}
+      />
+    );
+    const inputAddress = screen.getByLabelText("Address") as HTMLInputElement;
+    expect(inputAddress.disabled).toBe(true);
+    const inputCompany = screen.getByLabelText("Company") as HTMLInputElement;
+    expect(inputCompany.disabled).toBe(true);
+    const inputEmail = screen.getByLabelText("Email") as HTMLInputElement;
+    expect(inputEmail.disabled).toBe(true);
+    const inputName = screen.getByLabelText("Name") as HTMLInputElement;
+    expect(inputName.disabled).toBe(true);
+    const inputPhone = screen.getByLabelText("Phone") as HTMLInputElement;
+    expect(inputPhone.disabled).toBe(true);
+    const inputProject = screen.getByLabelText("Project") as HTMLInputElement;
+    expect(inputProject.disabled).toBe(true);
+    const button = screen.getByText("Button text") as HTMLButtonElement;
+    expect(button).toBeInTheDocument();
+    expect(button.disabled).toBe(true);
+  });
+  it("doesn't call onSubmit when button is disabled and button is clicked", async () => {
+    vi.mock("../../../stores/app-store", () => ({
+      useAppStore: () => "",
+    }));
+    const mockOnSubmit = vi.fn();
+    render(
+      <CustomerForm
+        titleText="Title"
+        submitButtonText="Button text"
+        onSubmit={mockOnSubmit}
+        canBeDisabled={true}
+      />
+    );
+
+    const button = screen.getByText("Button text") as HTMLButtonElement;
+    expect(button).toBeInTheDocument();
+    expect(button.disabled).toBe(true);
+
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      expect(mockOnSubmit).not.toHaveBeenCalled();
+    });
+  });
 });
