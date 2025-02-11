@@ -4,12 +4,6 @@ import CustomerForm from "./CustomerForm";
 
 describe("CustomerForm", () => {
   it("shows correct texts title, button text, labels. shows empty fields", () => {
-    vi.mock("react", () => ({
-      useEffect: vi.fn(),
-      useRef: vi.fn(),
-      useMemo: vi.fn(),
-    }));
-
     render(
       <CustomerForm
         titleText="Title"
