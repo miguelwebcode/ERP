@@ -1,5 +1,5 @@
 import { FormikHelpers } from "formik";
-import CustomerForm from "../../components/customers/CustomerForm";
+import CustomerForm from "../../components/customers/CustomerForm/CustomerForm";
 import { handleEditCustomer } from "../../services/customers/customers";
 import { useAppStore } from "../../stores/app-store";
 import {

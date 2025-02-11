@@ -1,11 +1,11 @@
-import SharedForm from "../formik/SharedForm";
-import { customerFormValidationSchema } from "../../schemas";
-import { CustomInput } from "../formik/CustomInput/CustomInput";
+import SharedForm from "../../formik/SharedForm";
+import { customerFormValidationSchema } from "../../../schemas";
+import { CustomInput } from "../../formik/CustomInput/CustomInput";
 import { FormikHelpers, FormikProps } from "formik";
-import { CustomerFormValues } from "../../types/form-values-types";
+import { CustomerFormValues } from "../../../types/form-values-types";
 import { useRef, useEffect, useMemo } from "react";
-import { setCustomerFormValues } from "../../services/customers/customers";
-import { useAppStore } from "../../stores/app-store";
+import { setCustomerFormValues } from "../../../services/customers/customers";
+import { useAppStore } from "../../../stores/app-store";
 
 type CustomerFormProps = {
   titleText: string;

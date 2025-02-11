@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import CustomerForm from "../../components/customers/CustomerForm";
+import CustomerForm from "../../components/customers/CustomerForm/CustomerForm";
 import { handleCreateCustomer } from "../../services/customers/customers";
 import { useAppStore } from "../../stores/app-store";
 
