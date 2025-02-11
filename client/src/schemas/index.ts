@@ -9,13 +9,13 @@ export const registerFormValidationSchema = yup.object({
   password: yup
     .string()
     .min(6, "Password must be at least 6 characters long")
-    .required("Required"),
+    .required("Password required"),
   // We give it a default value if it doesn't find it or its not defined
   confirmPassword: yup
     .string()
     .oneOf([yup.ref("password")], "Password must match")
     .default(null)
-    .required("Required"),
+    .required("Confirm password required"),
 });
 
 export const loginFormValidationSchema = yup.object({
