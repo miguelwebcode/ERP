@@ -289,6 +289,9 @@ describe("SharedForm", () => {
       );
     });
     it("shows correct initialValues", () => {
+      const title = screen.getByText("Title");
+      expect(title).toBeInTheDocument();
+
       const inputName = screen.getByLabelText("Name") as HTMLInputElement;
       expect(inputName.type).toBe("text");
       expect(inputName.value).toBe(initialValues.name);
