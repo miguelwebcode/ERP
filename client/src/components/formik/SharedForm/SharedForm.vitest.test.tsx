@@ -185,4 +185,8 @@ describe("SharedForm", () => {
       });
     });
   });
+  describe("SharedForm wrapping ProjectFormValues", () => {
+    it("shows correct initialValues", () => {});
+    it("calls onSubmit when form filled out and button is clicked", () => {});
+  });
 });
