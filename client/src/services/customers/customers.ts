@@ -13,6 +13,7 @@ import { v4 as uuidv4 } from "uuid";
 import { FormikHelpers, FormikProps } from "formik";
 import { CustomerFormValues } from "../../types/form-values-types";
 import { formatDate } from "..";
+import { Customer } from "../../types";
 
 export const getAllCustomers = async () => {
   const user = auth.currentUser; // Obtén al usuario autenticado
@@ -175,15 +176,17 @@ export const setCustomerFormValues = async (
   formik: FormikProps<CustomerFormValues>,
   selectedCustomerId: string
 ) => {
-  const selectedCustomer = await getCustomerById(selectedCustomerId);
+  const selectedCustomer = (await getCustomerById(
+    selectedCustomerId
+  )) as Customer;
   if (selectedCustomer) {
     const newValues: CustomerFormValues = {
-      address: selectedCustomer["address"],
-      company: selectedCustomer["company"],
-      email: selectedCustomer["email"],
-      name: selectedCustomer["name"],
-      phone: selectedCustomer["phone"],
-      project: selectedCustomer["project"],
+      address: selectedCustomer.address,
+      company: selectedCustomer.company,
+      email: selectedCustomer.email,
+      name: selectedCustomer.name,
+      phone: selectedCustomer.phone,
+      project: selectedCustomer.project,
     };
     formik.setValues(newValues);
   }
