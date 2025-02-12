@@ -15,9 +15,9 @@ export const ReadProjectsView = () => {
   }, []);
   return (
     <div className="flex justify-center flex-wrap gap-6">
-      {projects.map((project) => {
+      {projects.map((project, i) => {
         return (
-          <SharedCard>
+          <SharedCard key={i}>
             <ProjectCard project={project} />
           </SharedCard>
         );
