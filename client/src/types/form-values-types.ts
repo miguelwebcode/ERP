@@ -23,8 +23,8 @@ export type CustomerFormValues = {
 export type ProjectFormValues = {
   customerId: string;
   description: string;
-  startDate: Date | "";
-  endDate: Date | "";
+  startDate: Date | string;
+  endDate: Date | string;
   name: string;
   state: string;
   developer: string;
