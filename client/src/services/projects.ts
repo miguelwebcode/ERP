@@ -14,6 +14,7 @@ import { v4 as uuidv4 } from "uuid";
 import { FormikHelpers, FormikProps } from "formik";
 import { ProjectFormValues } from "../types/form-values-types";
 import { formatDate } from ".";
+import { Project } from "../types";
 
 export const getAllProjects = async () => {
   const user = auth.currentUser; // Obtén al usuario autenticado
@@ -170,16 +171,16 @@ export const setProjectFormValues = async (
   formik: FormikProps<ProjectFormValues>,
   selectedProjectId: string
 ) => {
-  const selectedProject = await getProjectById(selectedProjectId);
+  const selectedProject = (await getProjectById(selectedProjectId)) as Project;
   if (selectedProject) {
     const newValues: ProjectFormValues = {
-      customerId: selectedProject["customerId"],
-      description: selectedProject["description"],
-      startDate: selectedProject["startDate"],
-      endDate: selectedProject["endDate"],
-      name: selectedProject["name"],
-      state: selectedProject["state"],
-      developer: selectedProject["developer"],
+      customerId: selectedProject.customerId,
+      description: selectedProject.description,
+      startDate: selectedProject.startDate,
+      endDate: selectedProject.endDate,
+      name: selectedProject.name,
+      state: selectedProject.state,
+      developer: selectedProject.developer,
     };
     formik.setValues(newValues);
   }
