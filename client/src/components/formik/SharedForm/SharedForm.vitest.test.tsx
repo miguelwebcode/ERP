@@ -17,8 +17,8 @@ describe("SharedForm", () => {
     };
 
     const mockOnSubmit = vi.fn();
+    const fieldDisabled = false;
     beforeEach(() => {
-      const fieldDisabled = false;
       render(
         <SharedForm<CustomerFormValues>
           initialValues={initialValues}
