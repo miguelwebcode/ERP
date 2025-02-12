@@ -1,6 +1,3 @@
-// vi.mock("react", () => ({
-//     useRef: vi.fn()
-// }))
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, Mock } from "vitest";
 import SharedForm from "./SharedForm";
