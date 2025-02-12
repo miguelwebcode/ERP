@@ -119,7 +119,7 @@ describe("SharedForm", () => {
       expect(button).toBeInTheDocument();
     });
 
-    it("calls onSubmit", async () => {
+    it("calls onSubmit when form filled out and button is clicked", async () => {
       const button = screen.getByText("Button text");
       expect(button).toBeInTheDocument();
 
@@ -169,7 +169,7 @@ describe("SharedForm", () => {
       expect(selectCustomerId).toBeInTheDocument();
       expect(selectCustomerId.value).toBe("1");
     });
-    it("calls onSubmit when: option selected, then button is clicked", async () => {
+    it("calls onSubmit when: option selected and button is clicked", async () => {
       const selectCustomerId = screen.getByLabelText(
         "Customer ID"
       ) as HTMLSelectElement;
