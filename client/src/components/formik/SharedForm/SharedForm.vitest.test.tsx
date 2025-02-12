@@ -396,7 +396,7 @@ describe("SharedForm", () => {
       });
     });
   });
-  describe("SharedForm wrapping LoginForm", () => {
+  describe("SharedForm wrapping LoginFormValues", () => {
     vi.mock("react-router-dom", () => ({
       useNavigate: vi.fn(),
     }));
