@@ -9,10 +9,6 @@ import { login } from "../../../services/auth/auth";
 import * as authModule from "../../../services/auth/auth";
 
 describe("LoginForm", () => {
-  //   beforeEach(() => {
-  //     vi.clearAllMocks();
-  //   });
-
   it("shows correct title, labels, button texts, inputs empty", () => {
     const mockNavigate = vi.fn();
     (useNavigate as Mock).mockReturnValue(mockNavigate);
