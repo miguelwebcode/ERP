@@ -36,7 +36,7 @@ export const EditProjectView = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row justify-center px-5">
+    <div className="flex flex-col gap-2 lg:flex-row justify-center px-5">
       {isRenderDone && (
         <>
           <SelectProjectForm
