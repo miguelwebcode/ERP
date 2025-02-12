@@ -7,7 +7,6 @@ import LoginForm from "./LoginForm";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../../services/auth/auth";
 import * as authModule from "../../../services/auth/auth";
-import { User } from "firebase/auth";
 
 describe("LoginForm", () => {
   //   beforeEach(() => {
