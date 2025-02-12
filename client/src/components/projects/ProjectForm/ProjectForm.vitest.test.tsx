@@ -1,7 +1,6 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import { describe, it, expect, vi, Mock } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import ProjectForm from "./ProjectForm";
-import { useAppStore } from "../../../stores/app-store";
 
 describe("ProjectForm", () => {
   it("shows correct texts: title, button text, labels. shows empty fields", () => {
