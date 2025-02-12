@@ -5,23 +5,23 @@ import { CustomerFormValues } from "../../../types/form-values-types";
 import { customerFormValidationSchema } from "../../../schemas";
 import { CustomInput } from "../CustomInput/CustomInput";
 
-const initialValuesCustomerForm: CustomerFormValues = {
-  address: "address",
-  company: "company",
-  email: "email@em.com",
-  name: "name",
-  phone: "123456789",
-  project: "project",
-};
-
-const mockOnSubmit = vi.fn();
 describe("SharedForm", () => {
   describe("SharedForm wrapping CustomerFormValues", () => {
+    const initialValues: CustomerFormValues = {
+      address: "address",
+      company: "company",
+      email: "email@em.com",
+      name: "name",
+      phone: "123456789",
+      project: "project",
+    };
+
+    const mockOnSubmit = vi.fn();
     beforeEach(() => {
       const fieldDisabled = false;
       render(
         <SharedForm<CustomerFormValues>
-          initialValues={initialValuesCustomerForm}
+          initialValues={initialValues}
           validationSchema={customerFormValidationSchema}
           onSubmit={mockOnSubmit}
         >
@@ -91,22 +91,22 @@ describe("SharedForm", () => {
       expect(title).toBeInTheDocument();
 
       const inputAddress = screen.getByLabelText("Address") as HTMLInputElement;
-      expect(inputAddress.value).toBe(initialValuesCustomerForm.address);
+      expect(inputAddress.value).toBe(initialValues.address);
 
       const inputCompany = screen.getByLabelText("Company") as HTMLInputElement;
-      expect(inputCompany.value).toBe(initialValuesCustomerForm.company);
+      expect(inputCompany.value).toBe(initialValues.company);
 
       const inputEmail = screen.getByLabelText("Email") as HTMLInputElement;
-      expect(inputEmail.value).toBe(initialValuesCustomerForm.email);
+      expect(inputEmail.value).toBe(initialValues.email);
 
       const inputName = screen.getByLabelText("Name") as HTMLInputElement;
-      expect(inputName.value).toBe(initialValuesCustomerForm.name);
+      expect(inputName.value).toBe(initialValues.name);
 
       const inputPhone = screen.getByLabelText("Phone") as HTMLInputElement;
-      expect(inputPhone.value).toBe(initialValuesCustomerForm.phone);
+      expect(inputPhone.value).toBe(initialValues.phone);
 
       const inputProject = screen.getByLabelText("Project") as HTMLInputElement;
-      expect(inputProject.value).toBe(initialValuesCustomerForm.project);
+      expect(inputProject.value).toBe(initialValues.project);
 
       const button = screen.getByText("Button text");
       expect(button).toBeInTheDocument();
