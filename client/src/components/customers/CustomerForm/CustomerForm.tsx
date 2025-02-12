@@ -1,4 +1,4 @@
-import SharedForm from "../../formik/SharedForm";
+import SharedForm from "../../formik/SharedForm/SharedForm";
 import { customerFormValidationSchema } from "../../../schemas";
 import { CustomInput } from "../../formik/CustomInput/CustomInput";
 import { FormikHelpers, FormikProps } from "formik";

@@ -2,7 +2,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../firebaseConfig";
 import { saveUserData } from "../../../services/users";
 import { useNavigate } from "react-router-dom";
-import SharedForm from "../../formik/SharedForm";
+import SharedForm from "../../formik/SharedForm/SharedForm";
 import { CustomInput } from "../../formik/CustomInput/CustomInput";
 import { registerFormValidationSchema } from "../../../schemas";
 import { CustomSelect } from "../../formik/CustomSelect/CustomSelect";

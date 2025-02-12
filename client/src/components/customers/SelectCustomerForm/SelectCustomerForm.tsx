@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { FormikHelpers } from "formik";
 import { selectCustomerFormValidationSchema } from "../../../schemas";
 import { CustomSelect } from "../../formik/CustomSelect/CustomSelect";
-import SharedForm from "../../formik/SharedForm";
+import SharedForm from "../../formik/SharedForm/SharedForm";
 import { fetchCustomerIds } from "../../../services/customers/customers";
 import { SelectCustomerFormValues } from "../../../types/form-values-types";
 import { useAppStore } from "../../../stores/app-store";

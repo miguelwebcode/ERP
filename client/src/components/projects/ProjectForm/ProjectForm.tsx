@@ -1,5 +1,5 @@
 import { FormikHelpers, FormikProps } from "formik";
-import SharedForm from "../../formik/SharedForm";
+import SharedForm from "../../formik/SharedForm/SharedForm";
 import { projectFormValidationSchema } from "../../../schemas";
 import { CustomInput } from "../../formik/CustomInput/CustomInput";
 import { CustomSelect } from "../../formik/CustomSelect/CustomSelect";

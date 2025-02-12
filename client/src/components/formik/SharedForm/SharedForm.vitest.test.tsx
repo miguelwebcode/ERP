@@ -4,9 +4,9 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, Mock } from "vitest";
 import SharedForm from "./SharedForm";
-import { CustomerFormValues } from "../../types/form-values-types";
-import { customerFormValidationSchema } from "../../schemas";
-import { CustomInput } from "./CustomInput/CustomInput";
+import { CustomerFormValues } from "../../../types/form-values-types";
+import { customerFormValidationSchema } from "../../../schemas";
+import { CustomInput } from "../CustomInput/CustomInput";
 
 const initialValuesCustomerForm: CustomerFormValues = {
   address: "address",
