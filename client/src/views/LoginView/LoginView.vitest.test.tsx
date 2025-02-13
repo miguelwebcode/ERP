@@ -1,8 +1,8 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, Mock } from "vitest";
 import { LoginView } from "./LoginView";
-import * as authModule from "../services/auth/auth";
-import { useAppStore } from "../stores/app-store";
+import * as authModule from "../../services/auth/auth";
+import { useAppStore } from "../../stores/app-store";
 
 const mockedNavigate = vi.fn();
 vi.mock("react-router-dom", () => ({

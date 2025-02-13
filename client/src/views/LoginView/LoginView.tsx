@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import LoginForm from "../components/login/LoginForm/LoginForm";
-import { watchAuthState } from "../services/auth/auth";
-import { useAppStore } from "../stores/app-store";
+import LoginForm from "../../components/login/LoginForm/LoginForm";
+import { watchAuthState } from "../../services/auth/auth";
+import { useAppStore } from "../../stores/app-store";
 
 export const LoginView = () => {
   const navigate = useNavigate();
