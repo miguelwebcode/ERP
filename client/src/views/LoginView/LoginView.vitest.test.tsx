@@ -2,22 +2,18 @@ import { render, screen, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, Mock } from "vitest";
 import { LoginView } from "./LoginView";
 import * as authModule from "../../services/auth/auth";
-import { useAppStore } from "../../stores/app-store";
+import * as appStore from "../../stores/app-store";
 
 const mockedNavigate = vi.fn();
 vi.mock("react-router-dom", () => ({
   useNavigate: () => mockedNavigate,
 }));
 
-// Top-level mock for useAppStore to avoid hoisting errors.
-vi.mock("../stores/app-store", () => ({
-  useAppStore: vi.fn(),
-}));
-
 describe("LoginView", () => {
   beforeEach(() => {
     mockedNavigate.mockReset();
     vi.spyOn(authModule, "watchAuthState").mockImplementation(() => {});
+    vi.spyOn(appStore, "useAppStore").mockImplementation(() => {});
   });
 
   afterEach(() => {
@@ -53,7 +49,7 @@ describe("LoginView", () => {
   it("calls watchAuthState and renders LoginForm when user is null", () => {
     const fakeStore = { user: null, setUser: vi.fn() };
 
-    (useAppStore as unknown as Mock).mockImplementation((selector) =>
+    (appStore.useAppStore as unknown as Mock).mockImplementation((selector) =>
       selector(fakeStore)
     );
 
@@ -67,7 +63,7 @@ describe("LoginView", () => {
 
   it("navigates to '/' when user is not null", async () => {
     const fakeStore = { user: { id: "123", name: "Test" }, setUser: vi.fn() };
-    (useAppStore as unknown as Mock).mockImplementation((selector) =>
+    (appStore.useAppStore as unknown as Mock).mockImplementation((selector) =>
       selector(fakeStore)
     );
 
@@ -80,7 +76,7 @@ describe("LoginView", () => {
 
   it("calls watchAuthState only once per render", () => {
     const fakeStore = { user: null, setUser: vi.fn() };
-    (useAppStore as unknown as Mock).mockImplementation((selector) =>
+    (appStore.useAppStore as unknown as Mock).mockImplementation((selector) =>
       selector(fakeStore)
     );
     render(<LoginView />);
