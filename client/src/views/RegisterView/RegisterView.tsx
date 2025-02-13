@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import RegisterForm from "../components/register/RegisterForm/RegisterForm";
-import { watchAuthState } from "../services/auth/auth";
-import { useAppStore } from "../stores/app-store";
+import RegisterForm from "../../components/register/RegisterForm/RegisterForm";
+import { watchAuthState } from "../../services/auth/auth";
+import { useAppStore } from "../../stores/app-store";
 
 export const RegisterView = () => {
   const navigate = useNavigate();

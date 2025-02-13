@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./layouts/Layout";
 import { LoginView } from "./views/LoginView/LoginView";
-import { RegisterView } from "./views/RegisterView";
+import { RegisterView } from "./views/RegisterView/RegisterView";
 import { HomeView } from "./views/HomeView";
 import { CustomersView } from "./views/customers/CustomersView";
 import { ProjectsView } from "./views/projects/ProjectsView";
