@@ -8,9 +8,9 @@ import { render, screen, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, Mock, beforeEach } from "vitest";
 import { AddCustomerView } from "./AddCustomerView";
 import { useState, useRef } from "react";
-import * as appStore from "../../stores/app-store";
+import * as appStore from "../../../stores/app-store";
 import { FormikProps } from "formik";
-import { CustomerFormValues } from "../../types/form-values-types";
+import { CustomerFormValues } from "../../../types/form-values-types";
 
 describe("AddCustomerView", () => {
   beforeEach(() => {

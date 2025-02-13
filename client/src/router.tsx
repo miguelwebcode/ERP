@@ -5,7 +5,7 @@ import { RegisterView } from "./views/RegisterView/RegisterView";
 import { HomeView } from "./views/HomeView/HomeView";
 import { CustomersView } from "./views/customers/CustomersView";
 import { ProjectsView } from "./views/projects/ProjectsView";
-import { AddCustomerView } from "./views/customers/AddCustomerView";
+import { AddCustomerView } from "./views/customers/AddCustomerView/AddCustomerView";
 import { EditCustomerView } from "./views/customers/EditCustomerView";
 import { AddProjectView } from "./views/projects/AddProjectView";
 import { EditProjectView } from "./views/projects/EditProjectView";
