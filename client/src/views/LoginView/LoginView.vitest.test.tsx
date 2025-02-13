@@ -11,13 +11,9 @@ vi.mock("react-router-dom", () => ({
 
 describe("LoginView", () => {
   beforeEach(() => {
-    mockedNavigate.mockReset();
-    vi.spyOn(authModule, "watchAuthState").mockImplementation(() => {});
-    vi.spyOn(appStore, "useAppStore").mockImplementation(() => {});
-  });
-
-  afterEach(() => {
-    vi.restoreAllMocks();
+    vi.resetAllMocks();
+    vi.spyOn(authModule, "watchAuthState");
+    vi.spyOn(appStore, "useAppStore");
   });
 
   it("renders LoginForm", () => {
