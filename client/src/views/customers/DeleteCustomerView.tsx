@@ -2,7 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import SelectCustomerForm from "../../components/customers/SelectCustomerForm/SelectCustomerForm";
 import { useAppStore } from "../../stores/app-store";
 import { Customer } from "../../types";
-import { deleteCustomerById, getCustomerById } from "../../services/customers/customers";
+import {
+  deleteCustomerById,
+  fetchCustomer,
+  getCustomerById,
+} from "../../services/customers/customers";
 import { SharedButton } from "../../components/ui/SharedButton/SharedButton";
 import { CustomerCard } from "../../components/customers/CustomerCard/CustomerCard";
 import { SharedCard } from "../../components/ui/SharedCard/SharedCard";
@@ -19,11 +23,6 @@ export const DeleteCustomerView = () => {
     (state) => state.setSelectedCustomerId
   );
 
-  const fetchCustomer = async () => {
-    const result = await getCustomerById(selectedCustomerId);
-    setSelectedCustomer(result as Customer);
-  };
-
   const isFirstRender = useRef(true);
 
   useEffect(() => {
@@ -32,7 +31,7 @@ export const DeleteCustomerView = () => {
       isFirstRender.current = false;
     }
     if (selectedCustomerId) {
-      fetchCustomer();
+      fetchCustomer(selectedCustomerId, setSelectedCustomer);
     }
   }, [selectedCustomerId]);
 

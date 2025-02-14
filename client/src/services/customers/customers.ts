@@ -191,3 +191,11 @@ export const setCustomerFormValues = async (
     formik.setValues(newValues);
   }
 };
+
+export const fetchCustomer = async (
+  selectedCustomerId: string,
+  callback: (value: React.SetStateAction<Customer>) => void
+) => {
+  const result = await getCustomerById(selectedCustomerId);
+  callback(result as Customer);
+};
