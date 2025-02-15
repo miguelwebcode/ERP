@@ -125,6 +125,7 @@ describe("DeleteCustomerView", () => {
       expect(buttonDeleteCustomer).toBeInTheDocument();
     });
   });
+
   it("shows correct texts", async () => {
     const mockSelectedCustomer = {};
     const mockSetSelectedCustomer = vi.fn();
@@ -150,6 +151,7 @@ describe("DeleteCustomerView", () => {
     render(<DeleteCustomerView />);
 
     await waitFor(() => {
+      // SelectCustomerForm texts
       const titleSelectCustomer = screen.getByRole("heading", {
         name: /select customer/i,
       });
@@ -164,6 +166,20 @@ describe("DeleteCustomerView", () => {
         name: /fetch customer/i,
       });
       expect(buttonSelectCustomer).toBeInTheDocument();
+
+      //CustomerCard with delete button
+      const fieldName = screen.getByText("Name");
+      expect(fieldName).toBeInTheDocument();
+      const fieldPhone = screen.getByText("Phone");
+      expect(fieldPhone).toBeInTheDocument();
+      const fieldAddress = screen.getByText("Address");
+      expect(fieldAddress).toBeInTheDocument();
+      const fieldCompany = screen.getByText("Company");
+      expect(fieldCompany).toBeInTheDocument();
+      const fieldProject = screen.getByText("Project");
+      expect(fieldProject).toBeInTheDocument();
+      const fieldCreatedAt = screen.getByText("Created at");
+      expect(fieldCreatedAt).toBeInTheDocument();
 
       const buttonDeleteCustomer = screen.getByRole("button", {
         name: /delete customer/i,
