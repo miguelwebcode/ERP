@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
-import { getAllCustomers } from "../../services/customers/customers";
+import {
+  fetchAllCustomers,
+  getAllCustomers,
+} from "../../services/customers/customers";
 import { Customer } from "../../types";
 import { CustomerCard } from "../../components/customers/CustomerCard/CustomerCard";
 import { SharedCard } from "../../components/ui/SharedCard/SharedCard";
@@ -7,11 +10,7 @@ import { SharedCard } from "../../components/ui/SharedCard/SharedCard";
 export const ReadCustomersView = () => {
   const [customers, setCustomers] = useState<Customer[]>([]);
   useEffect(() => {
-    const fetchAllCustomers = async () => {
-      const result = await getAllCustomers();
-      setCustomers(result as Customer[]);
-    };
-    fetchAllCustomers();
+    fetchAllCustomers(setCustomers);
   }, []);
   return (
     <div className="flex justify-center flex-wrap gap-6">

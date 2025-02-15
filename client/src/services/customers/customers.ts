@@ -199,3 +199,10 @@ export const fetchCustomer = async (
   const result = await getCustomerById(selectedCustomerId);
   callback(result as Customer);
 };
+
+export const fetchAllCustomers = async (
+  callback: (value: React.SetStateAction<Customer[]>) => void
+) => {
+  const result = await getAllCustomers();
+  callback(result as Customer[]);
+};
