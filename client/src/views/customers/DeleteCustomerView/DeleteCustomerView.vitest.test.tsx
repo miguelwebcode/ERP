@@ -1,8 +1,8 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, Mock } from "vitest";
 import { DeleteCustomerView } from "./DeleteCustomerView";
-import * as appStore from "../../stores/app-store";
-import * as customersModule from "../../services/customers/customers";
+import * as appStore from "../../../stores/app-store";
+import * as customersModule from "../../../services/customers/customers";
 import { useState, useRef } from "react";
 
 vi.mock("react", async () => {

@@ -10,7 +10,7 @@ import { EditCustomerView } from "./views/customers/EditCustomerView";
 import { AddProjectView } from "./views/projects/AddProjectView";
 import { EditProjectView } from "./views/projects/EditProjectView";
 import { ReadCustomersView } from "./views/customers/ReadCustomersView";
-import { DeleteCustomerView } from "./views/customers/DeleteCustomerView";
+import { DeleteCustomerView } from "./views/customers/DeleteCustomerView/DeleteCustomerView";
 import { ReadProjectsView } from "./views/projects/ReadProjectsView";
 import { DeleteProjectView } from "./views/projects/DeleteProjectView";
 
