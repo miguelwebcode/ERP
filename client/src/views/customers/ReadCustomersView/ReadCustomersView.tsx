@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import {
   fetchAllCustomers,
   getAllCustomers,
-} from "../../services/customers/customers";
-import { Customer } from "../../types";
-import { CustomerCard } from "../../components/customers/CustomerCard/CustomerCard";
-import { SharedCard } from "../../components/ui/SharedCard/SharedCard";
+} from "../../../services/customers/customers";
+import { Customer } from "../../../types";
+import { CustomerCard } from "../../../components/customers/CustomerCard/CustomerCard";
+import { SharedCard } from "../../../components/ui/SharedCard/SharedCard";
 
 export const ReadCustomersView = () => {
   const [customers, setCustomers] = useState<Customer[]>([]);

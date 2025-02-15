@@ -1,9 +1,9 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, Mock } from "vitest";
 import { ReadCustomersView } from "./ReadCustomersView";
-import * as customersModule from "../../services/customers/customers";
+import * as customersModule from "../../../services/customers/customers";
 import { useState } from "react";
-import { Customer } from "../../types";
+import { Customer } from "../../../types";
 
 vi.mock("react", async () => {
   const actualReact = await vi.importActual("react");

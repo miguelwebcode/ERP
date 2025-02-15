@@ -9,7 +9,7 @@ import { AddCustomerView } from "./views/customers/AddCustomerView/AddCustomerVi
 import { EditCustomerView } from "./views/customers/EditCustomerView/EditCustomerView";
 import { AddProjectView } from "./views/projects/AddProjectView";
 import { EditProjectView } from "./views/projects/EditProjectView";
-import { ReadCustomersView } from "./views/customers/ReadCustomersView";
+import { ReadCustomersView } from "./views/customers/ReadCustomersView/ReadCustomersView";
 import { DeleteCustomerView } from "./views/customers/DeleteCustomerView/DeleteCustomerView";
 import { ReadProjectsView } from "./views/projects/ReadProjectsView";
 import { DeleteProjectView } from "./views/projects/DeleteProjectView";
