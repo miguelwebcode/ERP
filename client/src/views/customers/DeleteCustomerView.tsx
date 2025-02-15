@@ -5,7 +5,6 @@ import { Customer } from "../../types";
 import {
   deleteCustomerById,
   fetchCustomer,
-  getCustomerById,
 } from "../../services/customers/customers";
 import { SharedButton } from "../../components/ui/SharedButton/SharedButton";
 import { CustomerCard } from "../../components/customers/CustomerCard/CustomerCard";
