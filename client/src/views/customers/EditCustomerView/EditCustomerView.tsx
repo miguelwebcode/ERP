@@ -1,13 +1,13 @@
 import { FormikHelpers } from "formik";
-import CustomerForm from "../../components/customers/CustomerForm/CustomerForm";
-import { handleEditCustomer } from "../../services/customers/customers";
-import { useAppStore } from "../../stores/app-store";
+import CustomerForm from "../../../components/customers/CustomerForm/CustomerForm";
+import { handleEditCustomer } from "../../../services/customers/customers";
+import { useAppStore } from "../../../stores/app-store";
 import {
   CustomerFormValues,
   SelectCustomerFormValues,
-} from "../../types/form-values-types";
+} from "../../../types/form-values-types";
 import { useState, useEffect } from "react";
-import SelectCustomerForm from "../../components/customers/SelectCustomerForm/SelectCustomerForm";
+import SelectCustomerForm from "../../../components/customers/SelectCustomerForm/SelectCustomerForm";
 
 export const EditCustomerView = () => {
   const [isRenderDone, setIsRenderDone] = useState(false);

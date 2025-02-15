@@ -6,7 +6,7 @@ import { HomeView } from "./views/HomeView/HomeView";
 import { CustomersView } from "./views/customers/CustomersView/CustomersView";
 import { ProjectsView } from "./views/projects/ProjectsView";
 import { AddCustomerView } from "./views/customers/AddCustomerView/AddCustomerView";
-import { EditCustomerView } from "./views/customers/EditCustomerView";
+import { EditCustomerView } from "./views/customers/EditCustomerView/EditCustomerView";
 import { AddProjectView } from "./views/projects/AddProjectView";
 import { EditProjectView } from "./views/projects/EditProjectView";
 import { ReadCustomersView } from "./views/customers/ReadCustomersView";
