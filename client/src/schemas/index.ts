@@ -32,7 +32,11 @@ export const customerFormValidationSchema = yup.object({
     .required("Email is required")
     .default(""),
   name: yup.string().required("Name is required").default(""),
-  phone: yup.string().required("Phone is required").default(""),
+  phone: yup
+    .string()
+    .required("Phone is required")
+    .matches(/^\d{9}$/, "Phone must contain 9 digits")
+    .default(""),
   project: yup.string().required("Project is required").default(""),
 });
 
