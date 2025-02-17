@@ -19,7 +19,6 @@ import {
 } from "../../../schemas";
 import { CustomInput } from "../CustomInput/CustomInput";
 import { CustomSelect } from "../CustomSelect/CustomSelect";
-import LoginForm from "../../login/LoginForm/LoginForm";
 
 describe("SharedForm", () => {
   describe("SharedForm wrapping CustomerFormValue, Happy paths", () => {
