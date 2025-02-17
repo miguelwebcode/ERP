@@ -193,3 +193,10 @@ export const fetchProject = async (
   const result = await getProjectById(selectedProjectId);
   setSelectedProject(result as Project);
 };
+
+export const fetchAllProjects = async (
+  setProjects: React.Dispatch<React.SetStateAction<Project[]>>
+) => {
+  const result = await getAllProjects();
+  setProjects(result as Project[]);
+};
