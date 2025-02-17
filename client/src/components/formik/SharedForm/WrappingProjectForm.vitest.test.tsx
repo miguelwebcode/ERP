@@ -262,7 +262,7 @@ describe("SharedForm wrapping ProjectFormValues, validate error messages", () =>
       </SharedForm>
     );
   });
-  it("shows correct error messages", async () => {
+  it("shows required error messages", async () => {
     const buttonSubmit = screen.getByRole("button", { name: "Submit" });
     fireEvent.click(buttonSubmit);
 
