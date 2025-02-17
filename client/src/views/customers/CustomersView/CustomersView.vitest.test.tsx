@@ -33,7 +33,7 @@ describe("CustomersView", () => {
     });
     expect(buttonDeleteCustomer).toBeInTheDocument();
   });
-  it("buttons call their f unction", async () => {
+  it("buttons call their function", async () => {
     const buttonCreateCustomer = screen.getByRole("button", {
       name: /create customer/i,
     });

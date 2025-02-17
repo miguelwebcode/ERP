@@ -4,7 +4,7 @@ import { LoginView } from "./views/LoginView/LoginView";
 import { RegisterView } from "./views/RegisterView/RegisterView";
 import { HomeView } from "./views/HomeView/HomeView";
 import { CustomersView } from "./views/customers/CustomersView/CustomersView";
-import { ProjectsView } from "./views/projects/ProjectsView";
+import { ProjectsView } from "./views/projects/ProjectsView/ProjectsView";
 import { AddCustomerView } from "./views/customers/AddCustomerView/AddCustomerView";
 import { EditCustomerView } from "./views/customers/EditCustomerView/EditCustomerView";
 import { AddProjectView } from "./views/projects/AddProjectView/AddProjectView";
