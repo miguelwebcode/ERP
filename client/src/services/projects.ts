@@ -185,3 +185,11 @@ export const setProjectFormValues = async (
     formik.setValues(newValues);
   }
 };
+
+export const fetchProject = async (
+  selectedProjectId: string,
+  setSelectedProject: (value: React.SetStateAction<Project>) => void
+) => {
+  const result = await getProjectById(selectedProjectId);
+  setSelectedProject(result as Project);
+};

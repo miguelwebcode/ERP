@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import SelectProjectForm from "../../components/projects/SelectProjectForm/SelectProjectForm";
 import { useAppStore } from "../../stores/app-store";
-import { deleteProjectById, getProjectById } from "../../services/projects";
+import { deleteProjectById, fetchProject } from "../../services/projects";
 import { Project } from "../../types";
 import { SharedCard } from "../../components/ui/SharedCard/SharedCard";
 import { ProjectCard } from "../../components/projects/ProjectCard/ProjectCard";
@@ -19,11 +19,6 @@ export const DeleteProjectView = () => {
     (state) => state.setSelectedProjectId
   );
 
-  const fetchProject = async () => {
-    const result = await getProjectById(selectedProjectId);
-    setSelectedProject(result as Project);
-  };
-
   const isFirstRender = useRef(true);
 
   useEffect(() => {
@@ -32,7 +27,7 @@ export const DeleteProjectView = () => {
       isFirstRender.current = false;
     }
     if (selectedProjectId) {
-      fetchProject();
+      fetchProject(selectedProjectId, setSelectedProject);
     }
   }, [selectedProjectId]);
 
