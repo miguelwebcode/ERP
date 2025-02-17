@@ -185,5 +185,8 @@ describe("DeleteCustomerView", () => {
       });
       expect(buttonDeleteCustomer).toBeInTheDocument();
     });
+    /* 
+     TODO: test con datos reales, emulators
+    */
   });
 });
