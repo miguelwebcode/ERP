@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import ProjectForm from "../../components/projects/ProjectForm/ProjectForm";
-import { handleCreateProject } from "../../services/projects";
-import { useAppStore } from "../../stores/app-store";
+import ProjectForm from "../../../components/projects/ProjectForm/ProjectForm";
+import { handleCreateProject } from "../../../services/projects";
+import { useAppStore } from "../../../stores/app-store";
 
 export const AddProjectView = () => {
   const [isRenderDone, setIsRenderDone] = useState(false);
