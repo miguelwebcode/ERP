@@ -18,7 +18,7 @@ describe("AddCustomerView", () => {
     vi.spyOn(appStore, "useAppStore");
   });
 
-  it("sets customer id to empty string and sets isRenderDone to true", async () => {
+  it("sets customer id to empty string and sets isRenderDone to true on first render", async () => {
     let mockIsRenderDone = false;
     const mockSetIsRenderDone = vi.fn();
     (useState as Mock).mockReturnValue([mockIsRenderDone, mockSetIsRenderDone]);
