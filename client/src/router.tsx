@@ -8,7 +8,7 @@ import { ProjectsView } from "./views/projects/ProjectsView";
 import { AddCustomerView } from "./views/customers/AddCustomerView/AddCustomerView";
 import { EditCustomerView } from "./views/customers/EditCustomerView/EditCustomerView";
 import { AddProjectView } from "./views/projects/AddProjectView/AddProjectView";
-import { EditProjectView } from "./views/projects/EditProjectView";
+import { EditProjectView } from "./views/projects/EditProjectView/EditProjectView";
 import { ReadCustomersView } from "./views/customers/ReadCustomersView/ReadCustomersView";
 import { DeleteCustomerView } from "./views/customers/DeleteCustomerView/DeleteCustomerView";
 import { ReadProjectsView } from "./views/projects/ReadProjectsView";
