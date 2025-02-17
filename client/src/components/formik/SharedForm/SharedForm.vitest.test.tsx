@@ -389,7 +389,7 @@ describe("SharedForm", () => {
       });
     });
   });
-  describe("SharedForm wrapping ProjectFormValues", () => {
+  describe("SharedForm wrapping ProjectFormValues, happy paths", () => {
     const initialValues: ProjectFormValues = {
       name: "name",
       description: "description",
