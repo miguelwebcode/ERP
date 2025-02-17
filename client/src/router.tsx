@@ -11,7 +11,7 @@ import { AddProjectView } from "./views/projects/AddProjectView/AddProjectView";
 import { EditProjectView } from "./views/projects/EditProjectView/EditProjectView";
 import { ReadCustomersView } from "./views/customers/ReadCustomersView/ReadCustomersView";
 import { DeleteCustomerView } from "./views/customers/DeleteCustomerView/DeleteCustomerView";
-import { ReadProjectsView } from "./views/projects/ReadProjectsView";
+import { ReadProjectsView } from "./views/projects/ReadProjectsView/ReadProjectsView";
 import { DeleteProjectView } from "./views/projects/DeleteProjectView/DeleteProjectView";
 
 export default function AppRouter() {

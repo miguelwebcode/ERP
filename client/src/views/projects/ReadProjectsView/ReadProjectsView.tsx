@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { Project } from "../../types";
-import { fetchAllProjects, getAllProjects } from "../../services/projects";
-import { ProjectCard } from "../../components/projects/ProjectCard/ProjectCard";
-import { SharedCard } from "../../components/ui/SharedCard/SharedCard";
+import { Project } from "../../../types";
+import { fetchAllProjects, getAllProjects } from "../../../services/projects";
+import { ProjectCard } from "../../../components/projects/ProjectCard/ProjectCard";
+import { SharedCard } from "../../../components/ui/SharedCard/SharedCard";
 
 export const ReadProjectsView = () => {
   const [projects, setProjects] = useState<Project[]>([]);
