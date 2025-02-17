@@ -40,7 +40,7 @@ describe("EditCustomerView", () => {
     });
   });
 
-  it("shows correct texts, select customer is enabled, customer form inputs are disabled", async () => {
+  it("shows correct texts, select customer button is enabled, customer form inputs are disabled", async () => {
     const mockIsRenderDone = true;
     const mockSetIsRenderDone = vi.fn();
     (useState as Mock).mockReturnValue([mockIsRenderDone, mockSetIsRenderDone]);
