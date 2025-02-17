@@ -12,7 +12,7 @@ import { EditProjectView } from "./views/projects/EditProjectView/EditProjectVie
 import { ReadCustomersView } from "./views/customers/ReadCustomersView/ReadCustomersView";
 import { DeleteCustomerView } from "./views/customers/DeleteCustomerView/DeleteCustomerView";
 import { ReadProjectsView } from "./views/projects/ReadProjectsView";
-import { DeleteProjectView } from "./views/projects/DeleteProjectView";
+import { DeleteProjectView } from "./views/projects/DeleteProjectView/DeleteProjectView";
 
 export default function AppRouter() {
   return (

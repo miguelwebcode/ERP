@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import SelectProjectForm from "../../components/projects/SelectProjectForm/SelectProjectForm";
-import { useAppStore } from "../../stores/app-store";
-import { deleteProjectById, fetchProject } from "../../services/projects";
-import { Project } from "../../types";
-import { SharedCard } from "../../components/ui/SharedCard/SharedCard";
-import { ProjectCard } from "../../components/projects/ProjectCard/ProjectCard";
-import { SharedButton } from "../../components/ui/SharedButton/SharedButton";
-import { SelectProjectFormValues } from "../../types/form-values-types";
+import SelectProjectForm from "../../../components/projects/SelectProjectForm/SelectProjectForm";
+import { useAppStore } from "../../../stores/app-store";
+import { deleteProjectById, fetchProject } from "../../../services/projects";
+import { Project } from "../../../types";
+import { SharedCard } from "../../../components/ui/SharedCard/SharedCard";
+import { ProjectCard } from "../../../components/projects/ProjectCard/ProjectCard";
+import { SharedButton } from "../../../components/ui/SharedButton/SharedButton";
+import { SelectProjectFormValues } from "../../../types/form-values-types";
 import { FormikHelpers } from "formik";
 
 export const DeleteProjectView = () => {

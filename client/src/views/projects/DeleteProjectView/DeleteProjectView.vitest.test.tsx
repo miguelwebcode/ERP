@@ -1,8 +1,8 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, Mock } from "vitest";
 import { DeleteProjectView } from "./DeleteProjectView";
-import * as appStore from "../../stores/app-store";
-import * as projectsModule from "../../services/projects";
+import * as appStore from "../../../stores/app-store";
+import * as projectsModule from "../../../services/projects";
 import { useState, useRef } from "react";
 
 vi.mock("react", async () => {
