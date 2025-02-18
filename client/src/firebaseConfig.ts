@@ -25,9 +25,9 @@ const auth = getAuth(app);
  TODO: Ask Guillem about this
 */
 
-// if (import.meta.env.VITE_MODE === "development") {
-//   connectFirestoreEmulator(db, "localhost", 8080);
-//   connectAuthEmulator(auth, "http://localhost:9099");
-// }
+if (import.meta.env.VITE_MODE === "test") {
+  connectFirestoreEmulator(db, "localhost", 8080);
+  connectAuthEmulator(auth, "http://localhost:9099");
+}
 
 export { db, auth };
