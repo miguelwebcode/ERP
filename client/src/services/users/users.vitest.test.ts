@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import { collection, deleteDoc, getDocs } from "firebase/firestore";
 import { getUsers, saveUserData } from "./users";
-import { db } from "../firebaseConfig";
+import { db } from "../../firebaseConfig";
 
 // Configuración de Firebase para los tests
 

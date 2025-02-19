@@ -1,5 +1,5 @@
 import { setDoc, doc, collection, getDocs } from "firebase/firestore";
-import { db } from "../firebaseConfig";
+import { db } from "../../firebaseConfig";
 
 // Guardar datos adicionales del usuario en Firestore
 export const saveUserData = async (uid: string, data: any) => {
