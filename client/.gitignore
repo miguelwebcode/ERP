@@ -1,6 +1,8 @@
 # Firestore Backup
 firestore-backup/
 
+users.json
+
 # Logs
 logs
 *.log
