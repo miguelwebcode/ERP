@@ -64,11 +64,11 @@ export const getCustomerById = async (customerId: string) => {
 };
 
 export const getAllCustomerIds = async () => {
-  // const user = auth.currentUser; // Obtén al usuario autenticado
-  // if (!user) {
-  //   console.error("User not authenticated. Cannot read from Firestore.");
-  //   return;
-  // }
+  const user = auth.currentUser; // Obtén al usuario autenticado
+  if (!user) {
+    console.error("User not authenticated. Cannot read from Firestore.");
+    return;
+  }
 
   const customersCollection = collection(db, "customers");
   try {
