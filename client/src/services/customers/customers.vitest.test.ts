@@ -1,5 +1,9 @@
 import { describe, it, expect, vi, beforeEach, Mock } from "vitest";
-import { getAllCustomers, getCustomerById } from "./customers"; // Ajusta la ruta según tu estructura
+import {
+  getAllCustomerIds,
+  getAllCustomers,
+  getCustomerById,
+} from "./customers"; // Ajusta la ruta según tu estructura
 import { auth, db } from "../../firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import { User } from "firebase/auth";
@@ -159,5 +163,54 @@ describe("getCustomerById", () => {
       new Error("Firestore error")
     );
     expect(customer).toBeUndefined();
+  });
+});
+describe("getAllCustomerIds", () => {
+  it("should return customer ids when user is auth", async () => {
+    vi.spyOn(auth, "currentUser", "get").mockReturnValue({
+      uid: "123",
+    } as User);
+
+    const mockData = [
+      { customerId: "1", name: "Customer 1" },
+      { customerId: "2", name: "Customer 2" },
+    ];
+    (getDocs as Mock).mockResolvedValue({
+      docs: mockData.map((data) => ({ data: () => data })),
+    });
+    const consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => {});
+
+    const customerIds = await getAllCustomerIds();
+    console.log(customerIds);
+    expect(collection).toHaveBeenCalledWith(db, "customers");
+    expect(consoleLogSpy).toHaveBeenCalledWith("Customer IDs: ", customerIds);
+    expect(customerIds).toEqual(mockData.map((data) => data.customerId));
+  });
+  it("should return undefined when user is falsy", async () => {
+    vi.spyOn(auth, "currentUser", "get").mockReturnValue(null);
+    const consoleErrorSpy = vi
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
+
+    const customerIds = await getAllCustomerIds();
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "User not authenticated. Cannot read from Firestore."
+    );
+    expect(customerIds).toBeUndefined();
+  });
+  it("should manage errors correctly", async () => {
+    vi.spyOn(auth, "currentUser", "get").mockReturnValue({
+      uid: "123",
+    } as User);
+
+    const mockError = new Error("Firestore error");
+    (getDocs as Mock).mockRejectedValue(mockError);
+    const consoleErrorSpy = vi.spyOn(console, "error");
+    const customerIds = await getAllCustomerIds();
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "Error reading customer IDs: ",
+      mockError
+    );
+    expect(customerIds).toBeUndefined();
   });
 });
