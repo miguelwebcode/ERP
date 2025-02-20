@@ -158,5 +158,6 @@ describe("getCustomerById", () => {
       "Error reading customer: ",
       new Error("Firestore error")
     );
+    expect(customer).toBeUndefined();
   });
 });
