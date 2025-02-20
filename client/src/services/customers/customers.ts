@@ -94,11 +94,9 @@ export const handleCreateCustomer = async (
     /* 
      TODO: Show notification
     */
-    alert("Customer created successfully!");
     formikHelpers.resetForm();
   } catch (error) {
     console.error("Error creating customer: ", error);
-    alert("Error creating customer!");
   }
 };
 
