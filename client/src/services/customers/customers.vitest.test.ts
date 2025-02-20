@@ -3,12 +3,17 @@ import {
   getAllCustomerIds,
   getAllCustomers,
   getCustomerById,
+  handleCreateCustomer,
 } from "./customers"; // Ajusta la ruta según tu estructura
 import { auth, db } from "../../firebaseConfig";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, addDoc } from "firebase/firestore";
 import { User } from "firebase/auth";
+import { formatDate } from "..";
+import { CustomerFormValues } from "../../types/form-values-types";
+import { FormikHelpers } from "formik";
+import { v4 as uuidv4 } from "uuid";
 
-// 🔹 Mockeamos Firebase Firestore y auth
+// Mock auth and db
 vi.mock("../../firebaseConfig", () => ({
   auth: { currentUser: null },
   db: {},
@@ -20,6 +25,17 @@ vi.mock("firebase/firestore", () => ({
   getDocs: vi.fn(),
   query: vi.fn(),
   where: vi.fn(),
+  addDoc: vi.fn(),
+}));
+
+// Mock uuid
+vi.mock("uuid", () => ({
+  v4: vi.fn().mockReturnValue("mocked--uuid"),
+}));
+
+// Mock formatDate
+vi.mock("..", () => ({
+  formatDate: vi.fn().mockReturnValue("formatted-date"),
 }));
 
 describe("getAllCustomers", () => {
@@ -212,5 +228,45 @@ describe("getAllCustomerIds", () => {
       mockError
     );
     expect(customerIds).toBeUndefined();
+  });
+});
+describe("handleCreateCustomer", () => {
+  const dummyValues = {
+    name: "Test Customer",
+    email: "test@example.com",
+  } as CustomerFormValues;
+  const formikHelpers = {
+    resetForm: vi.fn(),
+  } as unknown as FormikHelpers<CustomerFormValues>;
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+  it("should create a new customer successfully", async () => {
+    // Simulate that addDoc resolves successfully
+    (addDoc as Mock).mockResolvedValue({});
+
+    await handleCreateCustomer(dummyValues, formikHelpers);
+
+    expect(addDoc).toHaveBeenCalled();
+    expect(collection).toHaveBeenCalledWith(db, "customers");
+    expect(formatDate).toHaveBeenCalled();
+    expect(uuidv4).toHaveBeenCalled();
+    expect(formikHelpers.resetForm).toHaveBeenCalled();
+  });
+  it("should manage errors correctly", async () => {
+    const mockError = new Error("Test error");
+
+    (addDoc as Mock).mockRejectedValue(mockError);
+    const consoleErrorSpy = vi
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
+    await handleCreateCustomer(dummyValues, formikHelpers);
+
+    expect(formikHelpers.resetForm).not.toHaveBeenCalled();
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "Error creating customer: ",
+      mockError
+    );
   });
 });
