@@ -3,7 +3,7 @@ import { FormikHelpers } from "formik";
 import { selectCustomerFormValidationSchema } from "../../../schemas";
 import { CustomSelect } from "../../formik/CustomSelect/CustomSelect";
 import SharedForm from "../../formik/SharedForm/SharedForm";
-import { fetchCustomerIds } from "../../../services/customers/customers";
+import { fetchCustomerIds } from "../../../services/customers/customersService";
 import { SelectCustomerFormValues } from "../../../types/form-values-types";
 import { useAppStore } from "../../../stores/app-store";
 
