@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, Mock } from "vitest";
 import { ReadCustomersView } from "./ReadCustomersView";
-import * as customerService from "../../../services/customers/customersService";
+import * as customerService from "../../../services/customers/service/customersService";
 import { useState } from "react";
 import { Customer } from "../../../types";
 

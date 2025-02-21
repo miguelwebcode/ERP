@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, Mock } from "vitest";
 import { DeleteCustomerView } from "./DeleteCustomerView";
 import * as appStore from "../../../stores/app-store";
-import * as customersService from "../../../services/customers/customersService";
+import * as customersService from "../../../services/customers/service/customersService";
 import { useState, useRef } from "react";
 import { Customer } from "../../../types";
 

@@ -1,11 +1,11 @@
 import { FormikProps } from "formik";
-import { Customer } from "../../types";
-import { CustomerFormValues } from "../../types/form-values-types";
+import { Customer } from "../../../types";
+import { CustomerFormValues } from "../../../types/form-values-types";
 import {
   getAllCustomerIds,
   getCustomerById,
   getAllCustomers,
-} from "./repository/customersRepository";
+} from "../repository/customersRepository";
 
 export const fetchCustomerIds = async (callback: (ids: string[]) => void) => {
   try {

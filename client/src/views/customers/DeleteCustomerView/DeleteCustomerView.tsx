@@ -8,7 +8,7 @@ import { CustomerCard } from "../../../components/customers/CustomerCard/Custome
 import { SharedCard } from "../../../components/ui/SharedCard/SharedCard";
 import { SelectCustomerFormValues } from "../../../types/form-values-types";
 import { FormikHelpers } from "formik";
-import { fetchCustomer } from "../../../services/customers/customersService";
+import { fetchCustomer } from "../../../services/customers/service/customersService";
 
 export const DeleteCustomerView = () => {
   const selectedCustomerId = useAppStore((state) => state.selectedCustomerId);
