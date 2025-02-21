@@ -55,6 +55,10 @@ export const fetchCustomer = async (
 export const fetchAllCustomers = async (
   callback: (value: React.SetStateAction<Customer[]>) => void
 ) => {
-  const result = await getAllCustomers();
-  callback(result as Customer[]);
+  try {
+    const result = await getAllCustomers();
+    callback(result as Customer[]);
+  } catch (error) {
+    console.error("Error fetching customers: ", error);
+  }
 };
