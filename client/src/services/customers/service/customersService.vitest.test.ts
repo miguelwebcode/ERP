@@ -1,5 +1,9 @@
 import { describe, it, expect, vi, beforeEach, Mock } from "vitest";
-import { fetchCustomerIds, setCustomerFormValues } from "./customersService";
+import {
+  fetchCustomer,
+  fetchCustomerIds,
+  setCustomerFormValues,
+} from "./customersService";
 import {
   getAllCustomerIds,
   getCustomerById,
@@ -64,6 +68,34 @@ describe("setCustomerFormValues", () => {
     expect(formik.setValues).not.toHaveBeenCalled();
     expect(consoleErrorSpy).toHaveBeenCalledWith(
       "Error setting customer form values: ",
+      error
+    );
+  });
+});
+describe("fetchCustomer", () => {
+  beforeEach(() => {
+    vi.resetAllMocks();
+  });
+  const selectedCustomerId = "1";
+  const callback = vi.fn();
+  const consoleErrorSpy = vi.spyOn(console, "error");
+  const error = new Error("Test error");
+
+  it("should get customer data and pass it to callback as arg", async () => {
+    const result = { id: "1", name: "Customer 1" };
+    (getCustomerById as Mock).mockResolvedValue(result);
+    await fetchCustomer(selectedCustomerId, callback);
+    expect(getCustomerById).toHaveBeenCalledWith(selectedCustomerId);
+    expect(callback).toHaveBeenCalledWith(result);
+    expect(consoleErrorSpy).not.toHaveBeenCalled();
+  });
+  it("should manage thrown error correctly", async () => {
+    (getCustomerById as Mock).mockRejectedValue(error);
+    await fetchCustomer(selectedCustomerId, callback);
+    expect(getCustomerById).toHaveBeenCalledWith(selectedCustomerId);
+    expect(callback).not.toHaveBeenCalled();
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "Error fetching customer: ",
       error
     );
   });
