@@ -109,12 +109,17 @@ export const handleEditCustomer = async (
   values: CustomerFormValues,
   formikHelpers: FormikHelpers<CustomerFormValues>
 ) => {
-  const customersCollection = collection(db, "customers");
-  const q = query(
-    customersCollection,
-    where("customerId", "==", selectedCustomerId)
-  );
+  const user = auth.currentUser;
+  if (!user) {
+    console.error("User not authenticated. Cannot read from Firestore.");
+    return;
+  }
   try {
+    const customersCollection = collection(db, "customers");
+    const q = query(
+      customersCollection,
+      where("customerId", "==", selectedCustomerId)
+    );
     const querySnapshot = await getDocs(q);
 
     if (querySnapshot.empty) {
