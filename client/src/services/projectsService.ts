@@ -1,7 +1,11 @@
 import { FormikProps } from "formik";
 import { Project } from "../types";
 import { ProjectFormValues } from "../types/form-values-types";
-import { getAllProjectIds, getProjectById, getAllProjects } from "./projects";
+import {
+  getAllProjectIds,
+  getProjectById,
+  getAllProjects,
+} from "./projectsRepository";
 
 export const fetchProjectIds = async (callback: (ids: string[]) => void) => {
   try {

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import ProjectForm from "../../../components/projects/ProjectForm/ProjectForm";
-import { handleCreateProject } from "../../../services/projects";
+import { handleCreateProject } from "../../../services/projectsRepository";
 import { useAppStore } from "../../../stores/app-store";
 
 export const AddProjectView = () => {

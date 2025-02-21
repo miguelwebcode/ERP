@@ -6,7 +6,7 @@ import {
   SelectProjectFormValues,
 } from "../../../types/form-values-types";
 import { FormikHelpers } from "formik";
-import { handleEditProject } from "../../../services/projects";
+import { handleEditProject } from "../../../services/projectsRepository";
 import SelectProjectForm from "../../../components/projects/SelectProjectForm/SelectProjectForm";
 
 export const EditProjectView = () => {
