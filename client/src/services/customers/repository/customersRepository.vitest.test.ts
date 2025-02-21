@@ -31,7 +31,10 @@ vi.mock("../../firebaseConfig", () => ({
 }));
 
 // Mock firestore functions
-vi.mock("firebase/firestore", () => ({
+vi.mock("firebase/firestore", async () => {
+  const actual = await vi.importActual("firebase/firestore");
+  return {
+    ...actual,
   collection: vi.fn(),
   getDocs: vi.fn(),
   query: vi.fn(),
