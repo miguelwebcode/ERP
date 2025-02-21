@@ -343,6 +343,19 @@ describe("handleEditCustomer", async () => {
     expect(formikHelpers.resetForm).toHaveBeenCalled();
     expect(result).toBeUndefined();
   });
+  it("should return undefined when user is falsy", async () => {
+    vi.spyOn(auth, "currentUser", "get").mockReturnValue(null);
+    const consoleErrorSpy = vi.spyOn(console, "error");
+    const result = await handleEditCustomer(
+      selectedCustomerId,
+      values,
+      formikHelpers
+    );
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "User not authenticated. Cannot read from Firestore."
+    );
+    expect(result).toBeUndefined();
+  });
   it("should return null and don't update if document not found", async () => {
     vi.spyOn(auth, "currentUser", "get").mockReturnValue({
       uid: "123",
