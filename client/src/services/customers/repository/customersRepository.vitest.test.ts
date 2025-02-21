@@ -43,7 +43,8 @@ vi.mock("firebase/firestore", async () => {
   updateDoc: vi.fn(),
   doc: vi.fn(),
   deleteDoc: vi.fn(),
-}));
+  };
+});
 
 // Mock uuid
 vi.mock("uuid", () => ({
@@ -51,7 +52,7 @@ vi.mock("uuid", () => ({
 }));
 
 // Mock formatDate
-vi.mock("..", () => ({
+vi.mock("../..", () => ({
   formatDate: vi.fn().mockReturnValue("formatted-date"),
 }));
 
