@@ -4,7 +4,7 @@ import { CustomInput } from "../../formik/CustomInput/CustomInput";
 import { FormikHelpers, FormikProps } from "formik";
 import { CustomerFormValues } from "../../../types/form-values-types";
 import { useRef, useEffect, useMemo } from "react";
-import { setCustomerFormValues } from "../../../services/customers/customers";
+import { setCustomerFormValues } from "../../../services/customers/customersService";
 import { useAppStore } from "../../../stores/app-store";
 
 type CustomerFormProps = {
