@@ -153,7 +153,6 @@ export const deleteCustomerById = async (customerId: string) => {
     const customerDocRef = doc(db, "customers", documentId);
 
     await deleteDoc(customerDocRef);
-    alert("Customer deleted successfully!");
   } catch (error) {
     console.error("Error deleting customer: ", error);
   }
