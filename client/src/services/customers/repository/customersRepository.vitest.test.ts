@@ -53,7 +53,7 @@ vi.mock("uuid", () => ({
 
 // Mock formatDate
 vi.mock("../..", () => ({
-  formatDate: vi.fn().mockReturnValue("formatted-date"),
+  formatDate: vi.fn(() => "formatted-date"),
 }));
 
 describe("getAllCustomers", () => {
