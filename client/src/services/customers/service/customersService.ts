@@ -20,19 +20,23 @@ export const setCustomerFormValues = async (
   formik: FormikProps<CustomerFormValues>,
   selectedCustomerId: string
 ) => {
-  const selectedCustomer = (await getCustomerById(
-    selectedCustomerId
-  )) as Customer;
-  if (selectedCustomer) {
-    const newValues: CustomerFormValues = {
-      address: selectedCustomer.address,
-      company: selectedCustomer.company,
-      email: selectedCustomer.email,
-      name: selectedCustomer.name,
-      phone: selectedCustomer.phone,
-      project: selectedCustomer.project,
-    };
-    formik.setValues(newValues);
+  try {
+    const selectedCustomer = (await getCustomerById(
+      selectedCustomerId
+    )) as Customer;
+    if (selectedCustomer) {
+      const newValues: CustomerFormValues = {
+        address: selectedCustomer.address,
+        company: selectedCustomer.company,
+        email: selectedCustomer.email,
+        name: selectedCustomer.name,
+        phone: selectedCustomer.phone,
+        project: selectedCustomer.project,
+      };
+      formik.setValues(newValues);
+    }
+  } catch (error) {
+    console.error("Error setting customer form values: ", error);
   }
 };
 
