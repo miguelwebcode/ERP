@@ -261,6 +261,9 @@ describe("handleCreateCustomer", () => {
     vi.clearAllMocks();
   });
   it("should create a new customer successfully", async () => {
+    vi.spyOn(auth, "currentUser", "get").mockReturnValue({
+      uid: "123",
+    } as User);
     // Simulate that addDoc resolves successfully
     (addDoc as Mock).mockResolvedValue({});
 
@@ -272,7 +275,19 @@ describe("handleCreateCustomer", () => {
     expect(uuidv4).toHaveBeenCalled();
     expect(formikHelpers.resetForm).toHaveBeenCalled();
   });
+  it("should return undefined when user is falsy", async () => {
+    vi.spyOn(auth, "currentUser", "get").mockReturnValue(null);
+    const consoleErrorSpy = vi.spyOn(console, "error");
+    const result = await handleCreateCustomer(dummyValues, formikHelpers);
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "User not authenticated. Cannot read from Firestore."
+    );
+    expect(result).toBeUndefined();
+  });
   it("should manage errors correctly", async () => {
+    vi.spyOn(auth, "currentUser", "get").mockReturnValue({
+      uid: "123",
+    } as User);
     const mockError = new Error("Test error");
 
     (addDoc as Mock).mockRejectedValue(mockError);
