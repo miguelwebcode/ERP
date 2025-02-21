@@ -5,7 +5,7 @@ import {
   getAllCustomerIds,
   getCustomerById,
   getAllCustomers,
-} from "./customersRepository";
+} from "./repository/customersRepository";
 
 export const fetchCustomerIds = async (callback: (ids: string[]) => void) => {
   try {

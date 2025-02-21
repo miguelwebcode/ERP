@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import CustomerForm from "../../../components/customers/CustomerForm/CustomerForm";
-import { handleCreateCustomer } from "../../../services/customers/customersRepository";
+import { handleCreateCustomer } from "../../../services/customers/repository/customersRepository";
 import { useAppStore } from "../../../stores/app-store";
 
 export const AddCustomerView = () => {

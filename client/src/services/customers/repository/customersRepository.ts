@@ -8,11 +8,11 @@ import {
   doc,
   deleteDoc,
 } from "firebase/firestore";
-import { auth, db } from "../../firebaseConfig";
+import { auth, db } from "../../../firebaseConfig";
 import { v4 as uuidv4 } from "uuid";
 import { FormikHelpers } from "formik";
-import { CustomerFormValues } from "../../types/form-values-types";
-import { formatDate } from "..";
+import { CustomerFormValues } from "../../../types/form-values-types";
+import { formatDate } from "../..";
 
 export const getAllCustomers = async () => {
   const user = auth.currentUser; // Obtén al usuario autenticado

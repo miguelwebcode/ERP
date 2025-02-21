@@ -7,7 +7,7 @@ import {
   handleCreateCustomer,
   handleEditCustomer,
 } from "./customersRepository"; // Ajusta la ruta según tu estructura
-import { auth, db } from "../../firebaseConfig";
+import { auth, db } from "../../../firebaseConfig";
 import {
   collection,
   getDocs,
@@ -19,8 +19,8 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import { User } from "firebase/auth";
-import { formatDate } from "..";
-import { CustomerFormValues } from "../../types/form-values-types";
+import { formatDate } from "../..";
+import { CustomerFormValues } from "../../../types/form-values-types";
 import { FormikHelpers } from "formik";
 import { v4 as uuidv4 } from "uuid";
 
