@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, Mock } from "vitest";
 import { ReadProjectsView } from "./ReadProjectsView";
-import * as projectsModule from "../../../services/projects";
+import * as projectsService from "../../../services/projectsService";
 import { useState } from "react";
 import { Project } from "../../../types";
 vi.mock("react", async () => {
@@ -15,7 +15,7 @@ vi.mock("react", async () => {
 describe("ReadProjectsView", () => {
   beforeEach(() => {
     vi.resetAllMocks();
-    vi.spyOn(projectsModule, "fetchAllProjects");
+    vi.spyOn(projectsService, "fetchAllProjects");
   });
 
   it("calls fetchAllProjects on first render", async () => {
@@ -37,7 +37,7 @@ describe("ReadProjectsView", () => {
     render(<ReadProjectsView />);
 
     await waitFor(() => {
-      expect(projectsModule.fetchAllProjects).toHaveBeenCalledWith(
+      expect(projectsService.fetchAllProjects).toHaveBeenCalledWith(
         mockSetProjects
       );
     });
