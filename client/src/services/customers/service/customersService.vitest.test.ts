@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach, Mock } from "vitest";
 import {
+  fetchAllCustomers,
   fetchCustomer,
   fetchCustomerIds,
   setCustomerFormValues,
@@ -7,6 +8,7 @@ import {
 import {
   getAllCustomerIds,
   getCustomerById,
+  getAllCustomers,
 } from "../repository/customersRepository";
 import { FormikProps } from "formik";
 import { CustomerFormValues } from "../../../types/form-values-types";
@@ -14,6 +16,7 @@ import { CustomerFormValues } from "../../../types/form-values-types";
 vi.mock("../repository/customersRepository", () => ({
   getAllCustomerIds: vi.fn(),
   getCustomerById: vi.fn(),
+  getAllCustomers: vi.fn(),
 }));
 
 describe("fetchCustomerIds", () => {
@@ -79,7 +82,6 @@ describe("fetchCustomer", () => {
   const selectedCustomerId = "1";
   const callback = vi.fn();
   const consoleErrorSpy = vi.spyOn(console, "error");
-  const error = new Error("Test error");
 
   it("should get customer data and pass it to callback as arg", async () => {
     const result = { id: "1", name: "Customer 1" };
@@ -90,12 +92,39 @@ describe("fetchCustomer", () => {
     expect(consoleErrorSpy).not.toHaveBeenCalled();
   });
   it("should manage thrown error correctly", async () => {
+    const error = new Error("Test error");
     (getCustomerById as Mock).mockRejectedValue(error);
     await fetchCustomer(selectedCustomerId, callback);
     expect(getCustomerById).toHaveBeenCalledWith(selectedCustomerId);
     expect(callback).not.toHaveBeenCalled();
     expect(consoleErrorSpy).toHaveBeenCalledWith(
       "Error fetching customer: ",
+      error
+    );
+  });
+});
+describe("fetchAllCustomers", () => {
+  beforeEach(() => {
+    vi.resetAllMocks();
+  });
+  const callback = vi.fn();
+  const consoleErrorSpy = vi.spyOn(console, "error");
+  it("should get all customers and pass them to callback as arg", async () => {
+    const customers = [{ id: "1" }, { id: "2" }];
+    (getAllCustomers as Mock).mockResolvedValue(customers);
+    await fetchAllCustomers(callback);
+    expect(getAllCustomers).toHaveBeenCalled();
+    expect(callback).toHaveBeenCalledWith(customers);
+    expect(consoleErrorSpy).not.toHaveBeenCalled();
+  });
+  it("should manage thrown error correctly", async () => {
+    const error = new Error("Test error");
+    (getAllCustomers as Mock).mockRejectedValue(error);
+    await fetchAllCustomers(callback);
+    expect(getAllCustomers).toHaveBeenCalled();
+    expect(callback).not.toHaveBeenCalled();
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "Error fetching customers: ",
       error
     );
   });
