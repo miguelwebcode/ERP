@@ -10,10 +10,9 @@ import {
 } from "firebase/firestore";
 import { auth, db } from "../../firebaseConfig";
 import { v4 as uuidv4 } from "uuid";
-import { FormikHelpers, FormikProps } from "formik";
+import { FormikHelpers } from "formik";
 import { CustomerFormValues } from "../../types/form-values-types";
 import { formatDate } from "..";
-import { Customer } from "../../types";
 
 export const getAllCustomers = async () => {
   const user = auth.currentUser; // Obtén al usuario autenticado
@@ -156,48 +155,4 @@ export const deleteCustomerById = async (customerId: string) => {
   } catch (error) {
     console.error("Error deleting customer: ", error);
   }
-};
-
-export const fetchCustomerIds = async (callback: (ids: string[]) => void) => {
-  try {
-    const ids: string[] = (await getAllCustomerIds()) || [];
-    callback(ids);
-  } catch (error) {
-    console.error("Error fetching customer IDs: ", error);
-  }
-};
-
-export const setCustomerFormValues = async (
-  formik: FormikProps<CustomerFormValues>,
-  selectedCustomerId: string
-) => {
-  const selectedCustomer = (await getCustomerById(
-    selectedCustomerId
-  )) as Customer;
-  if (selectedCustomer) {
-    const newValues: CustomerFormValues = {
-      address: selectedCustomer.address,
-      company: selectedCustomer.company,
-      email: selectedCustomer.email,
-      name: selectedCustomer.name,
-      phone: selectedCustomer.phone,
-      project: selectedCustomer.project,
-    };
-    formik.setValues(newValues);
-  }
-};
-
-export const fetchCustomer = async (
-  selectedCustomerId: string,
-  callback: (value: React.SetStateAction<Customer>) => void
-) => {
-  const result = await getCustomerById(selectedCustomerId);
-  callback(result as Customer);
-};
-
-export const fetchAllCustomers = async (
-  callback: (value: React.SetStateAction<Customer[]>) => void
-) => {
-  const result = await getAllCustomers();
-  callback(result as Customer[]);
 };
