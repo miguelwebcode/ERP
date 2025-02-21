@@ -6,7 +6,7 @@ import { CustomSelect } from "../../formik/CustomSelect/CustomSelect";
 import { projectStates } from "../../../data";
 import { ProjectFormValues } from "../../../types/form-values-types";
 import { useEffect, useMemo, useRef } from "react";
-import { setProjectFormValues } from "../../../services/projects";
+import { setProjectFormValues } from "../../../services/projectsService";
 import { useAppStore } from "../../../stores/app-store";
 
 type ProjectFormProps = {
