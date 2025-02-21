@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach, Mock } from "vitest";
 import {
+  deleteCustomerById,
   getAllCustomerIds,
   getAllCustomers,
   getCustomerById,
@@ -15,6 +16,7 @@ import {
   addDoc,
   updateDoc,
   doc,
+  deleteDoc,
 } from "firebase/firestore";
 import { User } from "firebase/auth";
 import { formatDate } from "..";
@@ -37,6 +39,7 @@ vi.mock("firebase/firestore", () => ({
   addDoc: vi.fn(),
   updateDoc: vi.fn(),
   doc: vi.fn(),
+  deleteDoc: vi.fn(),
 }));
 
 // Mock uuid
@@ -351,6 +354,77 @@ describe("handleEditCustomer", async () => {
     expect(formikHelpers.resetForm).not.toHaveBeenCalled();
     expect(consoleErrorSpy).toHaveBeenCalledWith(
       "Error updating customer: ",
+      error
+    );
+    expect(result).toBeUndefined();
+  });
+});
+describe("deleteCustomerById", () => {
+  const customerId = "1";
+  beforeEach(() => {
+    vi.resetAllMocks();
+  });
+  it("should delete customer when user auth and no thrown errors", async () => {
+    vi.spyOn(auth, "currentUser", "get").mockReturnValue({
+      uid: "123",
+    } as User);
+    const mockData = [{ id: "1", name: "Customer 1" }];
+    (getDocs as Mock).mockResolvedValue({ empty: false, docs: mockData });
+    const customerDocRef = "customerDocRef";
+    (doc as Mock).mockReturnValue(customerDocRef);
+
+    const result = await deleteCustomerById(customerId);
+    expect(collection).toHaveBeenCalledWith(db, "customers");
+    expect(where).toHaveBeenCalledWith("customerId", "==", customerId);
+    expect(getDocs).toHaveBeenCalled();
+    expect(doc).toHaveBeenCalledWith(db, "customers", mockData[0].id);
+    expect(deleteDoc).toHaveBeenCalledWith(customerDocRef);
+    expect(result).toBeUndefined();
+  });
+  it("should show console error if user not auth", async () => {
+    vi.spyOn(auth, "currentUser", "get").mockReturnValue(null);
+    const consoleErrorSpy = vi.spyOn(console, "error");
+    const result = await deleteCustomerById(customerId);
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "User not authenticated. Cannot delete from Firestore."
+    );
+    expect(result).toBeUndefined();
+    expect(collection).not.toHaveBeenCalled();
+    expect(where).not.toHaveBeenCalled();
+    expect(query).not.toHaveBeenCalled();
+    expect(getDocs).not.toHaveBeenCalled();
+    expect(doc).not.toHaveBeenCalled();
+    expect(deleteDoc).not.toHaveBeenCalled();
+  });
+  it("should show console log and return null if empty query snapshot", async () => {
+    vi.spyOn(auth, "currentUser", "get").mockReturnValue({
+      uid: "123",
+    } as User);
+    (getDocs as Mock).mockResolvedValue({ empty: true, docs: [] });
+    const consoleLogSpy = vi.spyOn(console, "log");
+    const result = await deleteCustomerById(customerId);
+    expect(collection).toHaveBeenCalledWith(db, "customers");
+    expect(where).toHaveBeenCalledWith("customerId", "==", customerId);
+    expect(query).toHaveBeenCalled();
+    expect(getDocs).toHaveBeenCalled();
+    expect(consoleLogSpy).toHaveBeenCalledWith("No matching documents.");
+    expect(result).toBeNull();
+    expect(doc).not.toHaveBeenCalled();
+    expect(deleteDoc).not.toHaveBeenCalled();
+  });
+  it("should catch thrown error", async () => {
+    vi.spyOn(auth, "currentUser", "get").mockReturnValue({ uid: "1" } as User);
+    const error = new Error("Test error");
+    (getDocs as Mock).mockRejectedValue(error);
+    const consoleErrorSpy = vi.spyOn(console, "error");
+    const result = await deleteCustomerById(customerId);
+    expect(collection).toHaveBeenCalledWith(db, "customers");
+    expect(where).toHaveBeenCalledWith("customerId", "==", customerId);
+    expect(query).toHaveBeenCalled();
+    expect(getDocs).toHaveBeenCalled();
+    expect(deleteDoc).not.toHaveBeenCalled();
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "Error deleting customer: ",
       error
     );
     expect(result).toBeUndefined();
