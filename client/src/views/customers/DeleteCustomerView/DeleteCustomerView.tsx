@@ -2,15 +2,13 @@ import { useEffect, useRef, useState } from "react";
 import SelectCustomerForm from "../../../components/customers/SelectCustomerForm/SelectCustomerForm";
 import { useAppStore } from "../../../stores/app-store";
 import { Customer } from "../../../types";
-import {
-  deleteCustomerById,
-  fetchCustomer,
-} from "../../../services/customers/customers";
+import { deleteCustomerById } from "../../../services/customers/customers";
 import { SharedButton } from "../../../components/ui/SharedButton/SharedButton";
 import { CustomerCard } from "../../../components/customers/CustomerCard/CustomerCard";
 import { SharedCard } from "../../../components/ui/SharedCard/SharedCard";
 import { SelectCustomerFormValues } from "../../../types/form-values-types";
 import { FormikHelpers } from "formik";
+import { fetchCustomer } from "../../../services/customers/customersService";
 
 export const DeleteCustomerView = () => {
   const selectedCustomerId = useAppStore((state) => state.selectedCustomerId);

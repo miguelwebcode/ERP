@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, Mock } from "vitest";
 import { DeleteCustomerView } from "./DeleteCustomerView";
 import * as appStore from "../../../stores/app-store";
-import * as customersModule from "../../../services/customers/customers";
+import * as customersService from "../../../services/customers/customersService";
 import { useState, useRef } from "react";
 import { Customer } from "../../../types";
 
@@ -18,7 +18,7 @@ describe("DeleteCustomerView", () => {
   beforeEach(() => {
     vi.resetAllMocks();
     vi.spyOn(appStore, "useAppStore");
-    vi.spyOn(customersModule, "fetchCustomer");
+    vi.spyOn(customersService, "fetchCustomer");
   });
 
   it("sets customer id to empty string on first render", async () => {
@@ -75,7 +75,7 @@ describe("DeleteCustomerView", () => {
     render(<DeleteCustomerView />);
 
     await waitFor(() => {
-      expect(customersModule.fetchCustomer).toHaveBeenCalled();
+      expect(customersService.fetchCustomer).toHaveBeenCalled();
     });
   });
 
