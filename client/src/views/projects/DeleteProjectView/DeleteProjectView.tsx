@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import SelectProjectForm from "../../../components/projects/SelectProjectForm/SelectProjectForm";
 import { useAppStore } from "../../../stores/app-store";
-import { deleteProjectById, fetchProject } from "../../../services/projects";
+import { deleteProjectById } from "../../../services/projects";
+import { fetchProject } from "../../../services/projectsService";
 import { Project } from "../../../types";
 import { SharedCard } from "../../../components/ui/SharedCard/SharedCard";
 import { ProjectCard } from "../../../components/projects/ProjectCard/ProjectCard";

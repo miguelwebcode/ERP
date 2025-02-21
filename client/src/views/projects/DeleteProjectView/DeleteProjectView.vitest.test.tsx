@@ -2,7 +2,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, Mock } from "vitest";
 import { DeleteProjectView } from "./DeleteProjectView";
 import * as appStore from "../../../stores/app-store";
-import * as projectsModule from "../../../services/projects";
+import * as projectService from "../../../services/projectsService";
 import { useState, useRef } from "react";
 
 vi.mock("react", async () => {
@@ -17,7 +17,7 @@ describe("DeleteProjectView", () => {
   beforeEach(() => {
     vi.resetAllMocks();
     vi.spyOn(appStore, "useAppStore");
-    vi.spyOn(projectsModule, "fetchProject");
+    vi.spyOn(projectService, "fetchProject");
   });
 
   it("sets project id to empty string on first render", async () => {
@@ -74,7 +74,7 @@ describe("DeleteProjectView", () => {
     render(<DeleteProjectView />);
 
     await waitFor(() => {
-      expect(projectsModule.fetchProject).toHaveBeenCalled();
+      expect(projectService.fetchProject).toHaveBeenCalled();
     });
   });
 
