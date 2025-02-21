@@ -6,7 +6,7 @@ import {
   getCustomerById,
   handleCreateCustomer,
   handleEditCustomer,
-} from "./customers"; // Ajusta la ruta según tu estructura
+} from "./customersRepository"; // Ajusta la ruta según tu estructura
 import { auth, db } from "../../firebaseConfig";
 import {
   collection,
