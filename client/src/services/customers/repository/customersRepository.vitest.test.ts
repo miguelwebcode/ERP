@@ -321,7 +321,6 @@ describe("handleEditCustomer", async () => {
       empty: false,
       docs: mockData,
     });
-    // Necessary?
     (doc as Mock).mockReturnValue("customerDocRef");
 
     const result = await handleEditCustomer(
