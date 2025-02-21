@@ -5,7 +5,7 @@ import {
   getAllProjectIds,
   getProjectById,
   getAllProjects,
-} from "./projectsRepository";
+} from "./projects/repository/projectsRepository";
 
 export const fetchProjectIds = async (callback: (ids: string[]) => void) => {
   try {
