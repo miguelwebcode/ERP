@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, Mock } from "vitest";
 import { ReadProjectsView } from "./ReadProjectsView";
-import * as projectsService from "../../../services/projectsService";
+import * as projectsService from "../../../services/projects/service/projectsService";
 import { useState } from "react";
 import { Project } from "../../../types";
 vi.mock("react", async () => {

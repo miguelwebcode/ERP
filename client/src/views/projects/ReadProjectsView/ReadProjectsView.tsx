@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Project } from "../../../types";
-import { fetchAllProjects } from "../../../services/projectsService";
+import { fetchAllProjects } from "../../../services/projects/service/projectsService";
 import { ProjectCard } from "../../../components/projects/ProjectCard/ProjectCard";
 import { SharedCard } from "../../../components/ui/SharedCard/SharedCard";
 
