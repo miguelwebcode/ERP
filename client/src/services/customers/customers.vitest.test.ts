@@ -302,7 +302,11 @@ describe("handleEditCustomer", async () => {
     // Necessary?
     (doc as Mock).mockReturnValue("customerDocRef");
 
-    await handleEditCustomer(selectedCustomerId, values, formikHelpers);
+    const result = await handleEditCustomer(
+      selectedCustomerId,
+      values,
+      formikHelpers
+    );
     expect(collection).toHaveBeenCalledWith(db, "customers");
     expect(where).toHaveBeenCalledWith("customerId", "==", selectedCustomerId);
     expect(query).toHaveBeenCalled();
@@ -313,6 +317,7 @@ describe("handleEditCustomer", async () => {
       updatedAt: "formatted-date",
     });
     expect(formikHelpers.resetForm).toHaveBeenCalled();
+    expect(result).toBeUndefined();
   });
   it("should return null and don't update if document not found", async () => {
     (getDocs as Mock).mockResolvedValue({ empty: true, docs: [] });
@@ -333,7 +338,11 @@ describe("handleEditCustomer", async () => {
     const error = new Error("Test error");
     const consoleErrorSpy = vi.spyOn(console, "error");
     (getDocs as Mock).mockRejectedValue(error);
-    await handleEditCustomer(selectedCustomerId, values, formikHelpers);
+    const result = await handleEditCustomer(
+      selectedCustomerId,
+      values,
+      formikHelpers
+    );
     expect(collection).toHaveBeenCalledWith(db, "customers");
     expect(query).toHaveBeenCalled();
     expect(where).toHaveBeenCalledWith("customerId", "==", selectedCustomerId);
@@ -344,5 +353,6 @@ describe("handleEditCustomer", async () => {
       "Error updating customer: ",
       error
     );
+    expect(result).toBeUndefined();
   });
 });
