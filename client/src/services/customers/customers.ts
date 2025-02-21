@@ -126,11 +126,9 @@ export const handleEditCustomer = async (
       ...values,
       updatedAt: formatDate(new Date()),
     });
-    alert("Customer updated successfully!");
     formikHelpers.resetForm();
   } catch (error) {
     console.error("Error updating customer: ", error);
-    alert("Error updating customer!");
   }
 };
 
