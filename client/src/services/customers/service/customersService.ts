@@ -44,8 +44,12 @@ export const fetchCustomer = async (
   selectedCustomerId: string,
   callback: (value: React.SetStateAction<Customer>) => void
 ) => {
-  const result = await getCustomerById(selectedCustomerId);
-  callback(result as Customer);
+  try {
+    const result = await getCustomerById(selectedCustomerId);
+    callback(result as Customer);
+  } catch (error) {
+    console.error("Error fetching customer: ", error);
+  }
 };
 
 export const fetchAllCustomers = async (
