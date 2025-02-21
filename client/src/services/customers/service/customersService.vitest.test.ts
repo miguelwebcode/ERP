@@ -1,9 +1,15 @@
 import { describe, it, expect, vi, beforeEach, Mock } from "vitest";
-import { fetchCustomerIds } from "./customersService";
-import { getAllCustomerIds } from "../repository/customersRepository";
+import { fetchCustomerIds, setCustomerFormValues } from "./customersService";
+import {
+  getAllCustomerIds,
+  getCustomerById,
+} from "../repository/customersRepository";
+import { FormikProps } from "formik";
+import { CustomerFormValues } from "../../../types/form-values-types";
 
 vi.mock("../repository/customersRepository", () => ({
   getAllCustomerIds: vi.fn(),
+  getCustomerById: vi.fn(),
 }));
 
 describe("fetchCustomerIds", () => {
@@ -27,6 +33,37 @@ describe("fetchCustomerIds", () => {
     expect(mockCallback).not.toHaveBeenCalled();
     expect(consoleErrorSpy).toHaveBeenCalledWith(
       "Error fetching customer IDs: ",
+      error
+    );
+  });
+});
+describe("setCustomerFormValues", () => {
+  const formik = {
+    setValues: vi.fn(),
+  } as unknown as FormikProps<CustomerFormValues>;
+  const selectedCustomerId = "1";
+  beforeEach(() => {
+    vi.resetAllMocks();
+  });
+  it("should get customer data and set data to form", async () => {
+    const selectedCustomer = {
+      id: "1",
+      name: "Customer 1",
+    };
+    (getCustomerById as Mock).mockResolvedValue(selectedCustomer);
+    await setCustomerFormValues(formik, selectedCustomerId);
+    expect(getCustomerById).toHaveBeenCalledWith(selectedCustomerId);
+    expect(formik.setValues).toHaveBeenCalled();
+  });
+  it("should manage thrown error correctly", async () => {
+    const error = new Error("Test error");
+    (getCustomerById as Mock).mockRejectedValue(error);
+    const consoleErrorSpy = vi.spyOn(console, "error");
+    await setCustomerFormValues(formik, selectedCustomerId);
+    expect(getCustomerById).toHaveBeenCalledWith(selectedCustomerId);
+    expect(formik.setValues).not.toHaveBeenCalled();
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "Error setting customer form values: ",
       error
     );
   });
