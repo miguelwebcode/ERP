@@ -4,9 +4,18 @@ import {
   getAllCustomers,
   getCustomerById,
   handleCreateCustomer,
+  handleEditCustomer,
 } from "./customers"; // Ajusta la ruta según tu estructura
 import { auth, db } from "../../firebaseConfig";
-import { collection, getDocs, addDoc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  addDoc,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
 import { User } from "firebase/auth";
 import { formatDate } from "..";
 import { CustomerFormValues } from "../../types/form-values-types";
@@ -26,6 +35,8 @@ vi.mock("firebase/firestore", () => ({
   query: vi.fn(),
   where: vi.fn(),
   addDoc: vi.fn(),
+  updateDoc: vi.fn(),
+  doc: vi.fn(),
 }));
 
 // Mock uuid
@@ -267,6 +278,71 @@ describe("handleCreateCustomer", () => {
     expect(consoleErrorSpy).toHaveBeenCalledWith(
       "Error creating customer: ",
       mockError
+    );
+  });
+});
+describe("handleEditCustomer", async () => {
+  const selectedCustomerId = "1";
+  const values = {
+    name: "Test Customer",
+    email: "test@example.com",
+  } as CustomerFormValues;
+  const formikHelpers = {
+    resetForm: vi.fn(),
+  } as unknown as FormikHelpers<CustomerFormValues>;
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+  it("should update customer successfully", async () => {
+    const mockData = [{ id: "1", name: "Customer 1" }];
+    (getDocs as Mock).mockResolvedValue({
+      empty: false,
+      docs: mockData,
+    });
+    // Necessary?
+    (doc as Mock).mockReturnValue("customerDocRef");
+
+    await handleEditCustomer(selectedCustomerId, values, formikHelpers);
+    expect(collection).toHaveBeenCalledWith(db, "customers");
+    expect(where).toHaveBeenCalledWith("customerId", "==", selectedCustomerId);
+    expect(query).toHaveBeenCalled();
+    expect(getDocs).toHaveBeenCalled();
+    expect(doc).toHaveBeenCalledWith(db, "customers", mockData[0].id);
+    expect(updateDoc).toHaveBeenCalledWith("customerDocRef", {
+      ...values,
+      updatedAt: "formatted-date",
+    });
+    expect(formikHelpers.resetForm).toHaveBeenCalled();
+  });
+  it("should return null and don't update if document not found", async () => {
+    (getDocs as Mock).mockResolvedValue({ empty: true, docs: [] });
+    const consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => {});
+    const result = await handleEditCustomer(
+      selectedCustomerId,
+      values,
+      formikHelpers
+    );
+    expect(collection).toHaveBeenCalledWith(db, "customers");
+    expect(query).toHaveBeenCalled();
+    expect(where).toHaveBeenCalledWith("customerId", "==", selectedCustomerId);
+    expect(getDocs).toHaveBeenCalled();
+    expect(consoleLogSpy).toHaveBeenCalledWith("No matching documents.");
+    expect(result).toBeNull();
+  });
+  it("should handle errors correctly", async () => {
+    const error = new Error("Test error");
+    const consoleErrorSpy = vi.spyOn(console, "error");
+    (getDocs as Mock).mockRejectedValue(error);
+    await handleEditCustomer(selectedCustomerId, values, formikHelpers);
+    expect(collection).toHaveBeenCalledWith(db, "customers");
+    expect(query).toHaveBeenCalled();
+    expect(where).toHaveBeenCalledWith("customerId", "==", selectedCustomerId);
+    expect(getDocs).toHaveBeenCalled();
+    expect(updateDoc).not.toHaveBeenCalled();
+    expect(formikHelpers.resetForm).not.toHaveBeenCalled();
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "Error updating customer: ",
+      error
     );
   });
 });
