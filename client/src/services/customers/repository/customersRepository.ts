@@ -86,11 +86,6 @@ export const handleEditCustomer = async (
   values: CustomerFormValues,
   formikHelpers: FormikHelpers<CustomerFormValues>
 ) => {
-  const user = auth.currentUser;
-  if (!user) {
-    console.error("User not authenticated. Cannot read from Firestore.");
-    return;
-  }
   try {
     const customersCollection = collection(db, "customers");
     const q = query(
