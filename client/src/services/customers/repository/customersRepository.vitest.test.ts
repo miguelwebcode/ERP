@@ -154,7 +154,7 @@ describe("getCustomerById", () => {
   });
 });
 describe("getAllCustomerIds", () => {
-  it("should return customer ids when user is auth", async () => {
+  it("should return customer ids", async () => {
     vi.spyOn(auth, "currentUser", "get").mockReturnValue({
       uid: "123",
     } as User);
