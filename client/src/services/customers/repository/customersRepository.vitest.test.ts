@@ -103,7 +103,7 @@ describe("getCustomerById", () => {
     vi.clearAllMocks();
   });
 
-  it("should return customer when user auth and customerId has value", async () => {
+  it("should return customer when customerId has value", async () => {
     // Simulate getDocs returning customer
     const mockData = [{ id: "1", name: "Cliente 1" }];
     (getDocs as Mock).mockResolvedValue({
