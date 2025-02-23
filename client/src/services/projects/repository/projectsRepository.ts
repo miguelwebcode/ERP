@@ -11,10 +11,9 @@ import {
 import { auth, db } from "../../../firebaseConfig";
 import { v4 as uuidv4 } from "uuid";
 
-import { FormikHelpers, FormikProps } from "formik";
+import { FormikHelpers } from "formik";
 import { ProjectFormValues } from "../../../types/form-values-types";
 import { formatDate } from "../..";
-import { Project } from "../../../types";
 
 export const getAllProjects = async () => {
   const user = auth.currentUser; // Obtén al usuario autenticado
