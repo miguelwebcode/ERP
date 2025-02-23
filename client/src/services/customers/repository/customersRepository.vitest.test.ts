@@ -200,9 +200,6 @@ describe("handleCreateCustomer", () => {
     vi.clearAllMocks();
   });
   it("should create a new customer successfully", async () => {
-    vi.spyOn(auth, "currentUser", "get").mockReturnValue({
-      uid: "123",
-    } as User);
     // Simulate that addDoc resolves successfully
     (addDoc as Mock).mockResolvedValue({});
 
@@ -224,9 +221,6 @@ describe("handleCreateCustomer", () => {
     expect(result).toBeUndefined();
   });
   it("should manage errors correctly", async () => {
-    vi.spyOn(auth, "currentUser", "get").mockReturnValue({
-      uid: "123",
-    } as User);
     const mockError = new Error("Test error");
 
     (addDoc as Mock).mockRejectedValue(mockError);
