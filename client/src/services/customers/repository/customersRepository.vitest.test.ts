@@ -241,9 +241,6 @@ describe("handleEditCustomer", async () => {
     vi.clearAllMocks();
   });
   it("should update customer successfully", async () => {
-    vi.spyOn(auth, "currentUser", "get").mockReturnValue({
-      uid: "123",
-    } as User);
     const mockData = [{ id: "1", name: "Customer 1" }];
     (getDocs as Mock).mockResolvedValue({
       empty: false,
@@ -282,9 +279,6 @@ describe("handleEditCustomer", async () => {
     expect(result).toBeUndefined();
   });
   it("should return null and don't update if document not found", async () => {
-    vi.spyOn(auth, "currentUser", "get").mockReturnValue({
-      uid: "123",
-    } as User);
     (getDocs as Mock).mockResolvedValue({ empty: true, docs: [] });
     const consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => {});
     const result = await handleEditCustomer(
@@ -300,9 +294,6 @@ describe("handleEditCustomer", async () => {
     expect(result).toBeNull();
   });
   it("should handle errors correctly", async () => {
-    vi.spyOn(auth, "currentUser", "get").mockReturnValue({
-      uid: "123",
-    } as User);
     const error = new Error("Test error");
     const consoleErrorSpy = vi.spyOn(console, "error");
     (getDocs as Mock).mockRejectedValue(error);
