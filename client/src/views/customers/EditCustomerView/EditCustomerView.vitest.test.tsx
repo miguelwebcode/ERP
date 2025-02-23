@@ -173,7 +173,17 @@ describe("EditCustomerView", () => {
     expect(buttonSelectCustomer.disabled).toBe(false);
     fireEvent.click(buttonSelectCustomer);
 
-    // Probar a darle tiempo de espera, o cargar el entorno de test?
+    const customerData = {
+      createdAt: "19/02/2025 13:53",
+      address: "Customer2 Street",
+      phone: "123456789",
+      name: "Customer2",
+      customerId: "260cf13e-84ec-4fd3-98e3-17d745a2a708",
+      project: "Project2",
+      company: "Customer2 Company",
+      email: "customer2@email.com",
+    };
+
     await waitFor(() => {
       // CustomerForm
       const titleCustomerForm = screen.getByRole("heading", {
@@ -183,33 +193,33 @@ describe("EditCustomerView", () => {
 
       const inputAddress = screen.getByLabelText("Address") as HTMLInputElement;
       expect(inputAddress).toBeInTheDocument();
-      expect(inputAddress.value).toBe("");
-      expect(inputAddress.disabled).toBe(true);
+      expect(inputAddress.value).toBe(customerData.address);
+      expect(inputAddress.disabled).toBe(false);
 
       const inputCompany = screen.getByLabelText("Company") as HTMLInputElement;
       expect(inputCompany).toBeInTheDocument();
-      expect(inputCompany.value).toBe("");
-      expect(inputCompany.disabled).toBe(true);
+      expect(inputCompany.value).toBe(customerData.company);
+      expect(inputCompany.disabled).toBe(false);
 
       const inputEmail = screen.getByLabelText("Email") as HTMLInputElement;
       expect(inputEmail).toBeInTheDocument();
-      expect(inputEmail.value).toBe("");
-      expect(inputEmail.disabled).toBe(true);
+      expect(inputEmail.value).toBe(customerData.email);
+      expect(inputEmail.disabled).toBe(false);
 
       const inputName = screen.getByLabelText("Name") as HTMLInputElement;
       expect(inputName).toBeInTheDocument();
-      expect(inputName.value).toBe("");
-      expect(inputName.disabled).toBe(true);
+      expect(inputName.value).toBe(customerData.name);
+      expect(inputName.disabled).toBe(false);
 
       const inputPhone = screen.getByLabelText("Phone") as HTMLInputElement;
       expect(inputPhone).toBeInTheDocument();
-      expect(inputPhone.value).toBe("");
-      expect(inputPhone.disabled).toBe(true);
+      expect(inputPhone.value).toBe(customerData.phone);
+      expect(inputPhone.disabled).toBe(false);
 
       const inputProject = screen.getByLabelText("Project") as HTMLInputElement;
       expect(inputProject).toBeInTheDocument();
-      expect(inputProject.value).toBe("");
-      expect(inputProject.disabled).toBe(true);
+      expect(inputProject.value).toBe(customerData.project);
+      expect(inputProject.disabled).toBe(false);
 
       const buttonUpdateCustomer = screen.getByRole("button", {
         name: /update customer/i,
