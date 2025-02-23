@@ -114,12 +114,6 @@ export const handleEditCustomer = async (
 };
 
 export const deleteCustomerById = async (customerId: string) => {
-  const user = auth.currentUser;
-  if (!user) {
-    console.error("User not authenticated. Cannot delete from Firestore.");
-    return;
-  }
-
   const customersCollection = collection(db, "customers");
   const q = query(customersCollection, where("customerId", "==", customerId));
 
