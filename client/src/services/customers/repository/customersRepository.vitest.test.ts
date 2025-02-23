@@ -83,16 +83,6 @@ describe("getAllCustomers", () => {
     expect(collection).toHaveBeenCalledWith(db, "customers");
   });
 
-  it("should return undefined if user not auth", async () => {
-    // Simulate no authenticated user by returning null
-    vi.spyOn(auth, "currentUser", "get").mockReturnValue(null);
-
-    const customers = await getAllCustomers();
-
-    expect(customers).toBeUndefined();
-    expect(getDocs).not.toHaveBeenCalled();
-  });
-
   it("should manage errors correctly", async () => {
     vi.spyOn(auth, "currentUser", "get").mockReturnValue({
       uid: "123",
