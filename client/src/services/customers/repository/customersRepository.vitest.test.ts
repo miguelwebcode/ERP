@@ -308,7 +308,7 @@ describe("deleteCustomerById", () => {
   beforeEach(() => {
     vi.resetAllMocks();
   });
-  it("should delete customer when user auth and no thrown errors", async () => {
+  it("should delete customer", async () => {
     vi.spyOn(auth, "currentUser", "get").mockReturnValue({
       uid: "123",
     } as User);
