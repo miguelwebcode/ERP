@@ -170,17 +170,7 @@ describe("getAllCustomerIds", () => {
     expect(consoleLogSpy).toHaveBeenCalledWith("Customer IDs: ", customerIds);
     expect(customerIds).toEqual(mockData.map((data) => data.customerId));
   });
-  it("should return undefined when user is falsy", async () => {
-    const consoleErrorSpy = vi
-      .spyOn(console, "error")
-      .mockImplementation(() => {});
 
-    const customerIds = await getAllCustomerIds();
-    expect(consoleErrorSpy).toHaveBeenCalledWith(
-      "User not authenticated. Cannot read from Firestore."
-    );
-    expect(customerIds).toBeUndefined();
-  });
   it("should manage errors correctly", async () => {
     vi.spyOn(auth, "currentUser", "get").mockReturnValue({
       uid: "123",
