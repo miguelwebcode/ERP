@@ -15,12 +15,6 @@ import { CustomerFormValues } from "../../../types/form-values-types";
 import { formatDate } from "../..";
 
 export const getAllCustomers = async () => {
-  const user = auth.currentUser; // Obtén al usuario autenticado
-  if (!user) {
-    console.error("User not authenticated. Cannot read from Firestore.");
-    return;
-  }
-
   const customersCollection = collection(db, "customers");
   try {
     const querySnapshot = await getDocs(customersCollection);
