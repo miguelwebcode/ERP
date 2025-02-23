@@ -173,6 +173,7 @@ describe("EditCustomerView", () => {
     expect(buttonSelectCustomer.disabled).toBe(false);
     fireEvent.click(buttonSelectCustomer);
 
+    // Probar a darle tiempo de espera, o cargar el entorno de test?
     await waitFor(() => {
       // CustomerForm
       const titleCustomerForm = screen.getByRole("heading", {
