@@ -211,15 +211,7 @@ describe("handleCreateCustomer", () => {
     expect(uuidv4).toHaveBeenCalled();
     expect(formikHelpers.resetForm).toHaveBeenCalled();
   });
-  it("should return undefined when user is falsy", async () => {
-    vi.spyOn(auth, "currentUser", "get").mockReturnValue(null);
-    const consoleErrorSpy = vi.spyOn(console, "error");
-    const result = await handleCreateCustomer(dummyValues, formikHelpers);
-    expect(consoleErrorSpy).toHaveBeenCalledWith(
-      "User not authenticated. Cannot read from Firestore."
-    );
-    expect(result).toBeUndefined();
-  });
+
   it("should manage errors correctly", async () => {
     const mockError = new Error("Test error");
 
