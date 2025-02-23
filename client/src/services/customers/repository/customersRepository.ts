@@ -33,12 +33,6 @@ export const getAllCustomers = async () => {
 };
 
 export const getCustomerById = async (customerId: string) => {
-  const user = auth.currentUser; // Obtén al usuario autenticado
-  if (!user) {
-    console.error("User not authenticated. Cannot read from Firestore.");
-    return;
-  }
-
   if (!customerId) {
     console.log("Customer ID is empty");
     return;
