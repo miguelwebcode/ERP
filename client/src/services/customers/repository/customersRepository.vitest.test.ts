@@ -123,11 +123,6 @@ describe("getCustomerById", () => {
   });
 
   it("should return customer when user auth and customerId has value", async () => {
-    // Simulate auth user
-    vi.spyOn(auth, "currentUser", "get").mockReturnValue({
-      uid: "123",
-    } as User);
-
     // Simulate getDocs returning customer
     const mockData = [{ id: "1", name: "Cliente 1" }];
     (getDocs as Mock).mockResolvedValue({
