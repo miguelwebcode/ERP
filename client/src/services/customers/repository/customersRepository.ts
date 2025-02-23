@@ -51,12 +51,6 @@ export const getCustomerById = async (customerId: string) => {
 };
 
 export const getAllCustomerIds = async () => {
-  const user = auth.currentUser; // Get authenticated user
-  if (!user) {
-    console.error("User not authenticated. Cannot read from Firestore.");
-    return;
-  }
-
   const customersCollection = collection(db, "customers");
   try {
     const querySnapshot = await getDocs(customersCollection);
