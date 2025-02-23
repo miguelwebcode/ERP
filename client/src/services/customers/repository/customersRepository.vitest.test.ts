@@ -62,11 +62,6 @@ describe("getAllCustomers", () => {
   });
 
   it("should return customers when user is auth", async () => {
-    // We simulate an authenticated user using spyOn on the currentUser getter
-    vi.spyOn(auth, "currentUser", "get").mockReturnValue({
-      uid: "123",
-    } as User);
-
     // Simulate getDocs returning data
     const mockData = [
       { id: "1", name: "Cliente 1" },
@@ -84,10 +79,6 @@ describe("getAllCustomers", () => {
   });
 
   it("should manage errors correctly", async () => {
-    vi.spyOn(auth, "currentUser", "get").mockReturnValue({
-      uid: "123",
-    } as User);
-
     // Simulate an error in getDocs
     (getDocs as Mock).mockRejectedValue(new Error("Firestore error"));
 
@@ -131,10 +122,6 @@ describe("getCustomerById", () => {
   });
 
   it("should return undefined if customerId is falsy", async () => {
-    vi.spyOn(auth, "currentUser", "get").mockReturnValue({
-      uid: "123",
-    } as User);
-
     const consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => {});
 
     const customer = await getCustomerById("");
@@ -143,9 +130,6 @@ describe("getCustomerById", () => {
     consoleLogSpy.mockRestore();
   });
   it("should return null if query snapshot is empty", async () => {
-    vi.spyOn(auth, "currentUser", "get").mockReturnValue({
-      uid: "123",
-    } as User);
     // Mock querySnapshot
     (getDocs as Mock).mockResolvedValue({ empty: true, docs: [] });
     const consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => {});
