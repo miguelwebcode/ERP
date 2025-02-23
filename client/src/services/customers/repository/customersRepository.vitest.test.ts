@@ -171,7 +171,6 @@ describe("getAllCustomerIds", () => {
     expect(customerIds).toEqual(mockData.map((data) => data.customerId));
   });
   it("should return undefined when user is falsy", async () => {
-    vi.spyOn(auth, "currentUser", "get").mockReturnValue(null);
     const consoleErrorSpy = vi
       .spyOn(console, "error")
       .mockImplementation(() => {});
