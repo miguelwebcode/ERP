@@ -8,7 +8,7 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-import { auth, db } from "../../../firebaseConfig";
+import { db } from "../../../firebaseConfig";
 import { v4 as uuidv4 } from "uuid";
 
 import { FormikHelpers } from "formik";
@@ -16,12 +16,6 @@ import { ProjectFormValues } from "../../../types/form-values-types";
 import { formatDate } from "../..";
 
 export const getAllProjects = async () => {
-  const user = auth.currentUser; // Obtén al usuario autenticado
-  if (!user) {
-    console.error("User not authenticated. Cannot read from Firestore.");
-    return;
-  }
-
   const projectsCollection = collection(db, "projects");
   try {
     const querySnapshot = await getDocs(projectsCollection);
@@ -34,12 +28,6 @@ export const getAllProjects = async () => {
 };
 
 export const getProjectById = async (projectId: string) => {
-  const user = auth.currentUser; // Obtén al usuario autenticado
-  if (!user) {
-    console.error("User not authenticated. Cannot read from Firestore.");
-    return;
-  }
-
   const projectsCollection = collection(db, "projects");
   const q = query(projectsCollection, where("projectId", "==", projectId));
 
@@ -59,12 +47,6 @@ export const getProjectById = async (projectId: string) => {
 };
 
 export const getAllProjectIds = async () => {
-  const user = auth.currentUser; // Obtén al usuario autenticado
-  if (!user) {
-    console.error("User not authenticated. Cannot read from Firestore.");
-    return;
-  }
-
   const projectsCollection = collection(db, "projects");
   try {
     const querySnapshot = await getDocs(projectsCollection);
@@ -131,12 +113,6 @@ export const handleEditProject = async (
 };
 
 export const deleteProjectById = async (projectId: string) => {
-  const user = auth.currentUser;
-  if (!user) {
-    console.error("User not authenticated. Cannot delete from Firestore.");
-    return;
-  }
-
   const projectsCollection = collection(db, "projects");
   const q = query(projectsCollection, where("projectId", "==", projectId));
 
