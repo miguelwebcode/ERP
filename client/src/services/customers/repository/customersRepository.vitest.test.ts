@@ -309,9 +309,6 @@ describe("deleteCustomerById", () => {
     vi.resetAllMocks();
   });
   it("should delete customer", async () => {
-    vi.spyOn(auth, "currentUser", "get").mockReturnValue({
-      uid: "123",
-    } as User);
     const mockData = [{ id: "1", name: "Customer 1" }];
     (getDocs as Mock).mockResolvedValue({ empty: false, docs: mockData });
     const customerDocRef = "customerDocRef";
@@ -341,9 +338,6 @@ describe("deleteCustomerById", () => {
     expect(deleteDoc).not.toHaveBeenCalled();
   });
   it("should show console log and return null if empty query snapshot", async () => {
-    vi.spyOn(auth, "currentUser", "get").mockReturnValue({
-      uid: "123",
-    } as User);
     (getDocs as Mock).mockResolvedValue({ empty: true, docs: [] });
     const consoleLogSpy = vi.spyOn(console, "log");
     const result = await deleteCustomerById(customerId);
@@ -357,7 +351,6 @@ describe("deleteCustomerById", () => {
     expect(deleteDoc).not.toHaveBeenCalled();
   });
   it("should catch thrown error", async () => {
-    vi.spyOn(auth, "currentUser", "get").mockReturnValue({ uid: "1" } as User);
     const error = new Error("Test error");
     (getDocs as Mock).mockRejectedValue(error);
     const consoleErrorSpy = vi.spyOn(console, "error");
