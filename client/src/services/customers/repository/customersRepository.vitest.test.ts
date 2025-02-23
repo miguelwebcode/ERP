@@ -61,7 +61,7 @@ describe("getAllCustomers", () => {
     vi.clearAllMocks();
   });
 
-  it("should return customers when user is auth", async () => {
+  it("should return customers", async () => {
     // Simulate getDocs returning data
     const mockData = [
       { id: "1", name: "Cliente 1" },
