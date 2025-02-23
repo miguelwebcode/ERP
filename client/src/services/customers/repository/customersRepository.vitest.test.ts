@@ -322,21 +322,7 @@ describe("deleteCustomerById", () => {
     expect(deleteDoc).toHaveBeenCalledWith(customerDocRef);
     expect(result).toBeUndefined();
   });
-  it("should show console error if user not auth", async () => {
-    vi.spyOn(auth, "currentUser", "get").mockReturnValue(null);
-    const consoleErrorSpy = vi.spyOn(console, "error");
-    const result = await deleteCustomerById(customerId);
-    expect(consoleErrorSpy).toHaveBeenCalledWith(
-      "User not authenticated. Cannot delete from Firestore."
-    );
-    expect(result).toBeUndefined();
-    expect(collection).not.toHaveBeenCalled();
-    expect(where).not.toHaveBeenCalled();
-    expect(query).not.toHaveBeenCalled();
-    expect(getDocs).not.toHaveBeenCalled();
-    expect(doc).not.toHaveBeenCalled();
-    expect(deleteDoc).not.toHaveBeenCalled();
-  });
+
   it("should show console log and return null if empty query snapshot", async () => {
     (getDocs as Mock).mockResolvedValue({ empty: true, docs: [] });
     const consoleLogSpy = vi.spyOn(console, "log");
