@@ -123,9 +123,6 @@ describe("EditCustomerView", () => {
     });
     expect(buttonUpdateCustomer).toBeInTheDocument();
   });
-  /* 
-   TODO: Check with Guillem
-  */
 
   it("fetch customer, check texts on form, update customer, check successful update", async () => {
     const mockIsRenderDone = true;
