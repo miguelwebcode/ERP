@@ -139,8 +139,6 @@ describe("getCustomerById", () => {
     expect(customer).toBeNull();
   });
   it("should manage thrown error correctly", async () => {
-    vi.spyOn(auth, "currentUser", "get").mockReturnValue;
-
     (getDocs as Mock).mockRejectedValue(new Error("Firestore error"));
     const consoleErrorSpy = vi
       .spyOn(console, "error")
