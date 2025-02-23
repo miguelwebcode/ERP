@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest --ui",
-    "emulators": "firebase emulators:start --import=firestore-backup --export-on-exit=firestore-backup"
+    "emulators": "firebase emulators:start --import=firestore-backup"
   },
   "dependencies": {
     "@firebase/rules-unit-testing": "^4.0.1",
