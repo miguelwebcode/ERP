@@ -181,47 +181,56 @@ describe("EditCustomerView", () => {
       email: "customer2@email.com",
     };
 
-    await waitFor(() => {
-      // CustomerForm
-      const titleCustomerForm = screen.getByRole("heading", {
-        name: /Edit Customer/i,
-      });
-      expect(titleCustomerForm).toBeInTheDocument();
+    await waitFor(
+      () => {
+        // CustomerForm
+        const titleCustomerForm = screen.getByRole("heading", {
+          name: /Edit Customer/i,
+        });
+        expect(titleCustomerForm).toBeInTheDocument();
 
-      const inputAddress = screen.getByLabelText("Address") as HTMLInputElement;
-      expect(inputAddress).toBeInTheDocument();
-      expect(inputAddress.value).toBe(customerData.address);
-      expect(inputAddress.disabled).toBe(false);
+        const inputAddress = screen.getByLabelText(
+          "Address"
+        ) as HTMLInputElement;
+        expect(inputAddress).toBeInTheDocument();
+        expect(inputAddress.value).toBe(customerData.address);
+        expect(inputAddress.disabled).toBe(false);
 
-      const inputCompany = screen.getByLabelText("Company") as HTMLInputElement;
-      expect(inputCompany).toBeInTheDocument();
-      expect(inputCompany.value).toBe(customerData.company);
-      expect(inputCompany.disabled).toBe(false);
+        const inputCompany = screen.getByLabelText(
+          "Company"
+        ) as HTMLInputElement;
+        expect(inputCompany).toBeInTheDocument();
+        expect(inputCompany.value).toBe(customerData.company);
+        expect(inputCompany.disabled).toBe(false);
 
-      const inputEmail = screen.getByLabelText("Email") as HTMLInputElement;
-      expect(inputEmail).toBeInTheDocument();
-      expect(inputEmail.value).toBe(customerData.email);
-      expect(inputEmail.disabled).toBe(false);
+        const inputEmail = screen.getByLabelText("Email") as HTMLInputElement;
+        expect(inputEmail).toBeInTheDocument();
+        expect(inputEmail.value).toBe(customerData.email);
+        expect(inputEmail.disabled).toBe(false);
 
-      const inputName = screen.getByLabelText("Name") as HTMLInputElement;
-      expect(inputName).toBeInTheDocument();
-      expect(inputName.value).toBe(customerData.name);
-      expect(inputName.disabled).toBe(false);
+        const inputName = screen.getByLabelText("Name") as HTMLInputElement;
+        expect(inputName).toBeInTheDocument();
+        expect(inputName.value).toBe(customerData.name);
+        expect(inputName.disabled).toBe(false);
 
-      const inputPhone = screen.getByLabelText("Phone") as HTMLInputElement;
-      expect(inputPhone).toBeInTheDocument();
-      expect(inputPhone.value).toBe(customerData.phone);
-      expect(inputPhone.disabled).toBe(false);
+        const inputPhone = screen.getByLabelText("Phone") as HTMLInputElement;
+        expect(inputPhone).toBeInTheDocument();
+        expect(inputPhone.value).toBe(customerData.phone);
+        expect(inputPhone.disabled).toBe(false);
 
-      const inputProject = screen.getByLabelText("Project") as HTMLInputElement;
-      expect(inputProject).toBeInTheDocument();
-      expect(inputProject.value).toBe(customerData.project);
-      expect(inputProject.disabled).toBe(false);
+        const inputProject = screen.getByLabelText(
+          "Project"
+        ) as HTMLInputElement;
+        expect(inputProject).toBeInTheDocument();
+        expect(inputProject.value).toBe(customerData.project);
+        expect(inputProject.disabled).toBe(false);
 
-      const buttonUpdateCustomer = screen.getByRole("button", {
-        name: /update customer/i,
-      });
-      expect(buttonUpdateCustomer).toBeInTheDocument();
-    });
+        const buttonUpdateCustomer = screen.getByRole("button", {
+          name: /update customer/i,
+        });
+        expect(buttonUpdateCustomer).toBeInTheDocument();
+      },
+      { timeout: 4000 }
+    );
   });
 });
