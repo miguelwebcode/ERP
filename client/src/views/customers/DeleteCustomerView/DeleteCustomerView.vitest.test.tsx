@@ -244,10 +244,33 @@ describe("DeleteCustomerView", () => {
     fireEvent.click(buttonSelectCustomer);
 
     await waitFor(() => {
-      const buttonDeletecustomer = screen.getByRole("button", {
-        name: /deleteE customer/i,
+      const spanName = screen.getByTestId(/name/i);
+      expect(spanName).toHaveTextContent(selectedCustomer.name);
+
+      const spanEmail = screen.getByTestId(/email/i);
+      expect(spanEmail).toHaveTextContent(selectedCustomer.email);
+
+      const spanPhone = screen.getByTestId(/phone/i);
+      expect(spanPhone).toHaveTextContent(selectedCustomer.phone);
+
+      const spanAddress = screen.getByTestId(/address/i);
+      expect(spanAddress).toHaveTextContent(selectedCustomer.address);
+
+      const spanCompany = screen.getByTestId(/company/i);
+      expect(spanCompany).toHaveTextContent(selectedCustomer.company);
+
+      const spanProject = screen.getByTestId(/project/i);
+      expect(spanProject).toHaveTextContent(selectedCustomer.project);
+
+      const spanCreatedAt = screen.getByTestId(/created at/i);
+      expect(spanCreatedAt).toHaveTextContent(selectedCustomer.createdAt);
+
+      const buttonDeleteCustomer = screen.getByRole("button", {
+        name: /delete customer/i,
       });
-      expect(buttonDeletecustomer).toBeInTheDocument();
+      expect(buttonDeleteCustomer).toBeInTheDocument();
+
+      fireEvent.click(buttonDeleteCustomer);
     });
   });
 });
