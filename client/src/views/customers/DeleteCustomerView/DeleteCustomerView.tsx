@@ -2,13 +2,15 @@ import { useEffect, useRef, useState } from "react";
 import SelectCustomerForm from "../../../components/customers/SelectCustomerForm/SelectCustomerForm";
 import { useAppStore } from "../../../stores/app-store";
 import { Customer } from "../../../types";
-import { deleteCustomerById } from "../../../services/customers/repository/customersRepository";
 import { SharedButton } from "../../../components/ui/SharedButton/SharedButton";
 import { CustomerCard } from "../../../components/customers/CustomerCard/CustomerCard";
 import { SharedCard } from "../../../components/ui/SharedCard/SharedCard";
 import { SelectCustomerFormValues } from "../../../types/form-values-types";
 import { FormikHelpers } from "formik";
-import { fetchCustomer } from "../../../services/customers/service/customersService";
+import {
+  fetchCustomer,
+  handleDeleteCustomer,
+} from "../../../services/customers/service/customersService";
 
 export const DeleteCustomerView = () => {
   const selectedCustomerId = useAppStore((state) => state.selectedCustomerId);
@@ -59,8 +61,10 @@ export const DeleteCustomerView = () => {
               <SharedButton
                 text="DELETE Customer"
                 onClick={async () => {
-                  await deleteCustomerById(selectedCustomerId);
-                  setSelectedCustomerId("");
+                  await handleDeleteCustomer(
+                    selectedCustomerId,
+                    setSelectedCustomerId
+                  );
                 }}
               />
             </div>
