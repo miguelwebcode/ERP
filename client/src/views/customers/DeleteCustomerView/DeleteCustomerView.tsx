@@ -58,7 +58,7 @@ export const DeleteCustomerView = () => {
             <div className="flex justify-center">
               <SharedButton
                 text="DELETE Customer"
-                handleClick={async () => {
+                onClick={async () => {
                   await deleteCustomerById(selectedCustomerId);
                   setSelectedCustomerId("");
                 }}

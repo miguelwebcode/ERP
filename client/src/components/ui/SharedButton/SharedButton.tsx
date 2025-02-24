@@ -1,12 +1,12 @@
 type SharedButtonProps = {
   text: string;
-  handleClick: () => void;
+  onClick: () => void;
   className?: string;
 };
 
 export const SharedButton = ({
   text,
-  handleClick,
+  onClick: handleClick,
   className,
 }: SharedButtonProps) => {
   return (

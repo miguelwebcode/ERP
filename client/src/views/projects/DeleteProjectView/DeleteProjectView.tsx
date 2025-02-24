@@ -54,7 +54,7 @@ export const DeleteProjectView = () => {
             <div className="flex justify-center">
               <SharedButton
                 text="DELETE PROJECT"
-                handleClick={async () => {
+                onClick={async () => {
                   await deleteProjectById(selectedProjectId);
                   setSelectedProjectId("");
                 }}

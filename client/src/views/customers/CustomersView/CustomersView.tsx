@@ -10,25 +10,25 @@ export const CustomersView = () => {
         <div className="flex flex-col gap-5">
           <SharedButton
             text="CREATE Customer"
-            handleClick={() => {
+            onClick={() => {
               navigate("/customers/add");
             }}
           />
           <SharedButton
             text="READ Customers"
-            handleClick={() => {
+            onClick={() => {
               navigate("/customers/read");
             }}
           />
           <SharedButton
             text="UPDATE Customer"
-            handleClick={() => {
+            onClick={() => {
               navigate("/customers/edit");
             }}
           />
           <SharedButton
             text="DELETE Customer"
-            handleClick={() => {
+            onClick={() => {
               navigate("/customers/delete");
             }}
           />

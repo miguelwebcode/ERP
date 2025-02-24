@@ -11,25 +11,25 @@ export const ProjectsView = () => {
         <div className="flex flex-col gap-5">
           <SharedButton
             text="CREATE Project"
-            handleClick={() => {
+            onClick={() => {
               navigate("/projects/add");
             }}
           />
           <SharedButton
             text="READ Projects"
-            handleClick={() => {
+            onClick={() => {
               navigate("/projects/read");
             }}
           />
           <SharedButton
             text="UPDATE Project"
-            handleClick={() => {
+            onClick={() => {
               navigate("/projects/edit");
             }}
           />
           <SharedButton
             text="DELETE Project"
-            handleClick={() => {
+            onClick={() => {
               navigate("/projects/delete");
             }}
           />

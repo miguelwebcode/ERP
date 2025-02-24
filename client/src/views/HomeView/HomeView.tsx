@@ -26,25 +26,25 @@ export const HomeView = () => {
             </h3>
             <SharedButton
               text="CREATE Customer"
-              handleClick={() => {
+              onClick={() => {
                 navigate("/customers/add");
               }}
             />
             <SharedButton
               text="READ Customers"
-              handleClick={() => {
+              onClick={() => {
                 navigate("/customers/read");
               }}
             />
             <SharedButton
               text="UPDATE Customer"
-              handleClick={() => {
+              onClick={() => {
                 navigate("/customers/edit");
               }}
             />
             <SharedButton
               text="DELETE Customer"
-              handleClick={() => {
+              onClick={() => {
                 navigate("/customers/delete");
               }}
             />
@@ -55,25 +55,25 @@ export const HomeView = () => {
             </h3>
             <SharedButton
               text="CREATE Project"
-              handleClick={() => {
+              onClick={() => {
                 navigate("/projects/add");
               }}
             />
             <SharedButton
               text="READ Projects"
-              handleClick={() => {
+              onClick={() => {
                 navigate("/projects/read");
               }}
             />
             <SharedButton
               text="UPDATE Project"
-              handleClick={() => {
+              onClick={() => {
                 navigate("/projects/edit");
               }}
             />
             <SharedButton
               text="DELETE Project"
-              handleClick={() => {
+              onClick={() => {
                 navigate("/projects/delete");
               }}
             />

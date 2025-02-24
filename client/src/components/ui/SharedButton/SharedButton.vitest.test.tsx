@@ -7,7 +7,7 @@ describe("SharedButton", () => {
     const text = "Click Me";
     const handleClick = vi.fn();
 
-    render(<SharedButton text={text} handleClick={handleClick} />);
+    render(<SharedButton text={text} onClick={handleClick} />);
 
     const button = screen.getByText(text);
     expect(button).toBeInTheDocument();
@@ -17,7 +17,7 @@ describe("SharedButton", () => {
     const text = "Click Me";
     const handleClick = vi.fn();
 
-    render(<SharedButton text={text} handleClick={handleClick} />);
+    render(<SharedButton text={text} onClick={handleClick} />);
 
     const button = screen.getByText(text);
     fireEvent.click(button);
@@ -31,11 +31,7 @@ describe("SharedButton", () => {
     const className = "custom-class";
 
     render(
-      <SharedButton
-        text={text}
-        handleClick={handleClick}
-        className={className}
-      />
+      <SharedButton text={text} onClick={handleClick} className={className} />
     );
 
     const button = screen.getByText(text);
