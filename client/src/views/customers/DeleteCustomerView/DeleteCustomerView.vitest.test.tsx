@@ -191,6 +191,7 @@ describe("DeleteCustomerView", () => {
    TODO: Check with Guillem
   */
   it("retreives customer data, shows it and deletes it when button clicked", async () => {
+    vi.spyOn(customersService, "handleDeleteCustomer");
     const selectedCustomer: Customer = {
       address: "Customer2 Street",
       company: "Customer2 Company",
@@ -271,6 +272,7 @@ describe("DeleteCustomerView", () => {
       expect(buttonDeleteCustomer).toBeInTheDocument();
 
       fireEvent.click(buttonDeleteCustomer);
+      expect(customersService.handleDeleteCustomer).toHaveBeenCalled();
     });
   });
 });
