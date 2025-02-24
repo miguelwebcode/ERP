@@ -3,12 +3,14 @@ import {
   fetchAllCustomers,
   fetchCustomer,
   fetchCustomerIds,
+  handleDeleteCustomer,
   setCustomerFormValues,
 } from "./customersService";
 import {
   getAllCustomerIds,
   getCustomerById,
   getAllCustomers,
+  deleteCustomerById,
 } from "../repository/customersRepository";
 import { FormikProps } from "formik";
 import { CustomerFormValues } from "../../../types/form-values-types";
@@ -17,6 +19,7 @@ vi.mock("../repository/customersRepository", () => ({
   getAllCustomerIds: vi.fn(),
   getCustomerById: vi.fn(),
   getAllCustomers: vi.fn(),
+  deleteCustomerById: vi.fn(),
 }));
 
 describe("fetchCustomerIds", () => {
@@ -125,6 +128,31 @@ describe("fetchAllCustomers", () => {
     expect(callback).not.toHaveBeenCalled();
     expect(consoleErrorSpy).toHaveBeenCalledWith(
       "Error fetching customers: ",
+      error
+    );
+  });
+});
+describe("handleDeleteCustomer", () => {
+  beforeEach(() => {
+    vi.resetAllMocks();
+  });
+  const selectedCustomerId = "1";
+  const setSelectedCustomerId = vi.fn();
+  const consoleErrorSpy = vi.spyOn(console, "error");
+  it("should get all customers and pass them to callback as arg", async () => {
+    await handleDeleteCustomer(selectedCustomerId, setSelectedCustomerId);
+    expect(deleteCustomerById).toHaveBeenCalled();
+    expect(setSelectedCustomerId).toHaveBeenCalledWith("");
+    expect(consoleErrorSpy).not.toHaveBeenCalled();
+  });
+  it("should manage thrown error correctly", async () => {
+    const error = new Error("Test error");
+    (deleteCustomerById as Mock).mockRejectedValue(error);
+    await handleDeleteCustomer(selectedCustomerId, setSelectedCustomerId);
+    expect(deleteCustomerById).toHaveBeenCalled();
+    expect(setSelectedCustomerId).not.toHaveBeenCalled();
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "Error deleting customer: ",
       error
     );
   });
