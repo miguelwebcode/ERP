@@ -68,6 +68,10 @@ export const handleDeleteCustomer = async (
   selectedCustomerId: string,
   setSelectedCustomerId: (selectedCustomerId: string) => void
 ) => {
-  await deleteCustomerById(selectedCustomerId);
-  setSelectedCustomerId("");
+  try {
+    await deleteCustomerById(selectedCustomerId);
+    setSelectedCustomerId("");
+  } catch (error) {
+    console.error("Error deleting customer: ", error);
+  }
 };
