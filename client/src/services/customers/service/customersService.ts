@@ -5,6 +5,7 @@ import {
   getAllCustomerIds,
   getCustomerById,
   getAllCustomers,
+  deleteCustomerById,
 } from "../repository/customersRepository";
 
 export const fetchCustomerIds = async (callback: (ids: string[]) => void) => {
@@ -61,4 +62,12 @@ export const fetchAllCustomers = async (
   } catch (error) {
     console.error("Error fetching customers: ", error);
   }
+};
+
+export const handleDeleteCustomer = async (
+  selectedCustomerId: string,
+  setSelectedCustomerId: (selectedCustomerId: string) => void
+) => {
+  await deleteCustomerById(selectedCustomerId);
+  setSelectedCustomerId("");
 };
