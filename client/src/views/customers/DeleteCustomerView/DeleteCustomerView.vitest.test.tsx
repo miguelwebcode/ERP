@@ -202,7 +202,7 @@ describe("DeleteCustomerView", () => {
       project: "Project2",
     };
     const mockSetSelectedCustomer = vi.fn();
-    (useState as unknown as Mock).mockReturnValue([
+    (useState as unknown as Mock).mockReturnValueOnce([
       selectedCustomer,
       mockSetSelectedCustomer,
     ]);
@@ -222,7 +222,10 @@ describe("DeleteCustomerView", () => {
       "31ccef4f-ab5b-4ddb-b031-6877b3e12891",
     ];
     const mockSetCustomerIds = vi.fn();
-    (useState as Mock).mockReturnValue([mockCustomerIds, mockSetCustomerIds]);
+    (useState as Mock).mockReturnValueOnce([
+      mockCustomerIds,
+      mockSetCustomerIds,
+    ]);
     render(<DeleteCustomerView />);
 
     const selectCustomerId = screen.getByLabelText(
@@ -230,7 +233,7 @@ describe("DeleteCustomerView", () => {
     ) as HTMLSelectElement;
     expect(selectCustomerId.value).toBe("");
     fireEvent.change(selectCustomerId, {
-      target: { value: mockCustomerIds[0] },
+      target: { value: mockAppStore.selectedCustomerId },
     });
     expect(selectCustomerId.value).toBe(mockCustomerIds[0]);
 
@@ -242,7 +245,7 @@ describe("DeleteCustomerView", () => {
 
     await waitFor(() => {
       const buttonDeletecustomer = screen.getByRole("button", {
-        name: /delete customer/i,
+        name: /deleteE customer/i,
       });
       expect(buttonDeletecustomer).toBeInTheDocument();
     });
