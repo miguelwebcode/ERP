@@ -13,7 +13,13 @@ import { FormikProps } from "formik";
 import { CustomerFormValues } from "../../../types/form-values-types";
 import * as customersRepository from "../../../services/customers/repository/customersRepository";
 import { db } from "../../../firebaseConfig";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 
 describe("AddCustomerView", () => {
   beforeEach(() => {
@@ -151,14 +157,22 @@ describe("AddCustomerView", () => {
     expect(button).toBeInTheDocument();
     fireEvent.click(button);
 
-    const customersRef = collection(db, "customers");
-    const q = query(customersRef, where("email", "==", customerData.email));
-    const querySnapshot = await getDocs(q);
-    const customerEmailExists = !querySnapshot.empty;
-
-    await waitFor(() => {
-      expect(customersRepository.handleCreateCustomer).toHaveBeenCalled();
+    await waitFor(async () => {
+      const customersRef = collection(db, "customers");
+      const q = query(customersRef, where("email", "==", customerData.email));
+      const querySnapshot = await getDocs(q);
+      console.log(querySnapshot.docs[0]);
+      const customerEmailExists = !querySnapshot.empty;
       expect(customerEmailExists).toBe(true);
+      expect(customersRepository.handleCreateCustomer).toHaveBeenCalled();
+
+      // Saves deletion promises to promise array, then waits for
+      // all promises to complete
+      const deletionPromises: Promise<void>[] = [];
+      querySnapshot.forEach((doc) => {
+        deletionPromises.push(deleteDoc(doc.ref));
+      });
+      await Promise.all(deletionPromises);
     });
   });
 });
