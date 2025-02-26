@@ -3,6 +3,8 @@ import { describe, it, expect, vi, Mock, beforeEach } from "vitest";
 import * as appStore from "../../../stores/app-store";
 import { useState, useRef } from "react";
 import EditCustomerView from "./EditCustomerView";
+import { db } from "../../../firebaseConfig";
+import { collection, getDocs, query, where } from "firebase/firestore";
 
 vi.mock("react", async () => {
   const actualReact = await vi.importActual("react");
@@ -187,7 +189,13 @@ describe("EditCustomerView", () => {
       email: "customer2@email.com",
     };
 
-    await waitFor(() => {
+    const buttonUpdateCustomer = screen.getByRole("button", {
+      name: /update customer/i,
+    });
+
+    const inputName = screen.getByLabelText("Name") as HTMLInputElement;
+
+    await waitFor(async () => {
       // CustomerForm
       const titleCustomerForm = screen.getByRole("heading", {
         name: /Edit Customer/i,
@@ -209,10 +217,10 @@ describe("EditCustomerView", () => {
       expect(inputEmail.value).toBe(customerData.email);
       expect(inputEmail.disabled).toBe(false);
 
-      const inputName = screen.getByLabelText("Name") as HTMLInputElement;
       expect(inputName).toBeInTheDocument();
       expect(inputName.value).toBe(customerData.name);
       expect(inputName.disabled).toBe(false);
+      fireEvent.change(inputName, { target: { value: "Agapito" } });
 
       const inputPhone = screen.getByLabelText("Phone") as HTMLInputElement;
       expect(inputPhone).toBeInTheDocument();
@@ -224,10 +232,24 @@ describe("EditCustomerView", () => {
       expect(inputProject.value).toBe(customerData.project);
       expect(inputProject.disabled).toBe(false);
 
-      const buttonUpdateCustomer = screen.getByRole("button", {
-        name: /update customer/i,
-      });
       expect(buttonUpdateCustomer).toBeInTheDocument();
+    });
+
+    fireEvent.click(buttonUpdateCustomer);
+    await waitFor(async () => {
+      const customersRef = collection(db, "customers");
+      const q = query(customersRef, where("name", "==", "Agapito"));
+      const querySnapshot = await getDocs(q);
+      expect(querySnapshot.empty).toBe(false);
+    });
+    // Set name to previous value
+    fireEvent.change(inputName, { target: { value: customerData.name } });
+    fireEvent.click(buttonUpdateCustomer);
+    await waitFor(async () => {
+      const customersRef = collection(db, "customers");
+      const q = query(customersRef, where("name", "==", customerData.name));
+      const querySnapshot = await getDocs(q);
+      expect(querySnapshot.empty).toBe(false);
     });
   });
 });
