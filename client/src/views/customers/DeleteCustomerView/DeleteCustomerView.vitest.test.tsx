@@ -5,6 +5,8 @@ import * as appStore from "../../../stores/app-store";
 import * as customersService from "../../../services/customers/service/customersService";
 import { useState, useRef } from "react";
 import { Customer } from "../../../types";
+import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../../../firebaseConfig";
 
 vi.mock("react", async () => {
   const actualReact = await vi.importActual("react");
@@ -191,7 +193,6 @@ describe("DeleteCustomerView", () => {
    TODO: Check with Guillem
   */
   it("retreives customer data, shows it and deletes it when button clicked", async () => {
-    vi.spyOn(customersService, "handleDeleteCustomer");
     const selectedCustomer: Customer = {
       address: "Customer2 Street",
       company: "Customer2 Company",
@@ -244,6 +245,9 @@ describe("DeleteCustomerView", () => {
     expect(buttonSelectCustomer).toBeInTheDocument();
     fireEvent.click(buttonSelectCustomer);
 
+    const buttonDeleteCustomer = screen.getByRole("button", {
+      name: /delete customer/i,
+    });
     await waitFor(() => {
       const spanName = screen.getByTestId(/name/i);
       expect(spanName).toHaveTextContent(selectedCustomer.name);
@@ -266,13 +270,24 @@ describe("DeleteCustomerView", () => {
       const spanCreatedAt = screen.getByTestId(/created at/i);
       expect(spanCreatedAt).toHaveTextContent(selectedCustomer.createdAt);
 
-      const buttonDeleteCustomer = screen.getByRole("button", {
-        name: /delete customer/i,
-      });
       expect(buttonDeleteCustomer).toBeInTheDocument();
+    });
 
-      fireEvent.click(buttonDeleteCustomer);
-      expect(customersService.handleDeleteCustomer).toHaveBeenCalled();
+    fireEvent.click(buttonDeleteCustomer);
+
+    await waitFor(async () => {
+      // Check customer delete
+      const customersRef = collection(db, "customers");
+      const q = query(
+        customersRef,
+        where("customerId", "==", selectedCustomer.customerId)
+      );
+      const querySnapshotDelete = await getDocs(q);
+      expect(querySnapshotDelete.empty).toBe(true);
+      // Re-create same customer
+      await addDoc(customersRef, selectedCustomer);
+      const querySnapshotCreate = await getDocs(q);
+      expect(querySnapshotCreate.empty).toBe(false);
     });
   });
 });
