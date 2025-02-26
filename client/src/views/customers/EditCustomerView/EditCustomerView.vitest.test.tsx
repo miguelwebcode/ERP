@@ -127,7 +127,10 @@ describe("EditCustomerView", () => {
   it("fetch customer, check texts on form, update customer, check successful update", async () => {
     const mockIsRenderDone = true;
     const mockSetIsRenderDone = vi.fn();
-    (useState as Mock).mockReturnValue([mockIsRenderDone, mockSetIsRenderDone]);
+    (useState as Mock).mockReturnValueOnce([
+      mockIsRenderDone,
+      mockSetIsRenderDone,
+    ]);
 
     const mockStore = {
       selectedCustomerId: "260cf13e-84ec-4fd3-98e3-17d745a2a708",
@@ -141,7 +144,10 @@ describe("EditCustomerView", () => {
       "31ccef4f-ab5b-4ddb-b031-6877b3e12891",
     ];
     const mockSetCustomerIds = vi.fn();
-    (useState as Mock).mockReturnValue([mockCustomerIds, mockSetCustomerIds]);
+    (useState as Mock).mockReturnValueOnce([
+      mockCustomerIds,
+      mockSetCustomerIds,
+    ]);
 
     (useRef as Mock).mockImplementation(() => ({ current: false }));
 
