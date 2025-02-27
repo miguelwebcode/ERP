@@ -208,9 +208,13 @@ describe("DeleteCustomerView", () => {
       selectedCustomer,
       mockSetSelectedCustomer,
     ]);
+    const mockCustomerIds = [
+      "260cf13e-84ec-4fd3-98e3-17d745a2a708",
+      "31ccef4f-ab5b-4ddb-b031-6877b3e12891",
+    ];
 
     const mockAppStore = {
-      selectedCustomerId: "260cf13e-84ec-4fd3-98e3-17d745a2a708",
+      selectedCustomerId: mockCustomerIds[0],
       setSelectedCustomerId: vi.fn(),
     };
     (appStore.useAppStore as unknown as Mock).mockImplementation((selector) =>
@@ -219,10 +223,6 @@ describe("DeleteCustomerView", () => {
 
     (useRef as Mock).mockImplementation(() => ({ current: false }));
 
-    const mockCustomerIds = [
-      "260cf13e-84ec-4fd3-98e3-17d745a2a708",
-      "31ccef4f-ab5b-4ddb-b031-6877b3e12891",
-    ];
     const mockSetCustomerIds = vi.fn();
     (useState as Mock).mockReturnValueOnce([
       mockCustomerIds,
