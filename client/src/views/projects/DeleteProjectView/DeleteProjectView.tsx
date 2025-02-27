@@ -11,10 +11,10 @@ import { SelectProjectFormValues } from "../../../types/form-values-types";
 import { FormikHelpers } from "formik";
 
 export const DeleteProjectView = () => {
-  const selectedProjectId = useAppStore((state) => state.selectedProjectId);
   const [selectedProject, setSelectedProject] = useState<Project>(
     {} as Project
   );
+  const selectedProjectId = useAppStore((state) => state.selectedProjectId);
 
   const setSelectedProjectId = useAppStore(
     (state) => state.setSelectedProjectId
