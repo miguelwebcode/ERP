@@ -192,7 +192,7 @@ describe("DeleteCustomerView", () => {
   /* 
    TODO: Check with Guillem
   */
-  it("retreives customer data, shows it and deletes it when button clicked", async () => {
+  it("retrieves customer data, shows it and deletes it when button clicked", async () => {
     const selectedCustomer: Customer = {
       address: "Customer2 Street",
       company: "Customer2 Company",
