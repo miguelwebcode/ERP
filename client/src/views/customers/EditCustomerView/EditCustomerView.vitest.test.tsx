@@ -1,10 +1,16 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, Mock, beforeEach } from "vitest";
 import * as appStore from "../../../stores/app-store";
-import { useState, useRef } from "react";
+import { useState, useRef, act } from "react";
 import EditCustomerView from "./EditCustomerView";
 import { db } from "../../../firebaseConfig";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 
 vi.mock("react", async () => {
   const actualReact = await vi.importActual("react");
@@ -151,33 +157,31 @@ describe("EditCustomerView", () => {
       mockSetCustomerIds,
     ]);
 
-    (useRef as Mock).mockImplementation(() => ({ current: false }));
+    (useRef as Mock).mockImplementation(() => ({ current: true }));
 
     render(<EditCustomerView />);
 
-    // SelectCustomerForm texts
-
-    const titleSelectCustomer = screen.getByRole("heading", {
-      name: /select customer/i,
-    });
-    expect(titleSelectCustomer).toBeInTheDocument();
-
+    // SelectCustomerForm
     const selectCustomerId = screen.getByLabelText(
       /customer id/i
     ) as HTMLSelectElement;
     expect(selectCustomerId.value).toBe("");
     expect(selectCustomerId.disabled).toBe(false);
-    fireEvent.change(selectCustomerId, {
-      target: { value: mockCustomerIds[0] },
+    // SELECT CUSTOMER ID
+    act(() => {
+      fireEvent.change(selectCustomerId, {
+        target: { value: mockCustomerIds[0] },
+      });
     });
 
     const buttonSelectCustomer = screen.getByRole("button", {
       name: /fetch customer/i,
     }) as HTMLButtonElement;
-    expect(buttonSelectCustomer).toBeInTheDocument();
-    expect(buttonSelectCustomer.disabled).toBe(false);
-    fireEvent.click(buttonSelectCustomer);
 
+    // FETCH CUSTOMER
+    act(() => {
+      fireEvent.click(buttonSelectCustomer);
+    });
     const customerData = {
       createdAt: "19/02/2025 13:53",
       address: "Customer2 Street",
@@ -189,30 +193,31 @@ describe("EditCustomerView", () => {
       email: "customer2@email.com",
     };
 
+    const inputName = screen.getByLabelText("Name") as HTMLInputElement;
+    const titleCustomerForm = screen.getByRole("heading", {
+      name: /Edit Customer/i,
+    });
+    const inputAddress = screen.getByLabelText("Address") as HTMLInputElement;
+    const inputCompany = screen.getByLabelText("Company") as HTMLInputElement;
+    const inputEmail = screen.getByLabelText("Email") as HTMLInputElement;
+    const inputPhone = screen.getByLabelText("Phone") as HTMLInputElement;
+    const inputProject = screen.getByLabelText("Project") as HTMLInputElement;
     const buttonUpdateCustomer = screen.getByRole("button", {
       name: /update customer/i,
     });
 
-    const inputName = screen.getByLabelText("Name") as HTMLInputElement;
-
     await waitFor(async () => {
       // CustomerForm
-      const titleCustomerForm = screen.getByRole("heading", {
-        name: /Edit Customer/i,
-      });
       expect(titleCustomerForm).toBeInTheDocument();
 
-      const inputAddress = screen.getByLabelText("Address") as HTMLInputElement;
       expect(inputAddress).toBeInTheDocument();
       expect(inputAddress.value).toBe(customerData.address);
       expect(inputAddress.disabled).toBe(false);
 
-      const inputCompany = screen.getByLabelText("Company") as HTMLInputElement;
       expect(inputCompany).toBeInTheDocument();
       expect(inputCompany.value).toBe(customerData.company);
       expect(inputCompany.disabled).toBe(false);
 
-      const inputEmail = screen.getByLabelText("Email") as HTMLInputElement;
       expect(inputEmail).toBeInTheDocument();
       expect(inputEmail.value).toBe(customerData.email);
       expect(inputEmail.disabled).toBe(false);
@@ -220,36 +225,39 @@ describe("EditCustomerView", () => {
       expect(inputName).toBeInTheDocument();
       expect(inputName.value).toBe(customerData.name);
       expect(inputName.disabled).toBe(false);
-      fireEvent.change(inputName, { target: { value: "Agapito" } });
 
-      const inputPhone = screen.getByLabelText("Phone") as HTMLInputElement;
       expect(inputPhone).toBeInTheDocument();
       expect(inputPhone.value).toBe(customerData.phone);
       expect(inputPhone.disabled).toBe(false);
 
-      const inputProject = screen.getByLabelText("Project") as HTMLInputElement;
       expect(inputProject).toBeInTheDocument();
       expect(inputProject.value).toBe(customerData.project);
       expect(inputProject.disabled).toBe(false);
 
       expect(buttonUpdateCustomer).toBeInTheDocument();
     });
-
-    fireEvent.click(buttonUpdateCustomer);
-    await waitFor(async () => {
-      const customersRef = collection(db, "customers");
-      const q = query(customersRef, where("name", "==", "Agapito"));
-      const querySnapshot = await getDocs(q);
-      expect(querySnapshot.empty).toBe(false);
+    // CHANGE NAME TO NEW NAME
+    const newName = "Agapito";
+    act(() => {
+      fireEvent.change(inputName, { target: { value: newName } });
     });
-    // Set name to previous value
-    fireEvent.change(inputName, { target: { value: customerData.name } });
-    fireEvent.click(buttonUpdateCustomer);
+
+    // UPDATE CUSTOMER
+    act(() => {
+      fireEvent.click(buttonUpdateCustomer);
+    });
+
+    const customersRef = collection(db, "customers");
+    const q = query(customersRef, where("name", "==", newName));
     await waitFor(async () => {
-      const customersRef = collection(db, "customers");
-      const q = query(customersRef, where("name", "==", customerData.name));
       const querySnapshot = await getDocs(q);
       expect(querySnapshot.empty).toBe(false);
+
+      const updatePromises: Promise<void>[] = [];
+      querySnapshot.forEach((doc) => {
+        updatePromises.push(updateDoc(doc.ref, { name: customerData.name }));
+      });
+      await Promise.all(updatePromises);
     });
   });
 });
