@@ -70,11 +70,9 @@ export const handleCreateProject = async (
     /* 
        TODO: Show notification
       */
-    alert("Customer created successfully!");
     formikHelpers.resetForm();
   } catch (error) {
     console.error("Error creating customer: ", error);
-    alert("Error creating customer!");
   }
 };
 
@@ -104,11 +102,9 @@ export const handleEditProject = async (
       ...values,
       updatedAt: formatDate(new Date()),
     });
-    alert("Customer updated successfully!");
     formikHelpers.resetForm();
   } catch (error) {
     console.error("Error updating customer: ", error);
-    alert("Error updating customer!");
   }
 };
 
@@ -127,7 +123,6 @@ export const deleteProjectById = async (projectId: string) => {
     const projectDocRef = doc(db, "projects", documentId);
 
     await deleteDoc(projectDocRef);
-    alert("Project deleted successfully!");
   } catch (error) {
     console.error("Error deleting project: ", error);
   }
