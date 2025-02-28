@@ -193,10 +193,10 @@ describe("EditCustomerView", () => {
       email: "customer2@email.com",
     };
 
-    const inputName = screen.getByLabelText("Name") as HTMLInputElement;
     const titleCustomerForm = screen.getByRole("heading", {
       name: /Edit Customer/i,
     });
+    const inputName = screen.getByLabelText("Name") as HTMLInputElement;
     const inputAddress = screen.getByLabelText("Address") as HTMLInputElement;
     const inputCompany = screen.getByLabelText("Company") as HTMLInputElement;
     const inputEmail = screen.getByLabelText("Email") as HTMLInputElement;
