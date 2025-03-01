@@ -45,13 +45,21 @@ export const fetchProject = async (
   selectedProjectId: string,
   setSelectedProject: (value: React.SetStateAction<Project>) => void
 ) => {
-  const result = await getProjectById(selectedProjectId);
-  setSelectedProject(result as Project);
+  try {
+    const result = await getProjectById(selectedProjectId);
+    setSelectedProject(result as Project);
+  } catch (error) {
+    console.error("Error fetching project: ", error);
+  }
 };
 
 export const fetchAllProjects = async (
   setProjects: React.Dispatch<React.SetStateAction<Project[]>>
 ) => {
-  const result = await getAllProjects();
-  setProjects(result as Project[]);
+  try {
+    const result = await getAllProjects();
+    setProjects(result as Project[]);
+  } catch (error) {
+    console.error("Error fetching projects: ", error);
+  }
 };
