@@ -3,7 +3,7 @@ vi.mock("react-router-dom", () => ({
   useNavigate: vi.fn(),
 }));
 
-vi.mock("../../../services/auth/auth", () => ({
+vi.mock("../../../services/auth/service/authService", () => ({
   logout: vi.fn(() => Promise.resolve()),
 }));
 
