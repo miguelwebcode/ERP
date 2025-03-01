@@ -34,7 +34,7 @@ export const firebaseRegisterUser = async (
 
 export const firebaseLogout = async () => {
   try {
-    return await signOut(auth);
+    await signOut(auth);
   } catch (error) {
     console.error("Logout error: ", error);
   }
