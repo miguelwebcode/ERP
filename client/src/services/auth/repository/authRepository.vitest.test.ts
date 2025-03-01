@@ -26,9 +26,7 @@ describe("firebaseLogin", () => {
     });
     const result = await firebaseLogin(credentials.email, credentials.password);
     await waitFor(() => {
-      expect(
-        firebaseAuth.signInWithEmailAndPassword as Mock
-      ).toHaveBeenCalled();
+      expect(firebaseAuth.signInWithEmailAndPassword).toHaveBeenCalled();
       expect(result).toBeDefined();
       expect(result).toHaveProperty("user");
     });
@@ -63,9 +61,7 @@ describe("firebaseRegisterUser", () => {
       credentials.password
     );
     await waitFor(() => {
-      expect(
-        firebaseAuth.createUserWithEmailAndPassword as Mock
-      ).toHaveBeenCalled();
+      expect(firebaseAuth.createUserWithEmailAndPassword).toHaveBeenCalled();
       expect(result).toBeDefined();
       expect(result).toHaveProperty("user");
     });
@@ -82,9 +78,7 @@ describe("firebaseRegisterUser", () => {
     );
 
     await waitFor(() => {
-      expect(
-        firebaseAuth.createUserWithEmailAndPassword as Mock
-      ).toHaveBeenCalled();
+      expect(firebaseAuth.createUserWithEmailAndPassword).toHaveBeenCalled();
       expect(consoleErrorSpy).toHaveBeenCalledWith("Register error: ", error);
       expect(result).toBeUndefined();
     });
