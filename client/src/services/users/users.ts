@@ -8,12 +8,15 @@ export const saveUserData = async (uid: string, data: any) => {
     console.log("User data saved");
   } catch (error) {
     console.error("Error saving user data: ", error);
-    throw error;
   }
 };
 
 export async function getUsers() {
   const usersRef = collection(db, "users");
-  const snapshot = await getDocs(usersRef);
-  return snapshot.docs.map((doc) => doc.data());
+  try {
+    const snapshot = await getDocs(usersRef);
+    return snapshot.docs.map((doc) => doc.data());
+  } catch (error) {
+    console.error("Error fetching users: ", error);
+  }
 }
