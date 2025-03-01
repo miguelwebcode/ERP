@@ -16,6 +16,7 @@ export const login = async (email: string, password: string) => {
     }
   } catch (error) {
     console.error("Error signing in: ", error);
+    return;
   }
 };
 
