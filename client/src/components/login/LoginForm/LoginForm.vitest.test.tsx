@@ -5,8 +5,8 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, Mock } from "vitest";
 import LoginForm from "./LoginForm";
 import { useNavigate } from "react-router-dom";
-import { login } from "../../../services/auth/auth";
-import * as authModule from "../../../services/auth/auth";
+import { login } from "../../../services/auth/authService";
+import * as authModule from "../../../services/auth/authService";
 
 describe("LoginForm", () => {
   it("shows correct title, labels, button texts, inputs empty", () => {

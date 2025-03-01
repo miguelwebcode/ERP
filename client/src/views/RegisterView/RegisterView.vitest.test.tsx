@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, Mock } from "vitest";
-import * as authModule from "../../services/auth/auth";
+import * as authModule from "../../services/auth/authService";
 import * as appStore from "../../stores/app-store";
 import { RegisterView } from "./RegisterView";
 
