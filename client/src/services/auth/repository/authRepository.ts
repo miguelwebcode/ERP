@@ -4,14 +4,19 @@ import {
   signOut,
   onAuthStateChanged,
   User,
+  UserCredential,
 } from "firebase/auth";
 import { auth } from "../../../firebaseConfig";
 
-export const firebaseLogin = async (email: string, password: string) => {
+export const firebaseLogin = async (
+  email: string,
+  password: string
+): Promise<UserCredential | undefined> => {
   try {
     return await signInWithEmailAndPassword(auth, email, password);
   } catch (error) {
     console.error("Login error: ", error);
+    return;
   }
 };
 
@@ -23,6 +28,7 @@ export const firebaseRegisterUser = async (
     return await createUserWithEmailAndPassword(auth, email, password);
   } catch (error) {
     console.error("Register error: ", error);
+    return;
   }
 };
 
