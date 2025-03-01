@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, Mock } from "vitest";
 import { HomeView } from "./HomeView";
 import * as appStore from "../../stores/app-store";
-import * as authModule from "../../services/auth/authService";
+import * as authModule from "../../services/auth/service/authService";
 
 const mockedNavigate = vi.fn();
 vi.mock("react-router-dom", () => ({

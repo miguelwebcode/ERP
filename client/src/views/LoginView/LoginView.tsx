@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import LoginForm from "../../components/login/LoginForm/LoginForm";
-import { watchAuthState } from "../../services/auth/authService";
+import { watchAuthState } from "../../services/auth/service/authService";
 import { useAppStore } from "../../stores/app-store";
 
 export const LoginView = () => {

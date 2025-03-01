@@ -10,7 +10,7 @@ vi.mock("../../../services/auth/auth", () => ({
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi, Mock } from "vitest";
 import { useNavigate } from "react-router-dom";
-import { logout } from "../../../services/auth/authService";
+import { logout } from "../../../services/auth/service/authService";
 import { LogoutButton } from "./LogoutButton";
 
 describe("LogoutButton", () => {
