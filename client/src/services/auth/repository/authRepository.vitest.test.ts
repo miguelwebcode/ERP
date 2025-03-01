@@ -1,7 +1,13 @@
 import { describe, it, expect, vi, beforeEach, Mock } from "vitest";
-import { firebaseLogin, firebaseRegisterUser } from "./authRepository";
+import {
+  firebaseLogin,
+  firebaseLogout,
+  firebaseOnAuthStateChanged,
+  firebaseRegisterUser,
+} from "./authRepository";
 import * as firebaseAuth from "firebase/auth";
 import { waitFor } from "@testing-library/react";
+import { auth } from "../../../firebaseConfig";
 
 vi.mock("firebase/auth", { spy: true });
 
@@ -82,5 +88,37 @@ describe("firebaseRegisterUser", () => {
       expect(consoleErrorSpy).toHaveBeenCalledWith("Register error: ", error);
       expect(result).toBeUndefined();
     });
+  });
+});
+
+describe("firebaseLogout", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it("should call signOut", async () => {
+    await firebaseLogout();
+    expect(firebaseAuth.signOut as Mock).toHaveBeenCalledWith(auth);
+  });
+  it("should manage errors correctly", async () => {
+    const error = new Error("Test error");
+    (firebaseAuth.signOut as Mock).mockRejectedValue(error);
+    const consoleErrorSpy = vi.spyOn(console, "error");
+    await firebaseLogout();
+    await waitFor(() => {
+      expect(consoleErrorSpy).toHaveBeenCalledWith("Logout error: ", error);
+    });
+  });
+});
+
+describe("firebaseOnAuthStateChanged", () => {
+  beforeEach(() => {});
+  const callback = vi.fn();
+  it("should call onAuthStateChanged", () => {
+    firebaseOnAuthStateChanged(callback);
+    expect(firebaseAuth.onAuthStateChanged).toHaveBeenCalledWith(
+      auth,
+      callback
+    );
   });
 });
