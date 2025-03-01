@@ -10,11 +10,12 @@ import {
 export const login = async (email: string, password: string) => {
   try {
     const userCredential = await firebaseLogin(email, password);
-    console.log("User signed in: ", userCredential.user);
-    return userCredential.user;
+    if (userCredential) {
+      console.log("User signed in: ", userCredential.user);
+      return userCredential.user;
+    }
   } catch (error) {
     console.error("Error signing in: ", error);
-    throw error;
   }
 };
 
@@ -39,10 +40,11 @@ export const logout = async () => {
 export const registerUser = async (email: string, password: string) => {
   try {
     const userCredential = await firebaseRegisterUser(email, password);
-    console.log("User registered: ", userCredential.user);
-    return userCredential.user;
+    if (userCredential) {
+      console.log("User registered: ", userCredential.user);
+      return userCredential.user;
+    }
   } catch (error) {
     console.error("Error registering user: ", error);
-    throw error;
   }
 };
