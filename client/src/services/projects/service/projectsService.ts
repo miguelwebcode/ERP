@@ -20,18 +20,24 @@ export const setProjectFormValues = async (
   formik: FormikProps<ProjectFormValues>,
   selectedProjectId: string
 ) => {
-  const selectedProject = (await getProjectById(selectedProjectId)) as Project;
-  if (selectedProject) {
-    const newValues: ProjectFormValues = {
-      customerId: selectedProject.customerId,
-      description: selectedProject.description,
-      startDate: selectedProject.startDate,
-      endDate: selectedProject.endDate,
-      name: selectedProject.name,
-      state: selectedProject.state,
-      developer: selectedProject.developer,
-    };
-    formik.setValues(newValues);
+  try {
+    const selectedProject = (await getProjectById(
+      selectedProjectId
+    )) as Project;
+    if (selectedProject) {
+      const newValues: ProjectFormValues = {
+        customerId: selectedProject.customerId,
+        description: selectedProject.description,
+        startDate: selectedProject.startDate,
+        endDate: selectedProject.endDate,
+        name: selectedProject.name,
+        state: selectedProject.state,
+        developer: selectedProject.developer,
+      };
+      formik.setValues(newValues);
+    }
+  } catch (error) {
+    console.error("Error fetching project: ", error);
   }
 };
 
