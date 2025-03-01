@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, Mock } from "vitest";
-import { firebaseLogin } from "./authRepository";
+import { firebaseLogin, firebaseRegisterUser } from "./authRepository";
 import * as firebaseAuth from "firebase/auth";
 import { waitFor } from "@testing-library/react";
 
@@ -35,6 +35,51 @@ describe("firebaseLogin", () => {
 
     await waitFor(() => {
       expect(consoleErrorSpy).toHaveBeenCalledWith("Login error: ", error);
+      expect(result).toBeUndefined();
+    });
+  });
+});
+
+describe("firebaseRegisterUser", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+  const credentials = {
+    email: "email@email.com",
+    password: "123456",
+  };
+  it("should return user when register success", async () => {
+    (firebaseAuth.createUserWithEmailAndPassword as Mock).mockResolvedValue({
+      user: { name: "Bart", id: "1" },
+    });
+    const result = await firebaseRegisterUser(
+      credentials.email,
+      credentials.password
+    );
+    await waitFor(() => {
+      expect(
+        firebaseAuth.createUserWithEmailAndPassword as Mock
+      ).toHaveBeenCalled();
+      expect(result).toBeDefined();
+      expect(result).toHaveProperty("user");
+    });
+  });
+  it("should manage errors correctly", async () => {
+    const error = new Error("Test error");
+    (firebaseAuth.createUserWithEmailAndPassword as Mock).mockRejectedValue(
+      error
+    );
+    const consoleErrorSpy = vi.spyOn(console, "error");
+    const result = await firebaseRegisterUser(
+      credentials.email,
+      credentials.password
+    );
+
+    await waitFor(() => {
+      expect(
+        firebaseAuth.createUserWithEmailAndPassword as Mock
+      ).toHaveBeenCalled();
+      expect(consoleErrorSpy).toHaveBeenCalledWith("Register error: ", error);
       expect(result).toBeUndefined();
     });
   });
