@@ -1,20 +1,15 @@
+import { User } from "firebase/auth";
 import {
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut,
-  User,
-  createUserWithEmailAndPassword,
-} from "firebase/auth";
-import { auth } from "../../../firebaseConfig";
+  firebaseLogin,
+  firebaseLogout,
+  firebaseOnAuthStateChanged,
+  firebaseRegisterUser,
+} from "../repository/authRepository";
 
 // Función para iniciar sesión, testear con firebase emulator
 export const login = async (email: string, password: string) => {
   try {
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+    const userCredential = await firebaseLogin(email, password);
     console.log("User signed in: ", userCredential.user);
     return userCredential.user;
   } catch (error) {
@@ -25,8 +20,7 @@ export const login = async (email: string, password: string) => {
 
 // Función para observar los cambios en el estado de autenticación
 export const watchAuthState = (callback: (user: User | null) => void) => {
-  onAuthStateChanged(auth, (user) => {
-    // El parámetro 'user' ya tiene el tipo 'User | null' gracias al SDK de Firebase
+  firebaseOnAuthStateChanged((user) => {
     callback(user);
   });
 };
@@ -34,7 +28,7 @@ export const watchAuthState = (callback: (user: User | null) => void) => {
 // Función para cerrar sesión
 export const logout = async () => {
   try {
-    await signOut(auth);
+    await firebaseLogout();
     console.log("User signed out");
   } catch (error) {
     console.error("Error signing out: ", error);
@@ -44,11 +38,7 @@ export const logout = async () => {
 // Función para registrar un nuevo usuario
 export const registerUser = async (email: string, password: string) => {
   try {
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+    const userCredential = await firebaseRegisterUser(email, password);
     console.log("User registered: ", userCredential.user);
     return userCredential.user;
   } catch (error) {
