@@ -1,7 +1,33 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.tsbuildinfo",
+    "target": "ES2022", // Compromiso: usamos ES2022 (en tsconfig.app se usaba ES2020 y en node ES2022)
+    "useDefineForClassFields": true,
+    "lib": ["ES2023", "DOM", "DOM.Iterable"], // Incluye lo necesario para Node y para el navegador
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    /* Configuración para modo bundler */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Reglas de linting y verificación estricta */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true,
+
+    "types": ["jest", "vitest"]
+  },
+  "include": [
+    "src/**/*",
+    "jest.config.ts",
+    "vitest.config.ts",
+    "vite.config.ts"
   ]
 }
