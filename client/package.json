@@ -8,8 +8,9 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "vitest --ui",
-    "emulators": "npx kill-port --port 4000,5000,5001,8080,9000,9099 && firebase emulators:start --import=firestore-backup"
+    "test:vitest": "vitest --ui",
+    "emulators": "npx kill-port --port 4000,5000,5001,8080,9000,9099 && firebase emulators:start --import=firestore-backup",
+    "test:cypress": "cypress open"
   },
   "dependencies": {
     "@firebase/rules-unit-testing": "^4.0.1",
