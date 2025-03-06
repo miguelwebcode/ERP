@@ -3,6 +3,7 @@ serviceAccount.json
 
 # Firestore Backup
 backup-firebase/
+backup-files/
 
 users.json
 
