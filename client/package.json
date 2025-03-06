@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "vitest": "vitest --ui",
-    "emulators": "npx kill-port --port 4000,5000,5001,8080,9000,9099 && firebase emulators:start --import=firestore-backup",
+    "emulators": "npx kill-port --port 4000,5000,5001,8080,9000,9099 && firebase emulators:start --import=backup-firebase",
     "cypress": "npx cypress run",
     "cypress:open": "npx cypress open"
   },
