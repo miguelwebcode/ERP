@@ -2,7 +2,7 @@
 serviceAccount.json
 
 # Firestore Backup
-firestore-backup/
+backup-firebase/
 
 users.json
 
