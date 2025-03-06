@@ -10,6 +10,9 @@ export default defineConfig({
      TODO: Ask guillem about port and config
     */
     baseUrl: "http://localhost:5173",
+    env: {
+      TEST_UID: process.env.CYPRESS_TEST_UID,
+    },
     // NOTE: Add "supportFile" setting if separate location is used
     setupNodeEvents(on, config) {
       // e2e testing node events setup code
