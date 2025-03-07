@@ -74,6 +74,41 @@ async function main() {
       `gcloud storage cp -r gs://erp-fire/backup-firebase ${clientBackupPath}`
     );
 
+    // Eliminar la carpeta auth_export en la ruta especificada si existe
+    const authExportToDeletePath = path.resolve(
+      __dirname,
+      "../../client/backup-firebase/auth_export"
+    );
+    if (fs.existsSync(authExportToDeletePath)) {
+      fs.rmSync(authExportToDeletePath, { recursive: true, force: true });
+    }
+
+    // Enviar una copia de auth_export de backup-files a backup-firebase
+    const authExportCopyPath = path.resolve(
+      __dirname,
+      "../../client/backup-files/auth_export"
+    );
+    await runCommand(`cp -r ${authExportCopyPath} ${backupFirebasePath}`);
+
+    // Eliminar firebase-export metadata si existe y enviar una copia de backup-files
+    const backupFirebaseMetadataToDeletePath = path.resolve(
+      __dirname,
+      "../../client/backup-firebase/firebase-export-metadata.json"
+    );
+
+    if (fs.existsSync(backupFirebaseMetadataToDeletePath)) {
+      fs.rmSync(backupFirebaseMetadataToDeletePath);
+    }
+
+    const backupFilesMetadataPath = path.resolve(
+      __dirname,
+      "../../client/backup-files/firebase-export-metadata.json"
+    );
+
+    await runCommand(
+      `cp ${backupFilesMetadataPath} ${backupFirebasePath}/firebase-export-metadata.json`
+    );
+
     console.log("Backup de Firebase completado exitosamente.");
   } catch (error) {
     console.error("Ocurrió un error durante el backup:", error);
