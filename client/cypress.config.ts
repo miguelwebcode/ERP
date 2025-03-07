@@ -12,6 +12,7 @@ export default defineConfig({
     baseUrl: "http://localhost:5173",
     env: {
       TEST_UID: process.env.CYPRESS_TEST_UID,
+      CYPRESS_FIREBASE_API_KEY: process.env.CYPRESS_FIREBASE_API_KEY,
     },
     // NOTE: Add "supportFile" setting if separate location is used
     setupNodeEvents(on, config) {
