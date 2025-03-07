@@ -5,10 +5,10 @@ import fsPromises from "fs/promises";
 
 function runCommand(cmd: string): Promise<void> {
   return new Promise((resolve, reject) => {
-    console.log(`Ejecutando: ${cmd}`);
+    console.log(`Executing: ${cmd}`);
     exec(cmd, (error, stdout, stderr) => {
       if (error) {
-        console.error(`Error ejecutando ${cmd}:`, stderr);
+        console.error(`Error executing ${cmd}:`, stderr);
         return reject(error);
       }
       console.log(stdout);
@@ -19,45 +19,45 @@ function runCommand(cmd: string): Promise<void> {
 
 async function main() {
   try {
-    console.log("Iniciando backup de Firebase (Firestore y Auth)");
+    console.log("Starting Firebase backup (Firestore and Auth)");
 
-    // 1. Intenta eliminar la copia anterior en el bucket.
-    //    Si falla porque el bucket no existe, se ignora el error.
+    // 1. Attempt to delete the previous copy in the bucket.
+    //    If it fails because the bucket does not exist, the error is ignored.
     try {
       await runCommand("gcloud storage rm -r gs://erp-fire/backup-firebase");
     } catch (error) {
       console.warn(
-        "No se pudo eliminar el bucket (probablemente no exista). Se continúa con el proceso."
+        "Could not delete the bucket (probably does not exist). Continuing with the process."
       );
     }
 
-    // 2. Exporta Firestore a una carpeta "firestore" dentro del backup
+    // 2. Export Firestore to a "firestore" folder within the backup
     await runCommand(
       "gcloud firestore export gs://erp-fire/backup-firebase/firestore_export"
     );
 
-    // 3. Exporta Firebase Auth a un archivo local (auth_export.json)
+    // 3. Export Firebase Auth to a local file (auth_export.json)
     await runCommand(
       "firebase auth:export auth_export.json --format=json --project erp-fire"
     );
 
-    // 4. Sube el archivo de Auth al bucket, dentro de una carpeta "auth_export"
+    // 4. Upload the Auth file to the bucket, inside an "auth_export" folder
     try {
       await runCommand(
         "gcloud storage cp auth_export.json gs://erp-fire/backup-firebase/auth_export/auth_export.json"
       );
-      console.log("Archivo auth_export.json subido al bucket exitosamente.");
+      console.log("auth_export.json file successfully uploaded to the bucket.");
 
-      // Eliminar el archivo localmente después de subirlo
+      // Delete the file locally after uploading
       const authExportPath = path.resolve(__dirname, "../auth_export.json");
 
       await fsPromises.unlink(authExportPath);
-      console.log("Archivo auth_export.json eliminado localmente.");
+      console.log("auth_export.json file deleted locally.");
     } catch (error) {
-      console.error("Error al subir o eliminar auth_export.json:", error);
+      console.error("Error uploading or deleting auth_export.json:", error);
     }
 
-    // 5. Define la ruta local de destino. En este ejemplo, se usará ../../client/backup-firebase
+    // 5. Define the local destination path. In this example, ../../client/backup-firebase will be used
     const clientBackupPath = path.resolve(__dirname, "../../client");
 
     const backupFirebasePath = path.resolve(
@@ -69,12 +69,12 @@ async function main() {
       fs.rmSync(backupFirebasePath, { recursive: true, force: true });
     }
 
-    // 6. Descarga el backup completo (Firestore y Auth) desde el bucket a la carpeta local
+    // 6. Download the complete backup (Firestore and Auth) from the bucket to the local folder
     await runCommand(
       `gcloud storage cp -r gs://erp-fire/backup-firebase ${clientBackupPath}`
     );
 
-    // Eliminar la carpeta auth_export en la ruta especificada si existe
+    // Delete the auth_export folder in the specified path if it exists
     const authExportToDeletePath = path.resolve(
       __dirname,
       "../../client/backup-firebase/auth_export"
@@ -83,14 +83,14 @@ async function main() {
       fs.rmSync(authExportToDeletePath, { recursive: true, force: true });
     }
 
-    // Enviar una copia de auth_export de backup-files a backup-firebase
+    // Send a copy of auth_export from backup-files to backup-firebase
     const authExportCopyPath = path.resolve(
       __dirname,
       "../../client/backup-files/auth_export"
     );
     await runCommand(`cp -r ${authExportCopyPath} ${backupFirebasePath}`);
 
-    // Eliminar firebase-export metadata si existe y enviar una copia de backup-files
+    // Delete firebase-export metadata if it exists and send a copy from backup-files
     const backupFirebaseMetadataToDeletePath = path.resolve(
       __dirname,
       "../../client/backup-firebase/firebase-export-metadata.json"
@@ -109,9 +109,9 @@ async function main() {
       `cp ${backupFilesMetadataPath} ${backupFirebasePath}/firebase-export-metadata.json`
     );
 
-    console.log("Backup de Firebase completado exitosamente.");
+    console.log("Firebase backup completed successfully.");
   } catch (error) {
-    console.error("Ocurrió un error durante el backup:", error);
+    console.error("An error occurred during the backup:", error);
   }
 }
 
