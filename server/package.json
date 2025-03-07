@@ -4,7 +4,8 @@
   "description": "Stripe Server, Express and TypeScript",
   "main": "index.ts",
   "scripts": {
-    "dev": "nodemon --exec ts-node src/index.ts"
+    "dev": "nodemon --exec ts-node src/index.ts",
+    "update-emulators-backup": "npx ts-node ./scripts/backupFirebase.ts"
   },
   "author": "Miguel",
   "license": "ISC",
