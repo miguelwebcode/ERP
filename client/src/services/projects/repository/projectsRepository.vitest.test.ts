@@ -282,6 +282,7 @@ describe("handleEditProject", () => {
       expect(firestoreMethods.doc).toHaveBeenCalled();
       expect(firestoreMethods.updateDoc).toHaveBeenCalled();
       expect(utilsFunctions.formatDate).toHaveBeenCalled();
+      expect(toast.success).toHaveBeenCalledWith("Project updated");
       expect(formikHelpers.resetForm).toHaveBeenCalled();
     });
 
