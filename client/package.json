@@ -10,8 +10,9 @@
     "preview": "vite preview",
     "vitest": "vitest --ui",
     "emulators": "npx kill-port --port 4000,5000,5001,8080,9000,9099 && firebase emulators:start --import=backup-firebase",
-    "cypress": "npx cypress run",
-    "cypress:open": "npx cypress open"
+    "cypress:run": "npx cypress run",
+    "cypress:open": "powershell -Command \"$env:SERVICE_ACCOUNT = Get-Content -Path .\\serviceAccount.json -Raw; npx cypress open\"",
+    "cypress:emulator": "cross-env FIREBASE_AUTH_EMULATOR_HOST=\"127.0.0.1:$(cat firebase.json | jq .emulators.auth.port)\"  FIRESTORE_EMULATOR_HOST=\"127.0.0.1:8080\" npm run cypress:open"
   },
   "dependencies": {
     "@firebase/rules-unit-testing": "^4.0.1",
