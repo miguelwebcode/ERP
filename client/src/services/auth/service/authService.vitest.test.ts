@@ -2,8 +2,6 @@ import { describe, it, expect, vi, beforeEach, Mock } from "vitest";
 import * as authRepository from "../repository/authRepository";
 import { login, logout, registerUser, watchAuthState } from "./authService";
 import { waitFor } from "@testing-library/react";
-import * as firebaseAuth from "firebase/auth";
-import { auth } from "../../../firebaseConfig";
 
 vi.mock("../repository/authRepository", { spy: true });
 vi.mock("firebase/auth", { spy: true });
