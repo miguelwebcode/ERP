@@ -106,6 +106,7 @@ export const handleEditCustomer = async (
       ...values,
       updatedAt: formatDate(new Date()),
     });
+    toast.success("Customer updated");
     formikHelpers.resetForm();
   } catch (error) {
     console.error("Error updating customer: ", error);
