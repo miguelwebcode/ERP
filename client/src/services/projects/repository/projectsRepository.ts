@@ -123,6 +123,7 @@ export const deleteProjectById = async (projectId: string) => {
     const projectDocRef = doc(db, "projects", documentId);
 
     await deleteDoc(projectDocRef);
+    toast.success("Project deleted");
   } catch (error) {
     console.error("Error deleting project: ", error);
   }
