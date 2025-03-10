@@ -8,7 +8,7 @@ import {
   doc,
   deleteDoc,
 } from "firebase/firestore";
-import { auth, db } from "../../../firebaseConfig";
+import { db } from "../../../firebaseConfig";
 import { v4 as uuidv4 } from "uuid";
 import { FormikHelpers } from "formik";
 import { CustomerFormValues } from "../../../types/form-values-types";
