@@ -14,6 +14,7 @@ import { v4 as uuidv4 } from "uuid";
 import { FormikHelpers } from "formik";
 import { ProjectFormValues } from "../../../types/form-values-types";
 import { formatDate } from "../..";
+import { toast } from "react-toastify";
 
 export const getAllProjects = async () => {
   const projectsCollection = collection(db, "projects");
@@ -67,9 +68,7 @@ export const handleCreateProject = async (
       createdAt: formatDate(new Date()),
       projectId: uuidv4(),
     });
-    /* 
-       TODO: Show notification
-      */
+    toast.success("Project created");
     formikHelpers.resetForm();
   } catch (error) {
     console.error("Error creating customer: ", error);
