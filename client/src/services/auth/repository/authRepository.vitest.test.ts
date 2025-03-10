@@ -31,16 +31,17 @@ describe("firebaseLogin", () => {
       expect(result).toHaveProperty("user");
     });
   });
-  it("should manage error and return undefined", async () => {
+  it("should manage error, throw it and console log it", async () => {
     const error = new Error("Test error");
     const consoleErrorSpy = vi.spyOn(console, "error");
     (firebaseAuth.signInWithEmailAndPassword as Mock).mockRejectedValue(error);
-    const result = await firebaseLogin(credentials.email, credentials.password);
+    // const result = await firebaseLogin(credentials.email, credentials.password);
+    // Check that firebaseLogin throws error
+    await expect(
+      firebaseLogin(credentials.email, credentials.password)
+    ).rejects.toThrowError(error);
 
-    await waitFor(() => {
-      expect(consoleErrorSpy).toHaveBeenCalledWith("Login error: ", error);
-      expect(result).toBeUndefined();
-    });
+    expect(consoleErrorSpy).toHaveBeenCalledWith("Login error: ", error);
   });
 });
 
