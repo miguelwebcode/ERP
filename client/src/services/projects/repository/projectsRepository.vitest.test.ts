@@ -14,10 +14,12 @@ import { waitFor } from "@testing-library/react";
 import { ProjectFormValues } from "../../../types/form-values-types";
 import { FormikHelpers } from "formik";
 import * as utilsFunctions from "../..";
+import { toast } from "react-toastify";
 
 vi.mock("../../firebaseConfig", { spy: true });
 vi.mock("firebase/firestore", { spy: true });
 vi.mock("../..", { spy: true });
+vi.mock("react-toastify", { spy: true });
 
 describe("getAllProjects", () => {
   beforeEach(() => {
@@ -205,6 +207,7 @@ describe("handleCreateProject", () => {
     const querySnapshot = await firestoreMethods.getDocs(q);
     await waitFor(() => {
       expect(querySnapshot.docs[0]).toBeDefined();
+      expect(toast.success).toHaveBeenCalledWith("Project created");
       expect(formikHelpers.resetForm).toHaveBeenCalled();
     });
 
