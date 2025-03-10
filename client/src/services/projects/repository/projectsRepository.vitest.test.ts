@@ -374,6 +374,7 @@ describe("deleteProjectById", () => {
       expect(firestoreMethods.getDocs).toHaveBeenCalled();
       expect(firestoreMethods.doc).toHaveBeenCalled();
       expect(firestoreMethods.deleteDoc).toHaveBeenCalled();
+      expect(toast.success).toHaveBeenCalledWith("Project deleted");
     });
 
     const projectsRef = firestoreMethods.collection(
