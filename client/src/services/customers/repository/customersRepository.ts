@@ -13,6 +13,7 @@ import { v4 as uuidv4 } from "uuid";
 import { FormikHelpers } from "formik";
 import { CustomerFormValues } from "../../../types/form-values-types";
 import { formatDate } from "../..";
+import { toast } from "react-toastify";
 
 export const getAllCustomers = async () => {
   const customersCollection = collection(db, "customers");
@@ -72,9 +73,7 @@ export const handleCreateCustomer = async (
       createdAt: formatDate(new Date()),
       customerId: uuidv4(),
     });
-    /* 
-     TODO: Show notification
-    */
+    toast.success("Customer created");
     formikHelpers.resetForm();
   } catch (error) {
     console.error("Error creating customer: ", error);
