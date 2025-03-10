@@ -266,6 +266,7 @@ describe("handleEditCustomer", async () => {
       ...values,
       updatedAt: "formatted-date",
     });
+    expect(toast.success).toHaveBeenCalledWith("Customer updated");
     expect(formikHelpers.resetForm).toHaveBeenCalled();
     expect(result).toBeUndefined();
   });
