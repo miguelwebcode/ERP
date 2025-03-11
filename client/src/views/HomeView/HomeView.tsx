@@ -1,8 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { LogoutButton } from "../../components/ui/LogoutButton/LogoutButton";
+
 import { useEffect } from "react";
 import { useAppStore } from "../../stores/app-store";
 import { SharedButton } from "../../components/ui/SharedButton/SharedButton";
+import { MdEdit } from "react-icons/md";
+import { FaPlus } from "react-icons/fa";
+import { IoReader } from "react-icons/io5";
+import { MdDeleteForever } from "react-icons/md";
 
 export const HomeView = () => {
   const navigate = useNavigate();
@@ -24,33 +28,37 @@ export const HomeView = () => {
           <h3 className="uppercase font-bold text-center text-xl">
             MANAGE CUSTOMERS
           </h3>
-          <div className="flex justify-around">
+          <div className="flex justify-around gap-6">
             <SharedButton
-              className="w-24 px-4"
+              className="flex-1 px-4"
               text="CREATE"
+              Icon={FaPlus}
               onClick={() => {
                 navigate("/customers/add");
               }}
             />
             <SharedButton
-              className="w-24 px-4"
+              className="flex-1 px-4"
               text="READ"
+              Icon={IoReader}
               onClick={() => {
                 navigate("/customers/read");
               }}
             />
           </div>
-          <div className="flex justify-around">
+          <div className="flex justify-around gap-6">
             <SharedButton
-              className="w-24 px-4"
+              className="flex-1 px-4"
               text="UPDATE"
+              Icon={MdEdit}
               onClick={() => {
                 navigate("/customers/edit");
               }}
             />
             <SharedButton
-              className="w-24 px-4"
+              className="flex-1 px-4"
               text="DELETE"
+              Icon={MdDeleteForever}
               onClick={() => {
                 navigate("/customers/delete");
               }}
@@ -62,33 +70,37 @@ export const HomeView = () => {
           <h3 className="uppercase font-bold text-center text-xl">
             MANAGE PROJECTS
           </h3>
-          <div className="flex justify-around">
+          <div className="flex justify-around gap-6">
             <SharedButton
-              className="w-24 px-4"
+              className="flex-1 px-4"
               text="CREATE"
+              Icon={FaPlus}
               onClick={() => {
                 navigate("/projects/add");
               }}
             />
             <SharedButton
-              className="w-24"
+              className="flex-1 px-4"
               text="READ"
+              Icon={IoReader}
               onClick={() => {
                 navigate("/projects/read");
               }}
             />
           </div>
-          <div className="flex justify-around">
+          <div className="flex justify-around gap-6">
             <SharedButton
-              className="w-24 px-4"
+              className="flex-1 px-4"
               text="UPDATE"
+              Icon={MdEdit}
               onClick={() => {
                 navigate("/projects/edit");
               }}
             />
             <SharedButton
-              className="w-24 px-4"
+              className="flex-1 px-4"
               text="DELETE"
+              Icon={MdDeleteForever}
               onClick={() => {
                 navigate("/projects/delete");
               }}
