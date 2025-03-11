@@ -1,12 +1,16 @@
+import { IconType } from "react-icons/lib";
+
 type SharedButtonProps = {
   text: string;
   onClick: () => void;
+  Icon?: IconType;
   className?: string;
 };
 
 export const SharedButton = ({
   text,
   onClick: handleClick,
+  Icon,
   className,
 }: SharedButtonProps) => {
   return (
@@ -18,7 +22,10 @@ export const SharedButton = ({
         handleClick();
       }}
     >
-      {text}
+      <div className="flex justify-center items-center gap-2">
+        <div>{Icon && <Icon className="text-xl" />}</div>
+        <div>{text}</div>
+      </div>
     </button>
   );
 };
