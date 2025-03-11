@@ -79,7 +79,6 @@ export const HomeView = () => {
             />
           </div>
         </div>
-        <LogoutButton />
       </div>
     </div>
   );
