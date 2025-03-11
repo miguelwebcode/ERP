@@ -56,88 +56,79 @@ describe("HomeView", () => {
     expect(userEmail).toBeInTheDocument();
 
     const titleCustomer = screen.getByRole("heading", {
-      name: /Customer CRUD/i,
+      name: /Manage customers/i,
     });
     expect(titleCustomer).toBeInTheDocument();
-    const buttonCreateCustomer = screen.getByRole("button", {
-      name: /create customer/i,
+    const buttonsCreate = screen.queryAllByRole("button", {
+      name: /create/i,
     });
-    expect(buttonCreateCustomer).toBeInTheDocument();
-    const buttonReadCustomers = screen.getByRole("button", {
-      name: /read customer/i,
+    expect(buttonsCreate[0]).toBeInTheDocument();
+    expect(buttonsCreate[1]).toBeInTheDocument();
+    expect(buttonsCreate.length).toBe(2);
+
+    const buttonsRead = screen.queryAllByRole("button", {
+      name: /read/i,
     });
-    expect(buttonReadCustomers).toBeInTheDocument();
-    const buttonUpdateCustomer = screen.getByRole("button", {
-      name: /update customer/i,
+    expect(buttonsRead[0]).toBeInTheDocument();
+    expect(buttonsRead[1]).toBeInTheDocument();
+    expect(buttonsRead.length).toBe(2);
+
+    const buttonsUpdate = screen.queryAllByRole("button", {
+      name: /update/i,
     });
-    expect(buttonUpdateCustomer).toBeInTheDocument();
-    const buttonDeleteCustomer = screen.getByRole("button", {
-      name: /delete customer/i,
+    expect(buttonsUpdate[0]).toBeInTheDocument();
+    expect(buttonsUpdate[1]).toBeInTheDocument();
+    expect(buttonsUpdate.length).toBe(2);
+
+    const buttonsDelete = screen.queryAllByRole("button", {
+      name: /delete/i,
     });
-    expect(buttonDeleteCustomer).toBeInTheDocument();
+    expect(buttonsDelete[0]).toBeInTheDocument();
+    expect(buttonsDelete[1]).toBeInTheDocument();
+    expect(buttonsDelete.length).toBe(2);
 
     const titleProject = screen.getByRole("heading", {
-      name: /Project CRUD/i,
+      name: /Manage projects/i,
     });
     expect(titleProject).toBeInTheDocument();
-    const buttonCreateProject = screen.getByRole("button", {
-      name: /create Project/i,
-    });
-    expect(buttonCreateProject).toBeInTheDocument();
-    const buttonReadProjects = screen.getByRole("button", {
-      name: /read Project/i,
-    });
-    expect(buttonReadProjects).toBeInTheDocument();
-    const buttonUpdateProject = screen.getByRole("button", {
-      name: /update Project/i,
-    });
-    expect(buttonUpdateProject).toBeInTheDocument();
-    const buttonDeleteProject = screen.getByRole("button", {
-      name: /delete Project/i,
-    });
-    expect(buttonDeleteProject).toBeInTheDocument();
   });
 
   it("buttons call their function", async () => {
     render(<HomeView />);
 
-    const buttonCreateCustomer = screen.getByRole("button", {
-      name: /create customer/i,
+    const queryButtonsCreate = screen.queryAllByRole("button", {
+      name: /create/i,
     });
+    const queryButtonsRead = screen.queryAllByRole("button", { name: /read/i });
+    const queryButtonsUpdate = screen.getAllByRole("button", {
+      name: /update/i,
+    });
+    const queryButtonsDelete = screen.getAllByRole("button", {
+      name: /delete/i,
+    });
+
+    const buttonCreateCustomer = queryButtonsCreate[0];
     fireEvent.click(buttonCreateCustomer);
 
-    const buttonReadCustomers = screen.getByRole("button", {
-      name: /read customer/i,
-    });
+    const buttonReadCustomers = queryButtonsRead[0];
     fireEvent.click(buttonReadCustomers);
 
-    const buttonUpdateCustomer = screen.getByRole("button", {
-      name: /update customer/i,
-    });
+    const buttonUpdateCustomer = queryButtonsUpdate[0];
     fireEvent.click(buttonUpdateCustomer);
 
-    const buttonDeleteCustomer = screen.getByRole("button", {
-      name: /delete customer/i,
-    });
+    const buttonDeleteCustomer = queryButtonsDelete[0];
     fireEvent.click(buttonDeleteCustomer);
 
-    const buttonCreateProject = screen.getByRole("button", {
-      name: /create Project/i,
-    });
+    const buttonCreateProject = queryButtonsCreate[1];
     fireEvent.click(buttonCreateProject);
-    const buttonReadProjects = screen.getByRole("button", {
-      name: /read Project/i,
-    });
+
+    const buttonReadProjects = queryButtonsRead[1];
     fireEvent.click(buttonReadProjects);
 
-    const buttonUpdateProject = screen.getByRole("button", {
-      name: /update Project/i,
-    });
+    const buttonUpdateProject = queryButtonsUpdate[1];
     fireEvent.click(buttonUpdateProject);
 
-    const buttonDeleteProject = screen.getByRole("button", {
-      name: /delete Project/i,
-    });
+    const buttonDeleteProject = queryButtonsDelete[1];
     fireEvent.click(buttonDeleteProject);
 
     await waitFor(() => {
