@@ -11,11 +11,11 @@ export const LogoutButton = () => {
   };
   return (
     <button
-      className="bg-slate-800 hover:bg-slate-600 text-white  font-bold py-2 px-4 rounded"
+      className="bg-slate-800 hover:bg-slate-600 text-white font-bold p-2 rounded"
       onClick={handleClick}
     >
-      <div className="flex gap-3 items-center">
-        <CiLogout className="text-xl" />
+      <div className="flex items-center">
+        <CiLogout className="text-xl mr-2" />
         <p>Logout</p>
       </div>
     </button>
