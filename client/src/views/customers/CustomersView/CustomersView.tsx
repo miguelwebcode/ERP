@@ -4,30 +4,40 @@ import { SharedButton } from "../../../components/ui/SharedButton/SharedButton";
 export const CustomersView = () => {
   const navigate = useNavigate();
   return (
-    <div className="flex justify-center">
-      <div className="flex flex-col items-center justify-center bg-white p-6 rounded shadow-md gap-6">
-        <h1 className="uppercase font-bold text-xl">Customer CRUD</h1>
-        <div className="flex flex-col gap-5">
+    <div className="flex flex-col items-center gap-10">
+      <h1 className="uppercase font-bold text-3xl">CUSTOMERS</h1>
+
+      <div className="flex flex-col gap-6 bg-white p-6 rounded shadow-md min-w-[300px]">
+        <h3 className="uppercase font-bold text-center text-xl">
+          MANAGE CUSTOMERS
+        </h3>
+        <div className="flex justify-around">
           <SharedButton
-            text="CREATE Customer"
+            className="w-24 px-4"
+            text="CREATE"
             onClick={() => {
               navigate("/customers/add");
             }}
           />
           <SharedButton
-            text="READ Customers"
+            className="w-24 px-4"
+            text="READ"
             onClick={() => {
               navigate("/customers/read");
             }}
           />
+        </div>
+        <div className="flex justify-around">
           <SharedButton
-            text="UPDATE Customer"
+            className="w-24 px-4"
+            text="UPDATE"
             onClick={() => {
               navigate("/customers/edit");
             }}
           />
           <SharedButton
-            text="DELETE Customer"
+            className="w-24 px-4"
+            text="DELETE"
             onClick={() => {
               navigate("/customers/delete");
             }}
