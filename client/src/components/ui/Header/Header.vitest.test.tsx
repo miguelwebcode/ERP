@@ -4,7 +4,7 @@ import { MemoryRouter } from "react-router-dom";
 import Header from "./Header";
 
 describe("Header", () => {
-  it("should render the header with navigation links when pathname matches", () => {
+  it("should render the header with title and navigation links when pathname matches", () => {
     render(
       // There is no browser url in a test, so initialEntries creates a routing context
       // and sets the initial route
@@ -13,6 +13,8 @@ describe("Header", () => {
       </MemoryRouter>
     );
 
+    const title = screen.getByText("FirERP");
+    expect(title).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /home/i })).toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: /customers/i })
