@@ -24,13 +24,15 @@ describe("Header", () => {
     expect(buttonLogout).toBeInTheDocument();
   });
 
-  it("should not render navigation links when pathname does not match", () => {
+  it("should render title, not render navigation links when pathname does not match", () => {
     render(
       <MemoryRouter initialEntries={["/non-matching-path"]}>
         <Header />
       </MemoryRouter>
     );
 
+    const title = screen.getByText("FirERP");
+    expect(title).toBeInTheDocument();
     expect(
       screen.queryByRole("link", { name: /home/i })
     ).not.toBeInTheDocument();
@@ -40,5 +42,7 @@ describe("Header", () => {
     expect(
       screen.queryByRole("link", { name: /projects/i })
     ).not.toBeInTheDocument();
+    const buttonLogout = screen.queryByRole("button", { name: /logout/i });
+    expect(buttonLogout).not.toBeInTheDocument();
   });
 });
