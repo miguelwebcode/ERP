@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import { LiaGripfire } from "react-icons/lia";
 
 export default function Header() {
   const { pathname } = useLocation();
@@ -21,9 +22,13 @@ export default function Header() {
   }, [pathname]);
   return (
     <header className="bg-slate-800">
-      <div className="mx-auto container px-5 py-8">
+      <div className="flex mx-auto container px-5 py-8 justify-between items-center">
+        <div className="flex gap-3 items-center text-white text-3xl">
+          <LiaGripfire />
+          <h1>FirERP</h1>
+        </div>
         {needsNavigation && (
-          <div className="flex justify-center items-center">
+          <div className="inline-flex justify-center items-center">
             <nav className="flex gap-4 text-xl">
               <NavLink
                 className={({ isActive }) =>
