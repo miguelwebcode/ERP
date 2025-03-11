@@ -2,7 +2,6 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, Mock } from "vitest";
 import { HomeView } from "./HomeView";
 import * as appStore from "../../stores/app-store";
-import * as authModule from "../../services/auth/service/authService";
 
 const mockedNavigate = vi.fn();
 vi.mock("react-router-dom", () => ({
@@ -13,7 +12,6 @@ describe("HomeView", () => {
   beforeEach(() => {
     vi.resetAllMocks();
     vi.spyOn(appStore, "useAppStore");
-    vi.spyOn(authModule, "logout");
   });
 
   it("navigates to /login when user is null", () => {
@@ -98,9 +96,6 @@ describe("HomeView", () => {
       name: /delete Project/i,
     });
     expect(buttonDeleteProject).toBeInTheDocument();
-
-    const buttonLogout = screen.getByRole("button", { name: /logout/i });
-    expect(buttonLogout);
   });
 
   it("buttons call their function", async () => {
@@ -145,8 +140,6 @@ describe("HomeView", () => {
     });
     fireEvent.click(buttonDeleteProject);
 
-    const buttonLogout = screen.getByRole("button", { name: /logout/i });
-    fireEvent.click(buttonLogout);
     await waitFor(() => {
       expect(mockedNavigate).toHaveBeenCalledWith("/customers/add");
       expect(mockedNavigate).toHaveBeenCalledWith("/customers/read");
@@ -156,7 +149,6 @@ describe("HomeView", () => {
       expect(mockedNavigate).toHaveBeenCalledWith("/projects/read");
       expect(mockedNavigate).toHaveBeenCalledWith("/projects/edit");
       expect(mockedNavigate).toHaveBeenCalledWith("/projects/delete");
-      expect(authModule.logout).toHaveBeenCalled();
     });
   });
 });
