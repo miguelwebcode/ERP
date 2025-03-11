@@ -14,37 +14,39 @@ describe("ProjectsView", () => {
   });
 
   it("renders all texts correctly", () => {
-    const title = screen.getByRole("heading", { name: "Project CRUD" });
-    expect(title).toBeInTheDocument();
+    const mainTitle = screen.getByRole("heading", { name: "PROJECTS" });
+    expect(mainTitle).toBeInTheDocument();
+    const cardTitle = screen.getByRole("heading", { name: /Manage projects/i });
+    expect(cardTitle).toBeInTheDocument();
     const buttonCreateProject = screen.getByRole("button", {
-      name: /create Project/i,
+      name: /create/i,
     });
     expect(buttonCreateProject).toBeInTheDocument();
     const buttonReadProjects = screen.getByRole("button", {
-      name: /read Projects/i,
+      name: /read/i,
     });
     expect(buttonReadProjects).toBeInTheDocument();
     const buttonUpdateProject = screen.getByRole("button", {
-      name: /update Project/i,
+      name: /update/i,
     });
     expect(buttonUpdateProject).toBeInTheDocument();
     const buttonDeleteProject = screen.getByRole("button", {
-      name: /delete Project/i,
+      name: /delete/i,
     });
     expect(buttonDeleteProject).toBeInTheDocument();
   });
   it("buttons call their function", async () => {
     const buttonCreateProject = screen.getByRole("button", {
-      name: /create Project/i,
+      name: /create/i,
     });
     const buttonReadProjects = screen.getByRole("button", {
-      name: /read Projects/i,
+      name: /read/i,
     });
     const buttonUpdateProject = screen.getByRole("button", {
-      name: /update Project/i,
+      name: /update/i,
     });
     const buttonDeleteProject = screen.getByRole("button", {
-      name: /delete Project/i,
+      name: /delete/i,
     });
     fireEvent.click(buttonCreateProject);
     fireEvent.click(buttonReadProjects);
