@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { LiaGripfire } from "react-icons/lia";
+import { LogoutButton } from "../LogoutButton/LogoutButton";
 
 export default function Header() {
   const { pathname } = useLocation();
@@ -28,7 +29,7 @@ export default function Header() {
           <h1>FirERP</h1>
         </div>
         {needsNavigation && (
-          <div className="inline-flex justify-center items-center">
+          <div className="inline-flex justify-center items-center gap-4">
             <nav className="flex gap-4 text-xl">
               <NavLink
                 className={({ isActive }) =>
@@ -61,6 +62,7 @@ export default function Header() {
                 Projects
               </NavLink>
             </nav>
+            <LogoutButton />
           </div>
         )}
       </div>
