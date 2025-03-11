@@ -4,7 +4,7 @@ import { MemoryRouter } from "react-router-dom";
 import Header from "./Header";
 
 describe("Header", () => {
-  it("should render the header with title and navigation links when pathname matches", () => {
+  it("should render the header with title and navigation links and logout button when pathname matches", () => {
     render(
       // There is no browser url in a test, so initialEntries creates a routing context
       // and sets the initial route
@@ -20,6 +20,8 @@ describe("Header", () => {
       screen.getByRole("link", { name: /customers/i })
     ).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /projects/i })).toBeInTheDocument();
+    const buttonLogout = screen.getByRole("button", { name: /logout/i });
+    expect(buttonLogout).toBeInTheDocument();
   });
 
   it("should not render navigation links when pathname does not match", () => {
