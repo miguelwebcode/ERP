@@ -15,64 +15,80 @@ export const HomeView = () => {
   }, []);
 
   return (
-    <div className="flex justify-center">
-      <div className="flex flex-col items-center justify-center bg-white p-6 rounded shadow-md w-fit">
-        <h1 className="uppercase font-bold text-3xl">HOME</h1>
-        <h2 className="my-8">Welcome, {user && user.email} </h2>
-        <div className="flex flex-col gap-4 md:flex-row md:gap-10 mt-4">
-          <div className="flex flex-col gap-3">
-            <h3 className="uppercase font-bold text-center text-xl">
-              CUSTOMER CRUD
-            </h3>
+    <div className="flex flex-col justify-center items-center">
+      <h1 className="uppercase font-bold text-3xl">HOME</h1>
+      <h2 className="my-8">Welcome, {user && user.email} </h2>
+      <div className="flex flex-col lg:flex-row gap-4 ">
+        {/* CARD CUSTOMERS */}
+        <div className="flex flex-col gap-6 bg-white p-6 rounded shadow-md min-w-[300px]">
+          <h3 className="uppercase font-bold text-center text-xl">
+            MANAGE CUSTOMERS
+          </h3>
+          <div className="flex justify-around">
             <SharedButton
-              text="CREATE Customer"
+              className="w-24 px-4"
+              text="CREATE"
               onClick={() => {
                 navigate("/customers/add");
               }}
             />
             <SharedButton
-              text="READ Customers"
+              className="w-24 px-4"
+              text="READ"
               onClick={() => {
                 navigate("/customers/read");
               }}
             />
+          </div>
+          <div className="flex justify-around">
             <SharedButton
-              text="UPDATE Customer"
+              className="w-24 px-4"
+              text="UPDATE"
               onClick={() => {
                 navigate("/customers/edit");
               }}
             />
             <SharedButton
-              text="DELETE Customer"
+              className="w-24 px-4"
+              text="DELETE"
               onClick={() => {
                 navigate("/customers/delete");
               }}
             />
           </div>
-          <div className="flex flex-col gap-3">
-            <h3 className="uppercase font-bold text-center text-xl">
-              PROJECT CRUD
-            </h3>
+        </div>
+        {/* CARD PROJECTS */}
+        <div className="flex flex-col gap-6 bg-white p-6 rounded shadow-md min-w-[300px]">
+          <h3 className="uppercase font-bold text-center text-xl">
+            MANAGE PROJECTS
+          </h3>
+          <div className="flex justify-around">
             <SharedButton
-              text="CREATE Project"
+              className="w-24 px-4"
+              text="CREATE"
               onClick={() => {
                 navigate("/projects/add");
               }}
             />
             <SharedButton
-              text="READ Projects"
+              className="w-24"
+              text="READ"
               onClick={() => {
                 navigate("/projects/read");
               }}
             />
+          </div>
+          <div className="flex justify-around">
             <SharedButton
-              text="UPDATE Project"
+              className="w-24 px-4"
+              text="UPDATE"
               onClick={() => {
                 navigate("/projects/edit");
               }}
             />
             <SharedButton
-              text="DELETE Project"
+              className="w-24 px-4"
+              text="DELETE"
               onClick={() => {
                 navigate("/projects/delete");
               }}
