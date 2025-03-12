@@ -3,11 +3,14 @@ describe("Authentication test", () => {
     cy.visit("/login");
   });
 
-  it("Shows welcome message with user email", () => {
-    // Se asume que cy.login() realiza el login y actualiza la UI
-    cy.login();
+  // Works when tests production but not with emulators
+  it("allows the user to fill and submit the login form", () => {
+    cy.get("input[name='email']").type("email@email.com");
 
-    // Verifica que aparezca el mensaje de bienvenida con el email indicado
+    cy.get("input[name='password']").type("123456");
+
+    cy.get("button[type='submit']").click();
+
     cy.contains("Welcome, email@email.com").should("be.visible");
   });
 });
