@@ -66,21 +66,21 @@ const CustomerForm = ({
               type="text"
               label="Address"
               name="address"
-              placeholder="Enter customer's address"
+              placeholder="Enter address"
               disabled={fieldDisabled}
             />
             <CustomInput
               type="text"
               label="Company"
               name="company"
-              placeholder="Enter customer's company"
+              placeholder="Enter company"
               disabled={fieldDisabled}
             />
             <CustomInput
               type="text"
               label="Email"
               name="email"
-              placeholder="Enter customer's email"
+              placeholder="Enter email"
               disabled={fieldDisabled}
             />
           </div>
@@ -89,21 +89,21 @@ const CustomerForm = ({
               type="text"
               label="Name"
               name="name"
-              placeholder="Enter customer's name"
+              placeholder="Enter name"
               disabled={fieldDisabled}
             />
             <CustomInput
               type="text"
               label="Phone"
               name="phone"
-              placeholder="Enter customer's phone"
+              placeholder="Enter phone"
               disabled={fieldDisabled}
             />
             <CustomInput
               type="text"
               label="Project"
               name="project"
-              placeholder="Enter customer's project"
+              placeholder="Enter project"
               disabled={fieldDisabled}
             />
           </div>

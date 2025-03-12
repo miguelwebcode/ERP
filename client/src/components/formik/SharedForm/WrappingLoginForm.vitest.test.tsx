@@ -25,13 +25,13 @@ describe("SharedForm wrapping LoginFormValues", () => {
           label="Email"
           name="email"
           type="text"
-          placeholder="Enter your email"
+          placeholder="Enter email"
         />
         <CustomInput
           label="Password"
           name="password"
           type="password"
-          placeholder="Enter your password"
+          placeholder="Enter password"
         />
         <button
           type="submit"
