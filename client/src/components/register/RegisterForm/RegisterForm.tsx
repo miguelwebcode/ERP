@@ -82,7 +82,7 @@ const RegisterForm = () => {
             type="password"
             label="Confirm password"
             name="confirmPassword"
-            placeholder="Enter your password again"
+            placeholder="Repeat your password"
           />
         </div>
         <button
