@@ -2,8 +2,10 @@ import { useMemo } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { LiaGripfire } from "react-icons/lia";
 import { LogoutButton } from "../LogoutButton/LogoutButton";
+import { useAppStore } from "../../../stores/app-store";
 
 export default function Header() {
+  const user = useAppStore((state) => state.user);
   const { pathname } = useLocation();
   const needsNavigation = useMemo(() => {
     const paths = [
@@ -19,7 +21,7 @@ export default function Header() {
       "/projects/read",
       "/projects/delete",
     ];
-    return paths.includes(pathname);
+    return user && paths.includes(pathname);
   }, [pathname]);
   return (
     <header className="bg-slate-800">
