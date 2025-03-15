@@ -13,25 +13,28 @@ import { ReadCustomersView } from "../views/customers/ReadCustomersView/ReadCust
 import { DeleteCustomerView } from "../views/customers/DeleteCustomerView/DeleteCustomerView";
 import { ReadProjectsView } from "../views/projects/ReadProjectsView/ReadProjectsView";
 import { DeleteProjectView } from "../views/projects/DeleteProjectView/DeleteProjectView";
+import ProtectedRoute from "./ProtectedRoute";
 
 export default function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
-          <Route index element={<HomeView />} />
           <Route path="/login" element={<LoginView />} />
           <Route path="/register" element={<RegisterView />} />
-          <Route path="/customers" element={<CustomersView />} />
-          <Route path="/customers/add" element={<AddCustomerView />} />
-          <Route path="/customers/read" element={<ReadCustomersView />} />
-          <Route path="/customers/edit" element={<EditCustomerView />} />
-          <Route path="/customers/delete" element={<DeleteCustomerView />} />
-          <Route path="/projects" element={<ProjectsView />} />
-          <Route path="/projects/add" element={<AddProjectView />} />
-          <Route path="/projects/read" element={<ReadProjectsView />} />
-          <Route path="/projects/edit" element={<EditProjectView />} />
-          <Route path="/projects/delete" element={<DeleteProjectView />} />
+          <Route element={<ProtectedRoute />}>
+            <Route index element={<HomeView />} />
+            <Route path="/customers" element={<CustomersView />} />
+            <Route path="/customers/add" element={<AddCustomerView />} />
+            <Route path="/customers/read" element={<ReadCustomersView />} />
+            <Route path="/customers/edit" element={<EditCustomerView />} />
+            <Route path="/customers/delete" element={<DeleteCustomerView />} />
+            <Route path="/projects" element={<ProjectsView />} />
+            <Route path="/projects/add" element={<AddProjectView />} />
+            <Route path="/projects/read" element={<ReadProjectsView />} />
+            <Route path="/projects/edit" element={<EditProjectView />} />
+            <Route path="/projects/delete" element={<DeleteProjectView />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
