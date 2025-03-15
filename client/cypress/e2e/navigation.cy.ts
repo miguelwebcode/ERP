@@ -96,3 +96,44 @@ describe("Protected routes verification", () => {
     cy.url().should("match", /\/login$/);
   });
 });
+
+describe("Navigation from customers section to its subroutes", () => {
+  beforeEach(() => {
+    cy.visit("/login");
+    cy.login();
+    cy.get("nav")
+      .should("exist")
+      .within(() => {
+        cy.contains("Customers").click();
+      });
+  });
+
+  afterEach(() => {
+    cy.logout();
+  });
+
+  it("should navigate to /customers/add route", () => {
+    cy.url().should("match", /\/customers$/);
+    cy.get("button").filter(":contains('CREATE')").click();
+    cy.url().should("match", /\/customers\/add$/);
+    cy.contains("NEW CUSTOMER");
+  });
+
+  it("should navigate to /customers/read route", () => {
+    cy.url().should("match", /\/customers$/);
+    cy.get("button").filter(":contains('READ')").click();
+    cy.url().should("match", /\/customers\/read$/);
+  });
+  it("should navigate to /customers/edit route", () => {
+    cy.url().should("match", /\/customers$/);
+    cy.get("button").filter(":contains('UPDATE')").click();
+    cy.url().should("match", /\/customers\/edit$/);
+    cy.contains("EDIT CUSTOMER");
+  });
+  it("should navigate to /customers/delete route", () => {
+    cy.url().should("match", /\/customers$/);
+    cy.get("button").filter(":contains('DELETE')").click();
+    cy.url().should("match", /\/customers\/delete$/);
+  });
+});
+
