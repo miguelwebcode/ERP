@@ -4,7 +4,7 @@ describe("Navigation bar", () => {
     cy.login();
   });
 
-  it("navbar should show all options", () => {
+  it("navbar should show all navLinks", () => {
     const navBar = cy.get("nav");
     navBar.should("exist");
     navBar.within(() => {
