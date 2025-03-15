@@ -137,3 +137,42 @@ describe("Navigation from customers section to its subroutes", () => {
   });
 });
 
+describe("Navigation from projects section to its subroutes", () => {
+  beforeEach(() => {
+    cy.visit("/login");
+    cy.login();
+    cy.get("nav")
+      .should("exist")
+      .within(() => {
+        cy.contains("Projects").click();
+      });
+  });
+
+  afterEach(() => {
+    cy.logout();
+  });
+
+  it("should navigate to /projects/add route", () => {
+    cy.url().should("match", /\/projects$/);
+    cy.get("button").filter(":contains('CREATE')").click();
+    cy.url().should("match", /\/projects\/add$/);
+    cy.contains("NEW PROJECT");
+  });
+
+  it("should navigate to /projects/read route", () => {
+    cy.url().should("match", /\/projects$/);
+    cy.get("button").filter(":contains('READ')").click();
+    cy.url().should("match", /\/projects\/read$/);
+  });
+  it("should navigate to /projects/edit route", () => {
+    cy.url().should("match", /\/projects$/);
+    cy.get("button").filter(":contains('UPDATE')").click();
+    cy.url().should("match", /\/projects\/edit$/);
+    cy.contains("EDIT PROJECT");
+  });
+  it("should navigate to /projects/delete route", () => {
+    cy.url().should("match", /\/projects$/);
+    cy.get("button").filter(":contains('DELETE')").click();
+    cy.url().should("match", /\/projects\/delete$/);
+  });
+});
