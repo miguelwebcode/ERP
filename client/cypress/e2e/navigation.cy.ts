@@ -4,6 +4,10 @@ describe("Navigation bar", () => {
     cy.login();
   });
 
+  afterEach(() => {
+    cy.logout();
+  });
+
   it("navbar should show all navLinks", () => {
     const navBar = cy.get("nav");
     navBar.should("exist");
