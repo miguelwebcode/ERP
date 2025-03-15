@@ -45,3 +45,54 @@ describe("Navigation bar", () => {
     cy.url().should("match", /\/$/);
   });
 });
+
+describe("Protected routes verification", () => {
+  beforeEach(() => {
+    cy.logout();
+    cy.visit("/login");
+  });
+  it("should redirect to /login if no auth and navigate to /home", () => {
+    cy.visit("/");
+    cy.url().should("match", /\/login$/);
+  });
+  it("should redirect to /login if no auth and navigate to /customers", () => {
+    cy.visit("/customers");
+    cy.url().should("match", /\/login$/);
+  });
+  it("should redirect to /login if no auth and navigate to /customers/add", () => {
+    cy.visit("/customers/add");
+    cy.url().should("match", /\/login$/);
+  });
+  it("should redirect to /login if no auth and navigate to /customers/read", () => {
+    cy.visit("/customers/read");
+    cy.url().should("match", /\/login$/);
+  });
+  it("should redirect to /login if no auth and navigate to /customers/edit", () => {
+    cy.visit("/customers/edit");
+    cy.url().should("match", /\/login$/);
+  });
+  it("should redirect to /login if no auth and navigate to /customers/delete", () => {
+    cy.visit("/customers/delete");
+    cy.url().should("match", /\/login$/);
+  });
+  it("should redirect to /login if no auth and navigate to /projects", () => {
+    cy.visit("/projects");
+    cy.url().should("match", /\/login$/);
+  });
+  it("should redirect to /login if no auth and navigate to /projects/add", () => {
+    cy.visit("/projects/add");
+    cy.url().should("match", /\/login$/);
+  });
+  it("should redirect to /login if no auth and navigate to /projects/read", () => {
+    cy.visit("/projects/read");
+    cy.url().should("match", /\/login$/);
+  });
+  it("should redirect to /login if no auth and navigate to /projects/edit", () => {
+    cy.visit("/projects/edit");
+    cy.url().should("match", /\/login$/);
+  });
+  it("should redirect to /login if no auth and navigate to /projects/delete", () => {
+    cy.visit("/projects/delete");
+    cy.url().should("match", /\/login$/);
+  });
+});
