@@ -2,7 +2,15 @@ import admin from "firebase-admin";
 import { defineConfig } from "cypress";
 import { plugin as cypressFirebasePlugin } from "cypress-firebase";
 import * as dotenv from "dotenv";
+import { deleteCustomerByField } from "./cypress/support/firebase-utils";
+import serviceAccount from "./serviceAccount.json" assert { type: "json" };
 dotenv.config();
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount as unknown as string),
+});
+
+export const db = admin.firestore();
 
 export default defineConfig({
   e2e: {
