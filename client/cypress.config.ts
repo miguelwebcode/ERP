@@ -14,9 +14,6 @@ export const db = admin.firestore();
 
 export default defineConfig({
   e2e: {
-    /* 
-     TODO: Ask guillem about port and config
-    */
     baseUrl: "http://localhost:5173",
     env: {
       TEST_UID: process.env.CYPRESS_TEST_UID,
@@ -25,6 +22,14 @@ export default defineConfig({
 
     // NOTE: Add "supportFile" setting if separate location is used
     setupNodeEvents(on, config) {
+      on("task", {
+        deleteCustomerByField: (args: {
+          fieldName: string;
+          fieldValue: string;
+        }) => {
+          return deleteCustomerByField(args.fieldName, args.fieldValue);
+        },
+      });
       // e2e testing node events setup code
       return cypressFirebasePlugin(
         on,
