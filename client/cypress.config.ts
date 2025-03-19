@@ -5,6 +5,7 @@ import * as dotenv from "dotenv";
 import {
   deleteCustomerByField,
   getAllCustomers,
+  getCustomerById,
 } from "./cypress/support/firebase-utils";
 import serviceAccount from "./serviceAccount.json" assert { type: "json" };
 dotenv.config();
@@ -26,6 +27,7 @@ export default defineConfig({
     // NOTE: Add "supportFile" setting if separate location is used
     setupNodeEvents(on, config) {
       on("task", {
+        getCustomerById: (customerId: string) => getCustomerById(customerId),
         getAllCustomers,
         deleteCustomerByField: (args: {
           fieldName: string;
