@@ -1,3 +1,5 @@
+import { Customer } from "../support/types";
+
 describe("Create customer", () => {
   beforeEach(() => {
     cy.login();
@@ -57,5 +59,38 @@ describe("Create customer", () => {
     cy.contains("button", /create customer/i).click();
 
     cy.contains(/Phone must contain 9 digits/i);
+  });
+});
+describe("Read Customers", () => {
+  beforeEach(() => {
+    cy.logout();
+    cy.login();
+    cy.visit("/");
+    cy.get("nav").within(() => {
+      cy.contains(/customers$/i).click();
+    });
+    cy.url().should("match", /\/customers$/);
+
+    cy.contains("button", /read/i).click();
+  });
+  it("should show all customer cards", () => {
+    cy.task("getAllCustomers").then((result) => {
+      const customers = result as Customer[];
+      // Verifica que el resultado sea un array
+      expect(Array.isArray(customers)).to.be.true;
+
+      // Validate Customer data
+      customers.forEach((customer) => {
+        expect(customer).to.be.an("object");
+        expect(customer).to.have.property("customerId");
+        expect(customer).to.have.property("name");
+        expect(customer).to.have.property("email");
+        cy.contains(customer.email);
+        expect(customer).to.have.property("address");
+        expect(customer).to.have.property("company");
+        expect(customer).to.have.property("phone");
+        expect(customer).to.have.property("project");
+      });
+    });
   });
 });
