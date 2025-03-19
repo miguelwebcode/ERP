@@ -45,3 +45,30 @@ export const getAllCustomers = async (): Promise<Customer[]> => {
 
   return documents;
 };
+
+export const getCustomerById = async (
+  customerId: string
+): Promise<Customer | undefined> => {
+  const customersRef = db.collection("customers");
+  const snapshot = await customersRef
+    .where("customerId", "==", customerId)
+    .get();
+
+  if (snapshot.empty) {
+    console.log("No matching documents.");
+    return undefined;
+  }
+
+  let customer: Customer | undefined;
+  snapshot.forEach((doc) => {
+    const data = doc.data();
+    try {
+      customerSchema.validateSync(data, { abortEarly: false });
+      customer = { ...data } as Customer;
+    } catch (error) {
+      console.error("Validation error: ", error);
+    }
+  });
+
+  return customer;
+};
