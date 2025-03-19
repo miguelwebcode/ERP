@@ -3,11 +3,13 @@ import { defineConfig } from "cypress";
 import { plugin as cypressFirebasePlugin } from "cypress-firebase";
 import * as dotenv from "dotenv";
 import {
+  addCustomer,
   deleteCustomerByField,
   getAllCustomers,
   getCustomerById,
 } from "./cypress/support/firebase-utils";
 import serviceAccount from "./serviceAccount.json" assert { type: "json" };
+import { Customer } from "./cypress/support/types";
 dotenv.config();
 
 admin.initializeApp({
@@ -27,6 +29,7 @@ export default defineConfig({
     // NOTE: Add "supportFile" setting if separate location is used
     setupNodeEvents(on, config) {
       on("task", {
+        addCustomer: (customer: Customer) => addCustomer(customer),
         getCustomerById: (customerId: string) => getCustomerById(customerId),
         getAllCustomers,
         deleteCustomerByField: (args: {
