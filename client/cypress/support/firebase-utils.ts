@@ -1,4 +1,6 @@
 import { db } from "../../cypress.config";
+import { Customer } from "./types";
+import { customerSchema } from "./schemas";
 
 export const deleteCustomerByField = async (
   fieldName: string,
@@ -19,4 +21,27 @@ export const deleteCustomerByField = async (
     console.log("deleted doc with id =>", doc.id);
   }
   return deleteCount;
+};
+
+export const getAllCustomers = async (): Promise<Customer[]> => {
+  const collectionRef = db.collection("customers");
+  const snapshot = await collectionRef.get();
+
+  if (snapshot.empty) {
+    console.log("No documents found in collection:", "customers");
+    return [];
+  }
+
+  const documents: Customer[] = [];
+  snapshot.forEach((doc) => {
+    const data = doc.data();
+    try {
+      customerSchema.validateSync(data, { abortEarly: false });
+      documents.push({ ...data } as Customer);
+    } catch (error) {
+      console.error("Validation error: ", error);
+    }
+  });
+
+  return documents;
 };
