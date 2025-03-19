@@ -11,6 +11,7 @@ import {
   fetchCustomer,
   handleDeleteCustomer,
 } from "../../../services/customers/service/customersService";
+import { toast } from "react-toastify";
 
 export const DeleteCustomerView = () => {
   const selectedCustomerId = useAppStore((state) => state.selectedCustomerId);
@@ -65,6 +66,7 @@ export const DeleteCustomerView = () => {
                     selectedCustomerId,
                     setSelectedCustomerId
                   );
+                  toast.success("Customer deleted");
                 }}
               />
             </div>
