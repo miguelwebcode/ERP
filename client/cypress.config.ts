@@ -2,7 +2,10 @@ import admin from "firebase-admin";
 import { defineConfig } from "cypress";
 import { plugin as cypressFirebasePlugin } from "cypress-firebase";
 import * as dotenv from "dotenv";
-import { deleteCustomerByField } from "./cypress/support/firebase-utils";
+import {
+  deleteCustomerByField,
+  getAllCustomers,
+} from "./cypress/support/firebase-utils";
 import serviceAccount from "./serviceAccount.json" assert { type: "json" };
 dotenv.config();
 
@@ -23,6 +26,7 @@ export default defineConfig({
     // NOTE: Add "supportFile" setting if separate location is used
     setupNodeEvents(on, config) {
       on("task", {
+        getAllCustomers,
         deleteCustomerByField: (args: {
           fieldName: string;
           fieldValue: string;
