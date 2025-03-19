@@ -72,3 +72,15 @@ export const getCustomerById = async (
 
   return customer;
 };
+
+export const addCustomer = async (customer: Customer): Promise<string> => {
+  try {
+    customerSchema.validateSync(customer, { abortEarly: false });
+    const docRef = await db.collection("customers").add(customer);
+    console.log("Document written with ID: ", docRef.id);
+    return docRef.id;
+  } catch (error) {
+    console.error("Error adding document: ", error);
+    throw error;
+  }
+};
