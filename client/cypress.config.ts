@@ -13,6 +13,7 @@ import { Customer } from "./cypress/support/types";
 import {
   deleteProjectByField,
   getAllProjects,
+  getProjectById,
 } from "./cypress/support/utils/projects-utils";
 dotenv.config();
 
@@ -35,6 +36,7 @@ export default defineConfig({
       on("task", {
         addCustomer: (customer: Customer) => addCustomer(customer),
         getCustomerById: (customerId: string) => getCustomerById(customerId),
+        getProjectById: (projectId: string) => getProjectById(projectId),
         getAllCustomers,
         getAllProjects,
         deleteCustomerByField: (args: {
