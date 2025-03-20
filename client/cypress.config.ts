@@ -5,12 +5,12 @@ import * as dotenv from "dotenv";
 import {
   addCustomer,
   deleteCustomerByField,
-  deleteProjectByField,
   getAllCustomers,
   getCustomerById,
-} from "./cypress/support/firebase-utils";
+} from "./cypress/support/utils/customers-utils";
 import serviceAccount from "./serviceAccount.json" assert { type: "json" };
 import { Customer } from "./cypress/support/types";
+import { deleteProjectByField } from "./cypress/support/utils/projects-utils";
 dotenv.config();
 
 admin.initializeApp({
