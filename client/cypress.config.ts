@@ -5,6 +5,7 @@ import * as dotenv from "dotenv";
 import {
   addCustomer,
   deleteCustomerByField,
+  deleteProjectByField,
   getAllCustomers,
   getCustomerById,
 } from "./cypress/support/firebase-utils";
@@ -37,6 +38,12 @@ export default defineConfig({
           fieldValue: string;
         }) => {
           return deleteCustomerByField(args.fieldName, args.fieldValue);
+        },
+        deleteProjectByField: (args: {
+          fieldName: string;
+          fieldValue: string;
+        }) => {
+          return deleteProjectByField(args.fieldName, args.fieldValue);
         },
       });
       // e2e testing node events setup code
