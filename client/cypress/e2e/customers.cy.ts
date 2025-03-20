@@ -29,6 +29,7 @@ describe("Create customer", () => {
     cy.get("input[name='phone']").type(newCustomer.phone);
     cy.get("input[name='project']").type(newCustomer.project);
     cy.contains("button", /create customer/i).click();
+    cy.wait(1000);
     cy.contains(/customer created$/i);
     cy.wait(1000);
     // Clear customer from firestore
