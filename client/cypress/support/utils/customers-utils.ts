@@ -1,6 +1,6 @@
-import { db } from "../../cypress.config";
-import { Customer } from "./types";
-import { customerSchema } from "./schemas";
+import { db } from "../../../cypress.config";
+import { Customer } from "../types";
+import { customerSchema } from "../schemas";
 
 export const deleteCustomerByField = async (
   fieldName: string,
