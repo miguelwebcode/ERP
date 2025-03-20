@@ -69,3 +69,15 @@ export const getProjectById = async (
 
   return project;
 };
+
+export const addProject = async (project: Project): Promise<string> => {
+  try {
+    projectSchema.validateSync(project, { abortEarly: false });
+    const docRef = await db.collection("projects").add(project);
+    console.log("Document written with ID: ", docRef.id);
+    return docRef.id;
+  } catch (error) {
+    console.error("Error adding document: ", error);
+    throw error;
+  }
+};
