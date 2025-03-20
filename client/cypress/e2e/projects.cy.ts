@@ -51,3 +51,38 @@ describe("Create project", () => {
     cy.contains(/end date is required/i);
   });
 });
+
+describe("Read projects", () => {
+  beforeEach(() => {
+    cy.logout();
+    cy.login();
+    cy.visit("/");
+    cy.get("nav").within(() => {
+      cy.contains(/projects$/i).click();
+    });
+    cy.url().should("match", /\/projects$/);
+
+    cy.contains("button", /read/i).click();
+    cy.url().should("match", /\/projects\/read$/);
+  });
+  it("should show all project cards", () => {
+    cy.task("getAllProjects").then((result) => {
+      const projects = result as Project[];
+      // Verifica que el resultado sea un array
+      expect(Array.isArray(projects)).to.be.true;
+      // Validate Customer data
+      projects.forEach((project) => {
+        expect(project).to.be.an("object");
+        expect(project).to.have.property("name");
+        cy.contains(project.name);
+        expect(project).to.have.property("description");
+        expect(project).to.have.property("customerId");
+        expect(project).to.have.property("developer");
+        expect(project).to.have.property("state");
+        expect(project).to.have.property("startDate");
+        expect(project).to.have.property("endDate");
+        expect(project).to.have.property("createdAt");
+      });
+    });
+  });
+});
