@@ -44,3 +44,28 @@ export const getAllProjects = async (): Promise<Project[]> => {
   });
   return documents;
 };
+
+export const getProjectById = async (
+  projectId: string
+): Promise<Project | undefined> => {
+  const projectsRef = db.collection("projects");
+  const snapshot = await projectsRef.where("projectId", "==", projectId).get();
+
+  if (snapshot.empty) {
+    console.log("No matching documents.");
+    return undefined;
+  }
+
+  let project: Project | undefined;
+  snapshot.forEach((doc) => {
+    const data = doc.data();
+    try {
+      projectSchema.validateSync(data, { abortEarly: false });
+      project = { ...data } as Project;
+    } catch (error) {
+      console.error("Validation error: ", error);
+    }
+  });
+
+  return project;
+};
