@@ -195,3 +195,39 @@ describe("Edit Customer", () => {
     cy.contains(/end date is required$/i);
   });
 });
+
+describe("Delete Project", () => {
+  beforeEach(() => {
+    cy.logout();
+    cy.login();
+    cy.visit("/");
+    cy.get("nav").within(() => {
+      cy.contains(/projects$/i).click();
+    });
+    cy.url().should("match", /\/projects$/);
+    cy.contains("button", /delete$/i).click();
+    cy.url().should("match", /\/projects\/delete$/);
+  });
+
+  it("should delete a project successfully", () => {
+    cy.get("select[name='projectId']").select(1);
+    cy.contains("button", /fetch project$/i).click();
+    cy.wait(500);
+    cy.get("select[name='projectId']")
+      .find("option:eq(1)")
+      .invoke("val")
+      .then((projectId) => {
+        cy.task("getProjectById", projectId).then((data) => {
+          const project = data as Project;
+          cy.contains("button", /delete project$/i).click();
+          cy.contains(/project deleted$/i);
+          // Create project again
+          cy.task("addProject", project);
+        });
+      });
+  });
+  it("should show empty project id error", () => {
+    cy.contains("button", /fetch project$/i).click();
+    cy.contains(/project id is required$/i);
+  });
+});
