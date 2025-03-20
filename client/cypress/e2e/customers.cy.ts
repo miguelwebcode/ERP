@@ -151,28 +151,27 @@ describe("Edit Customer", () => {
             .then((project) => {
               expect(project).to.eq(customerCast.project);
             });
+          const newAddress: string = "1";
+
+          cy.get("input[name='address']").clear().type(newAddress);
+          // update
+          cy.contains("button", /update customer$/i).click();
+          cy.contains(/customer updated$/i);
+          // reverse update
+          cy.get("select[name='customerId']").select(1);
+          cy.contains("button", /fetch customer$/i).click();
+          cy.wait(1000);
+          cy.get("input[name='address']")
+            .invoke("val")
+            .then((address) => {
+              expect(address).to.eq(newAddress);
+            });
+
+          cy.get("input[name='address']").clear().type(customerCast.address);
+          cy.contains("button", /update customer$/i).click();
+          cy.contains(/customer updated$/i);
         });
       });
-
-    const newAddress: string = "1";
-
-    cy.get("input[name='address']").clear().type(newAddress);
-    // update
-    cy.contains("button", /update customer$/i).click();
-    cy.contains(/customer updated$/i);
-    // reverse update
-    cy.get("select[name='customerId']").select(1);
-    cy.contains("button", /fetch customer$/i).click();
-    cy.wait(1000);
-    cy.get("input[name='address']")
-      .invoke("val")
-      .then((address) => {
-        expect(address).to.eq(newAddress);
-      });
-
-    cy.get("input[name='address']").clear().type("Customer2 Street");
-    cy.contains("button", /update customer$/i).click();
-    cy.contains(/customer updated$/i);
   });
   it("should show empty customer id error", () => {
     cy.contains("button", /fetch customer$/i).click();
