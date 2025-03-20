@@ -9,8 +9,9 @@ import {
   getCustomerById,
 } from "./cypress/support/utils/customers-utils";
 import serviceAccount from "./serviceAccount.json" assert { type: "json" };
-import { Customer } from "./cypress/support/types";
+import { Customer, Project } from "./cypress/support/types";
 import {
+  addProject,
   deleteProjectByField,
   getAllProjects,
   getProjectById,
@@ -35,6 +36,7 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       on("task", {
         addCustomer: (customer: Customer) => addCustomer(customer),
+        addProject: (project: Project) => addProject(project),
         getCustomerById: (customerId: string) => getCustomerById(customerId),
         getProjectById: (projectId: string) => getProjectById(projectId),
         getAllCustomers,
