@@ -10,7 +10,10 @@ import {
 } from "./cypress/support/utils/customers-utils";
 import serviceAccount from "./serviceAccount.json" assert { type: "json" };
 import { Customer } from "./cypress/support/types";
-import { deleteProjectByField } from "./cypress/support/utils/projects-utils";
+import {
+  deleteProjectByField,
+  getAllProjects,
+} from "./cypress/support/utils/projects-utils";
 dotenv.config();
 
 admin.initializeApp({
@@ -33,6 +36,7 @@ export default defineConfig({
         addCustomer: (customer: Customer) => addCustomer(customer),
         getCustomerById: (customerId: string) => getCustomerById(customerId),
         getAllCustomers,
+        getAllProjects,
         deleteCustomerByField: (args: {
           fieldName: string;
           fieldValue: string;
