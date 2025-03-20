@@ -240,7 +240,7 @@ describe("Delete Customer", () => {
         });
       });
   });
-  it("should show empty customer error", () => {
+  it("should show empty customer id error", () => {
     cy.contains("button", /fetch customer$/i).click();
     cy.contains(/customer id is required$/i);
   });
