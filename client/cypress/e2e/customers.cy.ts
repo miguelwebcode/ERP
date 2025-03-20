@@ -13,7 +13,7 @@ describe("Create customer", () => {
     cy.url().should("match", /\/customers\/add$/);
   });
 
-  const newCustomer = {
+  const newCustomer: Customer = {
     address: "address",
     company: "company",
     email: "email123@gmail.com",
