@@ -69,16 +69,16 @@ const CustomerForm = ({
           <div className="flex flex-col w-fit">
             <CustomInput
               type="text"
-              label="Address"
-              name="address"
-              placeholder="Enter address"
+              label="Name"
+              name="name"
+              placeholder="Enter name"
               disabled={fieldDisabled}
             />
             <CustomInput
               type="text"
-              label="Company"
-              name="company"
-              placeholder="Enter company"
+              label="Address"
+              name="address"
+              placeholder="Enter address"
               disabled={fieldDisabled}
             />
             <CustomInput
@@ -92,9 +92,9 @@ const CustomerForm = ({
           <div className="flex flex-col w-fit">
             <CustomInput
               type="text"
-              label="Name"
-              name="name"
-              placeholder="Enter name"
+              label="Company"
+              name="company"
+              placeholder="Enter company"
               disabled={fieldDisabled}
             />
             <CustomInput
