@@ -3,9 +3,12 @@ import { customerFormValidationSchema } from "../../../schemas";
 import { CustomInput } from "../../formik/CustomInput/CustomInput";
 import { FormikHelpers, FormikProps } from "formik";
 import { CustomerFormValues } from "../../../types/form-values-types";
-import { useRef, useEffect, useMemo } from "react";
+import { useRef, useEffect, useMemo, useState } from "react";
 import { setCustomerFormValues } from "../../../services/customers/service/customersService";
 import { useAppStore } from "../../../stores/app-store";
+import { CustomSelect } from "../../formik/CustomSelect/CustomSelect";
+import { Project } from "../../../types";
+import { fetchAllProjects } from "../../../services/projects/service/projectsService";
 
 type CustomerFormProps = {
   titleText: string;
@@ -23,6 +26,7 @@ const CustomerForm = ({
   onSubmit: handleSubmit,
   canBeDisabled,
 }: CustomerFormProps) => {
+  const [projects, setProjects] = useState<Project[]>([]);
   const formikRef = useRef<FormikProps<CustomerFormValues>>(null);
   const initialValues: CustomerFormValues = {
     address: "",
@@ -36,6 +40,7 @@ const CustomerForm = ({
   const selectedCustomerId = useAppStore((state) => state.selectedCustomerId);
 
   useEffect(() => {
+    fetchAllProjects(setProjects);
     /* 
      On first useEffect, form is not mounted yet, its reference formikRef.current
      is null. Then, on selectedCustomerId change, useEffect is executed again...
@@ -99,13 +104,19 @@ const CustomerForm = ({
               placeholder="Enter phone"
               disabled={fieldDisabled}
             />
-            <CustomInput
-              type="text"
+            <CustomSelect
               label="Project"
               name="project"
-              placeholder="Enter project"
               disabled={fieldDisabled}
-            />
+            >
+              <option value="">-- Select an option --</option>
+              <option value="none">None</option>
+              {projects.map((project, index) => (
+                <option key={index} value={project.name}>
+                  {project.name}
+                </option>
+              ))}
+            </CustomSelect>
           </div>
         </div>
         <button
