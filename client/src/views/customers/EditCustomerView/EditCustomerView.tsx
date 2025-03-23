@@ -35,32 +35,37 @@ export const EditCustomerView = () => {
     }
   };
   return (
-    <div className="flex flex-col gap-2 lg:flex-row justify-center px-5">
-      {isRenderDone && (
-        <>
-          <SelectCustomerForm
-            buttonText="FETCH CUSTOMER"
-            onSubmit={handleSubmit}
-          />
-          <CustomerForm
-            titleText="EDIT CUSTOMER"
-            submitButtonText="UPDATE CUSTOMER"
-            canBeDisabled={true}
-            onSubmit={async (
-              values: CustomerFormValues,
-              formikHelpers: FormikHelpers<CustomerFormValues>
-            ) => {
-              await handleEditCustomer(
-                selectedCustomerId,
-                values,
-                formikHelpers
-              );
-              setSelectedCustomerId("");
-            }}
-          />
-        </>
-      )}
-    </div>
+    <>
+      <h1 className="uppercase font-bold text-3xl text-center mb-10">
+        Update Customer
+      </h1>
+      <div className="flex flex-col gap-2 lg:flex-row justify-center px-5">
+        {isRenderDone && (
+          <>
+            <SelectCustomerForm
+              buttonText="FETCH CUSTOMER"
+              onSubmit={handleSubmit}
+            />
+            <CustomerForm
+              titleText="EDIT CUSTOMER"
+              submitButtonText="UPDATE CUSTOMER"
+              canBeDisabled={true}
+              onSubmit={async (
+                values: CustomerFormValues,
+                formikHelpers: FormikHelpers<CustomerFormValues>
+              ) => {
+                await handleEditCustomer(
+                  selectedCustomerId,
+                  values,
+                  formikHelpers
+                );
+                setSelectedCustomerId("");
+              }}
+            />
+          </>
+        )}
+      </div>
+    </>
   );
 };
 

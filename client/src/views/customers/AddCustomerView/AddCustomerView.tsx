@@ -15,7 +15,9 @@ export const AddCustomerView = () => {
     setIsRenderDone(true);
   });
   return (
-    <div className="flex justify-center">
+    <div className="flex flex-col justify-center gap-10">
+      <h1 className="uppercase font-bold text-3xl text-center">Add Customer</h1>
+
       {isRenderDone && (
         <CustomerForm
           titleText="NEW CUSTOMER"

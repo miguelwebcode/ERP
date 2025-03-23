@@ -49,8 +49,11 @@ export const DeleteCustomerView = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row justify-center px-5">
-      <>
+    <>
+      <h1 className="uppercase font-bold text-3xl text-center mb-10">
+        Delete Customer
+      </h1>
+      <div className="flex flex-col md:flex-row justify-center px-5">
         <SelectCustomerForm
           buttonText="FETCH CUSTOMER"
           onSubmit={handleSubmit}
@@ -72,7 +75,7 @@ export const DeleteCustomerView = () => {
             </div>
           </SharedCard>
         )}
-      </>
-    </div>
+      </div>
+    </>
   );
 };
