@@ -15,16 +15,19 @@ export const AddCustomerView = () => {
     setIsRenderDone(true);
   });
   return (
-    <div className="flex flex-col justify-center gap-10">
-      <h1 className="uppercase font-bold text-3xl text-center">Add Customer</h1>
-
-      {isRenderDone && (
-        <CustomerForm
-          titleText="NEW CUSTOMER"
-          submitButtonText="CREATE CUSTOMER"
-          onSubmit={handleCreateCustomer}
-        />
-      )}
-    </div>
+    <>
+      <h1 className="uppercase font-bold text-3xl text-center mb-10">
+        Add Customer
+      </h1>
+      <div className="flex flex-col justify-center">
+        {isRenderDone && (
+          <CustomerForm
+            titleText="NEW CUSTOMER"
+            submitButtonText="CREATE CUSTOMER"
+            onSubmit={handleCreateCustomer}
+          />
+        )}
+      </div>
+    </>
   );
 };

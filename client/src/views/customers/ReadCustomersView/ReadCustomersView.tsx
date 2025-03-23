@@ -14,7 +14,6 @@ export const ReadCustomersView = () => {
       <h1 className="uppercase font-bold text-3xl text-center mb-10">
         All Customers
       </h1>
-
       <div className="flex justify-center flex-wrap gap-6">
         {customers.map((customer, i) => {
           return (
