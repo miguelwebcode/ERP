@@ -22,7 +22,7 @@ export const SharedButton = ({
         handleClick();
       }}
     >
-      <div className="flex justify-center items-center gap-2">
+      <div className={`flex justify-center items-center ${Icon && "gap-2"}`}>
         <div>{Icon && <Icon className="text-xl" />}</div>
         <div>{text}</div>
       </div>
