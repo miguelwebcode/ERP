@@ -15,14 +15,19 @@ export const AddProjectView = () => {
     setIsRenderDone(true);
   });
   return (
-    <div className="flex justify-center">
-      {isRenderDone && (
-        <ProjectForm
-          titleText="NEW PROJECT"
-          submitButtonText="CREATE PROJECT"
-          onSubmit={handleCreateProject}
-        />
-      )}
-    </div>
+    <>
+      <h1 className="uppercase font-bold text-3xl text-center mb-10">
+        Add Project
+      </h1>
+      <div className="flex justify-center">
+        {isRenderDone && (
+          <ProjectForm
+            titleText="NEW PROJECT"
+            submitButtonText="CREATE PROJECT"
+            onSubmit={handleCreateProject}
+          />
+        )}
+      </div>
+    </>
   );
 };

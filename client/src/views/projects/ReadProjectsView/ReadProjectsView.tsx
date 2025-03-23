@@ -10,14 +10,19 @@ export const ReadProjectsView = () => {
     fetchAllProjects(setProjects);
   }, []);
   return (
-    <div className="flex justify-center flex-wrap gap-6">
-      {projects.map((project, i) => {
-        return (
-          <SharedCard key={i}>
-            <ProjectCard project={project} />
-          </SharedCard>
-        );
-      })}
-    </div>
+    <>
+      <h1 className="uppercase font-bold text-3xl text-center mb-10">
+        All Projects
+      </h1>
+      <div className="flex justify-center flex-wrap gap-6">
+        {projects.map((project, i) => {
+          return (
+            <SharedCard key={i}>
+              <ProjectCard project={project} />
+            </SharedCard>
+          );
+        })}
+      </div>
+    </>
   );
 };

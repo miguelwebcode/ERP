@@ -45,24 +45,32 @@ export const DeleteProjectView = () => {
     }
   };
   return (
-    <div className="flex flex-col md:flex-row justify-center px-5">
-      <>
-        <SelectProjectForm buttonText="FETCH PROJECT" onSubmit={handleSubmit} />
-        {selectedProjectId && (
-          <SharedCard>
-            <ProjectCard project={selectedProject} />
-            <div className="flex justify-center">
-              <SharedButton
-                text="DELETE PROJECT"
-                onClick={async () => {
-                  await deleteProjectById(selectedProjectId);
-                  setSelectedProjectId("");
-                }}
-              />
-            </div>
-          </SharedCard>
-        )}
-      </>
-    </div>
+    <>
+      <h1 className="uppercase font-bold text-3xl text-center mb-10">
+        Delete Project
+      </h1>
+      <div className="flex flex-col md:flex-row justify-center px-5">
+        <>
+          <SelectProjectForm
+            buttonText="FETCH PROJECT"
+            onSubmit={handleSubmit}
+          />
+          {selectedProjectId && (
+            <SharedCard>
+              <ProjectCard project={selectedProject} />
+              <div className="flex justify-center">
+                <SharedButton
+                  text="DELETE PROJECT"
+                  onClick={async () => {
+                    await deleteProjectById(selectedProjectId);
+                    setSelectedProjectId("");
+                  }}
+                />
+              </div>
+            </SharedCard>
+          )}
+        </>
+      </div>
+    </>
   );
 };
