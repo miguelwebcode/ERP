@@ -12,7 +12,7 @@ export const CardField = ({ label, value, Icon }: CardFieldProps) => {
       <div className="flex gap-2 items-center">
         {Icon && (
           <div>
-            <Icon className="text-lg" />
+            <Icon className="text-xl" />
           </div>
         )}
         <label className="block text-sm font-medium">{label}</label>
