@@ -65,7 +65,7 @@ const CustomerForm = ({
     >
       <div className="flex flex-col items-center justify-center bg-white p-6 rounded shadow-md">
         <h1 className="text-2xl font-bold mb-8">{titleText}</h1>
-        <div className="flex flex-col md:flex-row md:gap-10">
+        <div className="flex flex-col sm:flex-row sm:gap-10">
           <div className="flex flex-col w-fit">
             <CustomInput
               type="text"
