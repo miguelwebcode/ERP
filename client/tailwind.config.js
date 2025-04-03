@@ -62,6 +62,7 @@ export default {
             900: "#22663F",
           },
         },
+        "ds-white": "#FFFFFF",
         "ds-grey": {
           100: "#EBEBEB",
           200: "#CCCCCC",
@@ -73,7 +74,6 @@ export default {
           800: "#2D3239",
           900: "#1F1F1F",
         },
-        "ds-white": "#FFFFFF",
       },
 
       spacing: {
