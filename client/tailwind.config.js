@@ -112,7 +112,7 @@ export default {
         "ds-8xl": "128px",
       },
       fontFamily: {
-        "ds-primary": ["Helvetica", "Arial", "sans-serif"],
+        "ds-primary": ["Source Sans Pro", "Arial", "sans-serif"],
       },
       lineHeight: {
         "ds-tight": "1.25",
