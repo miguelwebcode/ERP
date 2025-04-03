@@ -109,6 +109,7 @@ export default {
         "ds-5xl": "60px",
         "ds-6xl": "72px",
         "ds-7xl": "96px",
+        "ds-8xl": "128px",
       },
       fontFamily: {
         "ds-primary": ["Helvetica", "Arial", "sans-serif"],
