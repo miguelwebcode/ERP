@@ -73,6 +73,7 @@ export default {
           800: "#2D3239",
           900: "#1F1F1F",
         },
+        "ds-white": "#FFFFFF",
       },
 
       spacing: {
