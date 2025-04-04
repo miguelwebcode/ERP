@@ -61,7 +61,7 @@ export default {
         },
         "ds-white": "#FFFFFF",
         "ds-grey": {
-          100: "#EBEBEB",
+          100: "#FAFAFA",
           200: "#CCCCCC",
           300: "#B3B3B3",
           400: "#9299A0",
