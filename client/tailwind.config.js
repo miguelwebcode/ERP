@@ -61,8 +61,8 @@ export default {
         },
         "ds-white": "#FFFFFF",
         "ds-grey": {
-          100: "#FAFAFA",
-          200: "#D9D9D9",
+          100: "#FCFCFC",
+          200: "#EBEBEB",
           300: "#BFBFBF",
           400: "#9FA6AC",
           500: "#848C95",
@@ -79,6 +79,7 @@ export default {
         "ds-8": "8px",
         "ds-12": "12px",
         "ds-16": "16px",
+        "ds-20": "20px",
         "ds-24": "24px",
         "ds-32": "32px",
         "ds-48": "48px",
