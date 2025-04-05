@@ -101,7 +101,9 @@ export default function Dashboard() {
       {/* Card 3: Bar Chart - Monthly Comparison */}
       <Card className="p-4 h-full">
         <div className="flex flex-col h-full">
-          <h3 className="text-lg font-bold mb-2">New Clients & Projects</h3>
+          <h3 className="text-lg font-bold mb-2 text-center">
+            New Clients & Projects
+          </h3>
           <div className="w-full flex-grow">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={newClientsProjects}>
@@ -120,7 +122,9 @@ export default function Dashboard() {
       {/* Card 4: Pie Chart - Employees Distribution */}
       <Card className="p-4 h-full">
         <div className="flex flex-col h-full">
-          <h3 className="text-lg font-bold mb-2">Employees by Department</h3>
+          <h3 className="text-lg font-bold mb-2 text-center">
+            Employees by Department
+          </h3>
           <div className="w-full flex-grow">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
