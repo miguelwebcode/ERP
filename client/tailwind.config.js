@@ -70,6 +70,7 @@ export default {
           700: "#454C54",
           800: "#2D3239",
           900: "#212121",
+          disabled: "#F2F2F2",
         },
         "ds-black": "#1A1A1A",
       },
