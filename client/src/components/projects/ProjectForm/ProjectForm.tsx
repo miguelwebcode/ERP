@@ -68,78 +68,75 @@ const ProjectForm = ({
       onSubmit={handleSubmit}
       innerRef={formikRef}
     >
-      <div className="flex flex-col items-center justify-center bg-white p-6 rounded shadow-md">
-        <h1 className="text-2xl font-bold mb-8">{titleText}</h1>
-        <div className="flex flex-col sm:flex-row sm:gap-10">
-          <div className="flex flex-col w-64">
-            <CustomInput
-              type="text"
-              label="Name"
-              name="name"
-              placeholder="Enter project's name"
-              disabled={fieldDisabled}
-            />
-            <CustomInput
-              type="text"
-              label="Description"
-              name="description"
-              placeholder="Enter project's description"
-              disabled={fieldDisabled}
-            />
-            <CustomInput
-              type="text"
-              label="Customer ID"
-              name="customerId"
-              placeholder="Enter project's customer id"
-              disabled={fieldDisabled}
-            />
-            <CustomInput
-              type="text"
-              label="Assigned Developer"
-              name="developer"
-              placeholder="Enter project's developer"
-              disabled={fieldDisabled}
-            />
-          </div>
-          <div className="flex flex-col w-fit">
-            <CustomSelect
-              label="Project State"
-              name="state"
-              disabled={fieldDisabled}
-            >
-              <option className="text-center" value="">
-                -- Select an option --
-              </option>
-              {projectStates.map((projectState) => {
-                return (
-                  <option key={projectState.id} value={projectState.id}>
-                    {projectState.value}
-                  </option>
-                );
-              })}
-            </CustomSelect>
-            <CustomInput
-              type="date"
-              label="Start Date"
-              name="startDate"
-              placeholder="Enter project's startDate"
-              disabled={fieldDisabled}
-            />
-            <CustomInput
-              type="date"
-              label="End Date"
-              name="endDate"
-              placeholder="Enter project's endDate"
-              disabled={fieldDisabled}
-            />
-          </div>
+      <div className="flex flex-col items-center justify-center bg-ds-white p-ds-32 rounded-ds-sm shadow-ds-2">
+        <h1 className="text-ds-xl font-bold mb-ds-32">{titleText}</h1>
+        <div className="grid grid-cols-2 gap-y-ds-20 gap-x-ds-20">
+          <CustomInput
+            type="text"
+            label="Name"
+            name="name"
+            placeholder="Enter project's name"
+            disabled={fieldDisabled}
+          />
+          <CustomSelect
+            label="Project State"
+            name="state"
+            disabled={fieldDisabled}
+          >
+            <option className="text-center" value="">
+              -- Select an option --
+            </option>
+            {projectStates.map((projectState) => {
+              return (
+                <option key={projectState.id} value={projectState.id}>
+                  {projectState.value}
+                </option>
+              );
+            })}
+          </CustomSelect>
+          <CustomInput
+            type="text"
+            label="Description"
+            name="description"
+            placeholder="Enter project's description"
+            disabled={fieldDisabled}
+          />
+          <CustomInput
+            type="date"
+            label="Start Date"
+            name="startDate"
+            placeholder="Enter project's startDate"
+            disabled={fieldDisabled}
+          />
+          <CustomInput
+            type="text"
+            label="Customer ID"
+            name="customerId"
+            placeholder="Enter project's customer id"
+            disabled={fieldDisabled}
+          />
+
+          <CustomInput
+            type="date"
+            label="End Date"
+            name="endDate"
+            placeholder="Enter project's endDate"
+            disabled={fieldDisabled}
+          />
+          <CustomInput
+            type="text"
+            label="Assigned Developer"
+            name="developer"
+            placeholder="Enter project's developer"
+            disabled={fieldDisabled}
+          />
         </div>
         <button
           type="submit"
-          className="w-fit bg-blue-500 text-white mt-4 py-2 px-4 rounded hover:bg-blue-600 uppercase font-bold disabled:bg-gray-500"
+          className="w-full bg-ds-primary-500 text-ds-white mt-ds-32 py-ds-12 px-ds-16 rounded-ds-md hover:bg-ds-primary-600 uppercase font-bold disabled:bg-ds-grey-400"
           disabled={fieldDisabled}
         >
-          {submitButtonText}
+          <p className="text-ds-lg">{submitButtonText}</p>
         </button>
       </div>
     </SharedForm>
