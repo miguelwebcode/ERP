@@ -26,7 +26,7 @@ export default {
           800: "#E50083",
           900: "#990058",
         },
-        "ds-accent-1": {
+        "ds-accent1": {
           100: "#FDD7D7",
           200: "#F9BCBC",
           300: "#F69999",
