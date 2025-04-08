@@ -1,0 +1,6 @@
+.header-link-selected {
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 8px;
+  @apply decoration-ds-primary-400;
+}
