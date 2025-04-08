@@ -8,14 +8,16 @@ type CardFieldProps = {
 
 export const CardField = ({ label, value, Icon }: CardFieldProps) => {
   return (
-    <div className="flex flex-col mb-4 gap-1 ">
-      <div className="flex gap-2 items-center">
+    <div className="flex flex-col ">
+      <div className="flex gap-ds-8 items-start">
         {Icon && (
           <div>
-            <Icon className="text-xl" />
+            <Icon className="text-xl text-ds-grey-800" />
           </div>
         )}
-        <label className="block text-sm font-medium">{label}</label>
+        <label className="block text-sm font-medium text-ds-grey-400">
+          {label}
+        </label>
       </div>
       <span data-testid={label} className="text-md">
         {value}
