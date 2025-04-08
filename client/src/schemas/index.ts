@@ -37,7 +37,6 @@ export const customerFormValidationSchema = yup.object({
     .required("Phone is required")
     .matches(/^\d{9}$/, "Phone must contain 9 digits")
     .default(""),
-  project: yup.string().required("Project is required").default(""),
 });
 
 export const projectFormValidationSchema = yup.object({

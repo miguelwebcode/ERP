@@ -17,7 +17,6 @@ export type CustomerFormValues = {
   email: string;
   name: string;
   phone: string;
-  project: string;
 };
 
 export type ProjectFormValues = {
