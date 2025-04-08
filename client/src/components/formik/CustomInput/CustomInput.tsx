@@ -13,7 +13,7 @@ export const CustomInput = ({ label, ...props }: CustomInputProps) => {
 
   return (
     <>
-      <div className="flex flex-col mb-4">
+      <div className="flex flex-col">
         <label htmlFor={props.name} className="block text-sm font-medium">
           {label}
         </label>
