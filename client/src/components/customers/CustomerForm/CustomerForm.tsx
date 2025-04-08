@@ -98,7 +98,7 @@ const CustomerForm = ({
         </div>
         <button
           type="submit"
-          className="w-ds-192 bg-ds-primary-500 text-ds-white mt-ds-32 py-ds-12 px-ds-16 rounded-ds-lg hover:bg-ds-primary-600 uppercase font-bold disabled:bg-ds-grey-400"
+          className="w-ds-192 bg-ds-primary-500 text-ds-white mt-ds-32 py-ds-12 px-ds-16 rounded-ds-md hover:bg-ds-primary-600 uppercase font-bold disabled:bg-ds-grey-400"
           disabled={fieldDisabled}
         >
           <p className="text-ds-lg">{submitButtonText}</p>
