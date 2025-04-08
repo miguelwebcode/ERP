@@ -23,7 +23,7 @@ export const AddProjectView = () => {
         {isRenderDone && (
           <ProjectForm
             titleText="NEW PROJECT"
-            submitButtonText="CREATE PROJECT"
+            submitButtonText="CREATE"
             onSubmit={handleCreateProject}
           />
         )}
