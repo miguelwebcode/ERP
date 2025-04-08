@@ -15,8 +15,8 @@ export const CustomSelect = ({
   const [field, meta] = useField(props);
 
   return (
-    <div className="flex flex-col mb-4">
-      <label htmlFor={props.name} className="block text-sm font-medium">
+    <div className="flex flex-col">
+      <label htmlFor={props.name} className="block text-ds-sm font-medium">
         {label}
       </label>
       <select
@@ -30,7 +30,9 @@ export const CustomSelect = ({
         {children}
       </select>
       {meta.error && meta.touched && (
-        <div className="text-red-500 text-sm text-left mt-1">{meta.error}</div>
+        <div className="text-red-500 text-ds-sm text-left mt-ds-4">
+          {meta.error}
+        </div>
       )}
     </div>
   );
