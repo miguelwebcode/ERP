@@ -133,7 +133,8 @@ export default {
       borderRadius: {
         "ds-sm": "4px",
         "ds-md": "8px",
-        "ds-lg": "16px",
+        "ds-lg": "12px",
+        "ds-xl": "16px",
         "ds-full": "9999px",
       },
 
