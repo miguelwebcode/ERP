@@ -49,10 +49,7 @@ const SelectProjectForm = ({
               </option>
             ))}
           </CustomSelect>
-          <button
-            type="submit"
-            className="w-full bg-ds-primary-500 text-ds-white font-bold py-ds-8 px-ds-16 mt-ds-20 rounded-ds-sm hover:bg-ds-primary-600"
-          >
+          <button type="submit" className="form-button">
             <p className="text-ds-lg">{buttonText}</p>
           </button>
         </div>
