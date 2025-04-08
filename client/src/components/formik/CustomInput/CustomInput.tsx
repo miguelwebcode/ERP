@@ -21,12 +21,12 @@ export const CustomInput = ({ label, ...props }: CustomInputProps) => {
           {...field}
           {...props}
           id={props.name}
-          className={`w-full p-2 border rounded ${
-            meta.error && meta.touched && "border-red-500"
+          className={`w-full p-ds-8 border rounded-ds-sm ${
+            meta.error && meta.touched && "border-ds-accent1-500"
           }`}
         />
         {meta.error && meta.touched && (
-          <div className="text-red-500 text-sm text-left mt-1">
+          <div className="text-ds-accent1-500 text-ds-sm text-left mt-ds-4">
             {meta.error}
           </div>
         )}
