@@ -23,7 +23,7 @@ export const AddCustomerView = () => {
         {isRenderDone && (
           <CustomerForm
             titleText="NEW CUSTOMER"
-            submitButtonText="CREATE CUSTOMER"
+            submitButtonText="CREATE"
             onSubmit={handleCreateCustomer}
           />
         )}
