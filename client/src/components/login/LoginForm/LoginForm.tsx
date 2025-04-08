@@ -34,7 +34,7 @@ const LoginForm = () => {
       <div className="flex flex-col items-center justify-center bg-ds-white p-ds-24 rounded-ds-sm shadow-ds-2 w-ds-384">
         <h1 className="text-ds-2xl font-bold mb-ds-16">Login</h1>
 
-        <div className="w-4/5 flex flex-col gap-ds-24">
+        <div className="w-4/5 flex flex-col gap-ds-16">
           <CustomInput
             label="Email"
             name="email"
