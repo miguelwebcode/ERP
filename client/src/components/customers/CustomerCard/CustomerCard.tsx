@@ -1,14 +1,8 @@
 import { Customer } from "../../../types";
 import { CardField } from "../../ui/CardField/CardField";
 import { FaRegBuilding } from "react-icons/fa";
-import {
-  MdCalendarMonth,
-  MdOutlineEditCalendar,
-  MdOutlineEmail,
-  MdOutlinePhoneEnabled,
-} from "react-icons/md";
+import { MdOutlineEmail, MdOutlinePhoneEnabled } from "react-icons/md";
 import { IoLocationOutline } from "react-icons/io5";
-import { MdOutlineWorkOutline } from "react-icons/md";
 import { LuUserRound } from "react-icons/lu";
 
 type CustomerCardProps = {
@@ -16,44 +10,30 @@ type CustomerCardProps = {
 };
 export const CustomerCard = ({ customer }: CustomerCardProps) => {
   return (
-    <div className="flex gap-10">
-      <div className="flex flex-col">
-        <CardField label="Name" value={customer.name} Icon={LuUserRound} />
-        <CardField
-          label="Address"
-          value={customer.address}
-          Icon={IoLocationOutline}
-        />
-        <CardField label="Email" value={customer.email} Icon={MdOutlineEmail} />
-        <CardField
-          label="Phone"
-          value={customer.phone}
-          Icon={MdOutlinePhoneEnabled}
-        />
+    <div>
+      <div className="bg-ds-primary-800 h-ds-32 rounded-t-ds-sm flex items-center justify-center">
+        <p className="text-ds-white text-center">
+          <span className="font-semibold">ID</span>: {customer.customerId}
+        </p>
       </div>
-      <div className="flex flex-col">
+      <div className="grid grid-cols-2 p-ds-20 gap-y-ds-20 gap-x-ds-12">
+        <CardField label="Name" value={customer.name} Icon={LuUserRound} />
         <CardField
           label="Company"
           value={customer.company}
           Icon={FaRegBuilding}
         />
         <CardField
-          label="Project"
-          value={customer.project}
-          Icon={MdOutlineWorkOutline}
+          label="Address"
+          value={customer.address}
+          Icon={IoLocationOutline}
         />
         <CardField
-          label="Created at"
-          value={customer.createdAt}
-          Icon={MdCalendarMonth}
+          label="Phone"
+          value={customer.phone}
+          Icon={MdOutlinePhoneEnabled}
         />
-        {customer.updatedAt && (
-          <CardField
-            label="Updated at"
-            value={customer.updatedAt}
-            Icon={MdOutlineEditCalendar}
-          />
-        )}
+        <CardField label="Email" value={customer.email} Icon={MdOutlineEmail} />
       </div>
     </div>
   );
