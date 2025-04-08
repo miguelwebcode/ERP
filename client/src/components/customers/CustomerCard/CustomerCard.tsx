@@ -10,7 +10,7 @@ type CustomerCardProps = {
 };
 export const CustomerCard = ({ customer }: CustomerCardProps) => {
   return (
-    <div>
+    <div className="w-ds-384">
       <div className="bg-ds-primary-800 h-ds-32 rounded-t-ds-sm flex items-center justify-center">
         <p className="text-ds-white text-center">
           <span className="font-semibold">ID</span>: {customer.customerId}
