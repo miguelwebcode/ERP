@@ -1,5 +1,5 @@
+import "@styles/NavButton.css";
 import { IconType } from "react-icons/lib";
-import "../../../styles/NavButton.css";
 
 type NavButtonProps = {
   text: string;
