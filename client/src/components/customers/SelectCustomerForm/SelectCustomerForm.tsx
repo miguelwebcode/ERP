@@ -37,26 +37,24 @@ const SelectCustomerForm = ({
       validationSchema={selectCustomerFormValidationSchema}
       onSubmit={handleSubmit}
     >
-      <div className="flex flex-col md:flex-row justify-between px-5">
-        <div className="flex flex-col items-center justify-center bg-white p-6 rounded shadow-md w-96 h-fit">
-          <h1 className="text-2xl font-bold mb-4">Select Customer</h1>
-          <div className="w-4/5">
-            <CustomSelect label="Customer ID" name="customerId">
-              <option value="" className="text-center">
-                -- Select customer ID --
+      <div className="flex flex-col md:flex-row justify-between">
+        <div className="flex flex-col items-center justify-center bg-ds-white p-ds-20 rounded-ds-sm shadow-ds-2 h-fit">
+          <h1 className="text-ds-xl font-bold mb-ds-16">Select Customer</h1>
+          <CustomSelect label="Customer ID" name="customerId">
+            <option value="" className="text-center">
+              -- Select customer ID --
+            </option>
+            {customerIds.map((id, index) => (
+              <option key={index} value={id}>
+                {id}
               </option>
-              {customerIds.map((id, index) => (
-                <option key={index} value={id}>
-                  {id}
-                </option>
-              ))}
-            </CustomSelect>
-          </div>
+            ))}
+          </CustomSelect>
           <button
             type="submit"
-            className="w-4/5 bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600"
+            className="w-full bg-ds-primary-500 text-ds-white font-bold py-ds-8 px-ds-16 rounded-ds-sm hover:bg-ds-primary-600"
           >
-            {buttonText}
+            <p className="text-ds-lg">{buttonText}</p>
           </button>
         </div>
       </div>
