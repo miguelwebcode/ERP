@@ -1,0 +1,7 @@
+.nav-button {
+  @apply border-4 rounded-ds-md py-ds-8 border-ds-primary-500 hover:bg-ds-primary-500 hover:text-ds-white;
+}
+.nav-button:hover p,
+.nav-button:hover span {
+  @apply text-ds-white;
+}
