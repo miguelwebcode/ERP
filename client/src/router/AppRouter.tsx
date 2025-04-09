@@ -14,14 +14,17 @@ import { DeleteCustomerView } from "../views/customers/DeleteCustomerView/Delete
 import { ReadProjectsView } from "../views/projects/ReadProjectsView/ReadProjectsView";
 import { DeleteProjectView } from "../views/projects/DeleteProjectView/DeleteProjectView";
 import ProtectedRoute from "./ProtectedRoute";
+import { UnauthenticatedRoute } from "./UnauthenticatedRoute";
 
 export default function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
-          <Route path="/login" element={<LoginView />} />
-          <Route path="/register" element={<RegisterView />} />
+          <Route element={<UnauthenticatedRoute />}>
+            <Route path="/login" element={<LoginView />} />
+            <Route path="/register" element={<RegisterView />} />
+          </Route>
           <Route element={<ProtectedRoute />}>
             <Route index element={<HomeView />} />
             <Route path="/customers" element={<CustomersView />} />
