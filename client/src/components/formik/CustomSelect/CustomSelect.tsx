@@ -15,7 +15,7 @@ export const CustomSelect = ({
   const [field, meta] = useField(props);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-full">
       <label htmlFor={props.name} className="block text-ds-sm font-medium">
         {label}
       </label>
