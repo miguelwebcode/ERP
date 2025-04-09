@@ -15,6 +15,7 @@ export const ProjectsNavigationCard = () => {
       <NavButton
         text="CREATE"
         Icon={FaPlus}
+        activatedOnRoute="/projects/add"
         onClick={() => {
           navigate("/projects/add");
         }}
@@ -22,6 +23,7 @@ export const ProjectsNavigationCard = () => {
       <NavButton
         text="READ"
         Icon={IoReader}
+        activatedOnRoute="/projects/read"
         onClick={() => {
           navigate("/projects/read");
         }}
@@ -29,6 +31,7 @@ export const ProjectsNavigationCard = () => {
       <NavButton
         text="UPDATE"
         Icon={MdEdit}
+        activatedOnRoute="/projects/edit"
         onClick={() => {
           navigate("/projects/edit");
         }}
@@ -36,6 +39,7 @@ export const ProjectsNavigationCard = () => {
       <NavButton
         text="DELETE"
         Icon={MdDeleteForever}
+        activatedOnRoute="/projects/delete"
         onClick={() => {
           navigate("/projects/delete");
         }}
