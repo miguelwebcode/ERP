@@ -8,7 +8,7 @@ export const ProjectsNavigationCard = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col gap-ds-24 bg-ds-white p-ds-32 rounded-ds-sm shadow-ds-2">
+    <div className="flex flex-col gap-ds-24 bg-ds-white p-ds-32 rounded-ds-sm shadow-ds-2 w-ds-256">
       <h3 className="uppercase text-ds-lg font-bold text-center ">
         MANAGE PROJECTS
       </h3>
