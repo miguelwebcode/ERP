@@ -7,7 +7,7 @@
 }
 
 .activated-on-route {
-  @apply border-4 rounded-ds-md py-ds-8 border-ds-primary-500 bg-ds-primary-500 text-ds-white;
+  @apply border-4 rounded-ds-md py-ds-8 border-ds-primary-500 bg-ds-primary-500;
 }
 
 .activated-on-route p,
