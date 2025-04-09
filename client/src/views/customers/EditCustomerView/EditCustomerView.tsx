@@ -38,13 +38,10 @@ export const EditCustomerView = () => {
     <div className="flex flex-col gap-ds-32 justify-center px-ds-20">
       {isRenderDone && (
         <>
-          <SelectCustomerForm
-            buttonText="FETCH CUSTOMER"
-            onSubmit={handleSubmit}
-          />
+          <SelectCustomerForm buttonText="GET DATA" onSubmit={handleSubmit} />
           <CustomerForm
             titleText="EDIT CUSTOMER"
-            submitButtonText="UPDATE CUSTOMER"
+            submitButtonText="UPDATE"
             canBeDisabled={true}
             onSubmit={async (
               values: CustomerFormValues,
