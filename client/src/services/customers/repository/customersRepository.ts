@@ -34,7 +34,7 @@ export const getCustomerById = async (customerId: string) => {
   }
 
   const customersCollection = collection(db, "customers");
-  const q = query(customersCollection, where("customerId", "==", customerId));
+  const q = query(customersCollection, where("id", "==", customerId));
 
   try {
     const querySnapshot = await getDocs(q);
@@ -55,7 +55,7 @@ export const getAllCustomerIds = async () => {
   const customersCollection = collection(db, "customers");
   try {
     const querySnapshot = await getDocs(customersCollection);
-    const customerIds = querySnapshot.docs.map((doc) => doc.data().customerId);
+    const customerIds = querySnapshot.docs.map((doc) => doc.data().id);
     console.log("Customer IDs: ", customerIds);
     return customerIds;
   } catch (error) {
@@ -71,7 +71,7 @@ export const handleCreateCustomer = async (
     await addDoc(collection(db, "customers"), {
       ...values,
       createdAt: formatDate(new Date()),
-      customerId: uuidv4(),
+      id: uuidv4(),
     });
     toast.success("Customer created");
     formikHelpers.resetForm();
@@ -87,10 +87,7 @@ export const handleEditCustomer = async (
 ) => {
   try {
     const customersCollection = collection(db, "customers");
-    const q = query(
-      customersCollection,
-      where("customerId", "==", selectedCustomerId)
-    );
+    const q = query(customersCollection, where("id", "==", selectedCustomerId));
     const querySnapshot = await getDocs(q);
 
     if (querySnapshot.empty) {
@@ -115,7 +112,7 @@ export const handleEditCustomer = async (
 
 export const deleteCustomerById = async (customerId: string) => {
   const customersCollection = collection(db, "customers");
-  const q = query(customersCollection, where("customerId", "==", customerId));
+  const q = query(customersCollection, where("id", "==", customerId));
 
   try {
     const querySnapshot = await getDocs(q);
