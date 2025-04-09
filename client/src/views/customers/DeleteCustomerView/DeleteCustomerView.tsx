@@ -49,33 +49,25 @@ export const DeleteCustomerView = () => {
   };
 
   return (
-    <>
-      <h1 className="uppercase font-bold text-3xl text-center mb-10">
-        Delete Customer
-      </h1>
-      <div className="flex flex-col md:flex-row justify-center px-5">
-        <SelectCustomerForm
-          buttonText="FETCH CUSTOMER"
-          onSubmit={handleSubmit}
-        />
-        {selectedCustomerId && (
-          <SharedCard>
-            <CustomerCard customer={selectedCustomer} />
-            <div className="flex justify-center">
-              <SharedButton
-                text="DELETE Customer"
-                onClick={async () => {
-                  await handleDeleteCustomer(
-                    selectedCustomerId,
-                    setSelectedCustomerId
-                  );
-                  toast.success("Customer deleted");
-                }}
-              />
-            </div>
-          </SharedCard>
-        )}
-      </div>
-    </>
+    <div className="flex flex-col md:flex-row justify-center px-5">
+      <SelectCustomerForm buttonText="FETCH CUSTOMER" onSubmit={handleSubmit} />
+      {selectedCustomerId && (
+        <SharedCard>
+          <CustomerCard customer={selectedCustomer} />
+          <div className="flex justify-center">
+            <SharedButton
+              text="DELETE Customer"
+              onClick={async () => {
+                await handleDeleteCustomer(
+                  selectedCustomerId,
+                  setSelectedCustomerId
+                );
+                toast.success("Customer deleted");
+              }}
+            />
+          </div>
+        </SharedCard>
+      )}
+    </div>
   );
 };
