@@ -35,7 +35,7 @@ export const EditCustomerView = () => {
     }
   };
   return (
-    <div className="flex flex-col gap-ds-8 lg:flex-row justify-center px-ds-20">
+    <div className="flex flex-col gap-ds-32 justify-center px-ds-20">
       {isRenderDone && (
         <>
           <SelectCustomerForm
