@@ -54,17 +54,18 @@ export const DeleteCustomerView = () => {
       {selectedCustomerId && (
         <SharedCard>
           <CustomerCard customer={selectedCustomer} />
-          <div className="flex justify-center mb-ds-24">
-            <SharedButton
-              text="DELETE Customer"
+          <div className="flex justify-center mb-ds-24 mx-ds-20">
+            <button
+              className="form-button"
               onClick={async () => {
                 await handleDeleteCustomer(
                   selectedCustomerId,
                   setSelectedCustomerId
                 );
-                toast.success("Customer deleted");
               }}
-            />
+            >
+              <p className="text-ds-lg">DELETE</p>
+            </button>
           </div>
         </SharedCard>
       )}
