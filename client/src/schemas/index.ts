@@ -41,15 +41,12 @@ export const customerFormValidationSchema = yup.object({
 
 export const projectFormValidationSchema = yup.object({
   name: yup.string().required("Name is required").default(""),
-  description: yup.string().required("Description is required").default(""),
-  customerId: yup.string().required("Customer ID is required").default(""),
-  startDate: yup.date().required("Start date is required"),
-  endDate: yup.date().required("End date is required"),
   state: yup.string().required("Project's state is required").default(""),
-  developer: yup
-    .string()
-    .required("Project's developer is required")
-    .default(""),
+  description: yup.string().required("Description is required").default(""),
+  startDate: yup.date().required("Start date is required"),
+  customer: yup.string().required("Customer is required").default(""),
+  endDate: yup.date().required("End date is required"),
+  employee: yup.string().required("Employee is required").default(""),
 });
 
 export const selectCustomerFormValidationSchema = yup.object({
