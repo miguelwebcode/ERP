@@ -22,9 +22,11 @@ export const login = async (email: string, password: string) => {
 
 // Función para observar los cambios en el estado de autenticación
 export const watchAuthState = (callback: (user: User | null) => void) => {
-  firebaseOnAuthStateChanged((user) => {
+  const unsubscribe = firebaseOnAuthStateChanged((user) => {
     callback(user);
   });
+
+  return unsubscribe;
 };
 
 // Función para cerrar sesión

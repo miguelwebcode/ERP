@@ -43,5 +43,6 @@ export const firebaseLogout = async () => {
 export const firebaseOnAuthStateChanged = (
   callback: (user: User | null) => void
 ) => {
-  onAuthStateChanged(auth, callback);
+  const unsubscribe = onAuthStateChanged(auth, callback);
+  return unsubscribe;
 };
