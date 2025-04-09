@@ -15,6 +15,7 @@ import { ReadProjectsView } from "../views/projects/ReadProjectsView/ReadProject
 import { DeleteProjectView } from "../views/projects/DeleteProjectView/DeleteProjectView";
 import ProtectedRoute from "./ProtectedRoute";
 import { UnauthenticatedRoute } from "./UnauthenticatedRoute";
+import CustomersLayout from "../layouts/CustomersLayout";
 
 export default function AppRouter() {
   return (
@@ -27,11 +28,16 @@ export default function AppRouter() {
           </Route>
           <Route element={<ProtectedRoute />}>
             <Route index element={<HomeView />} />
-            <Route path="/customers" element={<CustomersView />} />
-            <Route path="/customers/add" element={<AddCustomerView />} />
-            <Route path="/customers/read" element={<ReadCustomersView />} />
-            <Route path="/customers/edit" element={<EditCustomerView />} />
-            <Route path="/customers/delete" element={<DeleteCustomerView />} />
+            <Route element={<CustomersLayout />}>
+              <Route path="/customers" element={<CustomersView />} />
+              <Route path="/customers/add" element={<AddCustomerView />} />
+              <Route path="/customers/read" element={<ReadCustomersView />} />
+              <Route path="/customers/edit" element={<EditCustomerView />} />
+              <Route
+                path="/customers/delete"
+                element={<DeleteCustomerView />}
+              />
+            </Route>
             <Route path="/projects" element={<ProjectsView />} />
             <Route path="/projects/add" element={<AddProjectView />} />
             <Route path="/projects/read" element={<ReadProjectsView />} />
