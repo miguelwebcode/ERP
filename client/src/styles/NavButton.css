@@ -5,3 +5,12 @@
 .nav-button:hover span {
   @apply text-ds-white;
 }
+
+.activated-on-route {
+  @apply border-4 rounded-ds-md py-ds-8 border-ds-primary-500 bg-ds-primary-500 text-ds-white;
+}
+
+.activated-on-route p,
+.activated-on-route span {
+  @apply text-ds-white;
+}
