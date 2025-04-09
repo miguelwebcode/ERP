@@ -11,7 +11,7 @@ export type ProjectState = {
 export type Customer = {
   address: string;
   company: string;
-  customerId: string;
+  id: string;
   email: string;
   name: string;
   phone: string;
