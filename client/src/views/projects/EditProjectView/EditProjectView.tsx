@@ -36,37 +36,24 @@ export const EditProjectView = () => {
   };
 
   return (
-    <>
-      <h1 className="uppercase font-bold text-3xl text-center mb-10">
-        Update Project
-      </h1>
-
-      <div className="flex flex-col gap-2 lg:flex-row justify-center px-5">
-        {isRenderDone && (
-          <>
-            <SelectProjectForm
-              buttonText="FETCH PROJECT"
-              onSubmit={handleSubmit}
-            />
-            <ProjectForm
-              titleText="EDIT PROJECT"
-              submitButtonText="UPDATE PROJECT"
-              canBeDisabled={true}
-              onSubmit={async (
-                values: ProjectFormValues,
-                formikHelpers: FormikHelpers<ProjectFormValues>
-              ) => {
-                await handleEditProject(
-                  selectedProjectId,
-                  values,
-                  formikHelpers
-                );
-                setSelectedProjectId("");
-              }}
-            />
-          </>
-        )}
-      </div>
-    </>
+    <div className="flex flex-col gap-ds-32 justify-center px-ds-20">
+      {isRenderDone && (
+        <>
+          <SelectProjectForm buttonText="GET DATA" onSubmit={handleSubmit} />
+          <ProjectForm
+            titleText="EDIT PROJECT"
+            submitButtonText="UPDATE"
+            canBeDisabled={true}
+            onSubmit={async (
+              values: ProjectFormValues,
+              formikHelpers: FormikHelpers<ProjectFormValues>
+            ) => {
+              await handleEditProject(selectedProjectId, values, formikHelpers);
+              setSelectedProjectId("");
+            }}
+          />
+        </>
+      )}
+    </div>
   );
 };
