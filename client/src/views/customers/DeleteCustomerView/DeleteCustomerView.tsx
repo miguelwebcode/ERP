@@ -49,12 +49,12 @@ export const DeleteCustomerView = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row justify-center px-5">
+    <div className="flex flex-col gap-ds-32 justify-center px-5">
       <SelectCustomerForm buttonText="FETCH CUSTOMER" onSubmit={handleSubmit} />
       {selectedCustomerId && (
         <SharedCard>
           <CustomerCard customer={selectedCustomer} />
-          <div className="flex justify-center">
+          <div className="flex justify-center mb-ds-24">
             <SharedButton
               text="DELETE Customer"
               onClick={async () => {
