@@ -10,7 +10,7 @@ export const ReadCustomersView = () => {
     fetchAllCustomers(setCustomers);
   }, []);
   return (
-    <div className="flex justify-center flex-wrap gap-ds-24">
+    <div className="flex justify-center flex-wrap gap-ds-24 max-h-[80vh] overflow-y-auto">
       {customers.map((customer, i) => {
         return (
           <SharedCard key={i}>
