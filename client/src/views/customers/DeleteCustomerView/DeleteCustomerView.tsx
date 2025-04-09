@@ -47,7 +47,7 @@ export const DeleteCustomerView = () => {
   };
 
   return (
-    <div className="flex flex-col gap-ds-32 justify-center px-5">
+    <div className="flex flex-col gap-ds-32 justify-center px-ds-20">
       <SelectCustomerForm buttonText="FETCH CUSTOMER" onSubmit={handleSubmit} />
       {selectedCustomerId && (
         <SharedCard>
