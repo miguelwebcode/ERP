@@ -26,13 +26,13 @@ export const setProjectFormValues = async (
     )) as Project;
     if (selectedProject) {
       const newValues: ProjectFormValues = {
-        customerId: selectedProject.customerId,
-        description: selectedProject.description,
-        startDate: selectedProject.startDate,
-        endDate: selectedProject.endDate,
         name: selectedProject.name,
         state: selectedProject.state,
-        developer: selectedProject.developer,
+        description: selectedProject.description,
+        startDate: selectedProject.startDate,
+        customer: selectedProject.customer,
+        endDate: selectedProject.endDate,
+        employee: selectedProject.employee,
       };
       formik.setValues(newValues);
     }
