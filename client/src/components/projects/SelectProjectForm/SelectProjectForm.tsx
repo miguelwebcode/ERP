@@ -37,7 +37,7 @@ const SelectProjectForm = ({
       onSubmit={handleSubmit}
     >
       <div className="flex flex-col md:flex-row justify-between">
-        <div className="flex flex-col items-center justify-center bg-ds-white p-ds-20 rounded-ds-sm shadow-ds-2 h-fit">
+        <div className="flex flex-col items-center justify-center bg-ds-white p-ds-20 rounded-ds-sm shadow-ds-2 h-fit w-ds-384">
           <h1 className="text-ds-xl font-bold mb-ds-16">Select Project</h1>
           <CustomSelect label="Project ID" name="projectId">
             <option value="" className="text-center">
