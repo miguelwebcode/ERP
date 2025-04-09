@@ -12,7 +12,7 @@ type ProjectCardProps = {
 export const ProjectCard = ({ project }: ProjectCardProps) => {
   return (
     <div className="w-ds-384">
-      <div className="bg-ds-primary-800 h-ds-32 rounded-t-ds-sm flex items-center justify-center">
+      <div className="bg-ds-secondary-900 h-ds-32 rounded-t-ds-sm flex items-center justify-center">
         <p className="text-ds-white text-center">
           <span className="font-semibold">ID</span>: {project.id}
         </p>
