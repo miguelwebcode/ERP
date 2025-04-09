@@ -20,13 +20,14 @@ export type Customer = {
 };
 
 export type Project = {
+  id: string;
   name: string;
-  description: string;
-  customerId: string;
-  startDate: string;
-  endDate: string;
   state: string;
-  developer: string;
+  description: string;
+  startDate: string;
+  customer: string;
+  endDate: string;
+  employee: string;
   createdAt: string;
   updatedAt?: string;
 };
