@@ -23,7 +23,7 @@ export default function Header() {
       "/projects/delete",
     ];
     return user && paths.includes(pathname);
-  }, [pathname]);
+  }, [pathname, user]);
 
   const navTextHighlight =
     "text-ds-primary-400 text-ds-xl uppercase font-bold header-link-selected";
