@@ -49,7 +49,7 @@ const SelectProjectForm = ({
               </option>
             ))}
           </CustomSelect>
-          <button type="submit" className="form-button">
+          <button type="submit" className="form-button mt-ds-20">
             <p className="text-ds-lg">{buttonText}</p>
           </button>
         </div>
