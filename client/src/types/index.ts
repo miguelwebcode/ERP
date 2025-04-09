@@ -9,13 +9,12 @@ export type ProjectState = {
 };
 
 export type Customer = {
-  address: string;
-  company: string;
   id: string;
-  email: string;
   name: string;
+  company: string;
+  address: string;
   phone: string;
-  project: string;
+  email: string;
   createdAt: string;
   updatedAt?: string;
 };
