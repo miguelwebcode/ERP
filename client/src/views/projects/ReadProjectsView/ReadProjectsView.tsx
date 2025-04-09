@@ -10,7 +10,7 @@ export const ReadProjectsView = () => {
     fetchAllProjects(setProjects);
   }, []);
   return (
-    <div className="flex justify-center flex-wrap gap-ds-24 max-h-[80vh] overflow-y-auto">
+    <div className="flex justify-center flex-wrap gap-ds-24 h-[80vh] overflow-y-auto">
       {projects.map((project, i) => {
         return (
           <SharedCard key={i}>
