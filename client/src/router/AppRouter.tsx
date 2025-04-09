@@ -16,6 +16,7 @@ import { DeleteProjectView } from "../views/projects/DeleteProjectView/DeletePro
 import ProtectedRoute from "./ProtectedRoute";
 import { UnauthenticatedRoute } from "./UnauthenticatedRoute";
 import CustomersLayout from "../layouts/CustomersLayout";
+import ProjectsLayout from "../layouts/ProjectsLayout";
 
 export default function AppRouter() {
   return (
@@ -38,11 +39,13 @@ export default function AppRouter() {
                 element={<DeleteCustomerView />}
               />
             </Route>
-            <Route path="/projects" element={<ProjectsView />} />
-            <Route path="/projects/add" element={<AddProjectView />} />
-            <Route path="/projects/read" element={<ReadProjectsView />} />
-            <Route path="/projects/edit" element={<EditProjectView />} />
-            <Route path="/projects/delete" element={<DeleteProjectView />} />
+            <Route element={<ProjectsLayout />}>
+              <Route path="/projects" element={<ProjectsView />} />
+              <Route path="/projects/add" element={<AddProjectView />} />
+              <Route path="/projects/read" element={<ReadProjectsView />} />
+              <Route path="/projects/edit" element={<EditProjectView />} />
+              <Route path="/projects/delete" element={<DeleteProjectView />} />
+            </Route>
           </Route>
         </Route>
       </Routes>
