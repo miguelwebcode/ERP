@@ -71,7 +71,7 @@ export const handleCreateCustomer = async (
     await addDoc(collection(db, "customers"), {
       ...values,
       createdAt: formatDate(new Date()),
-      id: uuidv4(),
+      id: `C-${uuidv4().slice(0, 8)}`,
     });
     toast.success("Customer created");
     formikHelpers.resetForm();
