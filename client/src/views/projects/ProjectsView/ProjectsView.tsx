@@ -1,11 +1,8 @@
-import { ProjectsNavigationCard } from "../../../components/projects/ProjectsNavigationCard/ProjectsNavigationCard";
-
 export const ProjectsView = () => {
   return (
-    <div className="flex flex-col items-center gap-10">
-      <h1 className="uppercase font-bold text-3xl">PROJECTS</h1>
-
-      <ProjectsNavigationCard />
-    </div>
+    <p className="font-bold text-ds-lg text-ds-grey-600 text-center">
+      Select an option to{" "}
+      <span className="text-ds-primary-500">manage projects</span>
+    </p>
   );
 };
