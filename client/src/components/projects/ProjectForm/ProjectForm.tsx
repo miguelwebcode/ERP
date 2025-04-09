@@ -28,13 +28,13 @@ const ProjectForm = ({
   const formikRef = useRef<FormikProps<ProjectFormValues>>(null);
 
   const initialValues: ProjectFormValues = {
-    customerId: "",
-    description: "",
-    startDate: "",
-    endDate: "",
     name: "",
     state: "",
-    developer: "",
+    description: "",
+    startDate: "",
+    customer: "",
+    endDate: "",
+    employee: "",
   };
 
   const selectedProjectId = useAppStore((state) => state.selectedProjectId);
@@ -110,9 +110,9 @@ const ProjectForm = ({
           />
           <CustomInput
             type="text"
-            label="Customer ID"
-            name="customerId"
-            placeholder="Enter project's customer id"
+            label="Customer"
+            name="customer"
+            placeholder="Enter project's customer"
             disabled={fieldDisabled}
           />
 
@@ -125,9 +125,9 @@ const ProjectForm = ({
           />
           <CustomInput
             type="text"
-            label="Assigned Developer"
-            name="developer"
-            placeholder="Enter project's developer"
+            label="Employee"
+            name="employee"
+            placeholder="Enter project's employee"
             disabled={fieldDisabled}
           />
         </div>
