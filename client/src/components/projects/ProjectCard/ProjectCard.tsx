@@ -14,7 +14,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
     <div className="w-ds-384">
       <div className="bg-ds-primary-800 h-ds-32 rounded-t-ds-sm flex items-center justify-center">
         <p className="text-ds-white text-center">
-          <span className="font-semibold">ID</span>: {project.customerId}
+          <span className="font-semibold">ID</span>: {project.id}
         </p>
       </div>
       <div className="grid grid-cols-2 p-ds-20 gap-y-ds-20 gap-x-ds-12">
@@ -30,12 +30,12 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
         />
         <CardField
           label="Customer ID"
-          value={project.customerId}
+          value={project.id}
           Icon={PiIdentificationBadge}
         />
         <CardField
-          label="Developer"
-          value={project.developer}
+          label="Employee"
+          value={project.employee}
           Icon={LuUserRound}
         />
         <CardField label="State" value={project.state} Icon={BsFileBarGraph} />
