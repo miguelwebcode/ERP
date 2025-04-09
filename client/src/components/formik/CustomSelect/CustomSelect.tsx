@@ -14,6 +14,8 @@ export const CustomSelect = ({
 }: CustomSelectProps) => {
   const [field, meta] = useField(props);
 
+  const isPlaceholder = field.value === "";
+
   return (
     <div className="flex flex-col w-full">
       <label htmlFor={props.name} className="block text-ds-sm font-medium">
@@ -25,7 +27,7 @@ export const CustomSelect = ({
         id={props.name}
         className={`w-full p-2 border rounded text-center ${
           meta.error && meta.touched && "border-red-500"
-        }`}
+        } ${isPlaceholder ? "text-ds-grey-400" : "text-ds-black"}`}
       >
         {children}
       </select>
