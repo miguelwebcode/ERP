@@ -15,6 +15,7 @@ export const CustomersNavigationCard = () => {
       <NavButton
         text="CREATE"
         Icon={FaPlus}
+        activatedOnRoute="customers/add"
         onClick={() => {
           navigate("/customers/add");
         }}
@@ -22,6 +23,7 @@ export const CustomersNavigationCard = () => {
       <NavButton
         text="READ"
         Icon={IoReader}
+        activatedOnRoute="customers/read"
         onClick={() => {
           navigate("/customers/read");
         }}
@@ -29,6 +31,7 @@ export const CustomersNavigationCard = () => {
       <NavButton
         text="UPDATE"
         Icon={MdEdit}
+        activatedOnRoute="/customers/edit"
         onClick={() => {
           navigate("/customers/edit");
         }}
@@ -36,6 +39,7 @@ export const CustomersNavigationCard = () => {
       <NavButton
         text="DELETE"
         Icon={MdDeleteForever}
+        activatedOnRoute="/customers/delete"
         onClick={() => {
           navigate("/customers/delete");
         }}
