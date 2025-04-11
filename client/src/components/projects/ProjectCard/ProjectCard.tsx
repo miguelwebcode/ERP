@@ -30,12 +30,12 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
         />
         <CardField
           label="Customer ID"
-          value={project.id}
+          value={project.customerId}
           Icon={PiIdentificationBadge}
         />
         <CardField
           label="Employee"
-          value={project.employee}
+          value={project.employeeId}
           Icon={LuUserRound}
         />
         <CardField label="State" value={project.state} Icon={BsFileBarGraph} />
