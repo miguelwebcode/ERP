@@ -18,7 +18,7 @@ export const AddEmployeeView = () => {
     <>
       {isRenderDone && (
         <EmployeeForm
-          titleText="NEW CUSTOMER"
+          titleText="NEW EMPLOYEE"
           submitButtonText="CREATE"
           onSubmit={handleCreateEmployee}
         />
