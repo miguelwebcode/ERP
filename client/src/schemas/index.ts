@@ -53,9 +53,9 @@ export const employeeFormValidationSchema = yup.object({
   name: yup.string().required("Name is required").default(""),
   role: yup.string().required("Role is required").default(""),
   email: yup.string().required("Email is required").default(""),
-  phone: yup.date().required("Phone is required"),
+  phone: yup.string().required("Phone is required"),
   address: yup.string().required("Address is required").default(""),
-  salary: yup.date().required("Salary is required"),
+  salary: yup.string().required("Salary is required"),
 });
 
 export const selectCustomerFormValidationSchema = yup.object({
