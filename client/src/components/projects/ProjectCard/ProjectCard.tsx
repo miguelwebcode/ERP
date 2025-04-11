@@ -5,7 +5,7 @@ import { PiIdentificationBadge } from "react-icons/pi";
 import { BsFileBarGraph } from "react-icons/bs";
 import { LuUserRound } from "react-icons/lu";
 import { IoCalendarOutline } from "react-icons/io5";
-
+import "@styles/CardInfo.css";
 type ProjectCardProps = {
   project: Project;
 };

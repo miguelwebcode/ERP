@@ -5,6 +5,7 @@ import { IoLocationOutline } from "react-icons/io5";
 import { LuUserRound } from "react-icons/lu";
 import { MdOutlineCategory } from "react-icons/md";
 import { TbPigMoney } from "react-icons/tb";
+import "@styles/CardInfo.css";
 
 type EmployeeCardProps = {
   employee: Employee;
