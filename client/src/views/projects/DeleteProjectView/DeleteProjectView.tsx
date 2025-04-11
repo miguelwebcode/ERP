@@ -45,7 +45,6 @@ export const DeleteProjectView = () => {
     try {
       setSelectedProjectId(values.projectId);
       formikHelpers.resetForm();
-      fetchAllProjects(setProjects);
     } catch (error) {
       console.error("Error getting project: ", error);
       alert("Error getting project!");
