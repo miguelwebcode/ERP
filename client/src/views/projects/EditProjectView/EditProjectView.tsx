@@ -8,8 +8,13 @@ import {
 import { FormikHelpers } from "formik";
 import { handleEditProject } from "../../../services/projects/repository/projectsRepository";
 import SelectProjectForm from "../../../components/projects/SelectProjectForm/SelectProjectForm";
+import { Project } from "../../../types";
+import { fetchAllProjects } from "../../../services/projects/service/projectsService";
+import { NoProjectsFoundMessage } from "../../../components/projects/NoProjectsFoundMessage.tsx/NoProjectsFoundMessage";
 
 export const EditProjectView = () => {
+  const [projects, setProjects] = useState<Project[]>([]);
+
   const [isRenderDone, setIsRenderDone] = useState(false);
   const selectedProjectId = useAppStore((state) => state.selectedProjectId);
 
@@ -19,6 +24,8 @@ export const EditProjectView = () => {
 
   useEffect(() => {
     setSelectedProjectId("");
+    fetchAllProjects(setProjects);
+
     setIsRenderDone(true);
   }, []);
 
@@ -36,9 +43,9 @@ export const EditProjectView = () => {
   };
 
   return (
-    <div className="flex flex-col gap-ds-32 justify-center px-ds-20">
-      {isRenderDone && (
-        <>
+    <>
+      {projects.length && isRenderDone ? (
+        <div className="flex flex-col gap-ds-32 justify-center px-ds-20">
           <SelectProjectForm buttonText="GET DATA" onSubmit={handleSubmit} />
           <ProjectForm
             titleText="EDIT PROJECT"
@@ -52,8 +59,10 @@ export const EditProjectView = () => {
               setSelectedProjectId("");
             }}
           />
-        </>
+        </div>
+      ) : (
+        <NoProjectsFoundMessage />
       )}
-    </div>
+    </>
   );
 };
