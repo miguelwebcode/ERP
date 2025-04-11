@@ -67,5 +67,5 @@ export const selectProjectFormValidationSchema = yup.object({
 });
 
 export const selectEmployeeFormValidationSchema = yup.object({
-  projectId: yup.string().required("Employee ID is required").default(""),
+  employeeId: yup.string().required("Employee ID is required").default(""),
 });
