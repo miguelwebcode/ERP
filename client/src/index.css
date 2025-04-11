@@ -11,23 +11,3 @@ body {
 .form-button {
   @apply w-full bg-ds-primary-500 text-ds-white font-bold py-ds-8 px-ds-16  rounded-ds-sm hover:bg-ds-primary-600;
 }
-
-.card-container {
-  @apply w-ds-384;
-}
-
-.card-id-section {
-  @apply bg-ds-primary-800 h-ds-32 rounded-t-ds-sm flex items-center justify-center;
-}
-
-.card-id-section > p {
-  @apply text-ds-white text-center;
-}
-
-.card-id-section > p > span {
-  @apply font-semibold;
-}
-
-.card-grid {
-  @apply grid grid-cols-2 p-ds-20 gap-y-ds-20 gap-x-ds-12;
-}
