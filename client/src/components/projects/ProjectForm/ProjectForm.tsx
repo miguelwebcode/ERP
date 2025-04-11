@@ -110,8 +110,8 @@ const ProjectForm = ({
           />
           <CustomInput
             type="text"
-            label="Customer"
-            name="customer"
+            label="Customer ID"
+            name="customerId"
             placeholder="Enter project's customer"
             disabled={fieldDisabled}
           />
@@ -125,8 +125,8 @@ const ProjectForm = ({
           />
           <CustomInput
             type="text"
-            label="Employee"
-            name="employee"
+            label="Employee ID"
+            name="employeeId"
             placeholder="Enter project's employee"
             disabled={fieldDisabled}
           />
