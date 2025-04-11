@@ -17,6 +17,12 @@ import ProtectedRoute from "./ProtectedRoute";
 import { UnauthenticatedRoute } from "./UnauthenticatedRoute";
 import CustomersLayout from "../layouts/CustomersLayout";
 import ProjectsLayout from "../layouts/ProjectsLayout";
+import EmployeesLayout from "../layouts/EmployeesLayout";
+import { AddEmployeeView } from "../views/employees/AddEmployeeView/AddEmployeeView";
+import { DeleteEmployeeView } from "../views/employees/DeleteEmployeeView/DeleteEmployeeView";
+import EditEmployeeView from "../views/employees/EditEmployeeView/EditEmployeeView";
+import { EmployeesView } from "../views/employees/EmployeesView/EmployeesView";
+import { ReadEmployeesView } from "../views/employees/ReadEmployeesView/ReadEmployeesView";
 
 export default function AppRouter() {
   return (
@@ -45,6 +51,13 @@ export default function AppRouter() {
               <Route path="/projects/read" element={<ReadProjectsView />} />
               <Route path="/projects/edit" element={<EditProjectView />} />
               <Route path="/projects/delete" element={<DeleteProjectView />} />
+            </Route>
+            <Route element={<EmployeesLayout />}>
+              <Route path="/projects" element={<EmployeesView />} />
+              <Route path="/projects/add" element={<AddEmployeeView />} />
+              <Route path="/projects/read" element={<ReadEmployeesView />} />
+              <Route path="/projects/edit" element={<EditEmployeeView />} />
+              <Route path="/projects/delete" element={<DeleteEmployeeView />} />
             </Route>
           </Route>
         </Route>
