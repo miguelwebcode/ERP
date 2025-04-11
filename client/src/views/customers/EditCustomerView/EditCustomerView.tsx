@@ -8,8 +8,13 @@ import {
 } from "../../../types/form-values-types";
 import { useState, useEffect } from "react";
 import SelectCustomerForm from "../../../components/customers/SelectCustomerForm/SelectCustomerForm";
+import { Customer } from "../../../types";
+import { fetchAllCustomers } from "../../../services/customers/service/customersService";
+import { NoCustomersFoundMessage } from "../../../components/customers/NoCustomersFoundMessage/NoCustomersFoundMessage";
 
 export const EditCustomerView = () => {
+  const [customers, setCustomers] = useState<Customer[]>([]);
+
   const [isRenderDone, setIsRenderDone] = useState(false);
   const selectedCustomerId = useAppStore((state) => state.selectedCustomerId);
 
@@ -19,6 +24,7 @@ export const EditCustomerView = () => {
 
   useEffect(() => {
     setSelectedCustomerId("");
+    fetchAllCustomers(setCustomers);
     setIsRenderDone(true);
   }, []);
 
@@ -35,9 +41,9 @@ export const EditCustomerView = () => {
     }
   };
   return (
-    <div className="flex flex-col gap-ds-32 justify-center px-ds-20">
-      {isRenderDone && (
-        <>
+    <>
+      {isRenderDone && customers.length ? (
+        <div className="flex flex-col gap-ds-32 justify-center px-ds-20">
           <SelectCustomerForm buttonText="GET DATA" onSubmit={handleSubmit} />
           <CustomerForm
             titleText="EDIT CUSTOMER"
@@ -55,9 +61,11 @@ export const EditCustomerView = () => {
               setSelectedCustomerId("");
             }}
           />
-        </>
+        </div>
+      ) : (
+        <NoCustomersFoundMessage />
       )}
-    </div>
+    </>
   );
 };
 
