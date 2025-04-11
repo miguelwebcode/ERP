@@ -32,9 +32,9 @@ const ProjectForm = ({
     state: "",
     description: "",
     startDate: "",
-    customer: "",
+    customerId: "",
     endDate: "",
-    employee: "",
+    employeeId: "",
   };
 
   const selectedProjectId = useAppStore((state) => state.selectedProjectId);
