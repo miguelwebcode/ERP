@@ -25,9 +25,9 @@ export type Project = {
   state: string;
   description: string;
   startDate: string;
-  customer: string;
+  customerId: string;
   endDate: string;
-  employee: string;
+  employeeId: string;
   createdAt: string;
   updatedAt?: string;
 };
