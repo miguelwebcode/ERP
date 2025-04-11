@@ -13,6 +13,7 @@ export default function Header() {
       "/",
       "/customers",
       "/projects",
+      "/employees",
       "/customers/add",
       "/customers/edit",
       "/customers/read",
@@ -21,6 +22,10 @@ export default function Header() {
       "/projects/edit",
       "/projects/read",
       "/projects/delete",
+      "/employees/add",
+      "/employees/edit",
+      "/employees/read",
+      "/employees/delete",
     ];
     return user && paths.includes(pathname);
   }, [pathname, user]);
@@ -61,6 +66,14 @@ export default function Header() {
                 to="/projects"
               >
                 Projects
+              </NavLink>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? navTextHighlight : navTextNormal
+                }
+                to="/employees"
+              >
+                Employees
               </NavLink>
               <LogoutButton />
             </nav>
