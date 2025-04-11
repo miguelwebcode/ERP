@@ -3,6 +3,7 @@ import { fetchAllEmployees } from "../../../services/employees/service/employees
 import { Employee } from "../../../types";
 import { EmployeeCard } from "../../../components/employees/EmployeeCard/EmployeeCard";
 import { SharedCard } from "../../../components/ui/SharedCard/SharedCard";
+import { NoEmployeesFoundMessage } from "../../../components/employees/NoEmployeesFoundMessage/NoEmployeesFoundMessage";
 
 export const ReadEmployeesView = () => {
   const [employees, setEmployees] = useState<Employee[]>([]);
@@ -10,14 +11,20 @@ export const ReadEmployeesView = () => {
     fetchAllEmployees(setEmployees);
   }, []);
   return (
-    <div className="flex justify-center flex-wrap gap-ds-24 h-[80vh] overflow-y-auto">
-      {employees.map((employee, i) => {
-        return (
-          <SharedCard key={i}>
-            <EmployeeCard employee={employee} />
-          </SharedCard>
-        );
-      })}
-    </div>
+    <>
+      {employees.length ? (
+        <div className="flex justify-center flex-wrap gap-ds-24 h-[80vh] overflow-y-auto">
+          {employees.map((employee, i) => {
+            return (
+              <SharedCard key={i}>
+                <EmployeeCard employee={employee} />
+              </SharedCard>
+            );
+          })}
+        </div>
+      ) : (
+        <NoEmployeesFoundMessage />
+      )}
+    </>
   );
 };

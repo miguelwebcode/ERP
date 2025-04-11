@@ -7,11 +7,14 @@ import { SharedCard } from "../../../components/ui/SharedCard/SharedCard";
 import { SelectEmployeeFormValues } from "../../../types/form-values-types";
 import { FormikHelpers } from "formik";
 import {
+  fetchAllEmployees,
   fetchEmployee,
   handleDeleteEmployee,
 } from "../../../services/employees/service/employeesService";
+import { NoEmployeesFoundMessage } from "../../../components/employees/NoEmployeesFoundMessage/NoEmployeesFoundMessage";
 
 export const DeleteEmployeeView = () => {
+  const [employees, setEmployees] = useState<Employee[]>([]);
   const selectedEmployeeId = useAppStore((state) => state.selectedEmployeeId);
   const [selectedEmployee, setSelectedEmployee] = useState<Employee>(
     {} as Employee
@@ -26,6 +29,8 @@ export const DeleteEmployeeView = () => {
   useEffect(() => {
     if (isFirstRender.current) {
       setSelectedEmployeeId("");
+      fetchAllEmployees(setEmployees);
+
       isFirstRender.current = false;
     }
     if (selectedEmployeeId) {
@@ -47,26 +52,35 @@ export const DeleteEmployeeView = () => {
   };
 
   return (
-    <div className="flex flex-col gap-ds-32 justify-center px-ds-20">
-      <SelectEmployeeForm buttonText="FETCH CUSTOMER" onSubmit={handleSubmit} />
-      {selectedEmployeeId && (
-        <SharedCard>
-          <EmployeeCard employee={selectedEmployee} />
-          <div className="flex justify-center mb-ds-24 mx-ds-20">
-            <button
-              className="form-button"
-              onClick={async () => {
-                await handleDeleteEmployee(
-                  selectedEmployeeId,
-                  setSelectedEmployeeId
-                );
-              }}
-            >
-              <p className="text-ds-lg">DELETE</p>
-            </button>
-          </div>
-        </SharedCard>
+    <>
+      {employees.length ? (
+        <div className="flex flex-col gap-ds-32 justify-center px-ds-20">
+          <SelectEmployeeForm
+            buttonText="FETCH CUSTOMER"
+            onSubmit={handleSubmit}
+          />
+          {selectedEmployeeId && (
+            <SharedCard>
+              <EmployeeCard employee={selectedEmployee} />
+              <div className="flex justify-center mb-ds-24 mx-ds-20">
+                <button
+                  className="form-button"
+                  onClick={async () => {
+                    await handleDeleteEmployee(
+                      selectedEmployeeId,
+                      setSelectedEmployeeId
+                    );
+                  }}
+                >
+                  <p className="text-ds-lg">DELETE</p>
+                </button>
+              </div>
+            </SharedCard>
+          )}
+        </div>
+      ) : (
+        <NoEmployeesFoundMessage />
       )}
-    </div>
+    </>
   );
 };

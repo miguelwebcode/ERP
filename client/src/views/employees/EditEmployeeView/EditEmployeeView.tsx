@@ -8,8 +8,12 @@ import {
 } from "../../../types/form-values-types";
 import { useState, useEffect } from "react";
 import SelectEmployeeForm from "../../../components/employees/SelectEmployeeForm/SelectEmployeeForm";
+import { Employee } from "../../../types";
+import { NoEmployeesFoundMessage } from "../../../components/employees/NoEmployeesFoundMessage/NoEmployeesFoundMessage";
+import { fetchAllEmployees } from "../../../services/employees/service/employeesService";
 
 export const EditEmployeeView = () => {
+  const [employees, setEmployees] = useState<Employee[]>([]);
   const [isRenderDone, setIsRenderDone] = useState(false);
   const selectedEmployeeId = useAppStore((state) => state.selectedEmployeeId);
 
@@ -19,6 +23,7 @@ export const EditEmployeeView = () => {
 
   useEffect(() => {
     setSelectedEmployeeId("");
+    fetchAllEmployees(setEmployees);
     setIsRenderDone(true);
   }, []);
 
@@ -35,9 +40,9 @@ export const EditEmployeeView = () => {
     }
   };
   return (
-    <div className="flex flex-col gap-ds-32 justify-center px-ds-20">
-      {isRenderDone && (
-        <>
+    <>
+      {employees.length && isRenderDone ? (
+        <div className="flex flex-col gap-ds-32 justify-center px-ds-20">
           <SelectEmployeeForm buttonText="GET DATA" onSubmit={handleSubmit} />
           <EmployeeForm
             titleText="EDIT CUSTOMER"
@@ -55,9 +60,11 @@ export const EditEmployeeView = () => {
               setSelectedEmployeeId("");
             }}
           />
-        </>
+        </div>
+      ) : (
+        <NoEmployeesFoundMessage />
       )}
-    </div>
+    </>
   );
 };
 
