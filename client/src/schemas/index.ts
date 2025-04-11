@@ -44,9 +44,9 @@ export const projectFormValidationSchema = yup.object({
   state: yup.string().required("Project's state is required").default(""),
   description: yup.string().required("Description is required").default(""),
   startDate: yup.date().required("Start date is required"),
-  customer: yup.string().required("Customer is required").default(""),
+  customerId: yup.string().required("Customer ID is required").default(""),
   endDate: yup.date().required("End date is required"),
-  employee: yup.string().required("Employee is required").default(""),
+  employeeId: yup.string().required("Employee ID is required").default(""),
 });
 
 export const employeeFormValidationSchema = yup.object({
