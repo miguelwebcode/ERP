@@ -45,6 +45,7 @@ export const DeleteEmployeeView = () => {
     try {
       setSelectedEmployeeId(values.employeeId);
       formikHelpers.resetForm();
+      fetchAllEmployees(setEmployees);
     } catch (error) {
       console.error("Error getting employee: ", error);
       alert("Error getting employee!");

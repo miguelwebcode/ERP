@@ -46,6 +46,7 @@ export const DeleteCustomerView = () => {
     try {
       setSelectedCustomerId(values.customerId);
       formikHelpers.resetForm();
+      fetchAllCustomers(setCustomers);
     } catch (error) {
       console.error("Error getting customer: ", error);
       alert("Error getting customer!");
