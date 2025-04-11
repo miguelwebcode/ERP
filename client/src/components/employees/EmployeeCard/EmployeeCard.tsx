@@ -36,7 +36,11 @@ export const EmployeeCard = ({ employee }: EmployeeCardProps) => {
           value={employee.address}
           Icon={IoLocationOutline}
         />
-        <CardField label="Salary" value={employee.salary} Icon={TbPigMoney} />
+        <CardField
+          label="Salary"
+          value={`${employee.salary}€`}
+          Icon={TbPigMoney}
+        />
       </div>
     </div>
   );
