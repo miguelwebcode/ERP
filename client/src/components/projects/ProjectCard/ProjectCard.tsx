@@ -11,13 +11,13 @@ type ProjectCardProps = {
 };
 export const ProjectCard = ({ project }: ProjectCardProps) => {
   return (
-    <div className="w-ds-384">
-      <div className="bg-ds-secondary-900 h-ds-32 rounded-t-ds-sm flex items-center justify-center">
-        <p className="text-ds-white text-center">
-          <span className="font-semibold">ID</span>: {project.id}
+    <div className="card-container">
+      <div className="card-id-section">
+        <p>
+          <span>ID</span>: {project.id}
         </p>
       </div>
-      <div className="grid grid-cols-2 p-ds-20 gap-y-ds-20 gap-x-ds-12">
+      <div className="card-grid">
         <CardField
           label="Name"
           value={project.name}
