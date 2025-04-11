@@ -53,11 +53,14 @@ export default function AppRouter() {
               <Route path="/projects/delete" element={<DeleteProjectView />} />
             </Route>
             <Route element={<EmployeesLayout />}>
-              <Route path="/projects" element={<EmployeesView />} />
-              <Route path="/projects/add" element={<AddEmployeeView />} />
-              <Route path="/projects/read" element={<ReadEmployeesView />} />
-              <Route path="/projects/edit" element={<EditEmployeeView />} />
-              <Route path="/projects/delete" element={<DeleteEmployeeView />} />
+              <Route path="/employees" element={<EmployeesView />} />
+              <Route path="/employees/add" element={<AddEmployeeView />} />
+              <Route path="/employees/read" element={<ReadEmployeesView />} />
+              <Route path="/employees/edit" element={<EditEmployeeView />} />
+              <Route
+                path="/employees/delete"
+                element={<DeleteEmployeeView />}
+              />
             </Route>
           </Route>
         </Route>
