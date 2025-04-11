@@ -29,10 +29,23 @@ export type ProjectFormValues = {
   employee: string;
 };
 
+export type EmployeeFormValues = {
+  name: string;
+  role: string;
+  email: string;
+  phone: string;
+  address: string;
+  salary: string;
+};
+
 export type SelectCustomerFormValues = {
   customerId: string;
 };
 
 export type SelectProjectFormValues = {
   projectId: string;
+};
+
+export type SelectEmployeeFormValues = {
+  employeeId: string;
 };
