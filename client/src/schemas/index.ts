@@ -52,8 +52,17 @@ export const projectFormValidationSchema = yup.object({
 export const employeeFormValidationSchema = yup.object({
   name: yup.string().required("Name is required").default(""),
   role: yup.string().required("Role is required").default(""),
-  email: yup.string().required("Email is required").default(""),
-  phone: yup.string().required("Phone is required"),
+  email: yup
+    .string()
+    .email("Invalid email")
+    .required("Email is required")
+    .default(""),
+  phone: yup
+    .string()
+    .required("Phone is required")
+    .matches(/^\d{9}$/, "Phone must contain 9 digits")
+    .default(""),
+
   address: yup.string().required("Address is required").default(""),
   salary: yup.string().required("Salary is required"),
 });
