@@ -24,9 +24,9 @@ export type ProjectFormValues = {
   state: string;
   description: string;
   startDate: Date | string;
-  customer: string;
+  customerId: string;
   endDate: Date | string;
-  employee: string;
+  employeeId: string;
 };
 
 export type EmployeeFormValues = {
