@@ -4,7 +4,7 @@ import { FaRegBuilding } from "react-icons/fa";
 import { MdOutlineEmail, MdOutlinePhoneEnabled } from "react-icons/md";
 import { IoLocationOutline } from "react-icons/io5";
 import { LuUserRound } from "react-icons/lu";
-import "@styles/CardInfo.css";
+import "@styles/DataCard.css";
 
 type CustomerCardProps = {
   customer: Customer;
