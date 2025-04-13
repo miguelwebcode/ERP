@@ -61,7 +61,7 @@ describe("SharedForm wrapping RegisterFormValues", () => {
           type="password"
           label="Confirm password"
           name="confirmPassword"
-          placeholder="Enter your password again"
+          placeholder="Repeat your password"
         />
         <button
           type="submit"

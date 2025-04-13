@@ -17,17 +17,25 @@ export type CustomerFormValues = {
   email: string;
   name: string;
   phone: string;
-  project: string;
 };
 
 export type ProjectFormValues = {
-  customerId: string;
-  description: string;
-  startDate: Date | string;
-  endDate: Date | string;
   name: string;
   state: string;
-  developer: string;
+  description: string;
+  startDate: Date | string;
+  customerId: string;
+  endDate: Date | string;
+  employeeId: string;
+};
+
+export type EmployeeFormValues = {
+  name: string;
+  role: string;
+  email: string;
+  phone: string;
+  address: string;
+  salary: string;
 };
 
 export type SelectCustomerFormValues = {
@@ -36,4 +44,8 @@ export type SelectCustomerFormValues = {
 
 export type SelectProjectFormValues = {
   projectId: string;
+};
+
+export type SelectEmployeeFormValues = {
+  employeeId: string;
 };

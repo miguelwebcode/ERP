@@ -2,8 +2,6 @@ import { describe, it, expect, vi, beforeEach, Mock } from "vitest";
 import * as authRepository from "../repository/authRepository";
 import { login, logout, registerUser, watchAuthState } from "./authService";
 import { waitFor } from "@testing-library/react";
-import * as firebaseAuth from "firebase/auth";
-import { auth } from "../../../firebaseConfig";
 
 vi.mock("../repository/authRepository", { spy: true });
 vi.mock("firebase/auth", { spy: true });
@@ -31,18 +29,20 @@ describe("login", () => {
       expect(result).toBe(userCredential.user);
     });
   });
-  it("should manage errors correctly", async () => {
+  it("should manage errors, throw error and console log it", async () => {
     const error = new Error("Test error");
     (authRepository.firebaseLogin as Mock).mockRejectedValue(error);
     const consoleErrorSpy = vi.spyOn(console, "error");
-    const result = await login(credentials.email, credentials.password);
+
+    await expect(
+      login(credentials.email, credentials.password)
+    ).rejects.toThrowError(error);
     await waitFor(() => {
       expect(authRepository.firebaseLogin).toHaveBeenCalledWith(
         credentials.email,
         credentials.password
       );
       expect(consoleErrorSpy).toHaveBeenCalledWith("Error signing in: ", error);
-      expect(result).toBeUndefined();
     });
   });
 });

@@ -36,26 +36,21 @@ const SelectProjectForm = ({
       validationSchema={selectProjectFormValidationSchema}
       onSubmit={handleSubmit}
     >
-      <div className="flex flex-col md:flex-row justify-between px-5">
-        <div className="flex flex-col items-center justify-center bg-white p-6 rounded shadow-md w-96 h-fit">
-          <h1 className="text-2xl font-bold mb-4">Select Project</h1>
-          <div className="w-4/5">
-            <CustomSelect label="Project ID" name="projectId">
-              <option value="" className="text-center">
-                -- Select project ID --
+      <div className="flex flex-col md:flex-row justify-between">
+        <div className="flex flex-col items-center justify-center bg-ds-white p-ds-20 rounded-ds-sm shadow-ds-2 h-fit w-ds-384">
+          <h1 className="text-ds-xl font-bold mb-ds-16">Select Project</h1>
+          <CustomSelect label="Project ID" name="projectId">
+            <option value="" className="text-center">
+              -- Select project ID --
+            </option>
+            {projectIds.map((id, index) => (
+              <option key={index} value={id}>
+                {id}
               </option>
-              {projectIds.map((id, index) => (
-                <option key={index} value={id}>
-                  {id}
-                </option>
-              ))}
-            </CustomSelect>
-          </div>
-          <button
-            type="submit"
-            className="w-4/5 bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600"
-          >
-            {buttonText}
+            ))}
+          </CustomSelect>
+          <button type="submit" className="form-button mt-ds-20">
+            <p className="text-ds-lg">{buttonText}</p>
           </button>
         </div>
       </div>

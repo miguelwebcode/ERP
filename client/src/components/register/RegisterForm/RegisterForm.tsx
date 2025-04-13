@@ -8,6 +8,7 @@ import { registerFormValidationSchema } from "../../../schemas";
 import { CustomSelect } from "../../formik/CustomSelect/CustomSelect";
 import { roles } from "../../../data";
 import { RegisterFormValues } from "../../../types/form-values-types";
+import { toast } from "react-toastify";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
@@ -40,6 +41,7 @@ const RegisterForm = () => {
       navigate("/");
     } catch (err: any) {
       console.error("Error registering user: ", err);
+      toast.error(`${email} is already in use`);
     }
   };
 
@@ -49,9 +51,9 @@ const RegisterForm = () => {
       validationSchema={registerFormValidationSchema}
       onSubmit={handleSubmit}
     >
-      <div className="flex flex-col items-center justify-center bg-white p-6 rounded shadow-md w-96">
-        <h1 className="text-2xl font-bold mb-4">Register</h1>
-        <div className="w-4/5">
+      <div className="flex flex-col items-center justify-center bg-ds-white p-ds-24 rounded-ds-sm shadow-ds-2 w-ds-384">
+        <h1 className="text-ds-2xl font-bold mb-ds-16">Register</h1>
+        <div className="w-4/5 flex flex-col gap-ds-16">
           <CustomInput
             type="text"
             label="Name"
@@ -82,16 +84,16 @@ const RegisterForm = () => {
             type="password"
             label="Confirm password"
             name="confirmPassword"
-            placeholder="Enter your password again"
+            placeholder="Repeat your password"
           />
         </div>
         <button
           type="submit"
-          className="w-4/5 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+          className="w-4/5 bg-ds-primary-500 text-white py-ds-8 px-ds-16 mt-ds-24 mb-ds-16 rounded hover:bg-ds-primary-600"
         >
-          Register
+          <p className="text-ds-lg font-semibold">Register</p>
         </button>
-        <div className="p-3">
+        <div>
           <span>Do you have an account? </span>
           <button
             className="text-blue-500"

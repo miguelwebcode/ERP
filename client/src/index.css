@@ -1,3 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  @apply font-ds-primary;
+}
+
+.form-button {
+  @apply w-full bg-ds-primary-500 text-ds-white font-bold py-ds-8 px-ds-16  rounded-ds-sm hover:bg-ds-primary-600;
+}
+
+.info-message {
+  @apply font-bold text-ds-lg text-ds-grey-600 text-center;
+}
+
+.info-message > span {
+  @apply text-ds-primary-500;
+}

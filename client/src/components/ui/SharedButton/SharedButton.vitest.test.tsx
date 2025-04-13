@@ -34,7 +34,7 @@ describe("SharedButton", () => {
       <SharedButton text={text} onClick={handleClick} className={className} />
     );
 
-    const button = screen.getByText(text);
+    const button = screen.getByRole("button");
     expect(button).toHaveClass("custom-class");
   });
 });

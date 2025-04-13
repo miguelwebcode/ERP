@@ -11,22 +11,24 @@ type CustomInputProps = {
 export const CustomInput = ({ label, ...props }: CustomInputProps) => {
   const [field, meta] = useField(props);
 
+  const isDatePlaceholder = field.value.length === 0;
+
   return (
     <>
-      <div className="flex flex-col mb-4">
-        <label htmlFor={props.name} className="block text-sm font-medium">
+      <div className="flex flex-col">
+        <label htmlFor={props.name} className="block text-ds-sm font-medium">
           {label}
         </label>
         <input
           {...field}
           {...props}
           id={props.name}
-          className={`w-full p-2 border rounded ${
-            meta.error && meta.touched && "border-red-500"
-          }`}
+          className={`w-full p-ds-8 border rounded-ds-sm ${
+            meta.error && meta.touched && "border-ds-accent1-500"
+          } ${isDatePlaceholder ? "text-ds-grey-400" : "text-ds-black"}`}
         />
         {meta.error && meta.touched && (
-          <div className="text-red-500 text-sm text-left mt-1">
+          <div className="text-ds-accent1-500 text-ds-sm text-left mt-ds-4">
             {meta.error}
           </div>
         )}

@@ -15,14 +15,14 @@ export const AddCustomerView = () => {
     setIsRenderDone(true);
   });
   return (
-    <div className="flex justify-center">
+    <>
       {isRenderDone && (
         <CustomerForm
           titleText="NEW CUSTOMER"
-          submitButtonText="CREATE CUSTOMER"
+          submitButtonText="CREATE"
           onSubmit={handleCreateCustomer}
         />
       )}
-    </div>
+    </>
   );
 };

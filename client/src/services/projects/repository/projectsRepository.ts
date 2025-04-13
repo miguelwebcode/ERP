@@ -14,6 +14,7 @@ import { v4 as uuidv4 } from "uuid";
 import { FormikHelpers } from "formik";
 import { ProjectFormValues } from "../../../types/form-values-types";
 import { formatDate } from "../..";
+import { toast } from "react-toastify";
 
 export const getAllProjects = async () => {
   const projectsCollection = collection(db, "projects");
@@ -29,7 +30,7 @@ export const getAllProjects = async () => {
 
 export const getProjectById = async (projectId: string) => {
   const projectsCollection = collection(db, "projects");
-  const q = query(projectsCollection, where("projectId", "==", projectId));
+  const q = query(projectsCollection, where("id", "==", projectId));
 
   try {
     const querySnapshot = await getDocs(q);
@@ -50,7 +51,7 @@ export const getAllProjectIds = async () => {
   const projectsCollection = collection(db, "projects");
   try {
     const querySnapshot = await getDocs(projectsCollection);
-    const projectIds = querySnapshot.docs.map((doc) => doc.data().projectId);
+    const projectIds = querySnapshot.docs.map((doc) => doc.data().id);
     return projectIds;
   } catch (error) {
     console.error("Error reading project IDs: ", error);
@@ -65,11 +66,9 @@ export const handleCreateProject = async (
     await addDoc(collection(db, "projects"), {
       ...values,
       createdAt: formatDate(new Date()),
-      projectId: uuidv4(),
+      id: `P-${uuidv4().slice(0, 8)}`,
     });
-    /* 
-       TODO: Show notification
-      */
+    toast.success("Project created");
     formikHelpers.resetForm();
   } catch (error) {
     console.error("Error creating customer: ", error);
@@ -82,10 +81,7 @@ export const handleEditProject = async (
   formikHelpers: FormikHelpers<ProjectFormValues>
 ) => {
   const projectsCollection = collection(db, "projects");
-  const q = query(
-    projectsCollection,
-    where("projectId", "==", selectedProjectId)
-  );
+  const q = query(projectsCollection, where("id", "==", selectedProjectId));
   try {
     const querySnapshot = await getDocs(q);
 
@@ -102,6 +98,7 @@ export const handleEditProject = async (
       ...values,
       updatedAt: formatDate(new Date()),
     });
+    toast.success("Project updated");
     formikHelpers.resetForm();
   } catch (error) {
     console.error("Error updating customer: ", error);
@@ -110,7 +107,7 @@ export const handleEditProject = async (
 
 export const deleteProjectById = async (projectId: string) => {
   const projectsCollection = collection(db, "projects");
-  const q = query(projectsCollection, where("projectId", "==", projectId));
+  const q = query(projectsCollection, where("id", "==", projectId));
 
   try {
     const querySnapshot = await getDocs(q);
@@ -123,6 +120,7 @@ export const deleteProjectById = async (projectId: string) => {
     const projectDocRef = doc(db, "projects", documentId);
 
     await deleteDoc(projectDocRef);
+    toast.success("Project deleted");
   } catch (error) {
     console.error("Error deleting project: ", error);
   }

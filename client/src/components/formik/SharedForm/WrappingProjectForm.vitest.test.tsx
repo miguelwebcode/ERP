@@ -38,28 +38,28 @@ describe("SharedForm wrapping ProjectFormValues, happy paths", () => {
                 type="text"
                 label="Name"
                 name="name"
-                placeholder="Enter project's name"
+                placeholder="Enter name"
                 disabled={fieldDisabled}
               />
               <CustomInput
                 type="text"
                 label="Description"
                 name="description"
-                placeholder="Enter project's description"
+                placeholder="Enter description"
                 disabled={fieldDisabled}
               />
               <CustomInput
                 type="text"
                 label="Customer ID"
                 name="customerId"
-                placeholder="Enter project's customer id"
+                placeholder="Enter customer id"
                 disabled={fieldDisabled}
               />
               <CustomInput
                 type="text"
                 label="Assigned Developer"
                 name="developer"
-                placeholder="Enter project's developer"
+                placeholder="Enter developer"
                 disabled={fieldDisabled}
               />
             </div>
@@ -84,14 +84,14 @@ describe("SharedForm wrapping ProjectFormValues, happy paths", () => {
                 type="date"
                 label="Start Date"
                 name="startDate"
-                placeholder="Enter project's startDate"
+                placeholder="Enter startDate"
                 disabled={fieldDisabled}
               />
               <CustomInput
                 type="date"
                 label="End Date"
                 name="endDate"
-                placeholder="Enter project's endDate"
+                placeholder="Enter endDate"
                 disabled={fieldDisabled}
               />
             </div>
@@ -193,28 +193,28 @@ describe("SharedForm wrapping ProjectFormValues, validate error messages", () =>
                 type="text"
                 label="Name"
                 name="name"
-                placeholder="Enter project's name"
+                placeholder="Enter name"
                 disabled={fieldDisabled}
               />
               <CustomInput
                 type="text"
                 label="Description"
                 name="description"
-                placeholder="Enter project's description"
+                placeholder="Enter description"
                 disabled={fieldDisabled}
               />
               <CustomInput
                 type="text"
                 label="Customer ID"
                 name="customerId"
-                placeholder="Enter project's customer id"
+                placeholder="Enter customer id"
                 disabled={fieldDisabled}
               />
               <CustomInput
                 type="text"
                 label="Assigned Developer"
                 name="developer"
-                placeholder="Enter project's developer"
+                placeholder="Enter developer"
                 disabled={fieldDisabled}
               />
             </div>
@@ -239,14 +239,14 @@ describe("SharedForm wrapping ProjectFormValues, validate error messages", () =>
                 type="date"
                 label="Start Date"
                 name="startDate"
-                placeholder="Enter project's startDate"
+                placeholder="Enter start date"
                 disabled={fieldDisabled}
               />
               <CustomInput
                 type="date"
                 label="End Date"
                 name="endDate"
-                placeholder="Enter project's endDate"
+                placeholder="Enter end date"
                 disabled={fieldDisabled}
               />
             </div>

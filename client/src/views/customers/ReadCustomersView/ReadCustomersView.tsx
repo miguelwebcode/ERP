@@ -3,6 +3,7 @@ import { fetchAllCustomers } from "../../../services/customers/service/customers
 import { Customer } from "../../../types";
 import { CustomerCard } from "../../../components/customers/CustomerCard/CustomerCard";
 import { SharedCard } from "../../../components/ui/SharedCard/SharedCard";
+import { NoCustomersFoundMessage } from "../../../components/customers/NoCustomersFoundMessage/NoCustomersFoundMessage";
 
 export const ReadCustomersView = () => {
   const [customers, setCustomers] = useState<Customer[]>([]);
@@ -10,14 +11,20 @@ export const ReadCustomersView = () => {
     fetchAllCustomers(setCustomers);
   }, []);
   return (
-    <div className="flex justify-center flex-wrap gap-6">
-      {customers.map((customer, i) => {
-        return (
-          <SharedCard key={i}>
-            <CustomerCard customer={customer} />
-          </SharedCard>
-        );
-      })}
-    </div>
+    <>
+      {customers.length ? (
+        <div className="flex justify-center flex-wrap gap-ds-24 h-[80vh] overflow-y-auto">
+          {customers.map((customer, i) => {
+            return (
+              <SharedCard key={i}>
+                <CustomerCard customer={customer} />
+              </SharedCard>
+            );
+          })}
+        </div>
+      ) : (
+        <NoCustomersFoundMessage />
+      )}
+    </>
   );
 };

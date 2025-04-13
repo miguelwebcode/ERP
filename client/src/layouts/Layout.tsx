@@ -1,14 +1,15 @@
 import { Outlet } from "react-router-dom";
 import Header from "../components/ui/Header/Header";
+import { ToastContainer } from "react-toastify";
 
 export default function Layout() {
   return (
     <>
       <Header />
-      {/* Inyecta las rutas que estén agrupadas en este layout */}
-      <main className="container mx-auto py-8">
+      <main className="container mx-auto pt-ds-32">
         <Outlet />
       </main>
+      <ToastContainer position="top-right" autoClose={3000} />
     </>
   );
 }

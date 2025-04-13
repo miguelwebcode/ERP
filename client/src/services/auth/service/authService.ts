@@ -16,15 +16,17 @@ export const login = async (email: string, password: string) => {
     }
   } catch (error) {
     console.error("Error signing in: ", error);
-    return;
+    throw error;
   }
 };
 
 // Función para observar los cambios en el estado de autenticación
 export const watchAuthState = (callback: (user: User | null) => void) => {
-  firebaseOnAuthStateChanged((user) => {
+  const unsubscribe = firebaseOnAuthStateChanged((user) => {
     callback(user);
   });
+
+  return unsubscribe;
 };
 
 // Función para cerrar sesión

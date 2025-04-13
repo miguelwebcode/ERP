@@ -16,7 +16,7 @@ export const firebaseLogin = async (
     return await signInWithEmailAndPassword(auth, email, password);
   } catch (error) {
     console.error("Login error: ", error);
-    return;
+    throw error;
   }
 };
 
@@ -43,5 +43,6 @@ export const firebaseLogout = async () => {
 export const firebaseOnAuthStateChanged = (
   callback: (user: User | null) => void
 ) => {
-  onAuthStateChanged(auth, callback);
+  const unsubscribe = onAuthStateChanged(auth, callback);
+  return unsubscribe;
 };

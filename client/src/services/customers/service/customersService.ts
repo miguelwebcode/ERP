@@ -32,7 +32,6 @@ export const setCustomerFormValues = async (
         email: selectedCustomer.email,
         name: selectedCustomer.name,
         phone: selectedCustomer.phone,
-        project: selectedCustomer.project,
       };
       formik.setValues(newValues);
     }

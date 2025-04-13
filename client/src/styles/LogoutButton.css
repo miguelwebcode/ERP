@@ -1,0 +1,3 @@
+.logout-button:hover div {
+  @apply text-ds-primary-400;
+}

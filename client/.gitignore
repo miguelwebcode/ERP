@@ -1,5 +1,9 @@
+# Service Account
+serviceAccount.json
+
 # Firestore Backup
-firestore-backup/
+backup-firebase/
+backup-files/
 
 users.json
 

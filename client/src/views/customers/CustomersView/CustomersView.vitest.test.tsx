@@ -14,42 +14,46 @@ describe("CustomersView", () => {
   });
 
   it("renders all texts correctly", () => {
-    const title = screen.getByRole("heading", { name: "Customer CRUD" });
-    expect(title).toBeInTheDocument();
-    const buttonCreateCustomer = screen.getByRole("button", {
-      name: /create customer/i,
+    const mainTitle = screen.getByRole("heading", { name: "CUSTOMERS" });
+    expect(mainTitle).toBeInTheDocument();
+    const cardTitle = screen.getByRole("heading", {
+      name: /manage customers/i,
     });
-    expect(buttonCreateCustomer).toBeInTheDocument();
-    const buttonReadCustomers = screen.getByRole("button", {
-      name: /read customers/i,
+    expect(cardTitle).toBeInTheDocument();
+    const buttonCreate = screen.getByRole("button", {
+      name: /create/i,
     });
-    expect(buttonReadCustomers).toBeInTheDocument();
-    const buttonUpdateCustomer = screen.getByRole("button", {
-      name: /update customer/i,
+    expect(buttonCreate).toBeInTheDocument();
+    const buttonRead = screen.getByRole("button", {
+      name: /read/i,
     });
-    expect(buttonUpdateCustomer).toBeInTheDocument();
-    const buttonDeleteCustomer = screen.getByRole("button", {
-      name: /delete customer/i,
+    expect(buttonRead).toBeInTheDocument();
+    const buttonUpdate = screen.getByRole("button", {
+      name: /update/i,
     });
-    expect(buttonDeleteCustomer).toBeInTheDocument();
+    expect(buttonUpdate).toBeInTheDocument();
+    const buttonDelete = screen.getByRole("button", {
+      name: /delete/i,
+    });
+    expect(buttonDelete).toBeInTheDocument();
   });
   it("buttons call their function", async () => {
-    const buttonCreateCustomer = screen.getByRole("button", {
-      name: /create customer/i,
+    const buttonCreate = screen.getByRole("button", {
+      name: /create/i,
     });
-    const buttonReadCustomers = screen.getByRole("button", {
-      name: /read customers/i,
+    const buttonRead = screen.getByRole("button", {
+      name: /read/i,
     });
-    const buttonUpdateCustomer = screen.getByRole("button", {
-      name: /update customer/i,
+    const buttonUpdate = screen.getByRole("button", {
+      name: /update/i,
     });
-    const buttonDeleteCustomer = screen.getByRole("button", {
-      name: /delete customer/i,
+    const buttonDelete = screen.getByRole("button", {
+      name: /delete/i,
     });
-    fireEvent.click(buttonCreateCustomer);
-    fireEvent.click(buttonReadCustomers);
-    fireEvent.click(buttonUpdateCustomer);
-    fireEvent.click(buttonDeleteCustomer);
+    fireEvent.click(buttonCreate);
+    fireEvent.click(buttonRead);
+    fireEvent.click(buttonUpdate);
+    fireEvent.click(buttonDelete);
 
     await waitFor(() => {
       expect(mockNavigate).toHaveBeenCalledWith("/customers/add");

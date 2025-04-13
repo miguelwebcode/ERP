@@ -4,6 +4,7 @@ import SharedForm from "../../formik/SharedForm/SharedForm";
 import { loginFormValidationSchema } from "../../../schemas";
 import { CustomInput } from "../../formik/CustomInput/CustomInput";
 import { LoginFormValues } from "../../../types/form-values-types";
+import { toast } from "react-toastify";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ const LoginForm = () => {
       await login(email, password);
       navigate("/");
     } catch (err) {
+      toast.error("Invalid credentials");
       console.log(err);
     }
   };
@@ -29,10 +31,10 @@ const LoginForm = () => {
       validationSchema={loginFormValidationSchema}
       onSubmit={handleSubmit}
     >
-      <div className="flex flex-col items-center justify-center bg-white p-6 rounded shadow-md w-96">
-        <h1 className="text-2xl font-bold mb-4">Login</h1>
+      <div className="flex flex-col items-center justify-center bg-ds-white p-ds-24 rounded-ds-sm shadow-ds-2 w-ds-384">
+        <h1 className="text-ds-2xl font-bold mb-ds-16">Login</h1>
 
-        <div className="w-4/5">
+        <div className="w-4/5 flex flex-col gap-ds-16">
           <CustomInput
             label="Email"
             name="email"
@@ -48,11 +50,11 @@ const LoginForm = () => {
         </div>
         <button
           type="submit"
-          className="w-4/5 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+          className="w-4/5 bg-ds-primary-500 text-white py-ds-8 px-ds-16 mt-ds-24 mb-ds-16 rounded hover:bg-ds-primary-600"
         >
-          Login
+          <p className="text-ds-lg font-semibold">Login</p>
         </button>
-        <div className="p-3">
+        <div>
           <span>Don't have an account? </span>
           <button
             className="text-blue-500"

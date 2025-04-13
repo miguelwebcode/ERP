@@ -1,12 +1,24 @@
+import { IconType } from "react-icons/lib";
+
 type CardFieldProps = {
   label: string;
   value: string;
+  Icon?: IconType;
 };
 
-export const CardField = ({ label, value }: CardFieldProps) => {
+export const CardField = ({ label, value, Icon }: CardFieldProps) => {
   return (
-    <div className="flex flex-col mb-4 gap-1 ">
-      <label className="block text-sm font-medium">{label}</label>
+    <div className="flex flex-col ">
+      <div className="flex gap-ds-8 items-start">
+        {Icon && (
+          <div>
+            <Icon className="text-xl text-ds-grey-800" />
+          </div>
+        )}
+        <label className="block text-sm font-medium text-ds-grey-400">
+          {label}
+        </label>
+      </div>
       <span data-testid={label} className="text-md">
         {value}
       </span>

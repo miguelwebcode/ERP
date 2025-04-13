@@ -9,25 +9,35 @@ export type ProjectState = {
 };
 
 export type Customer = {
-  address: string;
-  company: string;
-  customerId: string;
-  email: string;
+  id: string;
   name: string;
+  company: string;
+  address: string;
   phone: string;
-  project: string;
+  email: string;
   createdAt: string;
   updatedAt?: string;
 };
 
 export type Project = {
+  id: string;
   name: string;
-  description: string;
-  customerId: string;
-  startDate: string;
-  endDate: string;
   state: string;
-  developer: string;
+  description: string;
+  startDate: string;
+  customerId: string;
+  endDate: string;
+  employeeId: string;
   createdAt: string;
   updatedAt?: string;
+};
+
+export type Employee = {
+  id: string;
+  name: string;
+  role: string;
+  email: string;
+  phone: string;
+  address: string;
+  salary: string;
 };

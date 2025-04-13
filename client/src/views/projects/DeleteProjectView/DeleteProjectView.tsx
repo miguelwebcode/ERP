@@ -2,15 +2,19 @@ import { useEffect, useRef, useState } from "react";
 import SelectProjectForm from "../../../components/projects/SelectProjectForm/SelectProjectForm";
 import { useAppStore } from "../../../stores/app-store";
 import { deleteProjectById } from "../../../services/projects/repository/projectsRepository";
-import { fetchProject } from "../../../services/projects/service/projectsService";
+import {
+  fetchAllProjects,
+  fetchProject,
+} from "../../../services/projects/service/projectsService";
 import { Project } from "../../../types";
 import { SharedCard } from "../../../components/ui/SharedCard/SharedCard";
 import { ProjectCard } from "../../../components/projects/ProjectCard/ProjectCard";
-import { SharedButton } from "../../../components/ui/SharedButton/SharedButton";
 import { SelectProjectFormValues } from "../../../types/form-values-types";
 import { FormikHelpers } from "formik";
+import { NoProjectsFoundMessage } from "../../../components/projects/NoProjectsFoundMessage.tsx/NoProjectsFoundMessage";
 
 export const DeleteProjectView = () => {
+  const [projects, setProjects] = useState<Project[]>([]);
   const [selectedProject, setSelectedProject] = useState<Project>(
     {} as Project
   );
@@ -25,6 +29,8 @@ export const DeleteProjectView = () => {
   useEffect(() => {
     if (isFirstRender.current) {
       setSelectedProjectId("");
+      fetchAllProjects(setProjects);
+
       isFirstRender.current = false;
     }
     if (selectedProjectId) {
@@ -45,24 +51,33 @@ export const DeleteProjectView = () => {
     }
   };
   return (
-    <div className="flex flex-col md:flex-row justify-center px-5">
-      <>
-        <SelectProjectForm buttonText="FETCH PROJECT" onSubmit={handleSubmit} />
-        {selectedProjectId && (
-          <SharedCard>
-            <ProjectCard project={selectedProject} />
-            <div className="flex justify-center">
-              <SharedButton
-                text="DELETE PROJECT"
-                onClick={async () => {
-                  await deleteProjectById(selectedProjectId);
-                  setSelectedProjectId("");
-                }}
-              />
-            </div>
-          </SharedCard>
-        )}
-      </>
-    </div>
+    <>
+      {projects.length ? (
+        <div className="flex flex-col gap-ds-32 justify-center px-ds-20">
+          <SelectProjectForm
+            buttonText="FETCH PROJECT"
+            onSubmit={handleSubmit}
+          />
+          {selectedProjectId && (
+            <SharedCard>
+              <ProjectCard project={selectedProject} />
+              <div className="flex justify-center mb-ds-24 mx-ds-20">
+                <button
+                  className="form-button"
+                  onClick={async () => {
+                    await deleteProjectById(selectedProjectId);
+                    setSelectedProjectId("");
+                  }}
+                >
+                  <p className="text-ds-lg">DELETE</p>
+                </button>
+              </div>
+            </SharedCard>
+          )}
+        </div>
+      ) : (
+        <NoProjectsFoundMessage />
+      )}
+    </>
   );
 };

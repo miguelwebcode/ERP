@@ -8,11 +8,12 @@ import {
   doc,
   deleteDoc,
 } from "firebase/firestore";
-import { auth, db } from "../../../firebaseConfig";
+import { db } from "../../../firebaseConfig";
 import { v4 as uuidv4 } from "uuid";
 import { FormikHelpers } from "formik";
 import { CustomerFormValues } from "../../../types/form-values-types";
 import { formatDate } from "../..";
+import { toast } from "react-toastify";
 
 export const getAllCustomers = async () => {
   const customersCollection = collection(db, "customers");
@@ -33,7 +34,7 @@ export const getCustomerById = async (customerId: string) => {
   }
 
   const customersCollection = collection(db, "customers");
-  const q = query(customersCollection, where("customerId", "==", customerId));
+  const q = query(customersCollection, where("id", "==", customerId));
 
   try {
     const querySnapshot = await getDocs(q);
@@ -54,7 +55,7 @@ export const getAllCustomerIds = async () => {
   const customersCollection = collection(db, "customers");
   try {
     const querySnapshot = await getDocs(customersCollection);
-    const customerIds = querySnapshot.docs.map((doc) => doc.data().customerId);
+    const customerIds = querySnapshot.docs.map((doc) => doc.data().id);
     console.log("Customer IDs: ", customerIds);
     return customerIds;
   } catch (error) {
@@ -70,11 +71,9 @@ export const handleCreateCustomer = async (
     await addDoc(collection(db, "customers"), {
       ...values,
       createdAt: formatDate(new Date()),
-      customerId: uuidv4(),
+      id: `C-${uuidv4().slice(0, 8)}`,
     });
-    /* 
-     TODO: Show notification
-    */
+    toast.success("Customer created");
     formikHelpers.resetForm();
   } catch (error) {
     console.error("Error creating customer: ", error);
@@ -88,10 +87,7 @@ export const handleEditCustomer = async (
 ) => {
   try {
     const customersCollection = collection(db, "customers");
-    const q = query(
-      customersCollection,
-      where("customerId", "==", selectedCustomerId)
-    );
+    const q = query(customersCollection, where("id", "==", selectedCustomerId));
     const querySnapshot = await getDocs(q);
 
     if (querySnapshot.empty) {
@@ -107,6 +103,7 @@ export const handleEditCustomer = async (
       ...values,
       updatedAt: formatDate(new Date()),
     });
+    toast.success("Customer updated");
     formikHelpers.resetForm();
   } catch (error) {
     console.error("Error updating customer: ", error);
@@ -115,7 +112,7 @@ export const handleEditCustomer = async (
 
 export const deleteCustomerById = async (customerId: string) => {
   const customersCollection = collection(db, "customers");
-  const q = query(customersCollection, where("customerId", "==", customerId));
+  const q = query(customersCollection, where("id", "==", customerId));
 
   try {
     const querySnapshot = await getDocs(q);
@@ -128,6 +125,7 @@ export const deleteCustomerById = async (customerId: string) => {
     const customerDocRef = doc(db, "customers", documentId);
 
     await deleteDoc(customerDocRef);
+    toast.success("Customer deleted");
   } catch (error) {
     console.error("Error deleting customer: ", error);
   }
