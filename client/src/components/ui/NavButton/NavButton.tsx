@@ -1,6 +1,6 @@
 import "@styles/NavButton.css";
 import { IconType } from "react-icons/lib";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 type NavButtonProps = {
   text: string;
@@ -10,16 +10,13 @@ type NavButtonProps = {
 
 export const NavButton = ({ text, route, Icon }: NavButtonProps) => {
   const { pathname: currentRoute } = useLocation();
-  const navigate = useNavigate();
 
   return (
-    <button
+    <a
+      href={route}
       className={
         currentRoute.includes(route) ? "activated-on-route" : "nav-button"
       }
-      onClick={() => {
-        navigate(route);
-      }}
     >
       <div className="flex justify-center items-center gap-ds-8">
         {Icon && (
@@ -31,6 +28,6 @@ export const NavButton = ({ text, route, Icon }: NavButtonProps) => {
           {text}
         </p>
       </div>
-    </button>
+    </a>
   );
 };
