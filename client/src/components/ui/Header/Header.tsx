@@ -3,7 +3,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import { LiaGripfire } from "react-icons/lia";
 import { LogoutButton } from "../LogoutButton/LogoutButton";
 import { useAppStore } from "../../../stores/app-store";
-import "@styles/Header.css";
+import "@/styles/Header.css";
 
 export default function Header() {
   const user = useAppStore((state) => state.user);
