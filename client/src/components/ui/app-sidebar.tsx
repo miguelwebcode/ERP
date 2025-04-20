@@ -6,9 +6,11 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
+  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarTrigger,
 } from "@/components/ui/sidebar"
 
 // Menu items.
@@ -46,6 +48,9 @@ const items = [
 export function AppSidebar() {
   return (
     <Sidebar collapsible="icon">
+        <SidebarHeader>
+            <SidebarTrigger/>
+        </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>FirERP</SidebarGroupLabel>
