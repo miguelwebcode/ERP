@@ -27,7 +27,7 @@ export default function Layout() {
       <SidebarProvider open={sidebarOpen} onOpenChange={toggleSidebar}>
         {/* <Header /> */}
         <AppSidebar/>
-        <div className="block md:hidden"><SidebarTrigger/></div>
+        <SidebarTrigger className='block md:hidden'/>
 
         <main className="container mx-auto pt-8">
           <Outlet />
