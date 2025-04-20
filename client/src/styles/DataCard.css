@@ -3,7 +3,7 @@
 }
 
 .card-id-section {
-  @apply bg-ds-primary-800 h-8 rounded-t-ds-sm flex items-center justify-center;
+  @apply bg-ds-primary-800 h-8 rounded-t flex items-center justify-center;
 }
 
 .card-id-section > p {
