@@ -29,7 +29,7 @@ export default function Layout() {
         <AppSidebar/>
         <SidebarTrigger className='block md:hidden'/>
 
-        <main className="container mx-auto pt-8">
+        <main className="container mx-auto md:mx-4 pt-8">
           <Outlet />
         </main>
         <ToastContainer position="top-right" autoClose={3000} />
