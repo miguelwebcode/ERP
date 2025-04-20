@@ -5,11 +5,16 @@ import { ToastContainer } from "react-toastify";
 export default function Layout() {
   return (
     <>
-      <Header />
+      <SidebarProvider open={sidebarOpen} onOpenChange={toggleSidebar}>
+        {/* <Header /> */}
+        <AppSidebar/>
+        <SidebarTrigger/>
+
       <main className="container mx-auto pt-8">
         <Outlet />
       </main>
       <ToastContainer position="top-right" autoClose={3000} />
+      </SidebarProvider>
     </>
   );
 }
