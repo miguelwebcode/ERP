@@ -9,11 +9,10 @@ describe("CustomerCard", () => {
     const customer: Customer = {
       address: "street",
       company: "Corp",
-      customerId: "CUST123456",
+      id: "CUST123456",
       email: "john.doe@techcorp.com",
       name: "name",
       phone: "+1-555-1234",
-      project: "Project Alpha",
       createdAt: "2025-02-02 13:24",
       updatedAt: undefined,
     };
@@ -33,11 +32,10 @@ describe("CustomerCard", () => {
     const customer: Customer = {
       address: "street",
       company: "Corp",
-      customerId: "CUST123456",
+      id: "CUST123456",
       email: "john.doe@techcorp.com",
       name: "name",
       phone: "+1-555-1234",
-      project: "Project Alpha",
       createdAt: "2025-02-02 13:24",
       updatedAt: "2025-02-03 23:24",
     };
