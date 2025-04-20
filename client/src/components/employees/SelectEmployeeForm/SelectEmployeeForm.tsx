@@ -38,7 +38,7 @@ const SelectEmployeeForm = ({
       onSubmit={handleSubmit}
     >
       <div className="flex flex-col md:flex-row justify-between">
-        <div className="flex flex-col items-center justify-center bg-ds-white p-ds-20 rounded-ds-sm shadow-ds-2 h-fit w-ds-384">
+        <div className="flex flex-col items-center justify-center bg-ds-white p-ds-20 rounded shadow-ds-2 h-fit w-ds-384">
           <h1 className="text-ds-xl font-bold mb-ds-16">Select Employee</h1>
           <CustomSelect label="Employee ID" name="employeeId">
             <option value="" className="text-center">

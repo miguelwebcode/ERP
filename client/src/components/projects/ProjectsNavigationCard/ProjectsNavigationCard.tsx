@@ -5,7 +5,7 @@ import { NavButton } from "../../ui/NavButton/NavButton";
 
 export const ProjectsNavigationCard = () => {
   return (
-    <div className="flex flex-col gap-ds-24 bg-ds-white p-ds-32 rounded-ds-sm shadow-ds-2 w-ds-256">
+    <div className="flex flex-col gap-ds-24 bg-ds-white p-ds-32 rounded shadow-ds-2 w-ds-256">
       <h3 className="uppercase text-ds-lg font-bold text-center ">
         MANAGE PROJECTS
       </h3>

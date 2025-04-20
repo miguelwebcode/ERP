@@ -31,7 +31,7 @@ const LoginForm = () => {
       validationSchema={loginFormValidationSchema}
       onSubmit={handleSubmit}
     >
-      <div className="flex flex-col items-center justify-center bg-ds-white p-ds-24 rounded-ds-sm shadow-ds-2 w-ds-384">
+      <div className="flex flex-col items-center justify-center bg-ds-white p-ds-24 rounded shadow-ds-2 w-ds-384">
         <h1 className="text-ds-2xl font-bold mb-ds-16">Login</h1>
 
         <div className="w-4/5 flex flex-col gap-ds-16">

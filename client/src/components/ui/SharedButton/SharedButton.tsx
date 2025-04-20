@@ -15,7 +15,7 @@ export const SharedButton = ({
 }: SharedButtonProps) => {
   return (
     <button
-      className={`bg-ds-primary-500 hover:bg-ds-primary-600 text-ds-white font-bold uppercase p-ds-8 rounded-ds-sm ${
+      className={`bg-ds-primary-500 hover:bg-ds-primary-600 text-ds-white font-bold uppercase p-ds-8 rounded ${
         className && className
       } `}
       onClick={() => {

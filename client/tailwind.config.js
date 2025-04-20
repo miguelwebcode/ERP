@@ -114,30 +114,6 @@ export default {
       fontFamily: {
         "ds-primary": ["Source Sans Pro", "Arial", "sans-serif"],
       },
-      lineHeight: {
-        "ds-tight": "1.25",
-        "ds-base": "1.5",
-        "ds-loose": "1.75",
-      },
-      letterSpacing: {
-        "ds-tight": "-0.05em",
-        "ds-normal": "0em",
-        "ds-wide": "0.05em",
-      },
-
-      borderWidth: {
-        "ds-thin": "1px",
-        "ds-regular": "2px",
-        "ds-bold": "3px",
-      },
-      borderRadius: {
-        "ds-sm": "4px",
-        "ds-md": "8px",
-        "ds-lg": "12px",
-        "ds-xl": "16px",
-        "ds-full": "9999px",
-      },
-
       boxShadow: {
         "ds-1": "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)",
         "ds-2": "0 3px 6px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.12)",
