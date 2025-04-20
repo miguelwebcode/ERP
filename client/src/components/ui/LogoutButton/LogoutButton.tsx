@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../../services/auth/service/authService";
 import { CiLogout } from "react-icons/ci";
-import "@styles/LogoutButton.css";
+import "@/styles/LogoutButton.css";
 
 export const LogoutButton = () => {
   const navigate = useNavigate();

@@ -1,4 +1,4 @@
-import "@styles/NavButton.css";
+import "@/styles/NavButton.css";
 import { IconType } from "react-icons/lib";
 import { useLocation, useNavigate } from "react-router-dom";
 
