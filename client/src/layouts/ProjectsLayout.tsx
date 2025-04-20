@@ -3,7 +3,7 @@ import { ProjectsNavigationCard } from "../components/projects/ProjectsNavigatio
 
 export default function ProjectsLayout() {
   return (
-    <div className="flex items-start h-[80vh] pt-ds-16">
+    <div className="flex items-start h-[80vh] pt-4">
       <ProjectsNavigationCard />
       <div className="flex flex-1 items-center justify-center">
         <Outlet />

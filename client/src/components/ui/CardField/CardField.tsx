@@ -9,7 +9,7 @@ type CardFieldProps = {
 export const CardField = ({ label, value, Icon }: CardFieldProps) => {
   return (
     <div className="flex flex-col ">
-      <div className="flex gap-ds-8 items-start">
+      <div className="flex gap-2 items-start">
         {Icon && (
           <div>
             <Icon className="text-xl text-ds-grey-800" />

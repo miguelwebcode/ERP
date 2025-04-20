@@ -53,7 +53,7 @@ export const DeleteProjectView = () => {
   return (
     <>
       {projects.length ? (
-        <div className="flex flex-col gap-ds-32 justify-center px-ds-20">
+        <div className="flex flex-col gap-8 justify-center px-5">
           <SelectProjectForm
             buttonText="FETCH PROJECT"
             onSubmit={handleSubmit}
@@ -61,7 +61,7 @@ export const DeleteProjectView = () => {
           {selectedProjectId && (
             <SharedCard>
               <ProjectCard project={selectedProject} />
-              <div className="flex justify-center mb-ds-24 mx-ds-20">
+              <div className="flex justify-center mb-6 mx-5">
                 <button
                   className="form-button"
                   onClick={async () => {

@@ -21,7 +21,7 @@ export const NavButton = ({ text, route, Icon }: NavButtonProps) => {
         navigate(route);
       }}
     >
-      <div className="flex justify-center items-center gap-ds-8">
+      <div className="flex justify-center items-center gap-2">
         {Icon && (
           <span className="text-ds-primary-500">
             <Icon className="text-2xl" />

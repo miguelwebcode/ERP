@@ -51,9 +51,9 @@ const RegisterForm = () => {
       validationSchema={registerFormValidationSchema}
       onSubmit={handleSubmit}
     >
-      <div className="flex flex-col items-center justify-center bg-ds-white p-ds-24 rounded shadow-ds-2 w-ds-384">
-        <h1 className="text-3xl font-bold mb-ds-16">Register</h1>
-        <div className="w-4/5 flex flex-col gap-ds-16">
+      <div className="flex flex-col items-center justify-center bg-ds-white p-6 rounded shadow-ds-2 w-96">
+        <h1 className="text-3xl font-bold mb-4">Register</h1>
+        <div className="w-4/5 flex flex-col gap-4">
           <CustomInput
             type="text"
             label="Name"
@@ -89,7 +89,7 @@ const RegisterForm = () => {
         </div>
         <button
           type="submit"
-          className="w-4/5 bg-ds-primary-500 text-white py-ds-8 px-ds-16 mt-ds-24 mb-ds-16 rounded hover:bg-ds-primary-600"
+          className="w-4/5 bg-ds-primary-500 text-white py-2 px-4 mt-6 mb-4 rounded hover:bg-ds-primary-600"
         >
           <p className="text-xl font-semibold">Register</p>
         </button>

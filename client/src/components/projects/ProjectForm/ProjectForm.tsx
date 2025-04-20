@@ -68,9 +68,9 @@ const ProjectForm = ({
       onSubmit={handleSubmit}
       innerRef={formikRef}
     >
-      <div className="flex flex-col items-center justify-center bg-ds-white p-ds-32 rounded shadow-ds-2">
-        <h1 className="text-2xl font-bold mb-ds-32">{titleText}</h1>
-        <div className="grid grid-cols-2 gap-y-ds-20 gap-x-ds-20">
+      <div className="flex flex-col items-center justify-center bg-ds-white p-8 rounded shadow-ds-2">
+        <h1 className="text-2xl font-bold mb-8">{titleText}</h1>
+        <div className="grid grid-cols-2 gap-y-5 gap-x-5">
           <CustomInput
             type="text"
             label="Name"
@@ -133,7 +133,7 @@ const ProjectForm = ({
         </div>
         <button
           type="submit"
-          className="w-full bg-ds-primary-500 text-ds-white mt-ds-32 py-ds-12 px-ds-16 rounded hover:bg-ds-primary-600 uppercase font-bold disabled:bg-ds-grey-400"
+          className="w-full bg-ds-primary-500 text-ds-white mt-8 py-3 px-4 rounded hover:bg-ds-primary-600 uppercase font-bold disabled:bg-ds-grey-400"
           disabled={fieldDisabled}
         >
           <p className="text-xl">{submitButtonText}</p>

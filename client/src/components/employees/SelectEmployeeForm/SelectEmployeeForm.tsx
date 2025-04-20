@@ -38,8 +38,8 @@ const SelectEmployeeForm = ({
       onSubmit={handleSubmit}
     >
       <div className="flex flex-col md:flex-row justify-between">
-        <div className="flex flex-col items-center justify-center bg-ds-white p-ds-20 rounded shadow-ds-2 h-fit w-ds-384">
-          <h1 className="text-2xl font-bold mb-ds-16">Select Employee</h1>
+        <div className="flex flex-col items-center justify-center bg-ds-white p-5 rounded shadow-ds-2 h-fit w-96">
+          <h1 className="text-2xl font-bold mb-4">Select Employee</h1>
           <CustomSelect label="Employee ID" name="employeeId">
             <option value="" className="text-center">
               -- Select employee ID --
@@ -50,7 +50,7 @@ const SelectEmployeeForm = ({
               </option>
             ))}
           </CustomSelect>
-          <button type="submit" className="form-button mt-ds-20">
+          <button type="submit" className="form-button mt-5">
             <p className="text-xl">{buttonText}</p>
           </button>
         </div>

@@ -9,7 +9,7 @@ body {
 }
 
 .form-button {
-  @apply w-full bg-ds-primary-500 text-ds-white font-bold py-ds-8 px-ds-16  rounded hover:bg-ds-primary-600;
+  @apply w-full bg-ds-primary-500 text-ds-white font-bold py-2 px-4  rounded hover:bg-ds-primary-600;
 }
 
 .info-message {

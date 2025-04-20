@@ -45,7 +45,7 @@ export const EditProjectView = () => {
   return (
     <>
       {projects.length && isRenderDone ? (
-        <div className="flex flex-col gap-ds-32 justify-center px-ds-20">
+        <div className="flex flex-col gap-8 justify-center px-5">
           <SelectProjectForm buttonText="GET DATA" onSubmit={handleSubmit} />
           <ProjectForm
             titleText="EDIT PROJECT"

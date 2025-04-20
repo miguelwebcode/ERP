@@ -23,12 +23,12 @@ export const CustomInput = ({ label, ...props }: CustomInputProps) => {
           {...field}
           {...props}
           id={props.name}
-          className={`w-full p-ds-8 border rounded ${
+          className={`w-full p-2 border rounded ${
             meta.error && meta.touched && "border-ds-accent1-500"
           } ${isDatePlaceholder ? "text-ds-grey-400" : "text-ds-black"}`}
         />
         {meta.error && meta.touched && (
-          <div className="text-ds-accent1-500 text-sm text-left mt-ds-4">
+          <div className="text-ds-accent1-500 text-sm text-left mt-1">
             {meta.error}
           </div>
         )}

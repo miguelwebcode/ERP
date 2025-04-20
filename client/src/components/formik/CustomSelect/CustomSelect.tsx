@@ -30,7 +30,7 @@ export const CustomSelect = ({
         {children}
       </select>
       {meta.error && meta.touched && (
-        <div className="text-red-500 text-sm text-left mt-ds-4">
+        <div className="text-red-500 text-sm text-left mt-1">
           {meta.error}
         </div>
       )}

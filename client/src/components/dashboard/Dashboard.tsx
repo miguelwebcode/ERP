@@ -64,10 +64,10 @@ const colors = ["#8884d8", "#82ca9d", "#ffc658", "#ff8042", "#0088FE"];
 
 export default function Dashboard() {
   return (
-    <div className="grid grid-cols-2 gap-ds-16 p-ds-16 grid-rows-[auto,30vh,30vh]">
+    <div className="grid grid-cols-2 gap-4 p-4 grid-rows-[auto,30vh,30vh]">
       <div className="col-span-2 grid grid-cols-4 gap-4">
         {kpiData.map((kpi) => (
-          <Card key={kpi.title} className="p-ds-16 text-center">
+          <Card key={kpi.title} className="p-4 text-center">
             <h3 className="text-lg font-bold">{kpi.title}</h3>
             <p className="text-2xl text-ds-grey-900">{kpi.value}</p>
           </Card>
@@ -76,7 +76,7 @@ export default function Dashboard() {
 
       <Card className="p-4 col-span-2 h-full">
         <div className="flex flex-col w-full h-full">
-          <h3 className="text-xl font-bold mb-ds-8 text-center">
+          <h3 className="text-xl font-bold mb-2 text-center">
             Revenue/MRR Trend
           </h3>
           <div className="w-full flex-grow">
@@ -99,7 +99,7 @@ export default function Dashboard() {
       </Card>
 
       {/* Card 3: Bar Chart - Monthly Comparison */}
-      <Card className="p-ds-16 h-full">
+      <Card className="p-4 h-full">
         <div className="flex flex-col h-full">
           <h3 className="text-xl font-bold mb-2 text-center">
             New Clients & Projects
@@ -122,7 +122,7 @@ export default function Dashboard() {
       {/* Card 4: Pie Chart - Employees Distribution */}
       <Card className="p-4 h-full">
         <div className="flex flex-col h-full">
-          <h3 className="text-xl font-bold mb-ds-8 text-center">
+          <h3 className="text-xl font-bold mb-2 text-center">
             Employees by Department
           </h3>
           <div className="w-full flex-grow">

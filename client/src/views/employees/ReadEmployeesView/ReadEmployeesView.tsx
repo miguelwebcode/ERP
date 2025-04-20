@@ -13,7 +13,7 @@ export const ReadEmployeesView = () => {
   return (
     <>
       {employees.length ? (
-        <div className="flex justify-center flex-wrap gap-ds-24 h-[80vh] overflow-y-auto">
+        <div className="flex justify-center flex-wrap gap-6 h-[80vh] overflow-y-auto">
           {employees.map((employee, i) => {
             return (
               <SharedCard key={i}>

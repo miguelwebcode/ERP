@@ -55,7 +55,7 @@ export const DeleteCustomerView = () => {
   return (
     <>
       {customers.length ? (
-        <div className="flex flex-col gap-ds-32 justify-center px-ds-20">
+        <div className="flex flex-col gap-8 justify-center px-5">
           <SelectCustomerForm
             buttonText="FETCH CUSTOMER"
             onSubmit={handleSubmit}
@@ -63,7 +63,7 @@ export const DeleteCustomerView = () => {
           {selectedCustomerId && (
             <SharedCard>
               <CustomerCard customer={selectedCustomer} />
-              <div className="flex justify-center mb-ds-24 mx-ds-20">
+              <div className="flex justify-center mb-6 mx-5">
                 <button
                   className="form-button"
                   onClick={async () => {

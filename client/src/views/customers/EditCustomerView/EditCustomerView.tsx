@@ -43,7 +43,7 @@ export const EditCustomerView = () => {
   return (
     <>
       {customers.length && isRenderDone ? (
-        <div className="flex flex-col gap-ds-32 justify-center px-ds-20">
+        <div className="flex flex-col gap-8 justify-center px-5">
           <SelectCustomerForm buttonText="GET DATA" onSubmit={handleSubmit} />
           <CustomerForm
             titleText="EDIT CUSTOMER"

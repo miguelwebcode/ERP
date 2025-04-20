@@ -1,5 +1,5 @@
 .nav-button {
-  @apply border-4 rounded-md py-ds-8 border-ds-primary-500 hover:bg-ds-primary-500;
+  @apply border-4 rounded-md py-2 border-ds-primary-500 hover:bg-ds-primary-500;
 }
 .nav-button:hover p,
 .nav-button:hover span {
@@ -7,7 +7,7 @@
 }
 
 .activated-on-route {
-  @apply border-4 rounded-md py-ds-8 border-ds-primary-500 bg-ds-primary-500;
+  @apply border-4 rounded-md py-2 border-ds-primary-500 bg-ds-primary-500;
 }
 
 .activated-on-route p,

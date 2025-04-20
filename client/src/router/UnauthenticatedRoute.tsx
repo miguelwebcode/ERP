@@ -28,7 +28,7 @@ export const UnauthenticatedRoute = ({
 
   if (isLoading) {
     return (
-      <div className="flex flex-col justify-center items-center gap-ds-16 h-[70vh]">
+      <div className="flex flex-col justify-center items-center gap-4 h-[70vh]">
         <Spinner />
         <p className="text-base">Loading...</p>
       </div>

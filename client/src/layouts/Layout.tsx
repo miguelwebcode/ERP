@@ -6,7 +6,7 @@ export default function Layout() {
   return (
     <>
       <Header />
-      <main className="container mx-auto pt-ds-32">
+      <main className="container mx-auto pt-8">
         <Outlet />
       </main>
       <ToastContainer position="top-right" autoClose={3000} />

@@ -3,7 +3,7 @@ import { EmployeesNavigationCard } from "../components/employees/EmployeesNaviga
 
 export default function EmployeesLayout() {
   return (
-    <div className="flex items-start h-[80vh] pt-ds-16">
+    <div className="flex items-start h-[80vh] pt-4">
       <EmployeesNavigationCard />
       <div className="flex flex-1 items-center justify-center">
         <Outlet />
