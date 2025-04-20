@@ -1,4 +1,4 @@
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react"
+import { Home, Users, FolderKanban, UserCircle, LucideLogOut } from "lucide-react"
 
 import {
   Sidebar,
@@ -23,22 +23,22 @@ const items = [
   {
     title: "Customers",
     url: "/customers",
-    icon: Inbox,
+    icon: Users,
   },
   {
     title: "Projects",
     url: "/projects",
-    icon: Calendar,
+    icon: FolderKanban,
   },
   {
     title: "Employees",
     url: "/employees",
-    icon: Search,
+    icon: UserCircle,
   },
   {
-    title: "Settings",
+    title: "Logout",
     url: "#",
-    icon: Settings,
+    icon: LucideLogOut,
   },
 ]
 /*
