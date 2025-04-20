@@ -94,23 +94,6 @@ export default {
         "ds-640": "640px",
         "ds-768": "768px",
       },
-
-      fontSize: {
-        "ds-xxs": "10px",
-        "ds-xs": "12px",
-        "ds-sm": "14px",
-        "ds-base": "16px",
-        "ds-md": "18px",
-        "ds-lg": "20px",
-        "ds-xl": "24px",
-        "ds-2xl": "30px",
-        "ds-3xl": "36px",
-        "ds-4xl": "48px",
-        "ds-5xl": "60px",
-        "ds-6xl": "72px",
-        "ds-7xl": "96px",
-        "ds-8xl": "128px",
-      },
       fontFamily: {
         "ds-primary": ["Source Sans Pro", "Arial", "sans-serif"],
       },

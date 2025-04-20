@@ -31,18 +31,18 @@ export default function Header() {
   }, [pathname, user]);
 
   const navTextHighlight =
-    "text-ds-primary-400 text-ds-xl uppercase font-bold header-link-selected";
-  const navTextNormal = "text-ds-white text-ds-xl uppercase font-bold";
+    "text-ds-primary-400 text-2xl uppercase font-bold header-link-selected";
+  const navTextNormal = "text-ds-white text-2xl uppercase font-bold";
   return (
     <header className="bg-slate-800">
       <div className="flex mx-auto container px-ds-20 py-ds-32 justify-between items-center">
-        <div className="flex gap-3 items-center text-ds-white text-ds-2xl">
+        <div className="flex gap-3 items-center text-ds-white text-3xl">
           <LiaGripfire />
           <h1>FirERP</h1>
         </div>
         {needsNavigation && (
           <div className="inline-flex justify-center items-center gap-ds-16">
-            <nav className="flex gap-ds-32 text-ds-xl">
+            <nav className="flex gap-ds-32 text-2xl">
               <NavLink
                 className={({ isActive }) =>
                   isActive ? navTextHighlight : navTextNormal

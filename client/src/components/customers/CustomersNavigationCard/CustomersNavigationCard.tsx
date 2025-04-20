@@ -6,7 +6,7 @@ import { NavButton } from "../../ui/NavButton/NavButton";
 export const CustomersNavigationCard = () => {
   return (
     <div className="flex flex-col gap-ds-24 bg-ds-white p-ds-32 rounded shadow-ds-2 w-ds-256">
-      <h3 className="uppercase text-ds-lg font-bold text-center ">
+      <h3 className="uppercase text-xl font-bold text-center ">
         MANAGE CUSTOMERS
       </h3>
       <NavButton text="CREATE" Icon={FaPlus} route="/customers/add" />

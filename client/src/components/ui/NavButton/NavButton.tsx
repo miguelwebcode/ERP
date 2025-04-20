@@ -24,10 +24,10 @@ export const NavButton = ({ text, route, Icon }: NavButtonProps) => {
       <div className="flex justify-center items-center gap-ds-8">
         {Icon && (
           <span className="text-ds-primary-500">
-            <Icon className="text-ds-xl" />
+            <Icon className="text-2xl" />
           </span>
         )}
-        <p className="text-ds-lg font-semibold text-ds-primary-500 text-center">
+        <p className="text-xl font-semibold text-ds-primary-500 text-center">
           {text}
         </p>
       </div>

@@ -16,7 +16,7 @@ export const CustomInput = ({ label, ...props }: CustomInputProps) => {
   return (
     <>
       <div className="flex flex-col">
-        <label htmlFor={props.name} className="block text-ds-sm font-medium">
+        <label htmlFor={props.name} className="block text-sm font-medium">
           {label}
         </label>
         <input
@@ -28,7 +28,7 @@ export const CustomInput = ({ label, ...props }: CustomInputProps) => {
           } ${isDatePlaceholder ? "text-ds-grey-400" : "text-ds-black"}`}
         />
         {meta.error && meta.touched && (
-          <div className="text-ds-accent1-500 text-ds-sm text-left mt-ds-4">
+          <div className="text-ds-accent1-500 text-sm text-left mt-ds-4">
             {meta.error}
           </div>
         )}

@@ -69,14 +69,14 @@ export default function Dashboard() {
         {kpiData.map((kpi) => (
           <Card key={kpi.title} className="p-ds-16 text-center">
             <h3 className="text-lg font-bold">{kpi.title}</h3>
-            <p className="text-ds-xl text-ds-grey-900">{kpi.value}</p>
+            <p className="text-2xl text-ds-grey-900">{kpi.value}</p>
           </Card>
         ))}
       </div>
 
       <Card className="p-4 col-span-2 h-full">
         <div className="flex flex-col w-full h-full">
-          <h3 className="text-ds-lg font-bold mb-ds-8 text-center">
+          <h3 className="text-xl font-bold mb-ds-8 text-center">
             Revenue/MRR Trend
           </h3>
           <div className="w-full flex-grow">
@@ -101,7 +101,7 @@ export default function Dashboard() {
       {/* Card 3: Bar Chart - Monthly Comparison */}
       <Card className="p-ds-16 h-full">
         <div className="flex flex-col h-full">
-          <h3 className="text-ds-lg font-bold mb-2 text-center">
+          <h3 className="text-xl font-bold mb-2 text-center">
             New Clients & Projects
           </h3>
           <div className="w-full flex-grow">
@@ -122,7 +122,7 @@ export default function Dashboard() {
       {/* Card 4: Pie Chart - Employees Distribution */}
       <Card className="p-4 h-full">
         <div className="flex flex-col h-full">
-          <h3 className="text-ds-lg font-bold mb-ds-8 text-center">
+          <h3 className="text-xl font-bold mb-ds-8 text-center">
             Employees by Department
           </h3>
           <div className="w-full flex-grow">

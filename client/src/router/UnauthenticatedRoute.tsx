@@ -30,7 +30,7 @@ export const UnauthenticatedRoute = ({
     return (
       <div className="flex flex-col justify-center items-center gap-ds-16 h-[70vh]">
         <Spinner />
-        <p className="text-ds-base">Loading...</p>
+        <p className="text-base">Loading...</p>
       </div>
     );
   }

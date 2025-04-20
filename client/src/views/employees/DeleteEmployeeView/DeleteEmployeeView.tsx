@@ -72,7 +72,7 @@ export const DeleteEmployeeView = () => {
                     );
                   }}
                 >
-                  <p className="text-ds-lg">DELETE</p>
+                  <p className="text-xl">DELETE</p>
                 </button>
               </div>
             </SharedCard>

@@ -38,7 +38,7 @@ const SelectProjectForm = ({
     >
       <div className="flex flex-col md:flex-row justify-between">
         <div className="flex flex-col items-center justify-center bg-ds-white p-ds-20 rounded shadow-ds-2 h-fit w-ds-384">
-          <h1 className="text-ds-xl font-bold mb-ds-16">Select Project</h1>
+          <h1 className="text-2xl font-bold mb-ds-16">Select Project</h1>
           <CustomSelect label="Project ID" name="projectId">
             <option value="" className="text-center">
               -- Select project ID --
@@ -50,7 +50,7 @@ const SelectProjectForm = ({
             ))}
           </CustomSelect>
           <button type="submit" className="form-button mt-ds-20">
-            <p className="text-ds-lg">{buttonText}</p>
+            <p className="text-xl">{buttonText}</p>
           </button>
         </div>
       </div>

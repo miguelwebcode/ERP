@@ -13,7 +13,7 @@ export const LogoutButton = () => {
   return (
     <button className="logout-button" onClick={handleClick}>
       <div className="flex items-center text-ds-white">
-        <CiLogout className="text-ds-2xl " />
+        <CiLogout className="text-3xl " />
       </div>
     </button>
   );

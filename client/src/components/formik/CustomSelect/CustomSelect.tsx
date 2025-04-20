@@ -16,7 +16,7 @@ export const CustomSelect = ({
 
   return (
     <div className="flex flex-col w-full">
-      <label htmlFor={props.name} className="block text-ds-sm font-medium">
+      <label htmlFor={props.name} className="block text-sm font-medium">
         {label}
       </label>
       <select
@@ -30,7 +30,7 @@ export const CustomSelect = ({
         {children}
       </select>
       {meta.error && meta.touched && (
-        <div className="text-red-500 text-ds-sm text-left mt-ds-4">
+        <div className="text-red-500 text-sm text-left mt-ds-4">
           {meta.error}
         </div>
       )}

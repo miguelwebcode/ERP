@@ -13,7 +13,7 @@ body {
 }
 
 .info-message {
-  @apply font-bold text-ds-lg text-ds-grey-600 text-center;
+  @apply font-bold text-xl text-ds-grey-600 text-center;
 }
 
 .info-message > span {
