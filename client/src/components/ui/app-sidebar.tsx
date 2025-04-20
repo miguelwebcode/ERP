@@ -48,7 +48,7 @@ const items = [
 export function AppSidebar() {
   return (
     <Sidebar collapsible="icon">
-        <SidebarHeader>
+        <SidebarHeader className="hidden md:block">
             <SidebarTrigger/>
         </SidebarHeader>
       <SidebarContent>
