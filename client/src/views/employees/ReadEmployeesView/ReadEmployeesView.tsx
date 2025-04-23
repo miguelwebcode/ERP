@@ -7,9 +7,19 @@ import { NoEmployeesFoundMessage } from "../../../components/employees/NoEmploye
 
 export const ReadEmployeesView = () => {
   const [employees, setEmployees] = useState<Employee[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
-    fetchAllEmployees(setEmployees);
+    fetchAllEmployees((fetchedEmployees) => {
+      setEmployees(fetchedEmployees);
+      setIsLoading(false);
+    });
   }, []);
+
+  if (isLoading) {
+    return null;
+  }
+
   return (
     <>
       {employees.length ? (

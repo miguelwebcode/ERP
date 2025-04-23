@@ -15,6 +15,8 @@ import { NoEmployeesFoundMessage } from "../../../components/employees/NoEmploye
 
 export const DeleteEmployeeView = () => {
   const [employees, setEmployees] = useState<Employee[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
   const selectedEmployeeId = useAppStore((state) => state.selectedEmployeeId);
   const [selectedEmployee, setSelectedEmployee] = useState<Employee>(
     {} as Employee
@@ -29,8 +31,10 @@ export const DeleteEmployeeView = () => {
   useEffect(() => {
     if (isFirstRender.current) {
       setSelectedEmployeeId("");
-      fetchAllEmployees(setEmployees);
-
+      fetchAllEmployees((fetchedEmployees) => {
+        setEmployees(fetchedEmployees);
+        setIsLoading(false);
+      });
       isFirstRender.current = false;
     }
     if (selectedEmployeeId) {
@@ -50,6 +54,10 @@ export const DeleteEmployeeView = () => {
       alert("Error getting employee!");
     }
   };
+
+  if (isLoading) {
+    return null;
+  }
 
   return (
     <>

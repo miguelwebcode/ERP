@@ -14,7 +14,8 @@ import { fetchAllEmployees } from "../../../services/employees/service/employees
 
 export const EditEmployeeView = () => {
   const [employees, setEmployees] = useState<Employee[]>([]);
-  const [isRenderDone, setIsRenderDone] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
   const selectedEmployeeId = useAppStore((state) => state.selectedEmployeeId);
 
   const setSelectedEmployeeId = useAppStore(
@@ -23,8 +24,10 @@ export const EditEmployeeView = () => {
 
   useEffect(() => {
     setSelectedEmployeeId("");
-    fetchAllEmployees(setEmployees);
-    setIsRenderDone(true);
+    fetchAllEmployees((fetchedEmployees) => {
+      setEmployees(fetchedEmployees);
+      setIsLoading(false);
+    });
   }, []);
 
   const handleSubmit = async (
@@ -39,9 +42,14 @@ export const EditEmployeeView = () => {
       alert("Error getting employee!");
     }
   };
+
+  if (isLoading) {
+    return null;
+  }
+
   return (
     <>
-      {employees.length && isRenderDone ? (
+      {employees.length ? (
         <div className="flex flex-col gap-8 justify-center px-5">
           <SelectEmployeeForm buttonText="GET DATA" onSubmit={handleSubmit} />
           <EmployeeForm
