@@ -21,6 +21,9 @@ export type AppStore = AppState & AppActions;
 export const useAppStore = create<AppStore>()(
   devtools((set) => ({
     user: null,
+    selectedCustomerId: "",
+    selectedProjectId: "",
+    selectedEmployeeId: "",
     setUser: (user) => {
       set(() => ({
         user,
