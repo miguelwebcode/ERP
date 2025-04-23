@@ -14,8 +14,8 @@ import { NoCustomersFoundMessage } from "../../../components/customers/NoCustome
 
 export const EditCustomerView = () => {
   const [customers, setCustomers] = useState<Customer[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const [isRenderDone, setIsRenderDone] = useState(false);
   const selectedCustomerId = useAppStore((state) => state.selectedCustomerId);
 
   const setSelectedCustomerId = useAppStore(
@@ -24,9 +24,15 @@ export const EditCustomerView = () => {
 
   useEffect(() => {
     setSelectedCustomerId("");
-    fetchAllCustomers(setCustomers);
-    setIsRenderDone(true);
+    fetchAllCustomers((fetchedCustomers) => {
+      setCustomers(fetchedCustomers);
+      setIsLoading(false);
+    });
   }, []);
+
+  if (isLoading) {
+    return null;
+  }
 
   const handleSubmit = async (
     values: SelectCustomerFormValues,
@@ -42,7 +48,7 @@ export const EditCustomerView = () => {
   };
   return (
     <>
-      {customers.length && isRenderDone ? (
+      {customers.length ? (
         <div className="flex flex-col gap-8 justify-center px-5">
           <SelectCustomerForm buttonText="GET DATA" onSubmit={handleSubmit} />
           <CustomerForm

@@ -15,6 +15,7 @@ import { NoCustomersFoundMessage } from "../../../components/customers/NoCustome
 
 export const DeleteCustomerView = () => {
   const [customers, setCustomers] = useState<Customer[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const selectedCustomerId = useAppStore((state) => state.selectedCustomerId);
   const [selectedCustomer, setSelectedCustomer] = useState<Customer>(
@@ -30,8 +31,10 @@ export const DeleteCustomerView = () => {
   useEffect(() => {
     if (isFirstRender.current) {
       setSelectedCustomerId("");
-      fetchAllCustomers(setCustomers);
-
+      fetchAllCustomers((fetchedCustomers) => {
+        setCustomers(fetchedCustomers);
+        setIsLoading(false);
+      });
       isFirstRender.current = false;
     }
     if (selectedCustomerId) {
@@ -51,6 +54,10 @@ export const DeleteCustomerView = () => {
       alert("Error getting customer!");
     }
   };
+
+  if (isLoading) {
+    return null;
+  }
 
   return (
     <>

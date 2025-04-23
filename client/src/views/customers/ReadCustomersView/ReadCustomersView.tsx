@@ -7,9 +7,19 @@ import { NoCustomersFoundMessage } from "../../../components/customers/NoCustome
 
 export const ReadCustomersView = () => {
   const [customers, setCustomers] = useState<Customer[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
-    fetchAllCustomers(setCustomers);
+    fetchAllCustomers((fetchedCustomers) => {
+      setCustomers(fetchedCustomers);
+      setIsLoading(false);
+    });
   }, []);
+
+  if (isLoading) {
+    return null;
+  }
+
   return (
     <>
       {customers.length ? (
