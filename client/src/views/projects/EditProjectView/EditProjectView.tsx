@@ -14,8 +14,8 @@ import { NoProjectsFoundMessage } from "../../../components/projects/NoProjectsF
 
 export const EditProjectView = () => {
   const [projects, setProjects] = useState<Project[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const [isRenderDone, setIsRenderDone] = useState(false);
   const selectedProjectId = useAppStore((state) => state.selectedProjectId);
 
   const setSelectedProjectId = useAppStore(
@@ -24,9 +24,10 @@ export const EditProjectView = () => {
 
   useEffect(() => {
     setSelectedProjectId("");
-    fetchAllProjects(setProjects);
-
-    setIsRenderDone(true);
+    fetchAllProjects((fetchedProjects) => {
+      setProjects(fetchedProjects);
+      setIsLoading(false);
+    });
   }, []);
 
   const handleSubmit = async (
@@ -42,9 +43,13 @@ export const EditProjectView = () => {
     }
   };
 
+  if (isLoading) {
+    return null;
+  }
+
   return (
     <>
-      {projects.length && isRenderDone ? (
+      {projects.length ? (
         <div className="flex flex-col gap-8 justify-center px-5">
           <SelectProjectForm buttonText="GET DATA" onSubmit={handleSubmit} />
           <ProjectForm

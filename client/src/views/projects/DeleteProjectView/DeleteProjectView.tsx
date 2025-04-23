@@ -15,6 +15,7 @@ import { NoProjectsFoundMessage } from "../../../components/projects/NoProjectsF
 
 export const DeleteProjectView = () => {
   const [projects, setProjects] = useState<Project[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedProject, setSelectedProject] = useState<Project>(
     {} as Project
   );
@@ -29,8 +30,10 @@ export const DeleteProjectView = () => {
   useEffect(() => {
     if (isFirstRender.current) {
       setSelectedProjectId("");
-      fetchAllProjects(setProjects);
-
+      fetchAllProjects((fetchedProjects) => {
+        setProjects(fetchedProjects);
+        setIsLoading(false);
+      });
       isFirstRender.current = false;
     }
     if (selectedProjectId) {
@@ -50,6 +53,11 @@ export const DeleteProjectView = () => {
       alert("Error getting project!");
     }
   };
+
+  if (isLoading) {
+    return null;
+  }
+
   return (
     <>
       {projects.length ? (
