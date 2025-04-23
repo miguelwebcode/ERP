@@ -51,9 +51,6 @@ const items = [
     },
   },
 ];
-/*
-    TODO: Add logout
-*/
 
 export function AppSidebar() {
   return (
