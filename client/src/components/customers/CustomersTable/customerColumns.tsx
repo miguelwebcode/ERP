@@ -44,7 +44,12 @@ const CustomerActions = ({ customer }: { customer: Customer }) => {
           </DropdownMenuContent>
         </DropdownMenu>
       );
-    },
+};
+
+export const customerColumns: ColumnDef<Customer>[] = [
+  {
+    id: "actions",
+    cell: ({ row }) => <CustomerActions customer={row.original} />,
   },
   {
     accessorKey: "id",
