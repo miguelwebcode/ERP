@@ -20,7 +20,7 @@ export default function Layout() {
   });
 
   useEffect(() => {
-    Cookies.set("sidebar_state", String(sidebarOpen)); // Guarda el estado actual en la cookie
+    Cookies.set("sidebar_state", String(sidebarOpen));
   }, [sidebarOpen]);
 
   const toggleSidebar = (isOpen: boolean) => {
