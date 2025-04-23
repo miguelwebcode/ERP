@@ -29,6 +29,8 @@ export const DeleteCustomerView = () => {
   const isFirstRender = useRef(true);
 
   useEffect(() => {
+    // Set customerId again
+    selectedCustomerId && setSelectedCustomerId(selectedCustomerId);
     if (isFirstRender.current) {
       setSelectedCustomerId("");
       fetchAllCustomers((fetchedCustomers) => {
