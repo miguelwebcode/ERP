@@ -30,9 +30,9 @@ export const setProjectFormValues = async (
         state: selectedProject.state,
         description: selectedProject.description,
         startDate: selectedProject.startDate,
-        customer: selectedProject.customer,
         endDate: selectedProject.endDate,
-        employee: selectedProject.employee,
+        customerId: selectedProject.customerId,
+        employeeId: selectedProject.employeeId,
       };
       formik.setValues(newValues);
     }
