@@ -23,11 +23,16 @@ export const EditEmployeeView = () => {
   );
 
   useEffect(() => {
-    setSelectedEmployeeId("");
     fetchAllEmployees((fetchedEmployees) => {
       setEmployees(fetchedEmployees);
       setIsLoading(false);
     });
+
+    selectedEmployeeId && setSelectedEmployeeId(selectedEmployeeId);
+
+    return () => {
+      setSelectedEmployeeId("");
+    };
   }, []);
 
   const handleSubmit = async (

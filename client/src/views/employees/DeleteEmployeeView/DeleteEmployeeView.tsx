@@ -29,8 +29,9 @@ export const DeleteEmployeeView = () => {
   const isFirstRender = useRef(true);
 
   useEffect(() => {
+    selectedEmployeeId && setSelectedEmployeeId(selectedEmployeeId);
+
     if (isFirstRender.current) {
-      setSelectedEmployeeId("");
       fetchAllEmployees((fetchedEmployees) => {
         setEmployees(fetchedEmployees);
         setIsLoading(false);
@@ -40,6 +41,10 @@ export const DeleteEmployeeView = () => {
     if (selectedEmployeeId) {
       fetchEmployee(selectedEmployeeId, setSelectedEmployee);
     }
+
+    return () => {
+      setSelectedEmployeeId("");
+    };
   }, [selectedEmployeeId]);
 
   const handleSubmit = async (
