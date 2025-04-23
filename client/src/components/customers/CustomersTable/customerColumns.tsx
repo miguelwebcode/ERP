@@ -10,12 +10,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useAppStore } from "@/stores/app-store";
+import { useNavigate } from "react-router-dom";
 
-export const customerColumns: ColumnDef<Customer>[] = [
-  {
-    id: "actions",
-    cell: ({ row }) => {
-      const customer = row.original;
+const CustomerActions = ({ customer }: { customer: Customer }) => {
+  const setSelectedCustomerId = useAppStore(
+    (state) => state.setSelectedCustomerId
+  );
+  const navigate = useNavigate();
 
       return (
         <DropdownMenu>
