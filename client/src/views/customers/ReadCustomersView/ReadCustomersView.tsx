@@ -3,7 +3,7 @@ import { fetchAllCustomers } from "../../../services/customers/service/customers
 import { Customer } from "../../../types";
 import { NoCustomersFoundMessage } from "../../../components/customers/NoCustomersFoundMessage/NoCustomersFoundMessage";
 import { DataTable } from "@/components/ui/data-table";
-import { customerColumns } from "@/components/customers/CustomersTable/customerColumns";
+import { customerColumns } from "@/components/customers/customerColumns/customerColumns";
 
 export const ReadCustomersView = () => {
   const [customers, setCustomers] = useState<Customer[]>([]);
