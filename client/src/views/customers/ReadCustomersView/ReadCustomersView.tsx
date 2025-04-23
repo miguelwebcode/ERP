@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { fetchAllCustomers } from "../../../services/customers/service/customersService";
 import { Customer } from "../../../types";
-import { CustomerCard } from "../../../components/customers/CustomerCard/CustomerCard";
-import { SharedCard } from "../../../components/ui/SharedCard/SharedCard";
 import { NoCustomersFoundMessage } from "../../../components/customers/NoCustomersFoundMessage/NoCustomersFoundMessage";
+import { DataTable } from "@/components/ui/data-table";
+import { customerColumns } from "@/components/customers/CustomersTable/customerColumns";
 
 export const ReadCustomersView = () => {
   const [customers, setCustomers] = useState<Customer[]>([]);
@@ -23,14 +23,8 @@ export const ReadCustomersView = () => {
   return (
     <>
       {customers.length ? (
-        <div className="flex justify-center flex-wrap gap-6 h-[80vh] overflow-y-auto">
-          {customers.map((customer, i) => {
-            return (
-              <SharedCard key={i}>
-                <CustomerCard customer={customer} />
-              </SharedCard>
-            );
-          })}
+        <div className="container mx-auto md:mx-10 py-10">
+          <DataTable columns={customerColumns} data={customers} />
         </div>
       ) : (
         <NoCustomersFoundMessage />
