@@ -23,11 +23,16 @@ export const EditCustomerView = () => {
   );
 
   useEffect(() => {
-    setSelectedCustomerId("");
     fetchAllCustomers((fetchedCustomers) => {
       setCustomers(fetchedCustomers);
       setIsLoading(false);
     });
+    // Set again so CustomerForm has correct value
+    selectedCustomerId && setSelectedCustomerId(selectedCustomerId);
+
+    return () => {
+      setSelectedCustomerId("");
+    };
   }, []);
 
   if (isLoading) {
@@ -54,7 +59,7 @@ export const EditCustomerView = () => {
           <CustomerForm
             titleText="EDIT CUSTOMER"
             submitButtonText="UPDATE"
-            canBeDisabled={true}
+            canBeDisabled={selectedCustomerId === ""}
             onSubmit={async (
               values: CustomerFormValues,
               formikHelpers: FormikHelpers<CustomerFormValues>
