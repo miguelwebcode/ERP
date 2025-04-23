@@ -23,11 +23,16 @@ export const EditProjectView = () => {
   );
 
   useEffect(() => {
-    setSelectedProjectId("");
     fetchAllProjects((fetchedProjects) => {
       setProjects(fetchedProjects);
       setIsLoading(false);
     });
+
+    selectedProjectId && setSelectedProjectId(selectedProjectId);
+
+    return () => {
+      setSelectedProjectId("");
+    };
   }, []);
 
   const handleSubmit = async (

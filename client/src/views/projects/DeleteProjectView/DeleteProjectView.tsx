@@ -28,8 +28,9 @@ export const DeleteProjectView = () => {
   const isFirstRender = useRef(true);
 
   useEffect(() => {
+    selectedProjectId && setSelectedProjectId(selectedProjectId);
+
     if (isFirstRender.current) {
-      setSelectedProjectId("");
       fetchAllProjects((fetchedProjects) => {
         setProjects(fetchedProjects);
         setIsLoading(false);
@@ -39,6 +40,10 @@ export const DeleteProjectView = () => {
     if (selectedProjectId) {
       fetchProject(selectedProjectId, setSelectedProject);
     }
+
+    return () => {
+      setSelectedProjectId("");
+    };
   }, [selectedProjectId]);
 
   const handleSubmit = async (
