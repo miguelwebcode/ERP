@@ -43,7 +43,12 @@ const CustomerActions = ({ customer }: { customer: Customer }) => {
         >
           <Edit className="mr-2 h-4 w-4" /> Edit customer
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
+            setSelectedCustomerId(customer.id);
+            navigate("/customers/delete");
+          }}
+        >
           <Trash className="mr-2 h-4 w-4" /> Delete customer
         </DropdownMenuItem>
       </DropdownMenuContent>
