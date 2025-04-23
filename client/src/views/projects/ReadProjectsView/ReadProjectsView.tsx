@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { Project } from "../../../types";
 import { fetchAllProjects } from "../../../services/projects/service/projectsService";
-import { ProjectCard } from "../../../components/projects/ProjectCard/ProjectCard";
-import { SharedCard } from "../../../components/ui/SharedCard/SharedCard";
 import { NoProjectsFoundMessage } from "../../../components/projects/NoProjectsFoundMessage.tsx/NoProjectsFoundMessage";
 import { projectColumns } from "@/components/projects/projectColumns/projectColumns";
 import { DataTable } from "@/components/ui/data-table";
