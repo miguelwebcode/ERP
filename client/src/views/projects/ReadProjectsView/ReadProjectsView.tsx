@@ -4,6 +4,8 @@ import { fetchAllProjects } from "../../../services/projects/service/projectsSer
 import { ProjectCard } from "../../../components/projects/ProjectCard/ProjectCard";
 import { SharedCard } from "../../../components/ui/SharedCard/SharedCard";
 import { NoProjectsFoundMessage } from "../../../components/projects/NoProjectsFoundMessage.tsx/NoProjectsFoundMessage";
+import { projectColumns } from "@/components/projects/projectColumns/projectColumns";
+import { DataTable } from "@/components/ui/data-table";
 
 export const ReadProjectsView = () => {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -23,12 +25,8 @@ export const ReadProjectsView = () => {
   return (
     <>
       {projects.length ? (
-        <div className="flex justify-center flex-wrap gap-6 h-[80vh] overflow-y-auto">
-          {projects.map((project, i) => (
-            <SharedCard key={i}>
-              <ProjectCard project={project} />
-            </SharedCard>
-          ))}
+        <div className="container mx-auto md:mx-10 py-10">
+          <DataTable columns={projectColumns} data={projects} />
         </div>
       ) : (
         <NoProjectsFoundMessage />
