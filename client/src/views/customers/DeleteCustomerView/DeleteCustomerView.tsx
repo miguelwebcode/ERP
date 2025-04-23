@@ -32,7 +32,6 @@ export const DeleteCustomerView = () => {
     // Set customerId again
     selectedCustomerId && setSelectedCustomerId(selectedCustomerId);
     if (isFirstRender.current) {
-      setSelectedCustomerId("");
       fetchAllCustomers((fetchedCustomers) => {
         setCustomers(fetchedCustomers);
         setIsLoading(false);
@@ -42,6 +41,10 @@ export const DeleteCustomerView = () => {
     if (selectedCustomerId) {
       fetchCustomer(selectedCustomerId, setSelectedCustomer);
     }
+
+    return () => {
+      setSelectedCustomerId("");
+    };
   }, [selectedCustomerId]);
 
   const handleSubmit = async (
