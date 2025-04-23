@@ -1,4 +1,10 @@
-import { Home, Users, FolderKanban, UserCircle, LucideLogOut } from "lucide-react"
+import {
+  Home,
+  Users,
+  FolderKanban,
+  UserCircle,
+  LucideLogOut,
+} from "lucide-react";
 
 import {
   Sidebar,
@@ -11,7 +17,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarTrigger,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
+import { logout } from "@/services/auth/service/authService";
 
 // Menu items.
 const items = [
@@ -37,10 +44,13 @@ const items = [
   },
   {
     title: "Logout",
-    url: "#",
+    url: "login",
     icon: LucideLogOut,
+    onClick: () => {
+      logout();
+    },
   },
-]
+];
 /*
     TODO: Add logout
 */
@@ -48,9 +58,9 @@ const items = [
 export function AppSidebar() {
   return (
     <Sidebar collapsible="icon">
-        <SidebarHeader className="hidden md:block">
-            <SidebarTrigger/>
-        </SidebarHeader>
+      <SidebarHeader className="hidden md:block">
+        <SidebarTrigger />
+      </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>FirERP</SidebarGroupLabel>
@@ -59,7 +69,7 @@ export function AppSidebar() {
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url}>
+                    <a href={item.url} onClick={item.onClick && item.onClick}>
                       <item.icon />
                       <span>{item.title}</span>
                     </a>
@@ -71,5 +81,5 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
     </Sidebar>
-  )
+  );
 }
