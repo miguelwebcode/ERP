@@ -9,7 +9,6 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import { db } from "../../../firebaseConfig";
-import { v4 as uuidv4 } from "uuid";
 import { FormikHelpers } from "formik";
 import { EmployeeFormValues } from "../../../types/form-values-types";
 import { formatDate } from "../..";
