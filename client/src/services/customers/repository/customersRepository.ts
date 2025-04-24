@@ -68,11 +68,13 @@ export const handleCreateCustomer = async (
   formikHelpers: FormikHelpers<CustomerFormValues>
 ) => {
   try {
-    await addDoc(collection(db, "customers"), {
+    const docRef = await addDoc(collection(db, "customers"), {
       ...values,
       createdAt: formatDate(new Date()),
-      id: `C-${uuidv4().slice(0, 8)}`,
     });
+
+    await updateDoc(docRef, { id: docRef.id });
+
     toast.success("Customer created");
     formikHelpers.resetForm();
   } catch (error) {

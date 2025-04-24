@@ -63,11 +63,13 @@ export const handleCreateProject = async (
   formikHelpers: FormikHelpers<ProjectFormValues>
 ) => {
   try {
-    await addDoc(collection(db, "projects"), {
+    const docRef = await addDoc(collection(db, "projects"), {
       ...values,
       createdAt: formatDate(new Date()),
-      id: `P-${uuidv4().slice(0, 8)}`,
     });
+
+    await updateDoc(docRef, { id: docRef.id });
+
     toast.success("Project created");
     formikHelpers.resetForm();
   } catch (error) {

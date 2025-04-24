@@ -68,11 +68,13 @@ export const handleCreateEmployee = async (
   formikHelpers: FormikHelpers<EmployeeFormValues>
 ) => {
   try {
-    await addDoc(collection(db, "employees"), {
+    const docRef = await addDoc(collection(db, "employees"), {
       ...values,
       createdAt: formatDate(new Date()),
-      id: `E-${uuidv4().slice(0, 8)}`,
     });
+
+    await updateDoc(docRef, { id: docRef.id });
+
     toast.success("Employee created");
     formikHelpers.resetForm();
   } catch (error) {
