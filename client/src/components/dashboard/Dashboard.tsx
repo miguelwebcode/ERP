@@ -1,4 +1,12 @@
+import { fetchCustomerIds } from "@/services/customers/service/customersService";
+import {
+  fetchEmployeeIds,
+  countEmployeesByRole,
+} from "@/services/employees/service/employeesService";
+import { fetchProjectIds } from "@/services/projects/service/projectsService";
+import { Employee } from "@/types";
 import Card from "@mui/material/Card";
+import { useEffect, useState } from "react";
 
 import {
   LineChart,
@@ -15,13 +23,6 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-
-const kpiData = [
-  { title: "Total Clients", value: 1200 },
-  { title: "Active Projects", value: 45 },
-  { title: "Total Employees", value: 300 },
-  { title: "Monthly Revenue (MRR)", value: "$150K" },
-];
 
 const revenueTrend = [
   { month: "Jan", revenue: 100 },
@@ -52,20 +53,44 @@ const newClientsProjects = [
   { month: "Nov", clients: 100, projects: 50 },
   { month: "Dec", clients: 120, projects: 62 },
 ];
-const employeesByDepartment = [
-  { name: "Engineering", value: 120 },
-  { name: "Sales", value: 80 },
-  { name: "HR", value: 50 },
-  { name: "Marketing", value: 30 },
-  { name: "Support", value: 20 },
-];
 
 const colors = ["#8884d8", "#82ca9d", "#ffc658", "#ff8042", "#0088FE"];
 
 export default function Dashboard() {
+  const [employees, setEmployees] = useState<string[]>([]);
+  const [customers, setCustomers] = useState<string[]>([]);
+  const [projects, setProjects] = useState<string[]>([]);
+  const [employeesByRole, setEmployeesByRole] = useState<
+    { name: string; value: number }[]
+  >([]);
+
+  useEffect(() => {
+    fetchEmployeeIds(setEmployees);
+    fetchCustomerIds(setCustomers);
+    fetchProjectIds(setProjects);
+
+    // Actualiza employeesByRole
+    countEmployeesByRole((roleCounts) => {
+      const formattedRoles = Object.entries(roleCounts).map(
+        ([name, value]) => ({
+          name,
+          value,
+        })
+      );
+      setEmployeesByRole(formattedRoles);
+    });
+  }, []);
+
+  const kpiData = [
+    { title: "Total Clients", value: customers.length },
+    { title: "Active Projects", value: projects.length },
+    { title: "Total Employees", value: employees.length },
+    // { title: "Monthly Revenue (MRR)", value: "$150K" },
+  ];
+
   return (
     <div className="grid grid-cols-2 gap-4 p-4 grid-rows-[auto,30vh,30vh]">
-      <div className="col-span-2 grid grid-cols-4 gap-4">
+      <div className="col-span-2 grid grid-cols-3 gap-4">
         {kpiData.map((kpi) => (
           <Card key={kpi.title} className="p-4 text-center">
             <h3 className="text-lg font-bold">{kpi.title}</h3>
@@ -129,17 +154,16 @@ export default function Dashboard() {
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
-                  data={employeesByDepartment}
+                  data={employeesByRole}
                   dataKey="value"
                   nameKey="name"
                   cx="50%"
                   cy="50%"
                   outerRadius="80%"
                 >
-                  {employeesByDepartment.map((entry, index) => (
+                  {employeesByRole.map((entry, index) => (
                     <Cell key={index} fill={colors[index % colors.length]} />
                   ))}
-                  <Cell fill="bg-" />
                 </Pie>
                 <Legend />
                 <Tooltip />

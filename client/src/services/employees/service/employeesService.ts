@@ -75,3 +75,22 @@ export const handleDeleteEmployee = async (
     console.error("Error deleting employee: ", error);
   }
 };
+
+export const countEmployeesByRole = async (
+  callback: (roleCounts: Record<string, number>) => void
+) => {
+  try {
+    const employees = await getAllEmployees();
+    const typedEmployees = employees!.map((doc) => doc as Employee); // Asegura que los datos sean del tipo Employee
+    const roleCounts = typedEmployees.reduce(
+      (acc: Record<string, number>, employee: Employee) => {
+        acc[employee.role] = (acc[employee.role] || 0) + 1;
+        return acc;
+      },
+      {}
+    );
+    callback(roleCounts);
+  } catch (error) {
+    console.error("Error counting employees by role: ", error);
+  }
+};
