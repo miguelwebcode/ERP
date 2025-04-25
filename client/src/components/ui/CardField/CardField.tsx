@@ -8,7 +8,7 @@ type CardFieldProps = {
 
 export const CardField = ({ label, value, Icon }: CardFieldProps) => {
   return (
-    <div className="flex flex-col ">
+    <div className="flex flex-col">
       <div className="flex gap-2 items-start">
         {Icon && (
           <div>
@@ -19,7 +19,7 @@ export const CardField = ({ label, value, Icon }: CardFieldProps) => {
           {label}
         </label>
       </div>
-      <span data-testid={label} className="text-md">
+      <span data-testid={label} className="text-md truncate" title={value}>
         {value}
       </span>
     </div>
