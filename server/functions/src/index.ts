@@ -55,3 +55,32 @@ export const createStripeCustomer = onCall(
     return { customerId: customer.id };
   }
 );
+
+export const createCheckoutSession = onCall(
+  { region: "europe-west1" },
+  async (request) => {
+    const { customerId, priceId, mode, projectId } = request.data as {
+      customerId: string;
+      priceId: string;
+      mode: "payment" | "subscription";
+      projectId: string;
+    };
+
+    if (!customerId || !priceId || !mode || !projectId) {
+      throw new HttpsError("invalid-argument", "Faltan parámetros");
+    }
+
+    // Genera la sesión de Checkout en Stripe
+    const session = await stripe.checkout.sessions.create({
+      customer: customerId,
+      mode,
+      line_items: [{ price: priceId, quantity: 1 }],
+      client_reference_id: projectId,
+      success_url: `${request.rawRequest.headers.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${request.rawRequest.headers.origin}/cancel`,
+      metadata: { projectId },
+    });
+
+    return { sessionId: session.id };
+  }
+);
