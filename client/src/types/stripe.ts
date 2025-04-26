@@ -8,3 +8,7 @@ export type CheckoutSessionData = {
 export type CheckoutSessionResponse = {
   sessionId: string;
 };
+
+export type CheckoutSessionDetailsData = {
+  sessionId: string;
+};
