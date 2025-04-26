@@ -23,6 +23,8 @@ import { DeleteEmployeeView } from "../views/employees/DeleteEmployeeView/Delete
 import EditEmployeeView from "../views/employees/EditEmployeeView/EditEmployeeView";
 import { EmployeesView } from "../views/employees/EmployeesView/EmployeesView";
 import { ReadEmployeesView } from "../views/employees/ReadEmployeesView/ReadEmployeesView";
+import { SuccessView } from "@/views/stripe/SuccessView";
+import { CancelView } from "@/views/stripe/CancelView";
 
 export default function AppRouter() {
   return (
@@ -35,6 +37,8 @@ export default function AppRouter() {
           </Route>
           <Route element={<ProtectedRoute />}>
             <Route index element={<HomeView />} />
+            <Route path="/success" element={<SuccessView />} />
+            <Route path="/cancel" element={<CancelView />} />
             <Route element={<CustomersLayout />}>
               <Route path="/customers" element={<CustomersView />} />
               <Route path="/customers/add" element={<AddCustomerView />} />
