@@ -1,4 +1,7 @@
-import { createCheckoutSession } from "../repository/stripeRepository";
+import {
+  createCheckoutSession,
+  getCheckoutSessionDetails,
+} from "../repository/stripeRepository";
 import { loadStripe } from "@stripe/stripe-js";
 
 export async function startSubscription(priceId: string, projectId: string) {
@@ -20,4 +23,9 @@ export async function startSubscription(priceId: string, projectId: string) {
   });
 
   if (error) console.error("Error en Stripe Checkout:", error.message);
+}
+
+export async function fetchCheckoutSession(sessionId: string) {
+  const { data } = await getCheckoutSessionDetails({ sessionId });
+  return data;
 }
