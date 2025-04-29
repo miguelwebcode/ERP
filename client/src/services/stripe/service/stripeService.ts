@@ -2,6 +2,7 @@ import { ListStripeProductsResponse } from "@/types/stripe-types";
 import {
   createCheckoutSession,
   getCheckoutSessionDetails,
+  listStripeProducts,
 } from "../repository/stripeRepository";
 import { loadStripe } from "@stripe/stripe-js";
 
@@ -15,7 +16,7 @@ export async function startProductCheckout(
     priceId,
     projectId,
     origin: window.location.origin,
-    mode: "subscription",
+    mode: mode,
   });
   const stripe = await loadStripe(
     "pk_test_51QhoysGAhUu396a0ioozYYafvj55TO6Uo8JuUXAAzlLu25XhlyQ6Vf5YAInIrGa0kJ9YszitKyfhKItUs9wBVBGY00s4OGn9Ym"
@@ -32,5 +33,10 @@ export async function startProductCheckout(
 
 export async function fetchCheckoutSession(sessionId: string) {
   const { data } = await getCheckoutSessionDetails({ sessionId });
+  return data;
+}
+
+export async function fetchStripeProducts(): Promise<ListStripeProductsResponse> {
+  const { data } = await listStripeProducts();
   return data;
 }
