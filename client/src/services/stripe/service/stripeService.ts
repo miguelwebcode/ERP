@@ -5,7 +5,11 @@ import {
 } from "../repository/stripeRepository";
 import { loadStripe } from "@stripe/stripe-js";
 
-export async function startSubscription(priceId: string, projectId: string) {
+export async function startProductCheckout(
+  priceId: string,
+  projectId: string,
+  mode: "subscription" | "payment"
+) {
   const fn = createCheckoutSession;
   const { data } = await fn({
     priceId,
