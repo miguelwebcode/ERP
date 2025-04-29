@@ -25,6 +25,7 @@ import { EmployeesView } from "../views/employees/EmployeesView/EmployeesView";
 import { ReadEmployeesView } from "../views/employees/ReadEmployeesView/ReadEmployeesView";
 import { SuccessView } from "@/views/stripe/SuccessView";
 import { CancelView } from "@/views/stripe/CancelView";
+import { StripeProductsView } from "@/views/stripe/StripeProductsView";
 
 export default function AppRouter() {
   return (
@@ -39,6 +40,7 @@ export default function AppRouter() {
             <Route index element={<HomeView />} />
             <Route path="/success" element={<SuccessView />} />
             <Route path="/cancel" element={<CancelView />} />
+            <Route path="/stripe/products" element={<StripeProductsView />} />
             <Route element={<CustomersLayout />}>
               <Route path="/customers" element={<CustomersView />} />
               <Route path="/customers/add" element={<AddCustomerView />} />
