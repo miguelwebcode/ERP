@@ -36,7 +36,7 @@ export const stripeWebhook = functions
             currentPeriodEnd: data.current_period_end * 1000,
             amount: data.items.data[0].price.unit_amount,
             interval: data.items.data[0].price.recurring.interval,
-            createdAt: admin.firestore.FieldValue.serverTimestamp(),
+            createdAt: admin.firestore.Timestamp.now().toMillis(),
           });
         break;
 
@@ -73,7 +73,7 @@ export const stripeWebhook = functions
           projectId: data.metadata.projectId,
           stripePaymentIntentId: data.id,
           amount: data.amount,
-          createdAt: admin.firestore.FieldValue.serverTimestamp(),
+          createdAt: admin.firestore.Timestamp.now().toMillis(),
         });
         break;
 
