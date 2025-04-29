@@ -1,6 +1,7 @@
 import { ListStripeProductsResponse } from "@/types/stripe-types";
 import {
   createCheckoutSession,
+  createCustomerPortal,
   getCheckoutSessionDetails,
   listStripeProducts,
 } from "../repository/stripeRepository";
@@ -40,3 +41,9 @@ export async function fetchStripeProducts(): Promise<ListStripeProductsResponse>
   const { data } = await listStripeProducts();
   return data;
 }
+
+export const openCustomerPortal = async () => {
+  const returnUrl = window.location.origin;
+  const { data } = await createCustomerPortal({ returnUrl });
+  window.location.assign(data.url);
+};
