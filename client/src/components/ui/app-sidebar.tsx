@@ -53,7 +53,7 @@ const items = [
   },
   {
     title: "Logout",
-    url: "login",
+    url: "/login",
     icon: LucideLogOut,
     onClick: () => {
       logout();
