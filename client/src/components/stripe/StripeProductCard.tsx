@@ -2,11 +2,17 @@ import { getCurrencySymbol } from "@/lib/utils";
 import { startProductCheckout } from "@/services/stripe/service/stripeService";
 import { StripePriceDetails } from "@/types/stripe-types";
 
-type StripeProductCardProps = { name: string; price: StripePriceDetails };
+type StripeProductCardProps = {
+  name: string;
+  price: StripePriceDetails;
+  selectedProjectId: string;
+};
 
-export const StripeProductCard = ({ name, price }: StripeProductCardProps) => {
-  const projectId = "ThRZCXIv8nsnhqbE3QSx";
-
+export const StripeProductCard = ({
+  name,
+  price,
+  selectedProjectId,
+}: StripeProductCardProps) => {
   const handleCheckout = async (
     priceId: string,
     projectId: string,
@@ -34,7 +40,7 @@ export const StripeProductCard = ({ name, price }: StripeProductCardProps) => {
       <button
         className="bg-blue-500 text-white font-semibold py-2 px-4 w-full rounded hover:bg-blue-600 transition duration-300"
         onClick={() => {
-          handleCheckout(price.priceId, projectId, price.type);
+          handleCheckout(price.priceId, selectedProjectId, price.type);
         }}
       >
         PAY
