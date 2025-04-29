@@ -20,7 +20,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarMenuSub,
-  SidebarMenuSubItem,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { logout } from "@/services/auth/service/authService";
@@ -83,16 +82,16 @@ export function AppSidebar() {
                 <CollapsibleContent>
                   <SidebarMenuSub>
                     <a href="/stripe/products">
-                      <SidebarMenuSubItem className="flex items-center">
-                        <Box className="w-5 h-5 mr-2" />
+                      <SidebarMenuButton>
+                        <Box />
                         Products
-                      </SidebarMenuSubItem>
+                      </SidebarMenuButton>
                     </a>
                     <a href="/stripe/portal">
-                      <SidebarMenuSubItem className="flex items-center">
-                        <Globe className="w-5 h-5 mr-2" />
+                      <SidebarMenuButton>
+                        <Globe />
                         Portal
-                      </SidebarMenuSubItem>
+                      </SidebarMenuButton>
                     </a>
                   </SidebarMenuSub>
                 </CollapsibleContent>
