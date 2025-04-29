@@ -3,9 +3,10 @@ import { FormikHelpers } from "formik";
 import { selectCustomerFormValidationSchema } from "../../../schemas";
 import { CustomSelect } from "../../formik/CustomSelect/CustomSelect";
 import SharedForm from "../../formik/SharedForm/SharedForm";
-import { fetchCustomerIds } from "../../../services/customers/service/customersService";
+import { fetchAllCustomers } from "../../../services/customers/service/customersService";
 import { SelectCustomerFormValues } from "../../../types/form-values-types";
 import { useAppStore } from "../../../stores/app-store";
+import { Customer } from "@/types";
 
 type SelectCustomerForm = {
   buttonText: string;
@@ -19,7 +20,7 @@ const SelectCustomerForm = ({
   buttonText,
   onSubmit: handleSubmit,
 }: SelectCustomerForm) => {
-  const [customerIds, setCustomerIds] = useState<string[]>([]);
+  const [customers, setCustomers] = useState<Customer[]>([]);
 
   const selectedCustomerId = useAppStore((state) => state.selectedCustomerId);
 
@@ -28,7 +29,7 @@ const SelectCustomerForm = ({
   };
 
   useEffect(() => {
-    fetchCustomerIds(setCustomerIds);
+    fetchAllCustomers(setCustomers);
   }, [selectedCustomerId]);
 
   return (
@@ -44,9 +45,9 @@ const SelectCustomerForm = ({
             <option value="" className="text-center">
               -- Select customer ID --
             </option>
-            {customerIds.map((id, index) => (
-              <option key={index} value={id}>
-                {id}
+            {customers.map((customer, index) => (
+              <option key={index} value={customer.id}>
+                {`${customer.name}: ${customer.id}`}
               </option>
             ))}
           </CustomSelect>

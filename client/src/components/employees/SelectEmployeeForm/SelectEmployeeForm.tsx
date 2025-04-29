@@ -3,9 +3,10 @@ import { FormikHelpers } from "formik";
 import { selectEmployeeFormValidationSchema } from "../../../schemas";
 import { CustomSelect } from "../../formik/CustomSelect/CustomSelect";
 import SharedForm from "../../formik/SharedForm/SharedForm";
-import { fetchEmployeeIds } from "../../../services/employees/service/employeesService";
+import { fetchAllEmployees } from "../../../services/employees/service/employeesService";
 import { SelectEmployeeFormValues } from "../../../types/form-values-types";
 import { useAppStore } from "../../../stores/app-store";
+import { Employee } from "@/types";
 
 type SelectEmployeeForm = {
   buttonText: string;
@@ -19,7 +20,7 @@ const SelectEmployeeForm = ({
   buttonText,
   onSubmit: handleSubmit,
 }: SelectEmployeeForm) => {
-  const [employeeIds, setEmployeeIds] = useState<string[]>([]);
+  const [employees, setEmployees] = useState<Employee[]>([]);
 
   const selectedEmployeeId = useAppStore((state) => state.selectedEmployeeId);
 
@@ -28,7 +29,7 @@ const SelectEmployeeForm = ({
   };
 
   useEffect(() => {
-    fetchEmployeeIds(setEmployeeIds);
+    fetchAllEmployees(setEmployees);
   }, [selectedEmployeeId]);
 
   return (
@@ -44,9 +45,9 @@ const SelectEmployeeForm = ({
             <option value="" className="text-center">
               -- Select employee ID --
             </option>
-            {employeeIds.map((id, index) => (
-              <option key={index} value={id}>
-                {id}
+            {employees.map((employee, index) => (
+              <option key={index} value={employee.id}>
+                {`${employee.name}: ${employee.id}`}
               </option>
             ))}
           </CustomSelect>
