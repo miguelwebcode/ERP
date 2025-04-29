@@ -48,25 +48,27 @@ export const StripeProductsView = () => {
     }
   };
 
-  if (isLoading) {
-    return <p>Loading Stripe Products...</p>;
-  }
   return (
     <>
       <SelectProjectForm buttonText="SUBMIT" onSubmit={handleSubmit} />
-      <div className="flex flex-wrap justify-center gap-3 mt-5">
-        {selectedProjectId &&
-          products.map((product) => {
-            const firstPrice = product.prices[0];
-            return (
-              <StripeProductCard
-                name={product.name}
-                price={firstPrice}
-                selectedProjectId={selectedProjectId}
-              />
-            );
-          })}
-      </div>
+      {selectedProjectId && isLoading ? (
+        <p>Loading Stripe Products...</p>
+      ) : (
+        <div className="flex flex-wrap justify-center gap-3 mt-5">
+          {selectedProjectId &&
+            products.map((product, index) => {
+              const firstPrice = product.prices[0];
+              return (
+                <StripeProductCard
+                  key={index}
+                  name={product.name}
+                  price={firstPrice}
+                  selectedProjectId={selectedProjectId}
+                />
+              );
+            })}
+        </div>
+      )}
     </>
   );
 };
