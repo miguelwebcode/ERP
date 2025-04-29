@@ -1,11 +1,21 @@
+import SelectProjectForm from "@/components/projects/SelectProjectForm/SelectProjectForm";
 import { StripeProductCard } from "@/components/stripe/StripeProductCard";
 import { fetchStripeProducts } from "@/services/stripe/service/stripeService";
+import { useAppStore } from "@/stores/app-store";
+import { SelectProjectFormValues } from "@/types/form-values-types";
 import { StripeProduct } from "@/types/stripe-types";
+import { FormikHelpers } from "formik";
 import { useEffect, useState } from "react";
 
 export const StripeProductsView = () => {
   const [products, setProducts] = useState<StripeProduct[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const selectedProjectId = useAppStore((state) => state.selectedProjectId);
+
+  const setSelectedProjectId = useAppStore(
+    (state) => state.setSelectedProjectId
+  );
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -19,18 +29,43 @@ export const StripeProductsView = () => {
       }
     };
     fetchProducts();
+
+    return () => {
+      setSelectedProjectId("");
+    };
   }, []);
+
+  const handleSubmit = async (
+    values: SelectProjectFormValues,
+    formikHelpers: FormikHelpers<SelectProjectFormValues>
+  ) => {
+    try {
+      setSelectedProjectId(values.projectId);
+      formikHelpers.resetForm();
+    } catch (error) {
+      console.error("Error getting project: ", error);
+      alert("Error getting project!");
+    }
+  };
 
   if (isLoading) {
     return <p>Loading Stripe Products...</p>;
   }
   return (
     <>
-      <div className="flex flex-wrap justify-center gap-3">
-        {products.map((product) => {
-          const firstPrice = product.prices[0];
-          return <StripeProductCard name={product.name} price={firstPrice} />;
-        })}
+      <SelectProjectForm buttonText="SUBMIT" onSubmit={handleSubmit} />
+      <div className="flex flex-wrap justify-center gap-3 mt-5">
+        {selectedProjectId &&
+          products.map((product) => {
+            const firstPrice = product.prices[0];
+            return (
+              <StripeProductCard
+                name={product.name}
+                price={firstPrice}
+                selectedProjectId={selectedProjectId}
+              />
+            );
+          })}
       </div>
     </>
   );
