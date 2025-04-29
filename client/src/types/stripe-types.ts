@@ -34,3 +34,11 @@ export type StripeProduct = {
 export type ListStripeProductsResponse = {
   products: StripeProduct[];
 };
+
+export type CustomerPortalData = {
+  returnUrl: string;
+};
+
+export type CustomerPortalResponse = {
+  url: string;
+};
