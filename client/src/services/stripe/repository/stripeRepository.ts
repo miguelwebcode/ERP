@@ -14,6 +14,11 @@ export const createCheckoutSession = httpsCallable<
 >(functions, "createCheckoutSession");
 
 export const getCheckoutSessionDetails = httpsCallable<
-  { sessionId: string },
+  CheckoutSessionDetailsData,
   Stripe.Checkout.Session
 >(functions, "getCheckoutSessionDetails");
+
+export const listStripeProducts = httpsCallable<
+  void,
+  ListStripeProductsResponse
+>(functions, "listStripeProducts");
