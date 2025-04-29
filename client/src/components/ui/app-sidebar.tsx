@@ -28,6 +28,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@radix-ui/react-collapsible";
+import { openCustomerPortal } from "@/services/stripe/service/stripeService";
 
 // Menu items.
 const items = [
@@ -87,7 +88,11 @@ export function AppSidebar() {
                         Products
                       </SidebarMenuButton>
                     </a>
-                    <a href="/stripe/portal">
+                    <a
+                      onClick={() => {
+                        openCustomerPortal();
+                      }}
+                    >
                       <SidebarMenuButton>
                         <Globe />
                         Portal
