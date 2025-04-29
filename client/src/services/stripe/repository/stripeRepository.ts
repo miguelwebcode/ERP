@@ -1,5 +1,10 @@
 import { functions } from "@/firebaseConfig";
-import { CheckoutSessionData, CheckoutSessionResponse } from "@/types/stripe";
+import {
+  CheckoutSessionData,
+  CheckoutSessionDetailsData,
+  CheckoutSessionResponse,
+  ListStripeProductsResponse,
+} from "@/types/stripe-types";
 import { httpsCallable } from "firebase/functions";
 import type Stripe from "stripe";
 

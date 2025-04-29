@@ -1,3 +1,4 @@
+import { ListStripeProductsResponse } from "@/types/stripe-types";
 import {
   createCheckoutSession,
   getCheckoutSessionDetails,
