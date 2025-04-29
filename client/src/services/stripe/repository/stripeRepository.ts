@@ -3,6 +3,8 @@ import {
   CheckoutSessionData,
   CheckoutSessionDetailsData,
   CheckoutSessionResponse,
+  CustomerPortalData,
+  CustomerPortalResponse,
   ListStripeProductsResponse,
 } from "@/types/stripe-types";
 import { httpsCallable } from "firebase/functions";
@@ -22,3 +24,8 @@ export const listStripeProducts = httpsCallable<
   void,
   ListStripeProductsResponse
 >(functions, "listStripeProducts");
+
+export const createCustomerPortal = httpsCallable<
+  CustomerPortalData,
+  CustomerPortalResponse
+>(functions, "createCustomerPortal");
