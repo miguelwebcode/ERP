@@ -4,6 +4,9 @@ import {
   FolderKanban,
   UserCircle,
   LucideLogOut,
+  DollarSign,
+  Box,
+  Globe,
 } from "lucide-react";
 
 import {
@@ -16,9 +19,16 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubItem,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { logout } from "@/services/auth/service/authService";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@radix-ui/react-collapsible";
 
 // Menu items.
 const items = [
@@ -61,6 +71,34 @@ export function AppSidebar() {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>FirERP</SidebarGroupLabel>
+          <SidebarMenu>
+            <Collapsible>
+              <SidebarMenuItem>
+                <CollapsibleTrigger asChild>
+                  <SidebarMenuButton>
+                    <DollarSign />
+                    Stripe
+                  </SidebarMenuButton>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <SidebarMenuSub>
+                    <a href="/stripe/products">
+                      <SidebarMenuSubItem className="flex items-center">
+                        <Box className="w-5 h-5 mr-2" />
+                        Products
+                      </SidebarMenuSubItem>
+                    </a>
+                    <a href="/stripe/portal">
+                      <SidebarMenuSubItem className="flex items-center">
+                        <Globe className="w-5 h-5 mr-2" />
+                        Portal
+                      </SidebarMenuSubItem>
+                    </a>
+                  </SidebarMenuSub>
+                </CollapsibleContent>
+              </SidebarMenuItem>
+            </Collapsible>
+          </SidebarMenu>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
