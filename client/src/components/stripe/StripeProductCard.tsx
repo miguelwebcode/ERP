@@ -1,4 +1,4 @@
-import { getCurrencySymbol } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils";
 import { startProductCheckout } from "@/services/stripe/service/stripeService";
 import { StripePriceDetails } from "@/types/stripe-types";
 
@@ -29,7 +29,7 @@ export const StripeProductCard = ({
     <div className="border flex flex-col items-center w-2/6 rounded-lg p-4 gap-3 shadow-md bg-white mb-4">
       <p className="text-lg font-bold mb-2">{name}</p>
       <p className="text-green-600 text-base mb-2">
-        {`${price.amount / 100}${getCurrencySymbol(price.currency)}`}{" "}
+        {`${formatCurrency(price.amount / 100, "EUR", "es-ES")}`}{" "}
         {price.type === "recurring" ? (
           <span className="text-sm text-gray-600">{`/ every ${price.recurring?.interval_count} ${price.recurring?.interval}s`}</span>
         ) : (
