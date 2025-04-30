@@ -42,3 +42,23 @@ export type CustomerPortalData = {
 export type CustomerPortalResponse = {
   url: string;
 };
+
+export type Subscription = {
+  createdAt: number;
+  currentPeriodEnd: number;
+  interval: "month" | "year";
+  amount: number;
+  latestInvoice: string;
+  projectId: string;
+  stripeCustomerId: string;
+  stripeSubscriptionId: string;
+  canceledAt?: number;
+  lastPaymentAt?: number;
+  updatedAt?: number;
+  status: string;
+};
+
+export type MrrMonth = {
+  month: string;
+  revenue: number;
+};
