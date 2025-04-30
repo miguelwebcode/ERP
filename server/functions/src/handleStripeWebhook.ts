@@ -41,17 +41,18 @@ export const stripeWebhook = functions
         break;
 
       case "customer.subscription.updated":
+        const updates: any = {
+          status: data.status,
+          currentPeriodEnd: data.current_period_end * 1000,
+          updatedAt: admin.firestore.Timestamp.now().toMillis(),
+        };
+        if (data.status === "canceled" || data.cancel_at_period_end) {
+          updates.canceledAt = admin.firestore.Timestamp.now().toMillis();
+        }
         await db
           .collection("subscriptions")
           .doc(data.id)
-          .set(
-            {
-              status: data.status,
-              currentPeriodEnd: data.current_period_end * 1000,
-              updatedAt: admin.firestore.Timestamp.now().toMillis(),
-            },
-            { merge: true }
-          );
+          .set(updates, { merge: true });
         break;
 
       case "invoice.payment_succeeded":
