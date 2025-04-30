@@ -62,21 +62,21 @@ export const Dashboard = () => {
   }, []);
 
   const kpiData = [
-    { title: "Customers", value: customers.length },
-    { title: "Projects", value: projects.length },
-    { title: "Employees", value: employees.length },
     {
       title: "Monthly Revenue",
       value: `${formatCurrency(
         mrr.find(
           (item) =>
-            item.month ===
+            item.month.slice(0, 3) ===
             new Date().toLocaleString("en-US", { month: "short" })
         )?.revenue || 0,
         "EUR",
         "es-ES"
       )}`,
     },
+    { title: "Customers", value: customers.length },
+    { title: "Projects", value: projects.length },
+    { title: "Employees", value: employees.length },
   ];
 
   return (
@@ -85,7 +85,7 @@ export const Dashboard = () => {
         {kpiData.map((kpi) => (
           <Card
             key={kpi.title}
-            className="p-4 flex flex-col justify-between items-center"
+            className="col-span-2 lg:col-span-1 p-4 flex flex-col justify-between items-center"
           >
             <h3 className="text-lg font-bold">{kpi.title}</h3>
             <p className="text-2xl text-ds-grey-900">{kpi.value}</p>
