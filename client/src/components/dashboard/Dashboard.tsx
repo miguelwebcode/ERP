@@ -4,7 +4,8 @@ import {
   countEmployeesByRole,
 } from "@/services/employees/service/employeesService";
 import { fetchProjectIds } from "@/services/projects/service/projectsService";
-import { Employee } from "@/types";
+import { fetchHistoricalMrr } from "@/services/subscriptions/service/subscriptionsService";
+import { MrrMonth } from "@/types";
 import Card from "@mui/material/Card";
 import { useEffect, useState } from "react";
 
@@ -24,21 +25,6 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const revenueTrend = [
-  { month: "Jan", revenue: 100 },
-  { month: "Feb", revenue: 120 },
-  { month: "Mar", revenue: 150 },
-  { month: "Apr", revenue: 140 },
-  { month: "May", revenue: 180 },
-  { month: "Jun", revenue: 210 },
-  { month: "Jul", revenue: 260 },
-  { month: "Aug", revenue: 280 },
-  { month: "Sep", revenue: 260 },
-  { month: "Oct", revenue: 270 },
-  { month: "Nov", revenue: 310 },
-  { month: "Dec", revenue: 380 },
-];
-
 const newClientsProjects = [
   { month: "Jan", clients: 30, projects: 10 },
   { month: "Feb", clients: 50, projects: 20 },
@@ -56,18 +42,26 @@ const newClientsProjects = [
 
 const colors = ["#8884d8", "#82ca9d", "#ffc658", "#ff8042", "#0088FE"];
 
-export default function Dashboard() {
+export const Dashboard = () => {
   const [employees, setEmployees] = useState<string[]>([]);
   const [customers, setCustomers] = useState<string[]>([]);
   const [projects, setProjects] = useState<string[]>([]);
   const [employeesByRole, setEmployeesByRole] = useState<
     { name: string; value: number }[]
   >([]);
+  const [mrr, setMrr] = useState<MrrMonth[]>([]);
+
+  const getMonthRevenues = async () => {
+    const mrr = await fetchHistoricalMrr();
+    setMrr(mrr);
+    console.log(mrr);
+  };
 
   useEffect(() => {
     fetchEmployeeIds(setEmployees);
     fetchCustomerIds(setCustomers);
     fetchProjectIds(setProjects);
+    getMonthRevenues();
 
     // Actualiza employeesByRole
     countEmployeesByRole((roleCounts) => {
@@ -85,12 +79,21 @@ export default function Dashboard() {
     { title: "Total Clients", value: customers.length },
     { title: "Active Projects", value: projects.length },
     { title: "Total Employees", value: employees.length },
-    // { title: "Monthly Revenue (MRR)", value: "$150K" },
+    {
+      title: "Monthly Revenue (MRR)",
+      value: `${
+        mrr.find(
+          (item) =>
+            item.month ===
+            new Date().toLocaleString("en-US", { month: "short" })
+        )?.revenue || 0
+      }€`,
+    },
   ];
 
   return (
     <div className="grid grid-cols-2 gap-4 p-4 grid-rows-[auto,30vh,30vh]">
-      <div className="col-span-2 grid grid-cols-3 gap-4">
+      <div className="col-span-2 grid grid-cols-4 gap-4">
         {kpiData.map((kpi) => (
           <Card key={kpi.title} className="p-4 text-center">
             <h3 className="text-lg font-bold">{kpi.title}</h3>
@@ -106,7 +109,7 @@ export default function Dashboard() {
           </h3>
           <div className="w-full flex-grow">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={revenueTrend}>
+              <LineChart data={mrr}>
                 <XAxis dataKey="month" />
                 <YAxis />
                 <Tooltip />
@@ -174,4 +177,6 @@ export default function Dashboard() {
       </Card>
     </div>
   );
-}
+};
+
+export default Dashboard;
