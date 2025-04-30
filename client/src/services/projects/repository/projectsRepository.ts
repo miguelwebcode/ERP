@@ -8,12 +8,14 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-import { db } from "../../../firebaseConfig";
+import { db, functions } from "../../../firebaseConfig";
 
 import { FormikHelpers } from "formik";
 import { ProjectFormValues } from "../../../types/form-values-types";
 import { formatDate } from "../..";
 import { toast } from "react-toastify";
+import { httpsCallable } from "firebase/functions";
+import { ActiveProjectsMonth } from "@/types";
 
 export const getAllProjects = async () => {
   const projectsCollection = collection(db, "projects");
@@ -126,3 +128,8 @@ export const deleteProjectById = async (projectId: string) => {
     console.error("Error deleting project: ", error);
   }
 };
+
+export const getActiveProjectsHistory = httpsCallable<
+  void,
+  ActiveProjectsMonth[]
+>(functions, "getActiveProjectsHistory");
