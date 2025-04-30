@@ -3,7 +3,7 @@ import { CustomersNavigationCard } from "../components/customers/CustomersNaviga
 
 export default function CustomersLayout() {
   return (
-    <div className="flex items-start h-[80vh] pt-4">
+    <div className="flex flex-col md:flex-row items-center md:items-start h-[80vh] pt-4 gap-4 ">
       <CustomersNavigationCard />
       <div className="flex flex-1 items-center justify-center">
         <Outlet />
