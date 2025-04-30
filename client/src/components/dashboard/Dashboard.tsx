@@ -1,12 +1,15 @@
-import { emplloyeesGraphColors } from "@/data";
+import { employeesGraphColors } from "@/data";
 import { fetchCustomerIds } from "@/services/customers/service/customersService";
 import {
   fetchEmployeeIds,
   countEmployeesByRole,
 } from "@/services/employees/service/employeesService";
-import { fetchProjectIds } from "@/services/projects/service/projectsService";
+import {
+  fetchActiveProjectsHistory,
+  fetchProjectIds,
+} from "@/services/projects/service/projectsService";
 import { fetchHistoricalMrr } from "@/services/subscriptions/service/subscriptionsService";
-import { MrrMonth } from "@/types";
+import { ActiveProjectsMonth, MrrMonth } from "@/types";
 import Card from "@mui/material/Card";
 import { useEffect, useState } from "react";
 
@@ -26,21 +29,6 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const newClientsProjects = [
-  { month: "Jan", clients: 30, projects: 10 },
-  { month: "Feb", clients: 50, projects: 20 },
-  { month: "Mar", clients: 70, projects: 30 },
-  { month: "Apr", clients: 65, projects: 28 },
-  { month: "May", clients: 80, projects: 40 },
-  { month: "Jun", clients: 75, projects: 35 },
-  { month: "Jul", clients: 95, projects: 48 },
-  { month: "Aug", clients: 85, projects: 42 },
-  { month: "Sep", clients: 90, projects: 45 },
-  { month: "Oct", clients: 105, projects: 55 },
-  { month: "Nov", clients: 100, projects: 50 },
-  { month: "Dec", clients: 120, projects: 62 },
-];
-
 export const Dashboard = () => {
   const [employees, setEmployees] = useState<string[]>([]);
   const [customers, setCustomers] = useState<string[]>([]);
@@ -49,11 +37,19 @@ export const Dashboard = () => {
     { name: string; value: number }[]
   >([]);
   const [mrr, setMrr] = useState<MrrMonth[]>([]);
+  const [activeProjects, setActiveProjects] = useState<ActiveProjectsMonth[]>(
+    []
+  );
 
   const getMonthRevenues = async () => {
     const mrr = await fetchHistoricalMrr();
     setMrr(mrr);
-    console.log(mrr);
+  };
+
+  const getActiveProjects = async () => {
+    const result = await fetchActiveProjectsHistory();
+    setActiveProjects(result);
+    console.log(result);
   };
 
   useEffect(() => {
@@ -61,6 +57,7 @@ export const Dashboard = () => {
     fetchCustomerIds(setCustomers);
     fetchProjectIds(setProjects);
     getMonthRevenues();
+    getActiveProjects();
 
     // Actualiza employeesByRole
     countEmployeesByRole((roleCounts) => {
@@ -75,11 +72,11 @@ export const Dashboard = () => {
   }, []);
 
   const kpiData = [
-    { title: "Total Clients", value: customers.length },
-    { title: "Total Projects", value: projects.length },
-    { title: "Total Employees", value: employees.length },
+    { title: "Customers", value: customers.length },
+    { title: "Projects", value: projects.length },
+    { title: "Employees", value: employees.length },
     {
-      title: "Monthly Revenue (MRR)",
+      title: "Monthly Revenue",
       value: `${
         mrr.find(
           (item) =>
@@ -91,17 +88,20 @@ export const Dashboard = () => {
   ];
 
   return (
-    <div className="grid grid-cols-2 gap-4 p-4 grid-rows-[auto,30vh,30vh]">
-      <div className="col-span-2 grid grid-cols-4 gap-4">
+    <div className="grid grid-cols-4 gap-4 p-4 grid-rows-[auto,30vh,30vh,30vh]">
+      <div className="col-span-4 grid grid-cols-4 gap-4">
         {kpiData.map((kpi) => (
-          <Card key={kpi.title} className="p-4 text-center">
+          <Card
+            key={kpi.title}
+            className="p-4 flex flex-col justify-between items-center"
+          >
             <h3 className="text-lg font-bold">{kpi.title}</h3>
             <p className="text-2xl text-ds-grey-900">{kpi.value}</p>
           </Card>
         ))}
       </div>
 
-      <Card className="p-4 col-span-2 h-full">
+      <Card className="p-4 col-span-4 h-full">
         <div className="flex flex-col w-full h-full">
           <h3 className="text-xl font-bold mb-2 text-center">
             Revenue/MRR Trend
@@ -126,20 +126,22 @@ export const Dashboard = () => {
       </Card>
 
       {/* Card 3: Bar Chart - Monthly Comparison */}
-      <Card className="p-4 h-full">
+      <Card className=" col-span-4 p-4 h-full">
         <div className="flex flex-col h-full">
           <h3 className="text-xl font-bold mb-2 text-center">
-            New Clients & Projects
+            Active Projects
           </h3>
           <div className="w-full flex-grow">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={newClientsProjects}>
+              <BarChart data={activeProjects}>
                 <XAxis dataKey="month" />
                 <YAxis />
                 <Tooltip />
-                <Legend />
-                <Bar dataKey="clients" fill="#8884d8" />
-                <Bar dataKey="projects" fill="#82ca9d" />
+                <Bar
+                  dataKey="activeCount"
+                  name="Active Projects"
+                  fill="#8884d8"
+                />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -147,7 +149,7 @@ export const Dashboard = () => {
       </Card>
 
       {/* Card 4: Pie Chart - Employees Distribution */}
-      <Card className="p-4 h-full">
+      <Card className="col-span-4 p-4 h-full">
         <div className="flex flex-col h-full">
           <h3 className="text-xl font-bold mb-2 text-center">
             Employees by Department
@@ -167,8 +169,8 @@ export const Dashboard = () => {
                     <Cell
                       key={index}
                       fill={
-                        emplloyeesGraphColors[
-                          index % emplloyeesGraphColors.length
+                        employeesGraphColors[
+                          index % employeesGraphColors.length
                         ]
                       }
                     />
