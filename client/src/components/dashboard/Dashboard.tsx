@@ -41,23 +41,12 @@ export const Dashboard = () => {
     []
   );
 
-  const getMonthRevenues = async () => {
-    const mrr = await fetchHistoricalMrr();
-    setMrr(mrr);
-  };
-
-  const getActiveProjects = async () => {
-    const result = await fetchActiveProjectsHistory();
-    setActiveProjects(result);
-    console.log(result);
-  };
-
   useEffect(() => {
     fetchEmployeeIds(setEmployees);
     fetchCustomerIds(setCustomers);
     fetchProjectIds(setProjects);
-    getMonthRevenues();
-    getActiveProjects();
+    fetchHistoricalMrr(setMrr);
+    fetchActiveProjectsHistory(setActiveProjects);
 
     // Actualiza employeesByRole
     countEmployeesByRole((roleCounts) => {
