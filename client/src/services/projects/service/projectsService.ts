@@ -1,5 +1,5 @@
 import { FormikProps } from "formik";
-import { Project } from "../../../types";
+import { ActiveProjectsMonth, Project } from "../../../types";
 import { ProjectFormValues } from "../../../types/form-values-types";
 import {
   getAllProjectIds,
@@ -65,7 +65,9 @@ export const fetchAllProjects = async (
   }
 };
 
-export const fetchActiveProjectsHistory = async () => {
+export const fetchActiveProjectsHistory = async (
+  callback: (value: ActiveProjectsMonth[]) => void
+) => {
   const { data } = await getActiveProjectsHistory();
-  return data;
+  callback(data);
 };

@@ -1,6 +1,9 @@
+import { MrrMonth } from "@/types";
 import { getHistoricalMrr } from "../repository/subscriptionsRepository";
 
-export const fetchHistoricalMrr = async () => {
+export const fetchHistoricalMrr = async (
+  callback: (value: MrrMonth[]) => void
+) => {
   const { data } = await getHistoricalMrr();
-  return data;
+  callback(data);
 };
