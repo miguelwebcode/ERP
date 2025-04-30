@@ -48,7 +48,7 @@ export const stripeWebhook = functions
             {
               status: data.status,
               currentPeriodEnd: data.current_period_end * 1000,
-              updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+              updatedAt: admin.firestore.Timestamp.now().toMillis(),
             },
             { merge: true }
           );
