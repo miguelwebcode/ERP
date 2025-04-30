@@ -1,4 +1,5 @@
 import { employeesGraphColors } from "@/data";
+import { formatCurrency } from "@/lib/utils";
 import { fetchCustomerIds } from "@/services/customers/service/customersService";
 import {
   fetchEmployeeIds,
@@ -66,13 +67,15 @@ export const Dashboard = () => {
     { title: "Employees", value: employees.length },
     {
       title: "Monthly Revenue",
-      value: `${
+      value: `${formatCurrency(
         mrr.find(
           (item) =>
             item.month ===
             new Date().toLocaleString("en-US", { month: "short" })
-        )?.revenue || 0
-      }€`,
+        )?.revenue || 0,
+        "EUR",
+        "es-ES"
+      )}`,
     },
   ];
 
