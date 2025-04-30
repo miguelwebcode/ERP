@@ -47,7 +47,9 @@ export const getHistoricalMrr = functions
         .filter((sub) => isActiveInMonth(sub, start, end))
         .reduce((sum, sub) => sum + normalized(sub), 0);
 
-      const monthName = m.toLocaleString("en-US", { month: "short" });
+      const monthName = `${m.toLocaleString("en-US", {
+        month: "short",
+      })}${String(m.getFullYear()).slice(-2)}`;
       return { month: monthName, revenue: revenue };
     });
 
