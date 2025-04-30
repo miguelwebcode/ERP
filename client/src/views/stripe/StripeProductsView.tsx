@@ -51,8 +51,11 @@ export const StripeProductsView = () => {
   return (
     <>
       <SelectProjectForm buttonText="SUBMIT" onSubmit={handleSubmit} />
+
       {selectedProjectId && isLoading ? (
-        <p>Loading Stripe Products...</p>
+        <div className="flex justify-center items-center mt-40">
+          <p>Loading Stripe Products...</p>
+        </div>
       ) : (
         <div className="flex flex-wrap justify-center gap-3 mt-5">
           {selectedProjectId &&
