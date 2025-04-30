@@ -1,3 +1,4 @@
+import { emplloyeesGraphColors } from "@/data";
 import { fetchCustomerIds } from "@/services/customers/service/customersService";
 import {
   fetchEmployeeIds,
@@ -39,8 +40,6 @@ const newClientsProjects = [
   { month: "Nov", clients: 100, projects: 50 },
   { month: "Dec", clients: 120, projects: 62 },
 ];
-
-const colors = ["#8884d8", "#82ca9d", "#ffc658", "#ff8042", "#0088FE"];
 
 export const Dashboard = () => {
   const [employees, setEmployees] = useState<string[]>([]);
@@ -165,7 +164,14 @@ export const Dashboard = () => {
                   outerRadius="80%"
                 >
                   {employeesByRole.map((entry, index) => (
-                    <Cell key={index} fill={colors[index % colors.length]} />
+                    <Cell
+                      key={index}
+                      fill={
+                        emplloyeesGraphColors[
+                          index % emplloyeesGraphColors.length
+                        ]
+                      }
+                    />
                   ))}
                 </Pie>
                 <Legend />

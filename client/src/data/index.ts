@@ -13,3 +13,11 @@ export const projectStates: ProjectState[] = [
   { id: "onHold", value: "On Hold" },
   { id: "cancelled", value: "Cancelled" },
 ];
+
+export const emplloyeesGraphColors = [
+  "#8884d8",
+  "#82ca9d",
+  "#ffc658",
+  "#ff8042",
+  "#0088FE",
+];
