@@ -5,6 +5,7 @@ import {
   getAllProjectIds,
   getProjectById,
   getAllProjects,
+  getActiveProjectsHistory,
 } from "../repository/projectsRepository";
 
 export const fetchProjectIds = async (callback: (ids: string[]) => void) => {
@@ -62,4 +63,9 @@ export const fetchAllProjects = async (
   } catch (error) {
     console.error("Error fetching projects: ", error);
   }
+};
+
+export const fetchActiveProjectsHistory = async () => {
+  const { data } = await getActiveProjectsHistory();
+  return data;
 };
