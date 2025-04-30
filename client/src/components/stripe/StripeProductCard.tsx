@@ -26,7 +26,7 @@ export const StripeProductCard = ({
     }
   };
   return (
-    <div className="border flex flex-col items-center w-2/6 rounded-lg p-4 gap-3 shadow-md bg-white mb-4">
+    <div className="border flex flex-col items-center justify-between w-2/6 rounded-lg p-4 gap-3 shadow-md bg-white mb-4">
       <p className="text-lg font-bold mb-2">{name}</p>
       <p className="text-green-600 text-base mb-2">
         {`${formatCurrency(price.amount / 100, "EUR", "es-ES")}`}{" "}
