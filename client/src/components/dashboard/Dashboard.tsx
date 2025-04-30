@@ -76,7 +76,7 @@ export const Dashboard = () => {
 
   const kpiData = [
     { title: "Total Clients", value: customers.length },
-    { title: "Active Projects", value: projects.length },
+    { title: "Total Projects", value: projects.length },
     { title: "Total Employees", value: employees.length },
     {
       title: "Monthly Revenue (MRR)",
@@ -163,7 +163,7 @@ export const Dashboard = () => {
                   cy="50%"
                   outerRadius="80%"
                 >
-                  {employeesByRole.map((entry, index) => (
+                  {employeesByRole.map((_, index) => (
                     <Cell
                       key={index}
                       fill={
