@@ -6,3 +6,4 @@ export * from "./cleanupStripeCustomer";
 export * from "./getCheckoutSessionDetails";
 export * from "./listStripeProducts";
 export * from "./getHistoricalMrr";
+export * from "./getActiveProjectsHistory";
