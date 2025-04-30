@@ -38,7 +38,7 @@ export default function Header() {
       <div className="flex mx-auto container px-5 py-8 justify-between items-center">
         <div className="flex gap-3 items-center text-ds-white text-3xl">
           <LiaGripfire />
-          <h1>FirERP</h1>
+          <h1>FIRERP</h1>
         </div>
         {needsNavigation && (
           <div className="inline-flex justify-center items-center gap-4">

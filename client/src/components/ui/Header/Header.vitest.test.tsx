@@ -13,7 +13,7 @@ describe("Header", () => {
       </MemoryRouter>
     );
 
-    const title = screen.getByText("FirERP");
+    const title = screen.getByText("FIRERP");
     expect(title).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /home/i })).toBeInTheDocument();
     expect(
@@ -31,7 +31,7 @@ describe("Header", () => {
       </MemoryRouter>
     );
 
-    const title = screen.getByText("FirERP");
+    const title = screen.getByText("FIRERP");
     expect(title).toBeInTheDocument();
     expect(
       screen.queryByRole("link", { name: /home/i })

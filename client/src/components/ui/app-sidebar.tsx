@@ -70,7 +70,7 @@ export function AppSidebar() {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>FirERP</SidebarGroupLabel>
+          <SidebarGroupLabel>FIRERP</SidebarGroupLabel>
           <SidebarMenu>
             <Collapsible>
               <SidebarMenuItem>
