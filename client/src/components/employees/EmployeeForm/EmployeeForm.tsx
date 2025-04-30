@@ -61,48 +61,60 @@ const EmployeeForm = ({
       <div className="flex flex-col items-center justify-center bg-ds-white p-8 rounded shadow-ds-2">
         <h1 className="text-2xl font-bold mb-8">{titleText}</h1>
         <div className="grid grid-cols-2 gap-y-5 gap-x-5">
-          <CustomInput
-            type="text"
-            label="Name"
-            name="name"
-            placeholder="Enter name"
-            disabled={fieldDisabled}
-          />
-          <CustomInput
-            type="text"
-            label="Role"
-            name="role"
-            placeholder="Enter role"
-            disabled={fieldDisabled}
-          />
-          <CustomInput
-            type="text"
-            label="Email"
-            name="email"
-            placeholder="Enter email"
-            disabled={fieldDisabled}
-          />
-          <CustomInput
-            type="text"
-            label="Phone"
-            name="phone"
-            placeholder="Enter phone"
-            disabled={fieldDisabled}
-          />
-          <CustomInput
-            type="text"
-            label="Address"
-            name="address"
-            placeholder="Enter address"
-            disabled={fieldDisabled}
-          />
-          <CustomInput
-            type="text"
-            label="Salary"
-            name="salary"
-            placeholder="Enter salary"
-            disabled={fieldDisabled}
-          />
+          <div className="col-span-2 sm:col-span-1">
+            <CustomInput
+              type="text"
+              label="Name"
+              name="name"
+              placeholder="Enter name"
+              disabled={fieldDisabled}
+            />
+          </div>
+          <div className="col-span-2 sm:col-span-1">
+            <CustomInput
+              type="text"
+              label="Role"
+              name="role"
+              placeholder="Enter role"
+              disabled={fieldDisabled}
+            />
+          </div>
+          <div className="col-span-2 sm:col-span-1">
+            <CustomInput
+              type="text"
+              label="Email"
+              name="email"
+              placeholder="Enter email"
+              disabled={fieldDisabled}
+            />
+          </div>
+          <div className="col-span-2 sm:col-span-1">
+            <CustomInput
+              type="text"
+              label="Phone"
+              name="phone"
+              placeholder="Enter phone"
+              disabled={fieldDisabled}
+            />
+          </div>
+          <div className="col-span-2 sm:col-span-1">
+            <CustomInput
+              type="text"
+              label="Address"
+              name="address"
+              placeholder="Enter address"
+              disabled={fieldDisabled}
+            />
+          </div>
+          <div className="col-span-2 sm:col-span-1">
+            <CustomInput
+              type="text"
+              label="Salary"
+              name="salary"
+              placeholder="Enter salary"
+              disabled={fieldDisabled}
+            />
+          </div>
         </div>
         <button
           type="submit"
