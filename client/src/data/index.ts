@@ -14,7 +14,7 @@ export const projectStates: ProjectState[] = [
   { id: "cancelled", value: "Cancelled" },
 ];
 
-export const emplloyeesGraphColors = [
+export const employeesGraphColors = [
   "#8884d8",
   "#82ca9d",
   "#ffc658",
