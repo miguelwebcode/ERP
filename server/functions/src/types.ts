@@ -62,3 +62,21 @@ export type MrrMonth = {
   month: string;
   revenue: number;
 };
+
+export type Project = {
+  id: string;
+  name: string;
+  state: string;
+  description: string;
+  startDate: string;
+  customerId: string;
+  endDate: string;
+  employeeId: string;
+  createdAt: string;
+  updatedAt?: string;
+};
+
+export type ActiveProjectsMonth = {
+  month: string; // YYYY-MM
+  activeCount: number;
+};
