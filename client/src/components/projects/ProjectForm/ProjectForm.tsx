@@ -71,65 +71,78 @@ const ProjectForm = ({
       <div className="flex flex-col items-center justify-center bg-ds-white p-8 rounded shadow-ds-2">
         <h1 className="text-2xl font-bold mb-8">{titleText}</h1>
         <div className="grid grid-cols-2 gap-y-5 gap-x-5">
-          <CustomInput
-            type="text"
-            label="Name"
-            name="name"
-            placeholder="Enter project's name"
-            disabled={fieldDisabled}
-          />
-          <CustomSelect
-            label="Project State"
-            name="state"
-            disabled={fieldDisabled}
-          >
-            <option className="text-center" value="">
-              -- Select an option --
-            </option>
-            {projectStates.map((projectState) => {
-              return (
-                <option key={projectState.id} value={projectState.id}>
-                  {projectState.value}
-                </option>
-              );
-            })}
-          </CustomSelect>
-          <CustomInput
-            type="text"
-            label="Description"
-            name="description"
-            placeholder="Enter project's description"
-            disabled={fieldDisabled}
-          />
-          <CustomInput
-            type="date"
-            label="Start Date"
-            name="startDate"
-            placeholder="Enter project's startDate"
-            disabled={fieldDisabled}
-          />
-          <CustomInput
-            type="text"
-            label="Customer ID"
-            name="customerId"
-            placeholder="Enter project's customer"
-            disabled={fieldDisabled}
-          />
-
-          <CustomInput
-            type="date"
-            label="End Date"
-            name="endDate"
-            placeholder="Enter project's endDate"
-            disabled={fieldDisabled}
-          />
-          <CustomInput
-            type="text"
-            label="Employee ID"
-            name="employeeId"
-            placeholder="Enter project's employee"
-            disabled={fieldDisabled}
-          />
+          <div className="col-span-2 sm:col-span-1">
+            <CustomInput
+              type="text"
+              label="Name"
+              name="name"
+              placeholder="Enter project's name"
+              disabled={fieldDisabled}
+            />
+          </div>
+          <div className="col-span-2 sm:col-span-1">
+            <CustomSelect
+              label="Project State"
+              name="state"
+              disabled={fieldDisabled}
+            >
+              <option className="text-center" value="">
+                -- Select an option --
+              </option>
+              {projectStates.map((projectState) => {
+                return (
+                  <option key={projectState.id} value={projectState.id}>
+                    {projectState.value}
+                  </option>
+                );
+              })}
+            </CustomSelect>
+          </div>
+          <div className="col-span-2 sm:col-span-1">
+            <CustomInput
+              type="text"
+              label="Description"
+              name="description"
+              placeholder="Enter project's description"
+              disabled={fieldDisabled}
+            />
+          </div>
+          <div className="col-span-2 sm:col-span-1">
+            <CustomInput
+              type="date"
+              label="Start Date"
+              name="startDate"
+              placeholder="Enter project's startDate"
+              disabled={fieldDisabled}
+            />
+          </div>
+          <div className="col-span-2 sm:col-span-1">
+            <CustomInput
+              type="text"
+              label="Customer ID"
+              name="customerId"
+              placeholder="Enter project's customer"
+              disabled={fieldDisabled}
+            />
+          </div>
+          <div className="col-span-2 sm:col-span-1">
+            <CustomInput
+              type="date"
+              label="End Date"
+              name="endDate"
+              placeholder="Enter project's endDate"
+              disabled={fieldDisabled}
+            />
+          </div>
+          <div className="col-span-2 sm:col-span-1">
+            <CustomInput
+              type="text"
+              label="Employee ID"
+              name="employeeId"
+              placeholder="Enter project's employee"
+              disabled={fieldDisabled}
+            />
+          </div>
         </div>
         <button
           type="submit"
