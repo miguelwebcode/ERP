@@ -163,7 +163,7 @@ export const Dashboard = () => {
                   nameKey="name"
                   cx="50%"
                   cy="50%"
-                  outerRadius="80%"
+                  outerRadius="90%"
                 >
                   {employeesByRole.map((_, index) => (
                     <Cell
