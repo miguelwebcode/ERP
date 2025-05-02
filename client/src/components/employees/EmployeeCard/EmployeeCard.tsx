@@ -9,8 +9,12 @@ import "@/styles/DataCard.css";
 
 type EmployeeCardProps = {
   employee: Employee;
+  onButtonClick: () => Promise<void>;
 };
-export const EmployeeCard = ({ employee }: EmployeeCardProps) => {
+export const EmployeeCard = ({
+  employee,
+  onButtonClick: handleButtonClick,
+}: EmployeeCardProps) => {
   return (
     <div className="card-container">
       <div className="card-id-section">
@@ -41,6 +45,11 @@ export const EmployeeCard = ({ employee }: EmployeeCardProps) => {
           value={`${employee.salary}€`}
           Icon={TbPigMoney}
         />
+      </div>
+      <div className="flex justify-center mb-6 mx-5">
+        <button className="form-button" onClick={() => handleButtonClick()}>
+          <p className="text-xl">DELETE</p>
+        </button>
       </div>
     </div>
   );

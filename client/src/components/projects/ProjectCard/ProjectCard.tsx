@@ -8,8 +8,12 @@ import { IoCalendarOutline } from "react-icons/io5";
 import "@/styles/DataCard.css";
 type ProjectCardProps = {
   project: Project;
+  onButtonClick: () => Promise<void>;
 };
-export const ProjectCard = ({ project }: ProjectCardProps) => {
+export const ProjectCard = ({
+  project,
+  onButtonClick: handleButtonClick,
+}: ProjectCardProps) => {
   return (
     <div className="card-container">
       <div className="card-id-section">
@@ -49,6 +53,11 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
           value={project.endDate}
           Icon={IoCalendarOutline}
         />
+      </div>
+      <div className="flex justify-center mb-6 mx-5">
+        <button className="form-button" onClick={() => handleButtonClick()}>
+          <p className="text-xl">DELETE</p>
+        </button>
       </div>
     </div>
   );
