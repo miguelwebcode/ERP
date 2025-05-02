@@ -1,5 +1,5 @@
 .card-container {
-  @apply w-96;
+  @apply bg-ds-white rounded shadow-ds-2 w-96 h-fit;
 }
 
 .card-id-section {
