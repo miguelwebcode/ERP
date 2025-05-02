@@ -7,7 +7,6 @@ import {
   fetchProject,
 } from "../../../services/projects/service/projectsService";
 import { Project } from "../../../types";
-import { SharedCard } from "../../../components/ui/SharedCard/SharedCard";
 import { ProjectCard } from "../../../components/projects/ProjectCard/ProjectCard";
 import { SelectProjectFormValues } from "../../../types/form-values-types";
 import { FormikHelpers } from "formik";
@@ -63,6 +62,11 @@ export const DeleteProjectView = () => {
     return null;
   }
 
+  const handleButtonClick = async () => {
+    await deleteProjectById(selectedProjectId);
+    setSelectedProjectId("");
+  };
+
   return (
     <>
       {projects.length ? (
@@ -72,20 +76,10 @@ export const DeleteProjectView = () => {
             onSubmit={handleSubmit}
           />
           {selectedProjectId && (
-            <SharedCard>
-              <ProjectCard project={selectedProject} />
-              <div className="flex justify-center mb-6 mx-5">
-                <button
-                  className="form-button"
-                  onClick={async () => {
-                    await deleteProjectById(selectedProjectId);
-                    setSelectedProjectId("");
-                  }}
-                >
-                  <p className="text-xl">DELETE</p>
-                </button>
-              </div>
-            </SharedCard>
+            <ProjectCard
+              project={selectedProject}
+              onButtonClick={handleButtonClick}
+            />
           )}
         </div>
       ) : (

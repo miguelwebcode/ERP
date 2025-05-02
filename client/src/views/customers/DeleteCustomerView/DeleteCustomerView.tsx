@@ -3,7 +3,6 @@ import SelectCustomerForm from "../../../components/customers/SelectCustomerForm
 import { useAppStore } from "../../../stores/app-store";
 import { Customer } from "../../../types";
 import { CustomerCard } from "../../../components/customers/CustomerCard/CustomerCard";
-import { SharedCard } from "../../../components/ui/SharedCard/SharedCard";
 import { SelectCustomerFormValues } from "../../../types/form-values-types";
 import { FormikHelpers } from "formik";
 import {
@@ -64,6 +63,10 @@ export const DeleteCustomerView = () => {
     return null;
   }
 
+  const handleButtonClick = async () => {
+    await handleDeleteCustomer(selectedCustomerId, setSelectedCustomerId);
+  };
+
   return (
     <>
       {customers.length ? (
@@ -73,22 +76,10 @@ export const DeleteCustomerView = () => {
             onSubmit={handleSubmit}
           />
           {selectedCustomerId && (
-            <SharedCard>
-              <CustomerCard customer={selectedCustomer} />
-              <div className="flex justify-center mb-6 mx-5">
-                <button
-                  className="form-button"
-                  onClick={async () => {
-                    await handleDeleteCustomer(
-                      selectedCustomerId,
-                      setSelectedCustomerId
-                    );
-                  }}
-                >
-                  <p className="text-xl">DELETE</p>
-                </button>
-              </div>
-            </SharedCard>
+            <CustomerCard
+              customer={selectedCustomer}
+              onButtonClick={handleButtonClick}
+            />
           )}
         </div>
       ) : (

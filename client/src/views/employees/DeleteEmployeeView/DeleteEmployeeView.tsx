@@ -3,7 +3,6 @@ import SelectEmployeeForm from "../../../components/employees/SelectEmployeeForm
 import { useAppStore } from "../../../stores/app-store";
 import { Employee } from "../../../types";
 import { EmployeeCard } from "../../../components/employees/EmployeeCard/EmployeeCard";
-import { SharedCard } from "../../../components/ui/SharedCard/SharedCard";
 import { SelectEmployeeFormValues } from "../../../types/form-values-types";
 import { FormikHelpers } from "formik";
 import {
@@ -64,6 +63,10 @@ export const DeleteEmployeeView = () => {
     return null;
   }
 
+  const handleButtonClick = async () => {
+    await handleDeleteEmployee(selectedEmployeeId, setSelectedEmployeeId);
+  };
+
   return (
     <>
       {employees.length ? (
@@ -73,22 +76,10 @@ export const DeleteEmployeeView = () => {
             onSubmit={handleSubmit}
           />
           {selectedEmployeeId && (
-            <SharedCard>
-              <EmployeeCard employee={selectedEmployee} />
-              <div className="flex justify-center mb-6 mx-5">
-                <button
-                  className="form-button"
-                  onClick={async () => {
-                    await handleDeleteEmployee(
-                      selectedEmployeeId,
-                      setSelectedEmployeeId
-                    );
-                  }}
-                >
-                  <p className="text-xl">DELETE</p>
-                </button>
-              </div>
-            </SharedCard>
+            <EmployeeCard
+              employee={selectedEmployee}
+              onButtonClick={handleButtonClick}
+            />
           )}
         </div>
       ) : (
