@@ -1,12 +1,8 @@
 describe("Logout", () => {
   beforeEach(() => {
     cy.logout();
-
     cy.visit("/");
-    cy.get("input[name='email']").type("email@email.com");
-
-    cy.get("input[name='password']").type("123456");
-    cy.get("button[type='submit']").click();
+    cy.login();
   });
 
   it("should navigate from home to login route after logout", () => {
