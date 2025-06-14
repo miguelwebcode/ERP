@@ -2,15 +2,22 @@ import { Customer } from "../support/types";
 
 describe("Create customer", () => {
   beforeEach(() => {
-    cy.login();
-    cy.visit("/");
-    cy.get("nav").within(() => {
-      cy.contains(/customers$/i).click();
-    });
+    // cy.login();
+    cy.visit("/login");
+    cy.get("input[name='email']").type("email@email.com");
+    cy.get("input[name='password']").type("123456");
+    cy.get("button[type='submit']").click();
+
+    // cy.visit("/");
+    cy.get('a[href="/customers"]').click();
     cy.url().should("match", /\/customers$/);
 
-    cy.contains("button", /create/i).click();
+    cy.contains("a", /^create$/i).click();
     cy.url().should("match", /\/customers\/add$/);
+  });
+
+  afterEach(() => {
+    cy.logout();
   });
 
   const newCustomer: Customer = {
@@ -19,7 +26,6 @@ describe("Create customer", () => {
     email: "email123@gmail.com",
     name: "test create customer",
     phone: "111222333",
-    project: "project123",
   };
   it("should create a new customer successfully", () => {
     cy.get("input[name='address']").type(newCustomer.address);
@@ -27,8 +33,7 @@ describe("Create customer", () => {
     cy.get("input[name='email']").type(newCustomer.email);
     cy.get("input[name='name']").type(newCustomer.name);
     cy.get("input[name='phone']").type(newCustomer.phone);
-    cy.get("input[name='project']").type(newCustomer.project);
-    cy.contains("button", /create customer/i).click();
+    cy.contains("button", /create/i).click();
     cy.wait(1000);
     cy.contains(/customer created$/i);
     cy.wait(1000);
@@ -39,25 +44,24 @@ describe("Create customer", () => {
     });
   });
   it("should show required errors when fields are empty", () => {
-    cy.contains("button", /create customer/i).click();
+    cy.contains("button", /create/i).click();
     cy.contains(/address is required/i);
     cy.contains(/company is required/i);
     cy.contains(/email is required/i);
     cy.contains(/name is required/i);
     cy.contains(/phone is required/i);
-    cy.contains(/project is required/i);
   });
   it("should show invalid error when email has invalid format", () => {
     cy.get("input[name='email']").type("a");
 
-    cy.contains("button", /create customer/i).click();
+    cy.contains("button", /create/i).click();
 
     cy.contains(/invalid email/i);
   });
   it("should show invalid error when phone has invalid format", () => {
     cy.get("input[name='phone']").type("a");
 
-    cy.contains("button", /create customer/i).click();
+    cy.contains("button", /create/i).click();
 
     cy.contains(/Phone must contain 9 digits/i);
   });
