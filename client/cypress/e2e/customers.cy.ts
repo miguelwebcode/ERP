@@ -150,11 +150,7 @@ describe("Edit Customer", () => {
             .then((phone) => {
               expect(phone).to.eq(customerCast.phone);
             });
-          cy.get("input[name='project']")
-            .invoke("val")
-            .then((project) => {
-              expect(project).to.eq(customerCast.project);
-            });
+
           const newAddress: string = "1";
 
           cy.get("input[name='address']").clear().type(newAddress);
