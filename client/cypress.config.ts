@@ -1,3 +1,5 @@
+import fs from "fs";
+import path from "path";
 import admin from "firebase-admin";
 import { defineConfig } from "cypress";
 import { plugin as cypressFirebasePlugin } from "cypress-firebase";
@@ -8,7 +10,9 @@ import {
   getAllCustomers,
   getCustomerById,
 } from "./cypress/support/utils/customers-utils";
-import serviceAccount from "./serviceAccount.json" assert { type: "json" };
+const serviceAccount = JSON.parse(
+  fs.readFileSync(path.resolve("./serviceAccount.json"), "utf-8")
+);
 import { Customer, Project } from "./cypress/support/types";
 import {
   addProject,
