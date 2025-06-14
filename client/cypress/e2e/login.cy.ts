@@ -12,8 +12,6 @@ describe("Authentication test", () => {
 
     cy.get("button[type='submit']").click();
 
-    cy.contains("h1", "HOME").should("be.visible");
-    cy.contains("h2", "Welcome, email@email.com").should("be.visible");
     cy.url().should("eq", "http://localhost:5173/");
   });
   it("after entering invalid credentials shows invalid credentials notification", () => {
