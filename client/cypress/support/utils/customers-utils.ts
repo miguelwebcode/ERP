@@ -1,4 +1,4 @@
-import { db } from "../../../cypress.config.mts";
+import { db } from "../../../cypress.config";
 import { Customer } from "../types";
 import { customerSchema } from "../schemas";
 
