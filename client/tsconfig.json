@@ -22,7 +22,7 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
 
-    "types": ["jest", "vitest"],
+    "types": ["jest", "vitest", "cypress"],
 
     "baseUrl": ".",
     "paths": {
