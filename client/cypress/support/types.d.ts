@@ -5,7 +5,6 @@ export interface Customer {
   address: string;
   company: string;
   phone: string;
-  project: string;
   createdAt?: string;
   updatedAt?: string;
 }
