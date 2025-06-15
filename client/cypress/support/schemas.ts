@@ -14,8 +14,8 @@ export const customerSchema = yup.object({
 export const projectSchema = yup.object({
   projectId: yup.string().required(),
   customerId: yup.string().required(),
+  employeeId: yup.string().required(),
   description: yup.string().required(),
-  developer: yup.string().required(),
   name: yup.string().required(),
   state: yup.string().required(),
   startDate: yup.string().required(),
