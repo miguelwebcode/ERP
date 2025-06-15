@@ -23,7 +23,7 @@ const db = getFirestore(app);
 const auth = getAuth(app);
 const functions = getFunctions(app, "europe-west1");
 
-if (import.meta.env.VITE_MODE === "production") {
+if (import.meta.env.VITE_MODE === "test") {
   connectFirestoreEmulator(db, "127.0.0.1", 8080);
   connectAuthEmulator(auth, "http://127.0.0.1:9099");
 }
