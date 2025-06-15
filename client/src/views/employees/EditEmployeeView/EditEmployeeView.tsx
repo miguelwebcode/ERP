@@ -58,7 +58,7 @@ export const EditEmployeeView = () => {
         <div className="flex flex-col gap-8 justify-center px-5">
           <SelectEmployeeForm buttonText="GET DATA" onSubmit={handleSubmit} />
           <EmployeeForm
-            titleText="EDIT CUSTOMER"
+            titleText="EDIT EMPLOYEE"
             submitButtonText="UPDATE"
             canBeDisabled={true}
             onSubmit={async (
