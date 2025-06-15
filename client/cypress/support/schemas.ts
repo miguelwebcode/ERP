@@ -7,7 +7,6 @@ export const customerSchema = yup.object({
   address: yup.string().required(),
   company: yup.string().required(),
   phone: yup.string().required(),
-  project: yup.string().required(),
   createdAt: yup.string().optional(),
   updatedAt: yup.string().optional(),
 });
