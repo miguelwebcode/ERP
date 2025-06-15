@@ -90,81 +90,78 @@
 //   });
 // });
 
-describe("Navigation from customers section to its subroutes", () => {
-  beforeEach(() => {
-    cy.visit("/login");
-    cy.get("input[name='email']").type("email@email.com");
-    cy.get("input[name='password']").type("123456");
-    cy.get("button[type='submit']").click();
-    cy.wait(1000);
-    cy.get('a[href="/customers"]').click();
-  });
-
-  afterEach(() => {
-    cy.logout();
-  });
-
-  it("should navigate to /customers/add route", () => {
-    cy.url().should("match", /\/customers$/);
-    cy.get("a").filter(":contains('CREATE')").click();
-    cy.url().should("match", /\/customers\/add$/);
-    cy.contains("NEW CUSTOMER");
-  });
-
-  it("should navigate to /customers/read route", () => {
-    cy.url().should("match", /\/customers$/);
-    cy.get("a").filter(":contains('READ')").click();
-    cy.url().should("match", /\/customers\/read$/);
-  });
-  it("should navigate to /customers/edit route", () => {
-    cy.url().should("match", /\/customers$/);
-    cy.get("a").filter(":contains('UPDATE')").click();
-    cy.url().should("match", /\/customers\/edit$/);
-    cy.contains("EDIT CUSTOMER");
-  });
-  it("should navigate to /customers/delete route", () => {
-    cy.url().should("match", /\/customers$/);
-    cy.get("a").filter(":contains('DELETE')").click();
-    cy.url().should("match", /\/customers\/delete$/);
-  });
-});
-
-// describe("Navigation from projects section to its subroutes", () => {
+// describe("Navigation from customers section to its subroutes", () => {
 //   beforeEach(() => {
 //     cy.visit("/login");
-//     cy.login();
-//     cy.get("nav")
-//       .should("exist")
-//       .within(() => {
-//         cy.contains("Projects").click();
-//       });
+//     cy.get("input[name='email']").type("email@email.com");
+//     cy.get("input[name='password']").type("123456");
+//     cy.get("button[type='submit']").click();
+//     cy.get('a[href="/customers"]').click();
 //   });
 
 //   afterEach(() => {
 //     cy.logout();
 //   });
 
-//   it("should navigate to /projects/add route", () => {
-//     cy.url().should("match", /\/projects$/);
-//     cy.get("button").filter(":contains('CREATE')").click();
-//     cy.url().should("match", /\/projects\/add$/);
-//     cy.contains("NEW PROJECT");
+//   it("should navigate to /customers/add route", () => {
+//     cy.url().should("match", /\/customers$/);
+//     cy.get("a").filter(":contains('CREATE')").click();
+//     cy.url().should("match", /\/customers\/add$/);
+//     cy.contains("NEW CUSTOMER");
 //   });
 
-//   it("should navigate to /projects/read route", () => {
-//     cy.url().should("match", /\/projects$/);
-//     cy.get("button").filter(":contains('READ')").click();
-//     cy.url().should("match", /\/projects\/read$/);
+//   it("should navigate to /customers/read route", () => {
+//     cy.url().should("match", /\/customers$/);
+//     cy.get("a").filter(":contains('READ')").click();
+//     cy.url().should("match", /\/customers\/read$/);
 //   });
-//   it("should navigate to /projects/edit route", () => {
-//     cy.url().should("match", /\/projects$/);
-//     cy.get("button").filter(":contains('UPDATE')").click();
-//     cy.url().should("match", /\/projects\/edit$/);
-//     cy.contains("EDIT PROJECT");
+//   it("should navigate to /customers/edit route", () => {
+//     cy.url().should("match", /\/customers$/);
+//     cy.get("a").filter(":contains('UPDATE')").click();
+//     cy.url().should("match", /\/customers\/edit$/);
+//     cy.contains("EDIT CUSTOMER");
 //   });
-//   it("should navigate to /projects/delete route", () => {
-//     cy.url().should("match", /\/projects$/);
-//     cy.get("button").filter(":contains('DELETE')").click();
-//     cy.url().should("match", /\/projects\/delete$/);
+//   it("should navigate to /customers/delete route", () => {
+//     cy.url().should("match", /\/customers$/);
+//     cy.get("a").filter(":contains('DELETE')").click();
+//     cy.url().should("match", /\/customers\/delete$/);
 //   });
 // });
+
+describe("Navigation from projects section to its subroutes", () => {
+  beforeEach(() => {
+    cy.visit("/login");
+    cy.get("input[name='email']").type("email@email.com");
+    cy.get("input[name='password']").type("123456");
+    cy.get("button[type='submit']").click();
+    cy.get('a[href="/projects"]').click();
+  });
+
+  afterEach(() => {
+    cy.logout();
+  });
+
+  it("should navigate to /projects/add route", () => {
+    cy.url().should("match", /\/projects$/);
+    cy.get("a").filter(":contains('CREATE')").click();
+    cy.url().should("match", /\/projects\/add$/);
+    cy.contains("NEW PROJECT");
+  });
+
+  it("should navigate to /projects/read route", () => {
+    cy.url().should("match", /\/projects$/);
+    cy.get("a").filter(":contains('READ')").click();
+    cy.url().should("match", /\/projects\/read$/);
+  });
+  it("should navigate to /projects/edit route", () => {
+    cy.url().should("match", /\/projects$/);
+    cy.get("a").filter(":contains('UPDATE')").click();
+    cy.url().should("match", /\/projects\/edit$/);
+    cy.contains("EDIT PROJECT");
+  });
+  it("should navigate to /projects/delete route", () => {
+    cy.url().should("match", /\/projects$/);
+    cy.get("a").filter(":contains('DELETE')").click();
+    cy.url().should("match", /\/projects\/delete$/);
+  });
+});
