@@ -128,40 +128,77 @@
 //   });
 // });
 
-describe("Navigation from projects section to its subroutes", () => {
+// describe("Navigation from projects section to its subroutes", () => {
+//   beforeEach(() => {
+//     cy.visit("/login");
+//     cy.get("input[name='email']").type("email@email.com");
+//     cy.get("input[name='password']").type("123456");
+//     cy.get("button[type='submit']").click();
+//     cy.get('a[href="/projects"]').click();
+//   });
+
+//   afterEach(() => {
+//     cy.logout();
+//   });
+
+//   it("should navigate to /projects/add route", () => {
+//     cy.url().should("match", /\/projects$/);
+//     cy.get("a").filter(":contains('CREATE')").click();
+//     cy.url().should("match", /\/projects\/add$/);
+//     cy.contains("NEW PROJECT");
+//   });
+
+//   it("should navigate to /projects/read route", () => {
+//     cy.url().should("match", /\/projects$/);
+//     cy.get("a").filter(":contains('READ')").click();
+//     cy.url().should("match", /\/projects\/read$/);
+//   });
+//   it("should navigate to /projects/edit route", () => {
+//     cy.url().should("match", /\/projects$/);
+//     cy.get("a").filter(":contains('UPDATE')").click();
+//     cy.url().should("match", /\/projects\/edit$/);
+//     cy.contains("EDIT PROJECT");
+//   });
+//   it("should navigate to /projects/delete route", () => {
+//     cy.url().should("match", /\/projects$/);
+//     cy.get("a").filter(":contains('DELETE')").click();
+//     cy.url().should("match", /\/projects\/delete$/);
+//   });
+// });
+describe("Navigation from employees section to its subroutes", () => {
   beforeEach(() => {
     cy.visit("/login");
     cy.get("input[name='email']").type("email@email.com");
     cy.get("input[name='password']").type("123456");
     cy.get("button[type='submit']").click();
-    cy.get('a[href="/projects"]').click();
+    cy.get('a[href="/employees"]').click();
   });
 
   afterEach(() => {
     cy.logout();
   });
 
-  it("should navigate to /projects/add route", () => {
-    cy.url().should("match", /\/projects$/);
+  it("should navigate to /employees/add route", () => {
+    cy.url().should("match", /\/employees$/);
     cy.get("a").filter(":contains('CREATE')").click();
-    cy.url().should("match", /\/projects\/add$/);
-    cy.contains("NEW PROJECT");
+    cy.url().should("match", /\/employees\/add$/);
+    cy.contains("NEW EMPLOYEE");
   });
 
-  it("should navigate to /projects/read route", () => {
-    cy.url().should("match", /\/projects$/);
+  it("should navigate to /employees/read route", () => {
+    cy.url().should("match", /\/employees$/);
     cy.get("a").filter(":contains('READ')").click();
-    cy.url().should("match", /\/projects\/read$/);
+    cy.url().should("match", /\/employees\/read$/);
   });
-  it("should navigate to /projects/edit route", () => {
-    cy.url().should("match", /\/projects$/);
+  it("should navigate to /employees/edit route", () => {
+    cy.url().should("match", /\/employees$/);
     cy.get("a").filter(":contains('UPDATE')").click();
-    cy.url().should("match", /\/projects\/edit$/);
-    cy.contains("EDIT PROJECT");
+    cy.url().should("match", /\/employees\/edit$/);
+    cy.contains("EDIT EMPLOYEE");
   });
-  it("should navigate to /projects/delete route", () => {
-    cy.url().should("match", /\/projects$/);
+  it("should navigate to /employees/delete route", () => {
+    cy.url().should("match", /\/employees$/);
     cy.get("a").filter(":contains('DELETE')").click();
-    cy.url().should("match", /\/projects\/delete$/);
+    cy.url().should("match", /\/employees\/delete$/);
   });
 });
