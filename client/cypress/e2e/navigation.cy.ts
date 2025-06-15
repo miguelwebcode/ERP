@@ -22,10 +22,15 @@ describe("Navigation sidebar", () => {
 
   //   cy.url().should("match", /\/customers$/);
   // });
-  it("should navigate to projects section", () => {
-    cy.get('a[href="/projects"]').click();
+  // it("should navigate to projects section", () => {
+  //   cy.get('a[href="/projects"]').click();
 
-    cy.url().should("match", /\/projects$/);
+  //   cy.url().should("match", /\/projects$/);
+  // });
+  it("should navigate to employees section", () => {
+    cy.get('a[href="/employees"]').click();
+
+    cy.url().should("match", /\/employees$/);
   });
   // it("should navigate to home section", () => {
   //   const navBar = cy.get("nav");
