@@ -48,8 +48,10 @@ export const getAllProjects = async (): Promise<Project[]> => {
 export const getProjectById = async (
   projectId: string
 ): Promise<Project | undefined> => {
-  const projectsRef = db.collection("projects");
-  const snapshot = await projectsRef.where("projectId", "==", projectId).get();
+  const snapshot = await db
+    .collection("projects")
+    .where("id", "==", projectId)
+    .get();
 
   if (snapshot.empty) {
     console.log("No matching documents.");
