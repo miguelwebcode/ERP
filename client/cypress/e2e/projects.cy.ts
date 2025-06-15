@@ -17,7 +17,7 @@ describe("Create project", () => {
     name: "project name",
     description: "delete this project",
     customerId: "fakeCustomerId",
-    developer: "developer1",
+    employeeId: "fakeEmployeeId",
     state: "pending",
     startDate: "2025-01-30",
     endDate: "2025-06-30",
@@ -126,10 +126,10 @@ describe("Edit Customer", () => {
             .then((customerId) => {
               expect(customerId).to.eq(projectCast.customerId);
             });
-          cy.get("input[name='developer']")
+          cy.get("input[name='employeeId']")
             .invoke("val")
-            .then((developer) => {
-              expect(developer).to.eq(projectCast.developer);
+            .then((employeeId) => {
+              expect(employeeId).to.eq(projectCast.employeeId);
             });
           cy.get("select[name='state']")
             .invoke("val")
