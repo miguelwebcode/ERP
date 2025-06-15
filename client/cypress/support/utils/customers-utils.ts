@@ -49,9 +49,9 @@ export const getAllCustomers = async (): Promise<Customer[]> => {
 export const getCustomerById = async (
   customerId: string
 ): Promise<Customer | undefined> => {
-  const customersRef = db.collection("customers");
-  const snapshot = await customersRef
-    .where("customerId", "==", customerId)
+  const snapshot = await db
+    .collection("customers")
+    .where("id", "==", customerId)
     .get();
 
   if (snapshot.empty) {
