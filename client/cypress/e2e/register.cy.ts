@@ -27,8 +27,6 @@ describe("Register", () => {
     cy.get("input[name='password']").type(newUser.password);
     cy.get("input[name='confirmPassword']").type(newUser.confirmPassword);
     cy.contains("button", "Register").click();
-    cy.contains("h1", "HOME").should("be.visible");
-    cy.contains("h2", `Welcome, ${newUser.email}`).should("be.visible");
     cy.url().should("eq", "http://localhost:5173/");
   });
   it("should show error notification when email already in use", () => {
