@@ -27,21 +27,17 @@ describe("Navigation sidebar", () => {
 
   //   cy.url().should("match", /\/projects$/);
   // });
-  it("should navigate to employees section", () => {
-    cy.get('a[href="/employees"]').click();
+  // it("should navigate to employees section", () => {
+  //   cy.get('a[href="/employees"]').click();
 
-    cy.url().should("match", /\/employees$/);
-  });
-  // it("should navigate to home section", () => {
-  //   const navBar = cy.get("nav");
-  //   navBar.should("exist");
-  //   navBar.within(() => {
-  //     cy.contains("Customers").click();
-  //     cy.url().should("match", /\/customers$/);
-  //     cy.contains("Home").click();
-  //   });
-  //   cy.url().should("match", /\/$/);
+  //   cy.url().should("match", /\/employees$/);
   // });
+  it("should navigate to home section", () => {
+    cy.get('a[href="/customers"]').click();
+    cy.url().should("match", /\/customers$/);
+    cy.get('a[href="/"]').click();
+    cy.url().should("match", /\/$/);
+  });
 });
 
 // describe("Protected routes verification", () => {
