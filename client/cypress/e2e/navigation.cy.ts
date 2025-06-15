@@ -17,19 +17,16 @@ describe("Navigation sidebar", () => {
   //   cy.get('a[href="/employees"]');
   //   cy.get('a[href="/login"]');
   // });
-  it("should navigate to customers section", () => {
-    cy.get('a[href="/customers"]').click();
+  // it("should navigate to customers section", () => {
+  //   cy.get('a[href="/customers"]').click();
 
-    cy.url().should("match", /\/customers$/);
-  });
-  // it("should navigate to projects section", () => {
-  //   const navBar = cy.get("nav");
-  //   navBar.should("exist");
-  //   navBar.within(() => {
-  //     cy.contains("Projects").click();
-  //   });
-  //   cy.url().should("match", /\/projects$/);
+  //   cy.url().should("match", /\/customers$/);
   // });
+  it("should navigate to projects section", () => {
+    cy.get('a[href="/projects"]').click();
+
+    cy.url().should("match", /\/projects$/);
+  });
   // it("should navigate to home section", () => {
   //   const navBar = cy.get("nav");
   //   navBar.should("exist");
