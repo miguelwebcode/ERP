@@ -12,6 +12,7 @@ export interface Customer {
 export interface Project {
   projectId?: string;
   customerId: string;
+  employeeId: string;
   description: string;
   developer: string;
   name: string;
