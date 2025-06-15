@@ -10,22 +10,18 @@ describe("Navigation sidebar", () => {
     cy.logout();
   });
 
-  it("sidebar should show all navLinks", () => {
-    cy.get('a[href="/"]');
-    cy.get('a[href="/customers"]');
-    cy.get('a[href="/projects"]');
-    cy.get('a[href="/employees"]');
-    cy.get('a[href="/login"]');
-  });
-  // it("should navigate to customers section", () => {
-  //   const navBar = cy.get("nav");
-  //   navBar.should("be.visible");
-  //   navBar.within(() => {
-  //     const customersNavLink = cy.contains("Customers");
-  //     customersNavLink.click();
-  //   });
-  //   cy.url().should("match", /\/customers$/);
+  // it("sidebar should show all navLinks", () => {
+  //   cy.get('a[href="/"]');
+  //   cy.get('a[href="/customers"]');
+  //   cy.get('a[href="/projects"]');
+  //   cy.get('a[href="/employees"]');
+  //   cy.get('a[href="/login"]');
   // });
+  it("should navigate to customers section", () => {
+    cy.get('a[href="/customers"]').click();
+
+    cy.url().should("match", /\/customers$/);
+  });
   // it("should navigate to projects section", () => {
   //   const navBar = cy.get("nav");
   //   navBar.should("exist");
