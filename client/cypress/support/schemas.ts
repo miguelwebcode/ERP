@@ -1,7 +1,7 @@
 import * as yup from "yup";
 
 export const customerSchema = yup.object({
-  customerId: yup.string().required(),
+  id: yup.string().required(),
   name: yup.string().required(),
   email: yup.string().email().required(),
   address: yup.string().required(),
