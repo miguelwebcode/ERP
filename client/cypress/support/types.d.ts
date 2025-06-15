@@ -14,7 +14,6 @@ export interface Project {
   customerId: string;
   employeeId: string;
   description: string;
-  developer: string;
   name: string;
   state: string;
   startDate: string;
