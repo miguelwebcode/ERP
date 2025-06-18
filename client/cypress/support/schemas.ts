@@ -14,8 +14,8 @@ export const customerSchema = yup.object({
 export const employeeSchema = yup.object({
   id: yup.string().required(),
   name: yup.string().required(),
-  role: yup.string().email().required(),
-  email: yup.string().required(),
+  role: yup.string().required(),
+  email: yup.string().email().required(),
   phone: yup.string().required(),
   address: yup.string().required(),
   salary: yup.string().required(),
