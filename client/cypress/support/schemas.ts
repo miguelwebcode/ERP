@@ -12,7 +12,7 @@ export const customerSchema = yup.object({
 });
 
 export const projectSchema = yup.object({
-  projectId: yup.string().required(),
+  id: yup.string().required(),
   customerId: yup.string().required(),
   employeeId: yup.string().required(),
   description: yup.string().required(),
