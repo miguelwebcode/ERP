@@ -72,7 +72,7 @@ export const DeleteEmployeeView = () => {
       {employees.length ? (
         <div className="flex flex-col gap-8 justify-center px-5">
           <SelectEmployeeForm
-            buttonText="FETCH CUSTOMER"
+            buttonText="FETCH EMPLOYEE"
             onSubmit={handleSubmit}
           />
           {selectedEmployeeId && (
