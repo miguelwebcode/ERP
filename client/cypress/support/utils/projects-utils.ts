@@ -6,8 +6,10 @@ export const deleteProjectByField = async (
   fieldName: string,
   fieldValue: string
 ) => {
-  const customersRef = db.collection("customers");
-  const snapshot = await customersRef.where(fieldName, "==", fieldValue).get();
+  const snapshot = await db
+    .collection("projects")
+    .where(fieldName, "==", fieldValue)
+    .get();
 
   if (snapshot.empty) {
     console.log("No matching documents.");
@@ -16,7 +18,7 @@ export const deleteProjectByField = async (
 
   let deleteCount = 0;
   for (const doc of snapshot.docs) {
-    await db.collection("customers").doc(doc.id).delete();
+    await db.collection("projects").doc(doc.id).delete();
     deleteCount++;
     console.log("deleted doc with id =>", doc.id);
   }
