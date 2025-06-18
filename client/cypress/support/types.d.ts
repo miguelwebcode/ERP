@@ -1,5 +1,5 @@
 export interface Customer {
-  customerId?: string;
+  id?: string;
   name: string;
   email: string;
   address: string;
@@ -8,9 +8,20 @@ export interface Customer {
   createdAt?: string;
   updatedAt?: string;
 }
+export interface Employee {
+  id?: string;
+  name: string;
+  email: string;
+  address: string;
+  phone: string;
+  role: string;
+  salary: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
 
 export interface Project {
-  projectId?: string;
+  id?: string;
   customerId: string;
   employeeId: string;
   description: string;
