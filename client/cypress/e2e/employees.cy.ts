@@ -189,11 +189,12 @@ describe("Edit Employee", () => {
     cy.contains("button", /get data$/i).click();
     cy.wait(500);
     // Clear all fields
-    cy.get("input[name='address']").clear();
-    cy.get("input[name='company']").clear();
-    cy.get("input[name='email']").clear();
     cy.get("input[name='name']").clear();
+    cy.get("input[name='role']").clear();
+    cy.get("input[name='email']").clear();
     cy.get("input[name='phone']").clear();
+    cy.get("input[name='address']").clear();
+    cy.get("input[name='salary']").clear();
     cy.contains("button", /update$/i).click();
     // Check empty field errors
     cy.contains(/name is required$/i);
