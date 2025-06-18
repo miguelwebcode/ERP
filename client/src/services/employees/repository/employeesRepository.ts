@@ -12,7 +12,7 @@ import { db } from "../../../firebaseConfig";
 import { FormikHelpers } from "formik";
 import { EmployeeFormValues } from "../../../types/form-values-types";
 import { formatDate } from "../..";
-import { toast } from "react-toastify";
+import { notify } from "@/config/plugins/notification.plugin";
 
 export const getAllEmployees = async () => {
   const employeesCollection = collection(db, "employees");
@@ -74,7 +74,7 @@ export const handleCreateEmployee = async (
 
     await updateDoc(docRef, { id: docRef.id });
 
-    toast.success("Employee created");
+    notify("success", "Employee created");
     formikHelpers.resetForm();
   } catch (error) {
     console.error("Error creating employee: ", error);
@@ -104,7 +104,7 @@ export const handleEditEmployee = async (
       ...values,
       updatedAt: formatDate(new Date()),
     });
-    toast.success("Employee updated");
+    notify("success", "Employee updated");
     formikHelpers.resetForm();
   } catch (error) {
     console.error("Error updating employee: ", error);
@@ -126,7 +126,7 @@ export const deleteEmployeeById = async (employeeId: string) => {
     const employeeDocRef = doc(db, "employees", documentId);
 
     await deleteDoc(employeeDocRef);
-    toast.success("Employee deleted");
+    notify("success", "Employee deleted");
   } catch (error) {
     console.error("Error deleting employee: ", error);
   }

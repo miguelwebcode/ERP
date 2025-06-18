@@ -4,7 +4,7 @@ import SharedForm from "../../formik/SharedForm/SharedForm";
 import { loginFormValidationSchema } from "../../../schemas";
 import { CustomInput } from "../../formik/CustomInput/CustomInput";
 import { LoginFormValues } from "../../../types/form-values-types";
-import { toast } from "react-toastify";
+import { notify } from "@/config/plugins/notification.plugin";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ const LoginForm = () => {
       await login(email, password);
       navigate("/");
     } catch (err) {
-      toast.error("Invalid credentials");
+      notify("error", "Invalid credentials");
       console.log(err);
     }
   };

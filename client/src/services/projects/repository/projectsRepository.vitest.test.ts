@@ -14,12 +14,12 @@ import { waitFor } from "@testing-library/react";
 import { ProjectFormValues } from "../../../types/form-values-types";
 import { FormikHelpers } from "formik";
 import * as utilsFunctions from "../..";
-import { toast } from "react-toastify";
+import { notify } from "@/config/plugins/notification.plugin";
 
 vi.mock("../../firebaseConfig", { spy: true });
 vi.mock("firebase/firestore", { spy: true });
 vi.mock("../..", { spy: true });
-vi.mock("react-toastify", { spy: true });
+vi.mock("@/config/plugins/notification.plugin", { spy: true });
 
 describe("getAllProjects", () => {
   beforeEach(() => {
@@ -187,7 +187,7 @@ describe("handleCreateProject", () => {
     endDate: "2023-12-31",
     name: "App Móvil de Gestión de Tareas",
     state: "En progreso",
-    developer: "Juan Pérez",
+    employeeId: "Juan Pérez",
   };
 
   const formikHelpers = {
@@ -207,7 +207,7 @@ describe("handleCreateProject", () => {
     const querySnapshot = await firestoreMethods.getDocs(q);
     await waitFor(() => {
       expect(querySnapshot.docs[0]).toBeDefined();
-      expect(toast.success).toHaveBeenCalledWith("Project created");
+      expect(notify).toHaveBeenCalledWith("success", "Project created");
       expect(formikHelpers.resetForm).toHaveBeenCalled();
     });
 
@@ -243,7 +243,7 @@ describe("handleEditProject", () => {
     endDate: "2025-07-06",
     name: "name3",
     state: "pending",
-    developer: "developer3",
+    employeeId: "developer3",
   };
 
   const formikHelpers = {
@@ -282,7 +282,7 @@ describe("handleEditProject", () => {
       expect(firestoreMethods.doc).toHaveBeenCalled();
       expect(firestoreMethods.updateDoc).toHaveBeenCalled();
       expect(utilsFunctions.formatDate).toHaveBeenCalled();
-      expect(toast.success).toHaveBeenCalledWith("Project updated");
+      expect(notify).toHaveBeenCalledWith("success", "Project updated");
       expect(formikHelpers.resetForm).toHaveBeenCalled();
     });
 
@@ -374,7 +374,7 @@ describe("deleteProjectById", () => {
       expect(firestoreMethods.getDocs).toHaveBeenCalled();
       expect(firestoreMethods.doc).toHaveBeenCalled();
       expect(firestoreMethods.deleteDoc).toHaveBeenCalled();
-      expect(toast.success).toHaveBeenCalledWith("Project deleted");
+      expect(notify).toHaveBeenCalledWith("success", "Project deleted");
     });
 
     const projectsRef = firestoreMethods.collection(

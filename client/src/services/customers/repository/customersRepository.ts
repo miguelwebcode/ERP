@@ -12,7 +12,7 @@ import { db } from "../../../firebaseConfig";
 import { FormikHelpers } from "formik";
 import { CustomerFormValues } from "../../../types/form-values-types";
 import { formatDate } from "../..";
-import { toast } from "react-toastify";
+import { notify } from "@/config/plugins/notification.plugin";
 
 export const getAllCustomers = async () => {
   const customersCollection = collection(db, "customers");
@@ -74,7 +74,8 @@ export const handleCreateCustomer = async (
 
     await updateDoc(docRef, { id: docRef.id });
 
-    toast.success("Customer created");
+    notify("success", "Customer created");
+
     formikHelpers.resetForm();
   } catch (error) {
     console.error("Error creating customer: ", error);
@@ -104,7 +105,7 @@ export const handleEditCustomer = async (
       ...values,
       updatedAt: formatDate(new Date()),
     });
-    toast.success("Customer updated");
+    notify("success", "Customer updated");
     formikHelpers.resetForm();
   } catch (error) {
     console.error("Error updating customer: ", error);
@@ -126,7 +127,7 @@ export const deleteCustomerById = async (customerId: string) => {
     const customerDocRef = doc(db, "customers", documentId);
 
     await deleteDoc(customerDocRef);
-    toast.success("Customer deleted");
+    notify("success", "Customer deleted");
   } catch (error) {
     console.error("Error deleting customer: ", error);
   }

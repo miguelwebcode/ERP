@@ -8,7 +8,7 @@ import { registerFormValidationSchema } from "../../../schemas";
 import { CustomSelect } from "../../formik/CustomSelect/CustomSelect";
 import { roles } from "../../../data";
 import { RegisterFormValues } from "../../../types/form-values-types";
-import { toast } from "react-toastify";
+import { notify } from "@/config/plugins/notification.plugin";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
@@ -41,7 +41,7 @@ const RegisterForm = () => {
       navigate("/");
     } catch (err: any) {
       console.error("Error registering user: ", err);
-      toast.error(`${email} is already in use`);
+      notify("error", `${email} is already in use`);
     }
   };
 

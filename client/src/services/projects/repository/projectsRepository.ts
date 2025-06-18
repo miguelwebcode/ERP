@@ -13,9 +13,9 @@ import { db, functions } from "../../../firebaseConfig";
 import { FormikHelpers } from "formik";
 import { ProjectFormValues } from "../../../types/form-values-types";
 import { formatDate } from "../..";
-import { toast } from "react-toastify";
 import { httpsCallable } from "firebase/functions";
 import { ActiveProjectsMonth } from "@/types";
+import { notify } from "@/config/plugins/notification.plugin";
 
 export const getAllProjects = async () => {
   const projectsCollection = collection(db, "projects");
@@ -70,8 +70,7 @@ export const handleCreateProject = async (
     });
 
     await updateDoc(docRef, { id: docRef.id });
-
-    toast.success("Project created");
+    notify("success", "Project created");
     formikHelpers.resetForm();
   } catch (error) {
     console.error("Error creating customer: ", error);
@@ -101,7 +100,7 @@ export const handleEditProject = async (
       ...values,
       updatedAt: formatDate(new Date()),
     });
-    toast.success("Project updated");
+    notify("success", "Project updated");
     formikHelpers.resetForm();
   } catch (error) {
     console.error("Error updating customer: ", error);
@@ -123,7 +122,7 @@ export const deleteProjectById = async (projectId: string) => {
     const projectDocRef = doc(db, "projects", documentId);
 
     await deleteDoc(projectDocRef);
-    toast.success("Project deleted");
+    notify("success", "Project deleted");
   } catch (error) {
     console.error("Error deleting project: ", error);
   }

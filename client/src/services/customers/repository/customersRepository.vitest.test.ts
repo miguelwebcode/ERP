@@ -23,9 +23,8 @@ import { formatDate } from "../..";
 import { CustomerFormValues } from "../../../types/form-values-types";
 import { FormikHelpers } from "formik";
 import { v4 as uuidv4 } from "uuid";
-import { toast } from "react-toastify";
-
-vi.mock("react-toastify", { spy: true });
+import { notify } from "@/config/plugins/notification.plugin";
+vi.mock("@/config/plugins/notification.plugin", { spy: true });
 
 // Mock auth and db
 vi.mock("../../firebaseConfig", () => ({
@@ -212,7 +211,7 @@ describe("handleCreateCustomer", () => {
     expect(collection).toHaveBeenCalledWith(db, "customers");
     expect(formatDate).toHaveBeenCalled();
     expect(uuidv4).toHaveBeenCalled();
-    expect(toast.success).toHaveBeenCalledWith("Customer created");
+    expect(notify).toHaveBeenCalledWith("success", "Customer created");
     expect(formikHelpers.resetForm).toHaveBeenCalled();
   });
 
@@ -266,7 +265,7 @@ describe("handleEditCustomer", async () => {
       ...values,
       updatedAt: "formatted-date",
     });
-    expect(toast.success).toHaveBeenCalledWith("Customer updated");
+    expect(notify).toHaveBeenCalledWith("success", "Customer updated");
     expect(formikHelpers.resetForm).toHaveBeenCalled();
     expect(result).toBeUndefined();
   });

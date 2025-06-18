@@ -1,10 +1,10 @@
 import Cookies from "js-cookie";
 
 import { Outlet, useLocation } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/ui/app-sidebar";
 import { useEffect, useMemo, useState } from "react";
+import { NotificationContainer } from "@/config/plugins/notification.plugin";
 
 export default function Layout() {
   const { pathname } = useLocation();
@@ -38,7 +38,7 @@ export default function Layout() {
         <main className="w-full mx-auto md:mx-4 pt-8">
           <Outlet />
         </main>
-        <ToastContainer position="top-right" autoClose={3000} />
+        <NotificationContainer position="top-right" autoClose={3000} />
       </SidebarProvider>
     </>
   );
