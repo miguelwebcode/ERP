@@ -1,41 +1,42 @@
-import { Customer } from "../support/types";
+import { Customer, Employee } from "../support/types";
 
-describe("Create customer", () => {
+describe("Create employee", () => {
   beforeEach(() => {
     cy.login();
     cy.visit("/");
-    cy.get('a[href="/customers"]').click();
-    cy.url().should("match", /\/customers$/);
+    cy.get('a[href="/employees"]').click();
+    cy.url().should("match", /\/employees$/);
 
     cy.contains("a", /^create$/i).click();
-    cy.url().should("match", /\/customers\/add$/);
+    cy.url().should("match", /\/employees\/add$/);
   });
 
   afterEach(() => {
     cy.logout();
   });
 
-  const newCustomer: Customer = {
-    address: "address",
-    company: "company",
+  const newEmployee: Employee = {
+    name: "test name",
     email: "email123@gmail.com",
-    name: "test create customer",
     phone: "111222333",
+    address: "address",
+    role: "Developer",
+    salary: "9999",
   };
-  it("should create a new customer successfully", () => {
-    cy.get("input[name='address']").type(newCustomer.address);
-    cy.get("input[name='company']").type(newCustomer.company);
-    cy.get("input[name='email']").type(newCustomer.email);
-    cy.get("input[name='name']").type(newCustomer.name);
-    cy.get("input[name='phone']").type(newCustomer.phone);
+  it("should create a new employee successfully", () => {
+    cy.get("input[name='address']").type(newEmployee.address);
+    cy.get("input[name='company']").type(newEmployee.company);
+    cy.get("input[name='email']").type(newEmployee.email);
+    cy.get("input[name='name']").type(newEmployee.name);
+    cy.get("input[name='phone']").type(newEmployee.phone);
     cy.contains("button", /create/i).click();
     cy.wait(1000);
-    cy.contains(/customer created$/i);
+    cy.contains(/employee created$/i);
     cy.wait(1000);
-    // Clear customer from firestore
+    // Clear employee from firestore
     cy.task("deleteCustomerByField", {
       fieldName: "email",
-      fieldValue: newCustomer.email,
+      fieldValue: newEmployee.email,
     });
   });
   it("should show required errors when fields are empty", () => {
@@ -65,32 +66,32 @@ describe("Read Customers", () => {
   beforeEach(() => {
     cy.login();
     cy.visit("/");
-    cy.get('a[href="/customers"]').click();
-    cy.url().should("match", /\/customers$/);
+    cy.get('a[href="/employees"]').click();
+    cy.url().should("match", /\/employees$/);
 
     cy.contains("a", /^read$/i).click();
-    cy.url().should("match", /\/customers\/read$/);
+    cy.url().should("match", /\/employees\/read$/);
   });
 
   afterEach(() => {
     cy.logout();
   });
-  it("should show all customer cards", () => {
+  it("should show all employee cards", () => {
     cy.task("getAllCustomers").then((result) => {
-      const customers = result as Customer[];
+      const employees = result as Customer[];
       // Verifica que el resultado sea un array
-      expect(Array.isArray(customers)).to.be.true;
+      expect(Array.isArray(employees)).to.be.true;
 
       // Validate Customer data
-      customers.forEach((customer) => {
-        expect(customer).to.be.an("object");
-        expect(customer).to.have.property("id");
-        expect(customer).to.have.property("name");
-        expect(customer).to.have.property("email");
-        cy.contains(customer.email);
-        expect(customer).to.have.property("address");
-        expect(customer).to.have.property("company");
-        expect(customer).to.have.property("phone");
+      employees.forEach((employee) => {
+        expect(employee).to.be.an("object");
+        expect(employee).to.have.property("id");
+        expect(employee).to.have.property("name");
+        expect(employee).to.have.property("email");
+        cy.contains(employee.email);
+        expect(employee).to.have.property("address");
+        expect(employee).to.have.property("company");
+        expect(employee).to.have.property("phone");
       });
     });
   });
@@ -100,53 +101,53 @@ describe("Edit Customer", () => {
   beforeEach(() => {
     cy.login();
     cy.visit("/");
-    cy.get('a[href="/customers"]').click();
-    cy.url().should("match", /\/customers$/);
+    cy.get('a[href="/employees"]').click();
+    cy.url().should("match", /\/employees$/);
 
     cy.contains("a", /^update$/i).click();
-    cy.url().should("match", /\/customers\/edit$/);
+    cy.url().should("match", /\/employees\/edit$/);
   });
 
   afterEach(() => {
     cy.logout();
   });
-  it("should edit a customer successfully", () => {
-    cy.get("select[name='customerId']").select(1);
+  it("should edit a employee successfully", () => {
+    cy.get("select[name='employeeId']").select(1);
     cy.contains("button", /get data$/i).click();
     cy.wait(1000);
     // Compare values with firestore
-    cy.get("select[name='customerId']")
+    cy.get("select[name='employeeId']")
       .find("option:eq(1)")
       .invoke("val")
       .then((firstCustomerId) => {
         console.log("firstCustomerId: ", firstCustomerId);
 
-        cy.task("getCustomerById", firstCustomerId).then((customer) => {
-          const customerCast = customer as Customer;
+        cy.task("getCustomerById", firstCustomerId).then((employee) => {
+          const employeeCast = employee as Customer;
           cy.get("input[name='address']")
             .invoke("val")
             .then((address) => {
-              expect(address).to.eq(customerCast.address);
+              expect(address).to.eq(employeeCast.address);
             });
           cy.get("input[name='company']")
             .invoke("val")
             .then((company) => {
-              expect(company).to.eq(customerCast.company);
+              expect(company).to.eq(employeeCast.company);
             });
           cy.get("input[name='email']")
             .invoke("val")
             .then((email) => {
-              expect(email).to.eq(customerCast.email);
+              expect(email).to.eq(employeeCast.email);
             });
           cy.get("input[name='name']")
             .invoke("val")
             .then((name) => {
-              expect(name).to.eq(customerCast.name);
+              expect(name).to.eq(employeeCast.name);
             });
           cy.get("input[name='phone']")
             .invoke("val")
             .then((phone) => {
-              expect(phone).to.eq(customerCast.phone);
+              expect(phone).to.eq(employeeCast.phone);
             });
 
           const newAddress: string = "1";
@@ -154,9 +155,9 @@ describe("Edit Customer", () => {
           cy.get("input[name='address']").clear().type(newAddress);
           // update
           cy.contains("button", /update$/i).click();
-          cy.contains(/customer updated$/i);
+          cy.contains(/employee updated$/i);
           // reverse update
-          cy.get("select[name='customerId']").select(1);
+          cy.get("select[name='employeeId']").select(1);
           cy.contains("button", /get data$/i).click();
           cy.wait(1000);
           cy.get("input[name='address']")
@@ -165,18 +166,18 @@ describe("Edit Customer", () => {
               expect(address).to.eq(newAddress);
             });
 
-          cy.get("input[name='address']").clear().type(customerCast.address);
+          cy.get("input[name='address']").clear().type(employeeCast.address);
           cy.contains("button", /update$/i).click();
-          cy.contains(/customer updated$/i);
+          cy.contains(/employee updated$/i);
         });
       });
   });
-  it("should show empty customer id error", () => {
+  it("should show empty employee id error", () => {
     cy.contains("button", /get data$/i).click();
-    cy.contains(/customer id is required$/i);
+    cy.contains(/employee id is required$/i);
   });
   it("should show required fields errors", () => {
-    cy.get("select[name='customerId']").select(1);
+    cy.get("select[name='employeeId']").select(1);
     cy.contains("button", /get data$/i).click();
     cy.wait(500);
     // Clear all fields
@@ -194,7 +195,7 @@ describe("Edit Customer", () => {
     cy.contains(/phone is required$/i);
   });
   it("should show invalid field errors in email and phone", () => {
-    cy.get("select[name='customerId']").select(1);
+    cy.get("select[name='employeeId']").select(1);
     cy.contains("button", /get data$/i).click();
     cy.wait(500);
     cy.get("input[name='email']").clear().type("a");
@@ -209,36 +210,36 @@ describe("Delete Customer", () => {
   beforeEach(() => {
     cy.login();
     cy.visit("/");
-    cy.get('a[href="/customers"]').click();
-    cy.url().should("match", /\/customers$/);
+    cy.get('a[href="/employees"]').click();
+    cy.url().should("match", /\/employees$/);
 
     cy.contains("a", /delete$/i).click();
-    cy.url().should("match", /\/customers\/delete$/);
+    cy.url().should("match", /\/employees\/delete$/);
   });
 
   afterEach(() => {
     cy.logout();
   });
 
-  it("should delete a customer successfully", () => {
-    cy.get("select[name='customerId']").select(1);
-    cy.contains("button", /fetch customer$/i).click();
+  it("should delete a employee successfully", () => {
+    cy.get("select[name='employeeId']").select(1);
+    cy.contains("button", /fetch employee$/i).click();
     cy.wait(500);
-    cy.get("select[name='customerId']")
+    cy.get("select[name='employeeId']")
       .find("option:eq(1)")
       .invoke("val")
-      .then((customerId) => {
-        cy.task("getCustomerById", customerId).then((data) => {
-          const customer = data as Customer;
+      .then((employeeId) => {
+        cy.task("getCustomerById", employeeId).then((data) => {
+          const employee = data as Customer;
           cy.contains("button", /delete$/i).click();
-          cy.contains(/customer deleted$/i);
-          // Create customer again
-          cy.task("addCustomer", customer);
+          cy.contains(/employee deleted$/i);
+          // Create employee again
+          cy.task("addCustomer", employee);
         });
       });
   });
-  it("should show empty customer id error", () => {
-    cy.contains("button", /fetch customer$/i).click();
-    cy.contains(/customer id is required$/i);
+  it("should show empty employee id error", () => {
+    cy.contains("button", /fetch employee$/i).click();
+    cy.contains(/employee id is required$/i);
   });
 });

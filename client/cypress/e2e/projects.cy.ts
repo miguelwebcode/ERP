@@ -4,13 +4,15 @@ describe("Create project", () => {
   beforeEach(() => {
     cy.login();
     cy.visit("/");
-    cy.get("nav").within(() => {
-      cy.contains(/projects$/i).click();
-    });
+    cy.get('a[href="/projects"]').click();
     cy.url().should("match", /\/projects$/);
 
-    cy.contains("button", /create/i).click();
+    cy.contains("a", /^create$/i).click();
     cy.url().should("match", /\/projects\/add$/);
+  });
+
+  afterEach(() => {
+    cy.logout();
   });
 
   const newProject: Project = {
@@ -26,11 +28,11 @@ describe("Create project", () => {
     cy.get("input[name='name']").type(newProject.name);
     cy.get("input[name='description']").type(newProject.description);
     cy.get("input[name='customerId']").type(newProject.customerId);
-    cy.get("input[name='developer']").type(newProject.developer);
+    cy.get("input[name='employeeId']").type(newProject.employeeId);
     cy.get("select[name='state']").select(1);
     cy.get("input[name='startDate']").type(newProject.startDate);
     cy.get("input[name='endDate']").type(newProject.endDate);
-    cy.contains("button", /create project/i).click();
+    cy.contains("button", /create/i).click();
     cy.wait(1000);
     cy.contains(/project created$/i);
     cy.wait(1000);
@@ -41,11 +43,11 @@ describe("Create project", () => {
     });
   });
   it("should show required errors when fields are empty", () => {
-    cy.contains("button", /create project/i).click();
+    cy.contains("button", /create/i).click();
     cy.contains(/name is required/i);
     cy.contains(/description is required/i);
     cy.contains(/customer id is required/i);
-    cy.contains(/project's developer is required/i);
+    cy.contains(/employee id is required/i);
     cy.contains(/project's state is required/i);
     cy.contains(/start date is required/i);
     cy.contains(/end date is required/i);
@@ -54,16 +56,18 @@ describe("Create project", () => {
 
 describe("Read projects", () => {
   beforeEach(() => {
-    cy.logout();
     cy.login();
     cy.visit("/");
-    cy.get("nav").within(() => {
-      cy.contains(/projects$/i).click();
-    });
+    cy.get('a[href="/projects"]').click();
     cy.url().should("match", /\/projects$/);
+    cy.wait(500);
 
-    cy.contains("button", /read/i).click();
+    cy.contains("a", /^read$/i).click();
     cy.url().should("match", /\/projects\/read$/);
+  });
+
+  afterEach(() => {
+    cy.logout();
   });
   it("should show all project cards", () => {
     cy.task("getAllProjects").then((result) => {
@@ -75,9 +79,10 @@ describe("Read projects", () => {
         expect(project).to.be.an("object");
         expect(project).to.have.property("name");
         cy.contains(project.name);
+        expect(project).to.have.property("id");
         expect(project).to.have.property("description");
         expect(project).to.have.property("customerId");
-        expect(project).to.have.property("developer");
+        expect(project).to.have.property("employeeId");
         expect(project).to.have.property("state");
         expect(project).to.have.property("startDate");
         expect(project).to.have.property("endDate");
@@ -89,19 +94,22 @@ describe("Read projects", () => {
 
 describe("Edit Customer", () => {
   beforeEach(() => {
-    cy.logout();
     cy.login();
     cy.visit("/");
-    cy.get("nav").within(() => {
-      cy.contains(/projects$/i).click();
-    });
+    cy.get('a[href="/projects"]').click();
     cy.url().should("match", /\/projects$/);
-    cy.contains("button", /update$/i).click();
+    cy.wait(500);
+
+    cy.contains("a", /^update$/i).click();
     cy.url().should("match", /\/projects\/edit$/);
+  });
+
+  afterEach(() => {
+    cy.logout();
   });
   it("should edit a project successfully", () => {
     cy.get("select[name='projectId']").select(1);
-    cy.contains("button", /fetch project$/i).click();
+    cy.contains("button", /get data$/i).click();
     cy.wait(1000);
     // Compare values with firestore
     cy.get("select[name='projectId']")
@@ -150,11 +158,11 @@ describe("Edit Customer", () => {
 
           cy.get("input[name='name']").clear().type(newName);
           // update
-          cy.contains("button", /update project$/i).click();
+          cy.contains("button", /update$/i).click();
           cy.contains(/project updated$/i);
           // reverse update
           cy.get("select[name='projectId']").select(1);
-          cy.contains("button", /fetch project$/i).click();
+          cy.contains("button", /get data$/i).click();
           cy.wait(1000);
           cy.get("input[name='name']")
             .invoke("val")
@@ -163,33 +171,33 @@ describe("Edit Customer", () => {
             });
 
           cy.get("input[name='name']").clear().type(projectCast.name);
-          cy.contains("button", /update project$/i).click();
+          cy.contains("button", /update$/i).click();
           cy.contains(/project updated$/i);
         });
       });
   });
   it("should show empty project id error", () => {
-    cy.contains("button", /fetch project$/i).click();
+    cy.contains("button", /get data$/i).click();
     cy.contains(/project id is required$/i);
   });
   it("should show required fields errors", () => {
     cy.get("select[name='projectId']").select(1);
-    cy.contains("button", /fetch project$/i).click();
+    cy.contains("button", /get data$/i).click();
     cy.wait(500);
     // Clear all fields
     cy.get("input[name='name']").clear();
     cy.get("input[name='description']").clear();
     cy.get("input[name='customerId']").clear();
-    cy.get("input[name='developer']").clear();
+    cy.get("input[name='employeeId']").clear();
     cy.get("select[name='state']").select(0);
     cy.get("input[name='startDate']").clear();
     cy.get("input[name='endDate']").clear();
-    cy.contains("button", /update project$/i).click();
+    cy.contains("button", /update$/i).click();
     // Check empty field errors
     cy.contains(/name is required$/i);
     cy.contains(/description is required$/i);
     cy.contains(/customer id is required$/i);
-    cy.contains(/project's developer is required$/i);
+    cy.contains(/employee id is required$/i);
     cy.contains(/project's state is required$/i);
     cy.contains(/start date is required$/i);
     cy.contains(/end date is required$/i);
@@ -198,15 +206,19 @@ describe("Edit Customer", () => {
 
 describe("Delete Project", () => {
   beforeEach(() => {
-    cy.logout();
     cy.login();
     cy.visit("/");
-    cy.get("nav").within(() => {
-      cy.contains(/projects$/i).click();
-    });
+    cy.get('a[href="/projects"]').click();
     cy.url().should("match", /\/projects$/);
-    cy.contains("button", /delete$/i).click();
+    cy.wait(500);
+
+    cy.contains("a", /delete$/i).click();
     cy.url().should("match", /\/projects\/delete$/);
+  });
+
+  afterEach(() => {
+    cy.logout();
+    cy.wait(1000);
   });
 
   it("should delete a project successfully", () => {
@@ -219,7 +231,7 @@ describe("Delete Project", () => {
       .then((projectId) => {
         cy.task("getProjectById", projectId).then((data) => {
           const project = data as Project;
-          cy.contains("button", /delete project$/i).click();
+          cy.contains("button", /delete$/i).click();
           cy.contains(/project deleted$/i);
           // Create project again
           cy.task("addProject", project);

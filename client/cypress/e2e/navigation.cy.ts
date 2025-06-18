@@ -1,9 +1,7 @@
 describe("Navigation sidebar", () => {
   beforeEach(() => {
-    cy.visit("/login");
-    cy.get("input[name='email']").type("email@email.com");
-    cy.get("input[name='password']").type("123456");
-    cy.get("button[type='submit']").click();
+    cy.login();
+    cy.visit("/");
   });
 
   afterEach(() => {
@@ -92,10 +90,8 @@ describe("Protected routes verification", () => {
 
 describe("Navigation from customers section to its subroutes", () => {
   beforeEach(() => {
-    cy.visit("/login");
-    cy.get("input[name='email']").type("email@email.com");
-    cy.get("input[name='password']").type("123456");
-    cy.get("button[type='submit']").click();
+    cy.login();
+    cy.visit("/");
     cy.get('a[href="/customers"]').click();
   });
 
@@ -130,10 +126,8 @@ describe("Navigation from customers section to its subroutes", () => {
 
 describe("Navigation from projects section to its subroutes", () => {
   beforeEach(() => {
-    cy.visit("/login");
-    cy.get("input[name='email']").type("email@email.com");
-    cy.get("input[name='password']").type("123456");
-    cy.get("button[type='submit']").click();
+    cy.login();
+    cy.visit("/");
     cy.get('a[href="/projects"]').click();
   });
 
@@ -167,10 +161,8 @@ describe("Navigation from projects section to its subroutes", () => {
 });
 describe("Navigation from employees section to its subroutes", () => {
   beforeEach(() => {
-    cy.visit("/login");
-    cy.get("input[name='email']").type("email@email.com");
-    cy.get("input[name='password']").type("123456");
-    cy.get("button[type='submit']").click();
+    cy.login();
+    cy.visit("/");
     cy.get('a[href="/employees"]').click();
   });
 
