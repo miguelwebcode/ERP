@@ -13,13 +13,19 @@ import {
 const serviceAccount = JSON.parse(
   fs.readFileSync(path.resolve("./serviceAccount.json"), "utf-8")
 );
-import { Customer, Project } from "./cypress/support/types";
+import { Customer, Employee, Project } from "./cypress/support/types";
 import {
   addProject,
   deleteProjectByField,
   getAllProjects,
   getProjectById,
 } from "./cypress/support/utils/projects-utils";
+import {
+  addEmployee,
+  deleteEmployeeByField,
+  getAllEmployees,
+  getEmployeeById,
+} from "./cypress/support/utils/employees-utils";
 dotenv.config();
 
 admin.initializeApp({
@@ -40,16 +46,25 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       on("task", {
         addCustomer: (customer: Customer) => addCustomer(customer),
+        addEmployee: (employee: Employee) => addEmployee(employee),
         addProject: (project: Project) => addProject(project),
         getCustomerById: (customerId: string) => getCustomerById(customerId),
+        getEmployeeById: (employeeId: string) => getEmployeeById(employeeId),
         getProjectById: (projectId: string) => getProjectById(projectId),
         getAllCustomers,
+        getAllEmployees,
         getAllProjects,
         deleteCustomerByField: (args: {
           fieldName: string;
           fieldValue: string;
         }) => {
           return deleteCustomerByField(args.fieldName, args.fieldValue);
+        },
+        deleteEmployeeByField: (args: {
+          fieldName: string;
+          fieldValue: string;
+        }) => {
+          return deleteEmployeeByField(args.fieldName, args.fieldValue);
         },
         deleteProjectByField: (args: {
           fieldName: string;
