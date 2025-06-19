@@ -1,5 +1,24 @@
+import {
+  Box,
+  Check,
+  ChevronRight,
+  Circle,
+  Copy,
+  DollarSign,
+  Edit,
+  FolderKanban,
+  Globe,
+  Home,
+  LucideLogOut,
+  MoreHorizontal,
+  PanelLeftClose,
+  PanelLeftOpen,
+  Trash,
+  UserCircle,
+  Users,
+  X,
+} from "lucide-react";
 import { BsFileBarGraph } from "react-icons/bs";
-import { CiLogout } from "react-icons/ci";
 import { FaPlus, FaRegBuilding } from "react-icons/fa";
 import {
   IoCalendarOutline,
@@ -40,7 +59,24 @@ const iconMap = {
   startDate: IoCalendarOutline,
   endDate: IoCalendarOutline,
   appLogo: LiaGripfire,
-  logout: CiLogout,
+  copy: Copy,
+  trash: Trash,
+  edit: Edit,
+  moreOptions: MoreHorizontal,
+  home: Home,
+  customers: Users,
+  projects: FolderKanban,
+  employees: UserCircle,
+  logout: LucideLogOut,
+  stripe: DollarSign,
+  stripeProducts: Box,
+  stripePortal: Globe,
+  panelOpen: PanelLeftOpen,
+  panelClose: PanelLeftClose,
+  close: X,
+  check: Check,
+  circle: Circle,
+  chevronRight: ChevronRight,
 };
 
 export type IconName = keyof typeof iconMap;
