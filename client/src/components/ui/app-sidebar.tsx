@@ -1,15 +1,4 @@
 import {
-  Home,
-  Users,
-  FolderKanban,
-  UserCircle,
-  LucideLogOut,
-  DollarSign,
-  Box,
-  Globe,
-} from "lucide-react";
-
-import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
@@ -29,33 +18,41 @@ import {
   CollapsibleTrigger,
 } from "@radix-ui/react-collapsible";
 import { openCustomerPortal } from "@/services/stripe/service/stripeService";
+import { AppIcon, IconName } from "@/config/plugins/icons.plugin";
 
 // Menu items.
-const items = [
+
+type IconData = {
+  title: string;
+  url: string;
+  icon: IconName;
+  onClick?: () => void;
+};
+const items: IconData[] = [
   {
     title: "Home",
     url: "/",
-    icon: Home,
+    icon: "home",
   },
   {
     title: "Customers",
     url: "/customers",
-    icon: Users,
+    icon: "customers",
   },
   {
     title: "Projects",
     url: "/projects",
-    icon: FolderKanban,
+    icon: "projects",
   },
   {
     title: "Employees",
     url: "/employees",
-    icon: UserCircle,
+    icon: "employees",
   },
   {
     title: "Logout",
     url: "/login",
-    icon: LucideLogOut,
+    icon: "logout",
     onClick: () => {
       logout();
     },
@@ -76,7 +73,7 @@ export function AppSidebar() {
               <SidebarMenuItem>
                 <CollapsibleTrigger asChild>
                   <SidebarMenuButton>
-                    <DollarSign />
+                    <AppIcon name="stripe" />
                     Stripe
                   </SidebarMenuButton>
                 </CollapsibleTrigger>
@@ -84,7 +81,7 @@ export function AppSidebar() {
                   <SidebarMenuSub>
                     <a href="/stripe/products">
                       <SidebarMenuButton>
-                        <Box />
+                        <AppIcon name="stripeProducts" />
                         Products
                       </SidebarMenuButton>
                     </a>
@@ -94,7 +91,7 @@ export function AppSidebar() {
                       }}
                     >
                       <SidebarMenuButton>
-                        <Globe />
+                        <AppIcon name="stripePortal" />
                         Portal
                       </SidebarMenuButton>
                     </a>
@@ -109,7 +106,7 @@ export function AppSidebar() {
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <a href={item.url} onClick={item.onClick && item.onClick}>
-                      <item.icon />
+                      <AppIcon name={item.icon} />
                       <span>{item.title}</span>
                     </a>
                   </SidebarMenuButton>

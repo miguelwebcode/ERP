@@ -3,6 +3,10 @@ import { logout } from "../../../services/auth/service/authService";
 import "@/styles/LogoutButton.css";
 import { AppIcon } from "@/config/plugins/icons.plugin";
 
+/*
+    TODO: Delete
+*/
+
 export const LogoutButton = () => {
   const navigate = useNavigate();
 

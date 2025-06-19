@@ -1,6 +1,5 @@
 import { Employee } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
-import { MoreHorizontal, Edit, Trash, Copy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -12,6 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useAppStore } from "@/stores/app-store";
 import { useNavigate } from "react-router-dom";
+import { AppIcon } from "@/config/plugins/icons.plugin";
 
 const EmployeeActions = ({ employee }: { employee: Employee }) => {
   const setSelectedEmployeeId = useAppStore(
@@ -24,7 +24,7 @@ const EmployeeActions = ({ employee }: { employee: Employee }) => {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="h-8 w-8 p-0">
           <span className="sr-only">Open menu</span>
-          <MoreHorizontal className="h-4 w-4" />
+          <AppIcon name="moreOptions" className="h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
@@ -32,7 +32,7 @@ const EmployeeActions = ({ employee }: { employee: Employee }) => {
         <DropdownMenuItem
           onClick={() => navigator.clipboard.writeText(employee.id)}
         >
-          <Copy className="mr-2 h-4 w-4" /> Copy employee ID
+          <AppIcon name="copy" className="mr-2 h-4 w-4" /> Copy employee ID
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
@@ -41,7 +41,7 @@ const EmployeeActions = ({ employee }: { employee: Employee }) => {
             navigate("/employees/edit");
           }}
         >
-          <Edit className="mr-2 h-4 w-4" /> Edit employee
+          <AppIcon name="edit" className="mr-2 h-4 w-4" /> Edit employee
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => {
@@ -49,7 +49,7 @@ const EmployeeActions = ({ employee }: { employee: Employee }) => {
             navigate("/employees/delete");
           }}
         >
-          <Trash className="mr-2 h-4 w-4" /> Delete employee
+          <AppIcon name="trash" className="mr-2 h-4 w-4" /> Delete employee
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
