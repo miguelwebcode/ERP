@@ -1,9 +1,9 @@
 import { useMemo } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { LiaGripfire } from "react-icons/lia";
 import { LogoutButton } from "../LogoutButton/LogoutButton";
 import { useAppStore } from "../../../stores/app-store";
 import "@/styles/Header.css";
+import { AppIcon } from "@/config/plugins/icons.plugin";
 
 export default function Header() {
   const user = useAppStore((state) => state.user);
@@ -37,7 +37,7 @@ export default function Header() {
     <header className="bg-slate-800">
       <div className="flex mx-auto container px-5 py-8 justify-between items-center">
         <div className="flex gap-3 items-center text-ds-white text-3xl">
-          <LiaGripfire />
+          <AppIcon name="appLogo" />
           <h1>FIRERP</h1>
         </div>
         {needsNavigation && (

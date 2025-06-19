@@ -1,11 +1,7 @@
-import { MdOutlineDescription, MdOutlineWorkOutline } from "react-icons/md";
 import { Project } from "../../../types";
 import { CardField } from "../../ui/CardField/CardField";
-import { PiIdentificationBadge } from "react-icons/pi";
-import { BsFileBarGraph } from "react-icons/bs";
-import { LuUserRound } from "react-icons/lu";
-import { IoCalendarOutline } from "react-icons/io5";
 import "@/styles/DataCard.css";
+import { AppIcon } from "@/config/plugins/icons.plugin";
 type ProjectCardProps = {
   project: Project;
   onButtonClick: () => Promise<void>;
@@ -25,33 +21,37 @@ export const ProjectCard = ({
         <CardField
           label="Name"
           value={project.name}
-          Icon={MdOutlineWorkOutline}
+          Icon={() => <AppIcon name={"projectName"} />}
         />
         <CardField
           label="Description"
           value={project.description}
-          Icon={MdOutlineDescription}
+          Icon={() => <AppIcon name={"description"} />}
         />
         <CardField
           label="Customer ID"
           value={project.customerId}
-          Icon={PiIdentificationBadge}
+          Icon={() => <AppIcon name={"customerId"} />}
         />
         <CardField
-          label="Employee"
+          label="Employee ID"
           value={project.employeeId}
-          Icon={LuUserRound}
+          Icon={() => <AppIcon name={"employeeId"} />}
         />
-        <CardField label="State" value={project.state} Icon={BsFileBarGraph} />
+        <CardField
+          label="State"
+          value={project.state}
+          Icon={() => <AppIcon name={"state"} />}
+        />
         <CardField
           label="Start Date"
           value={project.startDate}
-          Icon={IoCalendarOutline}
+          Icon={() => <AppIcon name={"startDate"} />}
         />
         <CardField
           label="End Date"
           value={project.endDate}
-          Icon={IoCalendarOutline}
+          Icon={() => <AppIcon name={"endDate"} />}
         />
       </div>
       <div className="flex justify-center mb-6 mx-5">

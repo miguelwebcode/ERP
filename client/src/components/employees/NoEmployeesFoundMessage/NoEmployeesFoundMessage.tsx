@@ -1,5 +1,5 @@
+import { AppIcon } from "@/config/plugins/icons.plugin";
 import { NavButton } from "../../ui/NavButton/NavButton";
-import { FaPlus } from "react-icons/fa";
 
 export const NoEmployeesFoundMessage = () => {
   return (
@@ -8,7 +8,11 @@ export const NoEmployeesFoundMessage = () => {
       <p className="info-message">
         <span>Create</span> the first one.
       </p>
-      <NavButton text="CREATE" Icon={FaPlus} route="/employees/add" />
+      <NavButton
+        text="CREATE"
+        Icon={() => <AppIcon name={"create"} />}
+        route="/employees/add"
+      />
     </div>
   );
 };

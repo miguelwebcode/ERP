@@ -1,11 +1,7 @@
 import { Employee } from "../../../types";
 import { CardField } from "../../ui/CardField/CardField";
-import { MdOutlineEmail, MdOutlinePhoneEnabled } from "react-icons/md";
-import { IoLocationOutline } from "react-icons/io5";
-import { LuUserRound } from "react-icons/lu";
-import { MdOutlineCategory } from "react-icons/md";
-import { TbPigMoney } from "react-icons/tb";
 import "@/styles/DataCard.css";
+import { AppIcon } from "@/config/plugins/icons.plugin";
 
 type EmployeeCardProps = {
   employee: Employee;
@@ -23,27 +19,35 @@ export const EmployeeCard = ({
         </p>
       </div>
       <div className="card-grid">
-        <CardField label="Name" value={employee.name} Icon={LuUserRound} />
+        <CardField
+          label="Name"
+          value={employee.name}
+          Icon={() => <AppIcon name={"personName"} />}
+        />
         <CardField
           label="Role"
           value={employee.role}
-          Icon={MdOutlineCategory}
+          Icon={() => <AppIcon name={"role"} />}
         />
-        <CardField label="Email" value={employee.email} Icon={MdOutlineEmail} />
+        <CardField
+          label="Email"
+          value={employee.email}
+          Icon={() => <AppIcon name={"email"} />}
+        />
         <CardField
           label="Phone"
           value={employee.phone}
-          Icon={MdOutlinePhoneEnabled}
+          Icon={() => <AppIcon name={"phone"} />}
         />
         <CardField
           label="Address"
           value={employee.address}
-          Icon={IoLocationOutline}
+          Icon={() => <AppIcon name={"address"} />}
         />
         <CardField
           label="Salary"
           value={`${employee.salary}€`}
-          Icon={TbPigMoney}
+          Icon={() => <AppIcon name={"salary"} />}
         />
       </div>
       <div className="flex justify-center mb-6 mx-5">

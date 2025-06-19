@@ -1,7 +1,5 @@
-import { FaPlus } from "react-icons/fa";
-import { IoReader } from "react-icons/io5";
-import { MdEdit, MdDeleteForever } from "react-icons/md";
 import { NavButton } from "../../ui/NavButton/NavButton";
+import { AppIcon } from "@/config/plugins/icons.plugin";
 
 export const EmployeesNavigationCard = () => {
   return (
@@ -9,12 +7,24 @@ export const EmployeesNavigationCard = () => {
       <h3 className="uppercase text-xl font-bold text-center ">
         MANAGE EMPLOYEES
       </h3>
-      <NavButton text="CREATE" Icon={FaPlus} route="/employees/add" />
-      <NavButton text="READ" Icon={IoReader} route="/employees/read" />
-      <NavButton text="UPDATE" Icon={MdEdit} route="/employees/edit" />
+      <NavButton
+        text="CREATE"
+        Icon={() => <AppIcon name={"create"} />}
+        route="/employees/add"
+      />
+      <NavButton
+        text="READ"
+        Icon={() => <AppIcon name={"read"} />}
+        route="/employees/read"
+      />
+      <NavButton
+        text="UPDATE"
+        Icon={() => <AppIcon name={"update"} />}
+        route="/employees/edit"
+      />
       <NavButton
         text="DELETE"
-        Icon={MdDeleteForever}
+        Icon={() => <AppIcon name={"delete"} />}
         route="/employees/delete"
       />
     </div>

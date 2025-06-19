@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../../services/auth/service/authService";
-import { CiLogout } from "react-icons/ci";
 import "@/styles/LogoutButton.css";
+import { AppIcon } from "@/config/plugins/icons.plugin";
 
 export const LogoutButton = () => {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ export const LogoutButton = () => {
   return (
     <button className="logout-button" onClick={handleClick}>
       <div className="flex items-center text-ds-white">
-        <CiLogout className="text-3xl " />
+        <AppIcon name="logout" className="text-3xl" />
       </div>
     </button>
   );

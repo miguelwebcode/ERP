@@ -1,5 +1,5 @@
+import { AppIcon } from "@/config/plugins/icons.plugin";
 import { NavButton } from "../../ui/NavButton/NavButton";
-import { FaPlus } from "react-icons/fa";
 
 export const NoProjectsFoundMessage = () => {
   return (
@@ -8,7 +8,11 @@ export const NoProjectsFoundMessage = () => {
       <p className="info-message">
         <span>Create</span> the first one.
       </p>
-      <NavButton text="CREATE" Icon={FaPlus} route="/projects/add" />
+      <NavButton
+        text="CREATE"
+        Icon={() => <AppIcon name={"create"} />}
+        route="/projects/add"
+      />
     </div>
   );
 };
