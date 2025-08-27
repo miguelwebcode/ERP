@@ -22,7 +22,6 @@ import { User } from "firebase/auth";
 import { formatDate } from "../..";
 import { CustomerFormValues } from "../../../types/form-values-types";
 import { FormikHelpers } from "formik";
-import { v4 as uuidv4 } from "uuid";
 import { toast } from "react-toastify";
 
 vi.mock("react-toastify", { spy: true });
@@ -159,8 +158,8 @@ describe("getCustomerById", () => {
 describe("getAllCustomerIds", () => {
   it("should return customer ids", async () => {
     const mockData = [
-      { customerId: "1", name: "Customer 1" },
-      { customerId: "2", name: "Customer 2" },
+      { id: "1", name: "Customer 1" },
+      { id: "2", name: "Customer 2" },
     ];
     (getDocs as Mock).mockResolvedValue({
       docs: mockData.map((data) => ({ data: () => data })),
@@ -171,7 +170,7 @@ describe("getAllCustomerIds", () => {
     console.log(customerIds);
     expect(collection).toHaveBeenCalledWith(db, "customers");
     expect(consoleLogSpy).toHaveBeenCalledWith("Customer IDs: ", customerIds);
-    expect(customerIds).toEqual(mockData.map((data) => data.customerId));
+    expect(customerIds).toEqual(mockData.map((data) => data.id));
   });
 
   it("should manage errors correctly", async () => {
@@ -211,7 +210,6 @@ describe("handleCreateCustomer", () => {
     expect(addDoc).toHaveBeenCalled();
     expect(collection).toHaveBeenCalledWith(db, "customers");
     expect(formatDate).toHaveBeenCalled();
-    expect(uuidv4).toHaveBeenCalled();
     expect(toast.success).toHaveBeenCalledWith("Customer created");
     expect(formikHelpers.resetForm).toHaveBeenCalled();
   });
@@ -258,7 +256,7 @@ describe("handleEditCustomer", async () => {
       formikHelpers
     );
     expect(collection).toHaveBeenCalledWith(db, "customers");
-    expect(where).toHaveBeenCalledWith("customerId", "==", selectedCustomerId);
+    expect(where).toHaveBeenCalledWith("id", "==", selectedCustomerId);
     expect(query).toHaveBeenCalled();
     expect(getDocs).toHaveBeenCalled();
     expect(doc).toHaveBeenCalledWith(db, "customers", mockData[0].id);
@@ -281,7 +279,7 @@ describe("handleEditCustomer", async () => {
     );
     expect(collection).toHaveBeenCalledWith(db, "customers");
     expect(query).toHaveBeenCalled();
-    expect(where).toHaveBeenCalledWith("customerId", "==", selectedCustomerId);
+    expect(where).toHaveBeenCalledWith("id", "==", selectedCustomerId);
     expect(getDocs).toHaveBeenCalled();
     expect(consoleLogSpy).toHaveBeenCalledWith("No matching documents.");
     expect(result).toBeNull();
@@ -297,7 +295,7 @@ describe("handleEditCustomer", async () => {
     );
     expect(collection).toHaveBeenCalledWith(db, "customers");
     expect(query).toHaveBeenCalled();
-    expect(where).toHaveBeenCalledWith("customerId", "==", selectedCustomerId);
+    expect(where).toHaveBeenCalledWith("id", "==", selectedCustomerId);
     expect(getDocs).toHaveBeenCalled();
     expect(updateDoc).not.toHaveBeenCalled();
     expect(formikHelpers.resetForm).not.toHaveBeenCalled();
@@ -321,7 +319,7 @@ describe("deleteCustomerById", () => {
 
     const result = await deleteCustomerById(customerId);
     expect(collection).toHaveBeenCalledWith(db, "customers");
-    expect(where).toHaveBeenCalledWith("customerId", "==", customerId);
+    expect(where).toHaveBeenCalledWith("id", "==", customerId);
     expect(getDocs).toHaveBeenCalled();
     expect(doc).toHaveBeenCalledWith(db, "customers", mockData[0].id);
     expect(deleteDoc).toHaveBeenCalledWith(customerDocRef);
@@ -333,7 +331,7 @@ describe("deleteCustomerById", () => {
     const consoleLogSpy = vi.spyOn(console, "log");
     const result = await deleteCustomerById(customerId);
     expect(collection).toHaveBeenCalledWith(db, "customers");
-    expect(where).toHaveBeenCalledWith("customerId", "==", customerId);
+    expect(where).toHaveBeenCalledWith("id", "==", customerId);
     expect(query).toHaveBeenCalled();
     expect(getDocs).toHaveBeenCalled();
     expect(consoleLogSpy).toHaveBeenCalledWith("No matching documents.");
@@ -347,7 +345,7 @@ describe("deleteCustomerById", () => {
     const consoleErrorSpy = vi.spyOn(console, "error");
     const result = await deleteCustomerById(customerId);
     expect(collection).toHaveBeenCalledWith(db, "customers");
-    expect(where).toHaveBeenCalledWith("customerId", "==", customerId);
+    expect(where).toHaveBeenCalledWith("id", "==", customerId);
     expect(query).toHaveBeenCalled();
     expect(getDocs).toHaveBeenCalled();
     expect(deleteDoc).not.toHaveBeenCalled();
