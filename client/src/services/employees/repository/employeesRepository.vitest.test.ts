@@ -7,7 +7,7 @@ import {
   handleEditEmployee,
   deleteEmployeeById,
 } from "./employeesRepository";
-import { auth, db } from "../../../firebaseConfig";
+import { db } from "../../../firebaseConfig";
 import {
   collection,
   getDocs,
@@ -17,9 +17,7 @@ import {
   updateDoc,
   doc,
   deleteDoc,
-  QuerySnapshot,
 } from "firebase/firestore";
-import { User } from "firebase/auth";
 import { formatDate } from "../..";
 import { EmployeeFormValues } from "../../../types/form-values-types";
 import { FormikHelpers } from "formik";
