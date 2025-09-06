@@ -7,7 +7,7 @@ import {
   handleCreateCustomer,
   handleEditCustomer,
 } from "./customersRepository"; // Ajusta la ruta según tu estructura
-import { auth, db } from "../../../firebaseConfig";
+import { db } from "../../../firebaseConfig";
 import {
   collection,
   getDocs,
@@ -18,7 +18,6 @@ import {
   doc,
   deleteDoc,
 } from "firebase/firestore";
-import { User } from "firebase/auth";
 import { formatDate } from "../..";
 import { CustomerFormValues } from "../../../types/form-values-types";
 import { FormikHelpers } from "formik";
@@ -27,7 +26,7 @@ import { toast } from "react-toastify";
 vi.mock("react-toastify", { spy: true });
 
 // Mock auth and db
-vi.mock("../../firebaseConfig", () => ({
+vi.mock("../../../firebaseConfig", () => ({
   auth: { currentUser: null },
   db: {},
 }));
@@ -59,134 +58,192 @@ vi.mock("../..", () => ({
 }));
 
 describe("getAllCustomers", () => {
+  let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
   beforeEach(() => {
     vi.clearAllMocks();
+    consoleErrorSpy = vi.spyOn(console, "error");
   });
 
   it("should return customers", async () => {
-    // Simulate getDocs returning data
-    const mockData = [
-      { id: "1", name: "Cliente 1" },
-      { id: "2", name: "Cliente 2" },
-    ];
-    (getDocs as Mock).mockResolvedValue({
-      docs: mockData.map((data) => ({ data: () => data })),
-    });
-
-    const customers = await getAllCustomers();
-
-    expect(customers).toEqual(mockData);
-    expect(getDocs).toHaveBeenCalledOnce();
-    expect(collection).toHaveBeenCalledWith(db, "customers");
-  });
-
-  it("should manage errors correctly", async () => {
-    // Simulate an error in getDocs
-    (getDocs as Mock).mockRejectedValue(new Error("Firestore error"));
-
-    const consoleErrorSpy = vi
-      .spyOn(console, "error")
-      .mockImplementation(() => {});
-
-    const customers = await getAllCustomers();
-
-    expect(customers).toBeUndefined();
-    expect(consoleErrorSpy).toHaveBeenCalledWith(
-      "Error reading customers: ",
-      new Error("Firestore error")
-    );
-
-    consoleErrorSpy.mockRestore();
-  });
-});
-
-describe("getCustomerById", () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
-
-  it("should return customer when customerId has value", async () => {
-    // Simulate getDocs returning customer
-    const mockData = [{ id: "1", name: "Cliente 1" }];
-    (getDocs as Mock).mockResolvedValue({
-      docs: mockData.map((data) => ({ data: () => data })),
-    });
-
-    const consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => {});
-
-    const customer = await getCustomerById("1");
-
-    expect(customer).toEqual(mockData[0]);
-    expect(getDocs).toHaveBeenCalled();
-    expect(collection).toHaveBeenCalledWith(db, "customers");
-    expect(consoleLogSpy).toHaveBeenCalledWith("Customer data: ", customer);
-    consoleLogSpy.mockRestore();
-  });
-
-  it("should return undefined if customerId is falsy", async () => {
-    const consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => {});
-
-    const customer = await getCustomerById("");
-    expect(consoleLogSpy).toHaveBeenCalledWith("Customer ID is empty");
-    expect(customer).toBeUndefined();
-    consoleLogSpy.mockRestore();
-  });
-  it("should return null if query snapshot is empty", async () => {
-    // Mock querySnapshot
-    (getDocs as Mock).mockResolvedValue({ empty: true, docs: [] });
-    const consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => {});
-    const customer = await getCustomerById("1");
-    expect(getDocs).toHaveBeenCalled();
-    expect(consoleLogSpy).toHaveBeenCalledWith("No matching documents.");
-    expect(customer).toBeNull();
-  });
-  it("should manage thrown error correctly", async () => {
-    (getDocs as Mock).mockRejectedValue(new Error("Firestore error"));
-    const consoleErrorSpy = vi
-      .spyOn(console, "error")
-      .mockImplementation(() => {});
-
-    const customer = await getCustomerById("1");
-
-    expect(consoleErrorSpy).toHaveBeenCalledWith(
-      "Error reading customer: ",
-      new Error("Firestore error")
-    );
-    expect(customer).toBeUndefined();
-  });
-});
-describe("getAllCustomerIds", () => {
-  it("should return customer ids", async () => {
     const mockData = [
       { id: "1", name: "Customer 1" },
       { id: "2", name: "Customer 2" },
     ];
-    (getDocs as Mock).mockResolvedValue({
-      docs: mockData.map((data) => ({ data: () => data })),
-    });
-    const consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => {});
 
-    const customerIds = await getAllCustomerIds();
-    console.log(customerIds);
+    (getDocs as Mock).mockReturnValue({
+      docs: mockData.map((doc) => ({ data: () => doc })),
+    });
+
+    const customers = await getAllCustomers();
+    expect(customers).toEqual(mockData);
     expect(collection).toHaveBeenCalledWith(db, "customers");
-    expect(consoleLogSpy).toHaveBeenCalledWith("Customer IDs: ", customerIds);
-    expect(customerIds).toEqual(mockData.map((data) => data.id));
+    expect(getDocs).toHaveBeenCalledOnce();
+    expect(consoleErrorSpy).not.toHaveBeenCalled();
   });
 
   it("should manage errors correctly", async () => {
-    vi.spyOn(auth, "currentUser", "get").mockReturnValue({
-      uid: "123",
-    } as User);
+    const error = new Error("Firestore error");
+    (getDocs as Mock).mockRejectedValue(error);
+    const customersCollection = {};
+    (collection as Mock).mockReturnValue(customersCollection);
 
-    const mockError = new Error("Firestore error");
-    (getDocs as Mock).mockRejectedValue(mockError);
-    const consoleErrorSpy = vi.spyOn(console, "error");
-    const customerIds = await getAllCustomerIds();
+    const customers = await getAllCustomers();
+
+    expect(collection).toHaveBeenCalledWith(db, "customers");
+    expect(getDocs).toHaveBeenCalledWith(customersCollection);
+    expect(customers).toBeUndefined();
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "Error reading customers: ",
+      error
+    );
+  });
+});
+
+describe("getCustomerById", () => {
+  let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
+  let consoleLogSpy: ReturnType<typeof vi.spyOn>;
+  beforeEach(() => {
+    vi.clearAllMocks();
+    consoleErrorSpy = vi.spyOn(console, "error");
+    consoleLogSpy = vi.spyOn(console, "log");
+  });
+  const customerId = "1";
+
+  it("should return customer when customerId has value", async () => {
+    const customerData = {
+      id: customerId,
+      name: "Customer 1",
+    };
+
+    const customersCollection = {};
+    (collection as Mock).mockReturnValue(customersCollection);
+    const q = "";
+    (query as Mock).mockReturnValue(q);
+    const querySnapshot = {
+      empty: false,
+      docs: [{ data: () => customerData }],
+    };
+    (getDocs as Mock).mockReturnValue(querySnapshot);
+
+    const result = await getCustomerById(customerId);
+
+    expect(consoleLogSpy).not.toHaveBeenCalledWith("Customer ID is empty");
+    expect(collection).toHaveBeenCalledWith(db, "customers");
+    expect(where).toHaveBeenCalledWith("id", "==", customerId);
+    expect(query).toHaveBeenCalledWith(
+      customersCollection,
+      where("id", "==", customerId)
+    );
+    expect(getDocs).toHaveBeenCalledWith(q);
+    expect(consoleLogSpy).not.toHaveBeenCalledWith("No matching documents.");
+    expect(consoleLogSpy).toHaveBeenCalledWith("Customer data: ", customerData);
+    expect(result).toEqual(customerData);
+  });
+
+  it("should return undefined if customerId is falsy", async () => {
+    const result = await getCustomerById("");
+    expect(consoleLogSpy).toHaveBeenCalledWith("Customer ID is empty");
+    expect(result).toBeUndefined();
+  });
+
+  it("should return null if querySnapshot is empty", async () => {
+    const customersCollection = {};
+    (collection as Mock).mockReturnValue(customersCollection);
+    const q = "";
+    (query as Mock).mockReturnValue(q);
+
+    const querySnapshot = {
+      empty: true,
+      docs: [],
+    };
+    (getDocs as Mock).mockReturnValue(querySnapshot);
+    const result = await getCustomerById(customerId);
+    expect(consoleLogSpy).not.toHaveBeenCalledWith("Customer ID is empty");
+    expect(collection).toHaveBeenCalledWith(db, "customers");
+    expect(query).toHaveBeenCalledWith(
+      customersCollection,
+      where("id", "==", customerId)
+    );
+    expect(getDocs).toHaveBeenCalledWith(q);
+    expect(consoleLogSpy).toHaveBeenCalledWith("No matching documents.");
+    expect(result).toBeNull();
+  });
+
+  it("should manage thrown error correctly", async () => {
+    const customersCollection = {};
+    (collection as Mock).mockReturnValue(customersCollection);
+    const q = "";
+    (query as Mock).mockReturnValue(q);
+
+    const error = new Error("Error message");
+    (getDocs as Mock).mockRejectedValue(error);
+
+    const result = await getCustomerById(customerId);
+
+    expect(consoleLogSpy).not.toHaveBeenCalledWith("Customer ID is empty");
+    expect(collection).toHaveBeenCalledWith(db, "customers");
+    expect(query).toHaveBeenCalledWith(
+      customersCollection,
+      where("id", "==", customerId)
+    );
+    expect(getDocs).toHaveBeenCalledWith(q);
+    expect(consoleLogSpy).not.toHaveBeenCalledWith("No matching documents.");
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "Error reading customer: ",
+      error
+    );
+    expect(result).toBeUndefined();
+  });
+});
+describe("getAllCustomerIds", () => {
+  let consoleLogSpy: ReturnType<typeof vi.spyOn>;
+  let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
+  beforeEach(() => {
+    vi.clearAllMocks();
+    consoleLogSpy = vi.spyOn(console, "log");
+    consoleErrorSpy = vi.spyOn(console, "error");
+  });
+
+  const customerIds = [1, 2];
+  it("should return customer ids", async () => {
+    const mockCustomerDocs = customerIds.map((id) => ({
+      data: () => ({
+        id,
+      }),
+    }));
+    const customersCollection = {};
+    (collection as Mock).mockReturnValue(customersCollection);
+    const querySnapshot = {
+      docs: mockCustomerDocs,
+    };
+    (getDocs as Mock).mockReturnValue(querySnapshot);
+
+    const result = await getAllCustomerIds();
+    expect(collection).toHaveBeenCalledWith(db, "customers");
+    expect(getDocs).toHaveBeenCalledWith(customersCollection);
+    expect(consoleLogSpy).toHaveBeenCalledWith("Customer IDs: ", customerIds);
+    expect(result).toEqual(customerIds);
+  });
+
+  it("should manage errors correctly", async () => {
+    const customersCollection = {};
+    (collection as Mock).mockReturnValue(customersCollection);
+    const error = new Error("Error message");
+    (getDocs as Mock).mockRejectedValue(error);
+
+    const result = await getAllCustomerIds();
+    expect(collection).toHaveBeenCalledWith(db, "customers");
+    expect(getDocs).toHaveBeenCalledWith(customersCollection);
+    expect(consoleLogSpy).not.toHaveBeenCalledWith(
+      "Customer IDs: ",
+      customerIds
+    );
+    expect(result).not.toEqual(customerIds);
     expect(consoleErrorSpy).toHaveBeenCalledWith(
       "Error reading customer IDs: ",
-      mockError
+      error
     );
-    expect(customerIds).toBeUndefined();
+    expect(result).toBeUndefined();
   });
 });
 describe("handleCreateCustomer", () => {
@@ -198,39 +255,43 @@ describe("handleCreateCustomer", () => {
     resetForm: vi.fn(),
   } as unknown as FormikHelpers<CustomerFormValues>;
 
+  let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
   beforeEach(() => {
     vi.clearAllMocks();
+    consoleErrorSpy = vi.spyOn(console, "error");
   });
+
   it("should create a new customer successfully", async () => {
-    // Simulate that addDoc resolves successfully
-    (addDoc as Mock).mockResolvedValue({});
-
-    await handleCreateCustomer(dummyValues, formikHelpers);
-
-    expect(addDoc).toHaveBeenCalled();
-    expect(collection).toHaveBeenCalledWith(db, "customers");
-    expect(formatDate).toHaveBeenCalled();
+    const docRef = { id: "1" };
+    (addDoc as Mock).mockReturnValue(docRef);
+    const result = await handleCreateCustomer(dummyValues, formikHelpers);
+    expect(addDoc).toHaveBeenCalledWith(collection(db, "customers"), {
+      ...dummyValues,
+      createdAt: formatDate(new Date()),
+    });
+    expect(updateDoc).toHaveBeenCalledWith(docRef, { id: docRef.id });
     expect(toast.success).toHaveBeenCalledWith("Customer created");
     expect(formikHelpers.resetForm).toHaveBeenCalled();
+    expect(result).toBeUndefined();
+    expect(consoleErrorSpy).not.toHaveBeenCalled();
   });
 
   it("should manage errors correctly", async () => {
-    const mockError = new Error("Test error");
-
-    (addDoc as Mock).mockRejectedValue(mockError);
-    const consoleErrorSpy = vi
-      .spyOn(console, "error")
-      .mockImplementation(() => {});
-    await handleCreateCustomer(dummyValues, formikHelpers);
-
+    const error = new Error("Test error");
+    (addDoc as Mock).mockRejectedValue(error);
+    const result = await handleCreateCustomer(dummyValues, formikHelpers);
+    expect(addDoc).toHaveBeenCalledWith(collection(db, "customers"), {
+      ...dummyValues,
+      createdAt: formatDate(new Date()),
+    });
+    expect(updateDoc).not.toHaveBeenCalled();
+    expect(toast.success).not.toHaveBeenCalled();
     expect(formikHelpers.resetForm).not.toHaveBeenCalled();
-    expect(consoleErrorSpy).toHaveBeenCalledWith(
-      "Error creating customer: ",
-      mockError
-    );
+    expect(consoleErrorSpy).toHaveBeenCalled();
+    expect(result).toBeUndefined();
   });
 });
-describe("handleEditCustomer", async () => {
+describe("handleEditCustomer", () => {
   const selectedCustomerId = "1";
   const values = {
     name: "Test Customer",
@@ -239,54 +300,86 @@ describe("handleEditCustomer", async () => {
   const formikHelpers = {
     resetForm: vi.fn(),
   } as unknown as FormikHelpers<CustomerFormValues>;
+  let consoleLogSpy: ReturnType<typeof vi.spyOn>;
+  let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
   beforeEach(() => {
     vi.clearAllMocks();
+    consoleLogSpy = vi.spyOn(console, "log");
+    consoleErrorSpy = vi.spyOn(console, "error");
   });
-  it("should update customer successfully", async () => {
-    const mockData = [{ id: "1", name: "Customer 1" }];
-    (getDocs as Mock).mockResolvedValue({
-      empty: false,
-      docs: mockData,
-    });
-    (doc as Mock).mockReturnValue("customerDocRef");
 
+  it("should update customer successfully", async () => {
+    const customersCollection = "customersCollection";
+    (collection as Mock).mockReturnValue(customersCollection);
+    const q = "q";
+    (query as Mock).mockReturnValue(q);
+    const documentId = "1";
+    const querySnapshot = {
+      empty: false,
+      docs: [{ id: documentId }],
+    };
+    (getDocs as Mock).mockReturnValue(querySnapshot);
+    const customerDocRef = "customerDocRef";
+    (doc as Mock).mockReturnValue(customerDocRef);
     const result = await handleEditCustomer(
       selectedCustomerId,
       values,
       formikHelpers
     );
     expect(collection).toHaveBeenCalledWith(db, "customers");
-    expect(where).toHaveBeenCalledWith("id", "==", selectedCustomerId);
-    expect(query).toHaveBeenCalled();
-    expect(getDocs).toHaveBeenCalled();
-    expect(doc).toHaveBeenCalledWith(db, "customers", mockData[0].id);
-    expect(updateDoc).toHaveBeenCalledWith("customerDocRef", {
+    expect(query).toHaveBeenCalledWith(
+      customersCollection,
+      where("id", "==", selectedCustomerId)
+    );
+    expect(getDocs).toHaveBeenCalledWith(q);
+    expect(consoleLogSpy).not.toHaveBeenCalled();
+    expect(doc).toHaveBeenCalledWith(db, "customers", documentId);
+    expect(updateDoc).toHaveBeenCalledWith(customerDocRef, {
       ...values,
-      updatedAt: "formatted-date",
+      updatedAt: formatDate(new Date()),
     });
     expect(toast.success).toHaveBeenCalledWith("Customer updated");
     expect(formikHelpers.resetForm).toHaveBeenCalled();
+    expect(consoleErrorSpy).not.toHaveBeenCalled();
     expect(result).toBeUndefined();
   });
 
   it("should return null and don't update if document not found", async () => {
-    (getDocs as Mock).mockResolvedValue({ empty: true, docs: [] });
-    const consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => {});
+    const customersCollection = "customersCollection";
+    (collection as Mock).mockReturnValue(customersCollection);
+    const q = "q";
+    (query as Mock).mockReturnValue(q);
+    const querySnapshot = {
+      empty: true,
+      docs: [],
+    };
+    (getDocs as Mock).mockReturnValue(querySnapshot);
     const result = await handleEditCustomer(
       selectedCustomerId,
       values,
       formikHelpers
     );
     expect(collection).toHaveBeenCalledWith(db, "customers");
-    expect(query).toHaveBeenCalled();
-    expect(where).toHaveBeenCalledWith("id", "==", selectedCustomerId);
-    expect(getDocs).toHaveBeenCalled();
+    expect(query).toHaveBeenCalledWith(
+      customersCollection,
+      where("id", "==", selectedCustomerId)
+    );
+    expect(getDocs).toHaveBeenCalledWith(q);
     expect(consoleLogSpy).toHaveBeenCalledWith("No matching documents.");
     expect(result).toBeNull();
+    expect(doc).not.toHaveBeenCalled();
+    expect(updateDoc).not.toHaveBeenCalled();
+    expect(toast.success).not.toHaveBeenCalled();
+    expect(formikHelpers.resetForm).not.toHaveBeenCalled();
   });
-  it("should handle errors correctly", async () => {
+
+  it("should manage errors correctly", async () => {
+    const customersCollection = "customersCollection";
+    (collection as Mock).mockReturnValue(customersCollection);
+    const q = "q";
+    (query as Mock).mockReturnValue(q);
+
     const error = new Error("Test error");
-    const consoleErrorSpy = vi.spyOn(console, "error");
     (getDocs as Mock).mockRejectedValue(error);
     const result = await handleEditCustomer(
       selectedCustomerId,
@@ -294,10 +387,15 @@ describe("handleEditCustomer", async () => {
       formikHelpers
     );
     expect(collection).toHaveBeenCalledWith(db, "customers");
-    expect(query).toHaveBeenCalled();
-    expect(where).toHaveBeenCalledWith("id", "==", selectedCustomerId);
-    expect(getDocs).toHaveBeenCalled();
+    expect(query).toHaveBeenCalledWith(
+      customersCollection,
+      where("id", "==", selectedCustomerId)
+    );
+    expect(getDocs).toHaveBeenCalledWith(q);
+    expect(consoleLogSpy).not.toHaveBeenCalled();
+    expect(doc).not.toHaveBeenCalled();
     expect(updateDoc).not.toHaveBeenCalled();
+    expect(toast.success).not.toHaveBeenCalled();
     expect(formikHelpers.resetForm).not.toHaveBeenCalled();
     expect(consoleErrorSpy).toHaveBeenCalledWith(
       "Error updating customer: ",
@@ -308,47 +406,86 @@ describe("handleEditCustomer", async () => {
 });
 describe("deleteCustomerById", () => {
   const customerId = "1";
+
+  let consoleLogSpy: ReturnType<typeof vi.spyOn>;
+  let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
   beforeEach(() => {
-    vi.resetAllMocks();
+    vi.clearAllMocks();
+    consoleLogSpy = vi.spyOn(console, "log");
+    consoleErrorSpy = vi.spyOn(console, "error");
   });
-  it("should delete customer", async () => {
-    const mockData = [{ id: "1", name: "Customer 1" }];
-    (getDocs as Mock).mockResolvedValue({ empty: false, docs: mockData });
+
+  it("should delete customer successfully", async () => {
+    const customersCollection = "customersCollection";
+    (collection as Mock).mockReturnValue(customersCollection);
+    const q = "q";
+    (query as Mock).mockReturnValue(q);
+    const documentId = "1";
+    const querySnapshot = {
+      empty: false,
+      docs: [{ id: documentId }],
+    };
+    (getDocs as Mock).mockReturnValue(querySnapshot);
     const customerDocRef = "customerDocRef";
     (doc as Mock).mockReturnValue(customerDocRef);
 
     const result = await deleteCustomerById(customerId);
     expect(collection).toHaveBeenCalledWith(db, "customers");
-    expect(where).toHaveBeenCalledWith("id", "==", customerId);
-    expect(getDocs).toHaveBeenCalled();
-    expect(doc).toHaveBeenCalledWith(db, "customers", mockData[0].id);
+    expect(query).toHaveBeenCalledWith(
+      customersCollection,
+      where("id", "==", customerId)
+    );
+    expect(getDocs).toHaveBeenCalledWith(q);
+    expect(consoleLogSpy).not.toHaveBeenCalled();
+    expect(doc).toHaveBeenCalledWith(db, "customers", documentId);
     expect(deleteDoc).toHaveBeenCalledWith(customerDocRef);
+    expect(toast.success).toHaveBeenCalledWith("Customer deleted");
     expect(result).toBeUndefined();
   });
 
-  it("should show console log and return null if empty query snapshot", async () => {
-    (getDocs as Mock).mockResolvedValue({ empty: true, docs: [] });
-    const consoleLogSpy = vi.spyOn(console, "log");
+  it("should return null and don't delete customer if document not found", async () => {
+    const customersCollection = "customersCollection";
+    (collection as Mock).mockReturnValue(customersCollection);
+    const q = "q";
+    (query as Mock).mockReturnValue(q);
+    const querySnapshot = {
+      empty: true,
+      docs: [],
+    };
+    (getDocs as Mock).mockReturnValue(querySnapshot);
     const result = await deleteCustomerById(customerId);
     expect(collection).toHaveBeenCalledWith(db, "customers");
-    expect(where).toHaveBeenCalledWith("id", "==", customerId);
-    expect(query).toHaveBeenCalled();
-    expect(getDocs).toHaveBeenCalled();
+    expect(query).toHaveBeenCalledWith(
+      customersCollection,
+      where("id", "==", customerId)
+    );
+    expect(getDocs).toHaveBeenCalledWith(q);
     expect(consoleLogSpy).toHaveBeenCalledWith("No matching documents.");
     expect(result).toBeNull();
     expect(doc).not.toHaveBeenCalled();
     expect(deleteDoc).not.toHaveBeenCalled();
+    expect(toast.success).not.toHaveBeenCalled();
   });
-  it("should catch thrown error", async () => {
+
+  it("should manage errors correctly", async () => {
+    const customersCollection = "customersCollection";
+    (collection as Mock).mockReturnValue(customersCollection);
+    const q = "q";
+    (query as Mock).mockReturnValue(q);
+
     const error = new Error("Test error");
     (getDocs as Mock).mockRejectedValue(error);
-    const consoleErrorSpy = vi.spyOn(console, "error");
     const result = await deleteCustomerById(customerId);
     expect(collection).toHaveBeenCalledWith(db, "customers");
-    expect(where).toHaveBeenCalledWith("id", "==", customerId);
-    expect(query).toHaveBeenCalled();
-    expect(getDocs).toHaveBeenCalled();
+    expect(query).toHaveBeenCalledWith(
+      customersCollection,
+      where("id", "==", customerId)
+    );
+    expect(getDocs).toHaveBeenCalledWith(q);
+    expect(consoleLogSpy).not.toHaveBeenCalled();
+    expect(doc).not.toHaveBeenCalled();
     expect(deleteDoc).not.toHaveBeenCalled();
+    expect(toast.success).not.toHaveBeenCalled();
     expect(consoleErrorSpy).toHaveBeenCalledWith(
       "Error deleting customer: ",
       error
