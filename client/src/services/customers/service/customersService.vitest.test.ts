@@ -79,12 +79,13 @@ describe("setCustomerFormValues", () => {
   });
 });
 describe("fetchCustomer", () => {
+  let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
   beforeEach(() => {
     vi.resetAllMocks();
+    consoleErrorSpy = vi.spyOn(console, "error");
   });
   const selectedCustomerId = "1";
   const callback = vi.fn();
-  const consoleErrorSpy = vi.spyOn(console, "error");
 
   it("should get customer data and pass it to callback as arg", async () => {
     const result = { id: "1", name: "Customer 1" };
@@ -107,11 +108,12 @@ describe("fetchCustomer", () => {
   });
 });
 describe("fetchAllCustomers", () => {
+  let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
   beforeEach(() => {
     vi.resetAllMocks();
+    consoleErrorSpy = vi.spyOn(console, "error");
   });
   const callback = vi.fn();
-  const consoleErrorSpy = vi.spyOn(console, "error");
   it("should get all customers and pass them to callback as arg", async () => {
     const customers = [{ id: "1" }, { id: "2" }];
     (getAllCustomers as Mock).mockResolvedValue(customers);
@@ -133,13 +135,14 @@ describe("fetchAllCustomers", () => {
   });
 });
 describe("handleDeleteCustomer", () => {
+  let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
   beforeEach(() => {
     vi.resetAllMocks();
+    consoleErrorSpy = vi.spyOn(console, "error");
   });
   const selectedCustomerId = "1";
   const setSelectedCustomerId = vi.fn();
-  const consoleErrorSpy = vi.spyOn(console, "error");
-  it("should get all customers and pass them to callback as arg", async () => {
+  it("should call delete customer by provided id and restore customer id", async () => {
     await handleDeleteCustomer(selectedCustomerId, setSelectedCustomerId);
     expect(deleteCustomerById).toHaveBeenCalled();
     expect(setSelectedCustomerId).toHaveBeenCalledWith("");
