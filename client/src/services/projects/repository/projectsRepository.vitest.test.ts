@@ -17,19 +17,21 @@ import {
   doc,
   deleteDoc,
 } from "firebase/firestore";
-import { Project } from "../../../types";
-import { waitFor } from "@testing-library/react";
 import { ProjectFormValues } from "../../../types/form-values-types";
 import { FormikHelpers } from "formik";
 import { formatDate } from "../..";
 import { toast } from "react-toastify";
-import { auth, db } from "../../../firebaseConfig";
+import { db } from "../../../firebaseConfig";
+
+vi.mock("react-toastify", { spy: true });
 
 // Mock auth and db
-vi.mock("../../", () => ({
+vi.mock("../../../firebaseConfig", () => ({
   auth: { currentUser: null },
   db: {},
+  functions: {},
 }));
+
 // Mock firestore functions
 vi.mock("firebase/firestore", async () => {
   const actual = await vi.importActual("firebase/firestore");
@@ -44,137 +46,194 @@ vi.mock("firebase/firestore", async () => {
     doc: vi.fn(),
     deleteDoc: vi.fn(),
   };
-}); // Mock formatDate
-vi.mock("../..", { spy: true });
-vi.mock("react-toastify", { spy: true });
+});
+
+// Mock uuid
+vi.mock("uuid", () => ({
+  v4: vi.fn().mockReturnValue("mocked-uuid"),
+}));
+
+// Mock formatDate
+vi.mock("../..", () => ({
+  formatDate: vi.fn(() => "formatted-date"),
+}));
 
 describe("getAllProjects", () => {
+  let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
   beforeEach(() => {
     vi.clearAllMocks();
+    consoleErrorSpy = vi.spyOn(console, "error");
   });
 
-  it("should return all projects", async () => {
-    const projectsCollection = "projectsCollection";
-    (collection as Mock).mockReturnValue(projectsCollection);
-    const result = (await getAllProjects()) as Project[];
+  it("should return projects", async () => {
+    const mockData = [
+      { id: "1", name: "Project 1" },
+      { id: "2", name: "Project 2" },
+    ];
+
+    (getDocs as Mock).mockReturnValue({
+      docs: mockData.map((doc) => ({ data: () => doc })),
+    });
+
+    const projects = await getAllProjects();
+    expect(projects).toEqual(mockData);
     expect(collection).toHaveBeenCalledWith(db, "projects");
-    expect(getDocs).toHaveBeenCalled();
-    expect(result).not.toBeUndefined();
-    expect(result.length).toBeGreaterThan(0);
+    expect(getDocs).toHaveBeenCalledOnce();
+    expect(consoleErrorSpy).not.toHaveBeenCalled();
   });
 
   it("should manage errors correctly", async () => {
     const error = new Error("Firestore error");
     (getDocs as Mock).mockRejectedValue(error);
+    const projectsCollection = {};
+    (collection as Mock).mockReturnValue(projectsCollection);
 
-    const consoleErrorSpy = vi.spyOn(console, "error");
+    const projects = await getAllProjects();
 
-    const projects: Project[] = (await getAllProjects()) as Project[];
-
-    await waitFor(() => {
-      expect(collection).toHaveBeenCalledWith(db, "projects");
-      expect(getDocs).toHaveBeenCalled();
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "Error reading projects: ",
-        error
-      );
-      expect(projects).toBeUndefined();
-    });
+    expect(collection).toHaveBeenCalledWith(db, "projects");
+    expect(getDocs).toHaveBeenCalledWith(projectsCollection);
+    expect(projects).toBeUndefined();
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "Error reading projects: ",
+      error
+    );
   });
 });
 
 describe("getProjectById", () => {
+  let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
+  let consoleLogSpy: ReturnType<typeof vi.spyOn>;
   beforeEach(() => {
     vi.clearAllMocks();
+    consoleErrorSpy = vi.spyOn(console, "error");
+    consoleLogSpy = vi.spyOn(console, "log");
   });
   const projectId = "fa59a499-d803-4043-910e-2bf6e7bc64c7";
 
-  it("should return project when projectId is provided", async () => {
-    const result = { projectId, name: "Project 1" };
-    (getDocs as Mock).mockResolvedValue({
-      docs: [{ data: () => result }],
-    });
-    const project = await getProjectById(projectId);
-    await waitFor(() => {
-      expect(collection).toHaveBeenCalledWith(db, "projects");
-      expect(query).toHaveBeenCalled();
-      expect(where).toHaveBeenCalledWith("projectId", "==", projectId);
-      expect(getDocs).toHaveBeenCalled();
-      expect(project).toEqual(result);
-    });
-  });
-  it("should return null and log a message when querySnapshot is empty", async () => {
-    (getDocs as Mock).mockResolvedValue({ empty: true });
-    const consoleLogSpy = vi.spyOn(console, "log");
-    const project = await getProjectById(projectId);
-    await waitFor(() => {
-      expect(collection).toHaveBeenCalledWith(db, "projects");
-      expect(query).toHaveBeenCalled();
-      expect(where).toHaveBeenCalledWith("projectId", "==", projectId);
-      expect(getDocs).toHaveBeenCalled();
-      expect(consoleLogSpy).toHaveBeenCalledWith("No matching documents.");
-      expect(project).toBeNull();
-    });
-  });
-  it("should manage errors correctly", async () => {
-    const error = new Error("Test error");
-    (getDocs as Mock).mockRejectedValue(error);
-    const consoleErrorSpy = vi.spyOn(console, "error");
-    const project = await getProjectById(projectId);
+  it("should return project when projectId has value", async () => {
+    const projectData = {
+      id: projectId,
+      name: "Project 1",
+    };
 
-    await waitFor(() => {
-      expect(collection).toHaveBeenCalledWith(db, "projects");
-      expect(query).toHaveBeenCalled();
-      expect(where).toHaveBeenCalledWith("projectId", "==", projectId);
-      expect(getDocs).toHaveBeenCalled();
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "Error reading project: ",
-        error
-      );
-      expect(project).toBeUndefined();
-    });
+    const projectsCollection = {};
+    (collection as Mock).mockReturnValue(projectsCollection);
+    const q = "";
+    (query as Mock).mockReturnValue(q);
+    const querySnapshot = {
+      empty: false,
+      docs: [{ data: () => projectData }],
+    };
+    (getDocs as Mock).mockReturnValue(querySnapshot);
+
+    const result = await getProjectById(projectId);
+
+    expect(collection).toHaveBeenCalledWith(db, "projects");
+    expect(where).toHaveBeenCalledWith("id", "==", projectId);
+    expect(query).toHaveBeenCalledWith(
+      projectsCollection,
+      where("id", "==", projectId)
+    );
+    expect(getDocs).toHaveBeenCalledWith(q);
+    expect(consoleLogSpy).not.toHaveBeenCalledWith("No matching documents.");
+    expect(consoleLogSpy).toHaveBeenCalledWith("project data: ", projectData);
+    expect(result).toEqual(projectData);
+  });
+
+  it("should return null if querySnapshot is empty", async () => {
+    const projectsCollection = {};
+    (collection as Mock).mockReturnValue(projectsCollection);
+    const q = "";
+    (query as Mock).mockReturnValue(q);
+
+    const querySnapshot = {
+      empty: true,
+      docs: [],
+    };
+    (getDocs as Mock).mockReturnValue(querySnapshot);
+    const result = await getProjectById(projectId);
+    expect(collection).toHaveBeenCalledWith(db, "projects");
+    expect(query).toHaveBeenCalledWith(
+      projectsCollection,
+      where("id", "==", projectId)
+    );
+    expect(getDocs).toHaveBeenCalledWith(q);
+    expect(consoleLogSpy).toHaveBeenCalledWith("No matching documents.");
+    expect(result).toBeNull();
+  });
+
+  it("should manage thrown error correctly", async () => {
+    const projectsCollection = {};
+    (collection as Mock).mockReturnValue(projectsCollection);
+    const q = "";
+    (query as Mock).mockReturnValue(q);
+
+    const error = new Error("Error message");
+    (getDocs as Mock).mockRejectedValue(error);
+
+    const result = await getProjectById(projectId);
+
+    expect(collection).toHaveBeenCalledWith(db, "projects");
+    expect(query).toHaveBeenCalledWith(
+      projectsCollection,
+      where("id", "==", projectId)
+    );
+    expect(getDocs).toHaveBeenCalledWith(q);
+    expect(consoleLogSpy).not.toHaveBeenCalledWith("No matching documents.");
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "Error reading project: ",
+      error
+    );
+    expect(result).toBeUndefined();
   });
 });
 describe("getAllProjectIds", () => {
+  let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
   beforeEach(() => {
     vi.clearAllMocks();
+    consoleErrorSpy = vi.spyOn(console, "error");
   });
-  it("should return all project ids", async () => {
-    const projects = [{ projectId: "1" }, { projectId: "2" }];
-    (getDocs as Mock).mockResolvedValue({
-      docs: [{ data: () => projects[0] }, { data: () => projects[1] }],
-    });
-    const projectIds = await getAllProjectIds();
-    await waitFor(() => {
-      expect(collection).toHaveBeenCalledWith(db, "projects");
-      expect(getDocs).toHaveBeenCalled();
-      expect(projectIds).toBeDefined();
-    });
-  });
-  it("should manage errors correctly", async () => {
-    const error = new Error("Test error");
-    (getDocs as Mock).mockRejectedValue(error);
-    const consoleErrorSpy = vi.spyOn(console, "error");
-    const projects = await getAllProjectIds();
 
-    await waitFor(() => {
-      expect(collection).toHaveBeenCalledWith(db, "projects");
-      expect(getDocs).toHaveBeenCalled();
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "Error reading project IDs: ",
-        error
-      );
-      expect(projects).toBeUndefined();
-    });
+  const projectIds = [1, 2];
+  it("should return project ids", async () => {
+    const mockProjectDocs = projectIds.map((id) => ({
+      data: () => ({
+        id,
+      }),
+    }));
+    const projectsCollection = {};
+    (collection as Mock).mockReturnValue(projectsCollection);
+    const querySnapshot = {
+      docs: mockProjectDocs,
+    };
+    (getDocs as Mock).mockReturnValue(querySnapshot);
+
+    const result = await getAllProjectIds();
+    expect(collection).toHaveBeenCalledWith(db, "projects");
+    expect(getDocs).toHaveBeenCalledWith(projectsCollection);
+    expect(result).toEqual(projectIds);
+  });
+
+  it("should manage errors correctly", async () => {
+    const projectsCollection = {};
+    (collection as Mock).mockReturnValue(projectsCollection);
+    const error = new Error("Error message");
+    (getDocs as Mock).mockRejectedValue(error);
+
+    const result = await getAllProjectIds();
+    expect(collection).toHaveBeenCalledWith(db, "projects");
+    expect(getDocs).toHaveBeenCalledWith(projectsCollection);
+    expect(result).not.toEqual(projectIds);
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "Error reading project IDs: ",
+      error
+    );
+    expect(result).toBeUndefined();
   });
 });
 
 describe("handleCreateProject", () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
-
-  const values: ProjectFormValues = {
+  const dummyValues = {
     customerId: "12345",
     description: "Proyecto de desarrollo de una aplicación móvil",
     startDate: "2023-10-01",
@@ -182,49 +241,51 @@ describe("handleCreateProject", () => {
     name: "App Móvil de Gestión de Tareas",
     state: "En progreso",
     employeeId: "employeeId",
-  };
-
+  } as ProjectFormValues;
   const formikHelpers = {
     resetForm: vi.fn(),
   } as unknown as FormikHelpers<ProjectFormValues>;
 
-  it("should create a new project", async () => {
-    await handleCreateProject(values, formikHelpers);
-    const projectsRef = collection(db, "projects");
-    const q = query(projectsRef, where("customerId", "==", values.customerId));
-    const querySnapshot = await getDocs(q);
-    await waitFor(() => {
-      expect(querySnapshot.docs[0]).toBeDefined();
-      expect(toast.success).toHaveBeenCalledWith("Project created");
-      expect(formikHelpers.resetForm).toHaveBeenCalled();
-    });
-
-    const deletePromises: Promise<void>[] = [];
-    querySnapshot.forEach((doc) => {
-      deletePromises.push(deleteDoc(doc.ref));
-    });
-    await Promise.all(deletePromises);
+  let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
+  beforeEach(() => {
+    vi.clearAllMocks();
+    consoleErrorSpy = vi.spyOn(console, "error");
   });
+
+  it("should create a new project successfully", async () => {
+    const docRef = { id: "1" };
+    (addDoc as Mock).mockReturnValue(docRef);
+    const result = await handleCreateProject(dummyValues, formikHelpers);
+    expect(addDoc).toHaveBeenCalledWith(collection(db, "projects"), {
+      ...dummyValues,
+      createdAt: formatDate(new Date()),
+    });
+    expect(updateDoc).toHaveBeenCalledWith(docRef, { id: docRef.id });
+    expect(toast.success).toHaveBeenCalledWith("Project created");
+    expect(formikHelpers.resetForm).toHaveBeenCalled();
+    expect(result).toBeUndefined();
+    expect(consoleErrorSpy).not.toHaveBeenCalled();
+  });
+
   it("should manage errors correctly", async () => {
     const error = new Error("Test error");
     (addDoc as Mock).mockRejectedValue(error);
-    const consoleErrorSpy = vi.spyOn(console, "error");
-    await handleCreateProject(values, formikHelpers);
-    expect(addDoc).toHaveBeenCalled();
-    expect(consoleErrorSpy).toHaveBeenCalledWith(
-      "Error creating customer: ",
-      error
-    );
+    const result = await handleCreateProject(dummyValues, formikHelpers);
+    expect(addDoc).toHaveBeenCalledWith(collection(db, "projects"), {
+      ...dummyValues,
+      createdAt: formatDate(new Date()),
+    });
+    expect(updateDoc).not.toHaveBeenCalled();
+    expect(toast.success).not.toHaveBeenCalled();
+    expect(formikHelpers.resetForm).not.toHaveBeenCalled();
+    expect(consoleErrorSpy).toHaveBeenCalled();
+    expect(result).toBeUndefined();
   });
 });
 
 describe("handleEditProject", () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
-  const selectedProjectId = "dummy-projectId-3";
-
-  const values: ProjectFormValues = {
+  const selectedProjectId = "1";
+  const values = {
     customerId: "customer3",
     description: "description3",
     startDate: "2025-01-30",
@@ -232,143 +293,201 @@ describe("handleEditProject", () => {
     name: "name3",
     state: "pending",
     employeeId: "employeeId",
-  };
-
+  } as ProjectFormValues;
   const formikHelpers = {
     resetForm: vi.fn(),
   } as unknown as FormikHelpers<ProjectFormValues>;
-
-  it("should edit a project successfully", async () => {
-    const customerId = "customer33";
-    await handleEditProject(
-      selectedProjectId,
-      { ...values, customerId },
-      formikHelpers
-    );
-    const projectsRef = collection(db, "projects");
-    const q = query(projectsRef, where("customerId", "==", customerId));
-    const querySnapshot = await getDocs(q);
-    await waitFor(() => {
-      expect(querySnapshot.empty).toBe(false);
-      expect(collection).toHaveBeenCalledWith(db, "projects");
-      expect(query).toHaveBeenCalled();
-      expect(where).toHaveBeenCalledWith("projectId", "==", selectedProjectId);
-      expect(getDocs).toHaveBeenCalled();
-      expect(doc).toHaveBeenCalled();
-      expect(updateDoc).toHaveBeenCalled();
-      expect(formatDate).toHaveBeenCalled();
-      expect(toast.success).toHaveBeenCalledWith("Project updated");
-      expect(formikHelpers.resetForm).toHaveBeenCalled();
-    });
-
-    const updatePromises: Promise<void>[] = [];
-    querySnapshot.forEach((doc) => {
-      updatePromises.push(
-        updateDoc(doc.ref, { customerId: values.customerId })
-      );
-    });
-    await Promise.all(updatePromises);
+  let consoleLogSpy: ReturnType<typeof vi.spyOn>;
+  let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
+  beforeEach(() => {
+    vi.clearAllMocks();
+    consoleLogSpy = vi.spyOn(console, "log");
+    consoleErrorSpy = vi.spyOn(console, "error");
   });
-  it("should return null and log a message if query is empty", async () => {
-    (getDocs as Mock).mockReturnValue({
-      empty: true,
-      docs: [],
-    });
-    const consoleLogSpy = vi.spyOn(console, "log");
+
+  it("should update project successfully", async () => {
+    const projectsCollection = "projectsCollection";
+    (collection as Mock).mockReturnValue(projectsCollection);
+    const q = "q";
+    (query as Mock).mockReturnValue(q);
+    const documentId = "1";
+    const querySnapshot = {
+      empty: false,
+      docs: [{ id: documentId }],
+    };
+    (getDocs as Mock).mockReturnValue(querySnapshot);
+    const projectDocRef = "projectDocRef";
+    (doc as Mock).mockReturnValue(projectDocRef);
     const result = await handleEditProject(
       selectedProjectId,
       values,
       formikHelpers
     );
-    await waitFor(() => {
-      expect(collection).toHaveBeenCalledWith(db, "projects");
-      expect(query).toHaveBeenCalled();
-      expect(where).toHaveBeenCalledWith("projectId", "==", selectedProjectId);
-      expect(getDocs).toHaveBeenCalled();
-      expect(consoleLogSpy).toHaveBeenCalledWith("No matching documents.");
-      expect(result).toBeNull();
+    expect(collection).toHaveBeenCalledWith(db, "projects");
+    expect(query).toHaveBeenCalledWith(
+      projectsCollection,
+      where("id", "==", selectedProjectId)
+    );
+    expect(getDocs).toHaveBeenCalledWith(q);
+    expect(consoleLogSpy).not.toHaveBeenCalled();
+    expect(doc).toHaveBeenCalledWith(db, "projects", documentId);
+    expect(updateDoc).toHaveBeenCalledWith(projectDocRef, {
+      ...values,
+      updatedAt: formatDate(new Date()),
     });
+    expect(toast.success).toHaveBeenCalledWith("Project updated");
+    expect(formikHelpers.resetForm).toHaveBeenCalled();
+    expect(consoleErrorSpy).not.toHaveBeenCalled();
+    expect(result).toBeUndefined();
   });
+
+  it("should return null and don't update if document not found", async () => {
+    const projectsCollection = "projectsCollection";
+    (collection as Mock).mockReturnValue(projectsCollection);
+    const q = "q";
+    (query as Mock).mockReturnValue(q);
+    const querySnapshot = {
+      empty: true,
+      docs: [],
+    };
+    (getDocs as Mock).mockReturnValue(querySnapshot);
+    const result = await handleEditProject(
+      selectedProjectId,
+      values,
+      formikHelpers
+    );
+    expect(collection).toHaveBeenCalledWith(db, "projects");
+    expect(query).toHaveBeenCalledWith(
+      projectsCollection,
+      where("id", "==", selectedProjectId)
+    );
+    expect(getDocs).toHaveBeenCalledWith(q);
+    expect(consoleLogSpy).toHaveBeenCalledWith("No matching documents.");
+    expect(result).toBeNull();
+    expect(doc).not.toHaveBeenCalled();
+    expect(updateDoc).not.toHaveBeenCalled();
+    expect(toast.success).not.toHaveBeenCalled();
+    expect(formikHelpers.resetForm).not.toHaveBeenCalled();
+  });
+
   it("should manage errors correctly", async () => {
+    const projectsCollection = "projectsCollection";
+    (collection as Mock).mockReturnValue(projectsCollection);
+    const q = "q";
+    (query as Mock).mockReturnValue(q);
+
     const error = new Error("Test error");
     (getDocs as Mock).mockRejectedValue(error);
-    await handleEditProject(selectedProjectId, values, formikHelpers);
-    const consoleErrorSpy = vi.spyOn(console, "error");
-    await waitFor(() => {
-      expect(collection).toHaveBeenCalledWith(db, "projects");
-      expect(query).toHaveBeenCalled();
-      expect(where).toHaveBeenCalledWith("projectId", "==", selectedProjectId);
-      expect(getDocs).toHaveBeenCalled();
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "Error updating customer: ",
-        error
-      );
-    });
+    const result = await handleEditProject(
+      selectedProjectId,
+      values,
+      formikHelpers
+    );
+    expect(collection).toHaveBeenCalledWith(db, "projects");
+    expect(query).toHaveBeenCalledWith(
+      projectsCollection,
+      where("id", "==", selectedProjectId)
+    );
+    expect(getDocs).toHaveBeenCalledWith(q);
+    expect(consoleLogSpy).not.toHaveBeenCalled();
+    expect(doc).not.toHaveBeenCalled();
+    expect(updateDoc).not.toHaveBeenCalled();
+    expect(toast.success).not.toHaveBeenCalled();
+    expect(formikHelpers.resetForm).not.toHaveBeenCalled();
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "Error updating customer: ",
+      error
+    );
+    expect(result).toBeUndefined();
   });
 });
 
 describe("deleteProjectById", () => {
+  const projectId = "1";
+
+  let consoleLogSpy: ReturnType<typeof vi.spyOn>;
+  let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
   beforeEach(() => {
     vi.clearAllMocks();
+    consoleLogSpy = vi.spyOn(console, "log");
+    consoleErrorSpy = vi.spyOn(console, "error");
   });
 
-  const project = {
-    createdAt: "29/01/2025 19:38",
-    customerId: "customer4",
-    description: "description4",
-    developer: "developer4",
-    endDate: "2025-07-06",
-    name: "name4",
-    projectId: "dummy-projectId-4",
-    startDate: "2025-01-30",
-    state: "pending",
-  };
   it("should delete project successfully", async () => {
-    await deleteProjectById(project.projectId);
+    const projectsCollection = "projectsCollection";
+    (collection as Mock).mockReturnValue(projectsCollection);
+    const q = "q";
+    (query as Mock).mockReturnValue(q);
+    const documentId = "1";
+    const querySnapshot = {
+      empty: false,
+      docs: [{ id: documentId }],
+    };
+    (getDocs as Mock).mockReturnValue(querySnapshot);
+    const projectDocRef = "projectDocRef";
+    (doc as Mock).mockReturnValue(projectDocRef);
 
-    await waitFor(() => {
-      expect(collection).toHaveBeenCalledWith(db, "projects");
-      expect(query).toHaveBeenCalled();
-      expect(getDocs).toHaveBeenCalled();
-      expect(doc).toHaveBeenCalled();
-      expect(deleteDoc).toHaveBeenCalled();
-      expect(toast.success).toHaveBeenCalledWith("Project deleted");
-    });
-
-    const projectsRef = collection(db, "projects");
-    await addDoc(projectsRef, project);
-    const q = query(projectsRef, where("projectId", "==", project.projectId));
-    const querySnapshot = await getDocs(q);
-    expect(querySnapshot.empty).toBe(false);
+    const result = await deleteProjectById(projectId);
+    expect(collection).toHaveBeenCalledWith(db, "projects");
+    expect(query).toHaveBeenCalledWith(
+      projectsCollection,
+      where("id", "==", projectId)
+    );
+    expect(getDocs).toHaveBeenCalledWith(q);
+    expect(consoleLogSpy).not.toHaveBeenCalled();
+    expect(doc).toHaveBeenCalledWith(db, "projects", documentId);
+    expect(deleteDoc).toHaveBeenCalledWith(projectDocRef);
+    expect(toast.success).toHaveBeenCalledWith("Project deleted");
+    expect(result).toBeUndefined();
   });
-  it("should return null and log a message when querySnapshot is empty", async () => {
-    (getDocs as Mock).mockResolvedValue({
+
+  it("should return null and don't delete project if document not found", async () => {
+    const projectsCollection = "projectsCollection";
+    (collection as Mock).mockReturnValue(projectsCollection);
+    const q = "q";
+    (query as Mock).mockReturnValue(q);
+    const querySnapshot = {
       empty: true,
       docs: [],
-    });
-    const consoleLogSpy = vi.spyOn(console, "log");
-    const result = await deleteProjectById(project.projectId);
-    await waitFor(() => {
-      expect(collection).toHaveBeenCalledWith(db, "projects");
-      expect(query).toHaveBeenCalled();
-      expect(where).toHaveBeenCalledWith("projectId", "==", project.projectId);
-      expect(getDocs).toHaveBeenCalled();
-      expect(consoleLogSpy).toHaveBeenCalledWith("No matching documents.");
-      expect(result).toBeNull();
-    });
+    };
+    (getDocs as Mock).mockReturnValue(querySnapshot);
+    const result = await deleteProjectById(projectId);
+    expect(collection).toHaveBeenCalledWith(db, "projects");
+    expect(query).toHaveBeenCalledWith(
+      projectsCollection,
+      where("id", "==", projectId)
+    );
+    expect(getDocs).toHaveBeenCalledWith(q);
+    expect(consoleLogSpy).toHaveBeenCalledWith("No matching documents.");
+    expect(result).toBeNull();
+    expect(doc).not.toHaveBeenCalled();
+    expect(deleteDoc).not.toHaveBeenCalled();
+    expect(toast.success).not.toHaveBeenCalled();
   });
+
   it("should manage errors correctly", async () => {
+    const projectsCollection = "projectsCollection";
+    (collection as Mock).mockReturnValue(projectsCollection);
+    const q = "q";
+    (query as Mock).mockReturnValue(q);
+
     const error = new Error("Test error");
     (getDocs as Mock).mockRejectedValue(error);
-    const consoleErrorSpy = vi.spyOn(console, "error");
-    await deleteProjectById(project.projectId);
+    const result = await deleteProjectById(projectId);
     expect(collection).toHaveBeenCalledWith(db, "projects");
-    expect(query).toHaveBeenCalled();
-    expect(where).toHaveBeenCalledWith("projectId", "==", project.projectId);
-    expect(getDocs).toHaveBeenCalled();
+    expect(query).toHaveBeenCalledWith(
+      projectsCollection,
+      where("id", "==", projectId)
+    );
+    expect(getDocs).toHaveBeenCalledWith(q);
+    expect(consoleLogSpy).not.toHaveBeenCalled();
+    expect(doc).not.toHaveBeenCalled();
+    expect(deleteDoc).not.toHaveBeenCalled();
+    expect(toast.success).not.toHaveBeenCalled();
     expect(consoleErrorSpy).toHaveBeenCalledWith(
       "Error deleting project: ",
       error
     );
+    expect(result).toBeUndefined();
   });
 });
