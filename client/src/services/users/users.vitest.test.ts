@@ -1,15 +1,29 @@
 import { describe, it, expect, beforeEach, vi, Mock } from "vitest";
-import * as firestoreMethods from "firebase/firestore";
 import { getUsers, saveUserData } from "./users";
 import { db } from "../../firebaseConfig";
-import { waitFor } from "@testing-library/react";
+import { collection, getDocs, doc, setDoc } from "firebase/firestore";
 
-vi.mock("firebase/firestore", { spy: true });
+// Mock firestore functions
+vi.mock("firebase/firestore", async () => {
+  const actual = await vi.importActual("firebase/firestore");
+  return {
+    ...actual,
+    collection: vi.fn(),
+    getDocs: vi.fn(),
+    setDoc: vi.fn(),
+    doc: vi.fn(),
+  };
+});
 
 describe("saveUserData", () => {
+  let consoleLogSpy: ReturnType<typeof vi.spyOn>;
+  let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
   beforeEach(() => {
     vi.clearAllMocks();
+    consoleLogSpy = vi.spyOn(console, "log");
+    consoleErrorSpy = vi.spyOn(console, "error");
   });
+  const uid = "uid1";
   const userData = {
     id: "idJuan",
     name: "Juan",
@@ -17,60 +31,61 @@ describe("saveUserData", () => {
     email: "test@test.com",
   };
   it("should save a new user", async () => {
-    const consoleLogSpy = vi.spyOn(console, "log");
-    await saveUserData("uid1", userData);
-    const usersRef = firestoreMethods.collection(db, "users");
-    const q = firestoreMethods.query(
-      usersRef,
-      firestoreMethods.where("id", "==", userData.id)
-    );
-    const querySnapshot = await firestoreMethods.getDocs(q);
-    await waitFor(() => {
-      expect(firestoreMethods.setDoc).toHaveBeenCalled();
-      expect(firestoreMethods.doc).toHaveBeenCalled();
-      expect(consoleLogSpy).toHaveBeenCalledWith("User data saved");
-      expect(querySnapshot.empty).toBe(false);
-    });
+    const result = await saveUserData(uid, userData);
+    expect(setDoc).toHaveBeenCalledWith(doc(db, "users", uid), userData);
+    expect(consoleLogSpy).toHaveBeenCalledWith("User data saved");
+    expect(result).toBeUndefined();
   });
   it("should manage errors correctly", async () => {
-    const consoleErrorSpy = vi.spyOn(console, "error");
     const error = new Error("Test error");
-    (firestoreMethods.setDoc as Mock).mockRejectedValue(error);
-    await saveUserData("uid1", userData);
-    await waitFor(() => {
-      expect(firestoreMethods.setDoc).toHaveBeenCalled();
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "Error saving user data: ",
-        error
-      );
-    });
+    (setDoc as Mock).mockRejectedValue(error);
+    const result = await saveUserData(uid, userData);
+    expect(setDoc).toHaveBeenCalledWith(doc(db, "users", uid), userData);
+    expect(consoleLogSpy).not.toHaveBeenCalled();
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "Error saving user data: ",
+      error
+    );
+    expect(result).toBeUndefined();
   });
 });
 
-describe("getusers", () => {
+describe("getUsers", () => {
+  let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
   beforeEach(() => {
     vi.clearAllMocks();
+    consoleErrorSpy = vi.spyOn(console, "error");
   });
 
   it("should get users", async () => {
+    const usersRef = "usersRef";
+    (collection as Mock).mockReturnValue(usersRef);
+    const docsData = [
+      { id: "1", name: "Juan" },
+      { id: "2", name: "Paco" },
+    ];
+    const snapshot = {
+      docs: [{ data: () => docsData[0] }, { data: () => docsData[1] }],
+    };
+    (getDocs as Mock).mockReturnValue(snapshot);
     const result = await getUsers();
-    await waitFor(() => {
-      expect(firestoreMethods.collection).toHaveBeenCalledWith(db, "users");
-      expect(firestoreMethods.getDocs).toHaveBeenCalled();
-      expect(result).toBeDefined();
-    });
+    expect(collection).toHaveBeenCalledWith(db, "users");
+    expect(getDocs).toHaveBeenCalledWith(usersRef);
+    expect(result).toEqual(docsData);
+    expect(consoleErrorSpy).not.toHaveBeenCalled();
   });
   it("should manage errors correctly", async () => {
+    const usersRef = "usersRef";
+    (collection as Mock).mockReturnValue(usersRef);
     const error = new Error("Test error");
-    (firestoreMethods.getDocs as Mock).mockRejectedValue(error);
-    const consoleErrorSpy = vi.spyOn(console, "error");
+    (getDocs as Mock).mockRejectedValue(error);
     const result = await getUsers();
-    await waitFor(() => {
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "Error fetching users: ",
-        error
-      );
-      expect(result).toBeUndefined();
-    });
+    expect(collection).toHaveBeenCalledWith(db, "users");
+    expect(getDocs).toHaveBeenCalledWith(usersRef);
+    expect(result).toBeUndefined();
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "Error fetching users: ",
+      error
+    );
   });
 });
