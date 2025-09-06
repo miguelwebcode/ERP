@@ -33,17 +33,31 @@ export async function startProductCheckout(
 }
 
 export async function fetchCheckoutSession(sessionId: string) {
-  const { data } = await getCheckoutSessionDetails({ sessionId });
-  return data;
+  try {
+    const { data } = await getCheckoutSessionDetails({ sessionId });
+    return data;
+  } catch (error) {
+    console.error("Session not found: ", error);
+  }
 }
 
-export async function fetchStripeProducts(): Promise<ListStripeProductsResponse> {
-  const { data } = await listStripeProducts();
-  return data;
+export async function fetchStripeProducts(): Promise<
+  ListStripeProductsResponse | undefined
+> {
+  try {
+    const { data } = await listStripeProducts();
+    return data;
+  } catch (error) {
+    console.error("Error fetching stripe products: ", error);
+  }
 }
 
 export const openCustomerPortal = async () => {
-  const returnUrl = window.location.origin;
-  const { data } = await createCustomerPortal({ returnUrl });
-  window.location.assign(data.url);
+  try {
+    const returnUrl = window.location.origin;
+    const { data } = await createCustomerPortal({ returnUrl });
+    window.location.assign(data.url);
+  } catch (error) {
+    console.error("Error creating customer portal: ", error);
+  }
 };
