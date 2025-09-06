@@ -187,7 +187,7 @@ describe("handleCreateProject", () => {
     endDate: "2023-12-31",
     name: "App Móvil de Gestión de Tareas",
     state: "En progreso",
-    developer: "Juan Pérez",
+    employeeId: "employeeId",
   };
 
   const formikHelpers = {
@@ -243,7 +243,7 @@ describe("handleEditProject", () => {
     endDate: "2025-07-06",
     name: "name3",
     state: "pending",
-    developer: "developer3",
+    employeeId: "employeeId",
   };
 
   const formikHelpers = {
