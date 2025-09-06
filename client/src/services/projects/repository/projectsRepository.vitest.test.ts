@@ -1,6 +1,4 @@
 import { describe, it, expect, vi, beforeEach, Mock } from "vitest";
-import * as firebaseConfig from "../../../firebaseConfig";
-import * as firestoreMethods from "firebase/firestore";
 import {
   deleteProjectById,
   getAllProjectIds,
@@ -9,15 +7,44 @@ import {
   handleCreateProject,
   handleEditProject,
 } from "./projectsRepository";
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  addDoc,
+  updateDoc,
+  doc,
+  deleteDoc,
+} from "firebase/firestore";
 import { Project } from "../../../types";
 import { waitFor } from "@testing-library/react";
 import { ProjectFormValues } from "../../../types/form-values-types";
 import { FormikHelpers } from "formik";
-import * as utilsFunctions from "../..";
+import { formatDate } from "../..";
 import { toast } from "react-toastify";
+import { auth, db } from "../../../firebaseConfig";
 
-vi.mock("../../firebaseConfig", { spy: true });
-vi.mock("firebase/firestore", { spy: true });
+// Mock auth and db
+vi.mock("../../", () => ({
+  auth: { currentUser: null },
+  db: {},
+}));
+// Mock firestore functions
+vi.mock("firebase/firestore", async () => {
+  const actual = await vi.importActual("firebase/firestore");
+  return {
+    ...actual,
+    collection: vi.fn(),
+    getDocs: vi.fn(),
+    query: vi.fn(),
+    where: vi.fn(),
+    addDoc: vi.fn(),
+    updateDoc: vi.fn(),
+    doc: vi.fn(),
+    deleteDoc: vi.fn(),
+  };
+}); // Mock formatDate
 vi.mock("../..", { spy: true });
 vi.mock("react-toastify", { spy: true });
 
@@ -27,32 +54,26 @@ describe("getAllProjects", () => {
   });
 
   it("should return all projects", async () => {
-    const projects: Project[] = (await getAllProjects()) as Project[];
-    await waitFor(() => {
-      expect(firestoreMethods.collection).toHaveBeenCalledWith(
-        firebaseConfig.db,
-        "projects"
-      );
-      expect(firestoreMethods.getDocs).toHaveBeenCalled();
-      expect(projects).not.toBeUndefined();
-      expect(projects.length).toBeGreaterThan(0);
-    });
+    const projectsCollection = "projectsCollection";
+    (collection as Mock).mockReturnValue(projectsCollection);
+    const result = (await getAllProjects()) as Project[];
+    expect(collection).toHaveBeenCalledWith(db, "projects");
+    expect(getDocs).toHaveBeenCalled();
+    expect(result).not.toBeUndefined();
+    expect(result.length).toBeGreaterThan(0);
   });
 
   it("should manage errors correctly", async () => {
     const error = new Error("Firestore error");
-    (firestoreMethods.getDocs as Mock).mockRejectedValue(error);
+    (getDocs as Mock).mockRejectedValue(error);
 
     const consoleErrorSpy = vi.spyOn(console, "error");
 
     const projects: Project[] = (await getAllProjects()) as Project[];
 
     await waitFor(() => {
-      expect(firestoreMethods.collection).toHaveBeenCalledWith(
-        firebaseConfig.db,
-        "projects"
-      );
-      expect(firestoreMethods.getDocs).toHaveBeenCalled();
+      expect(collection).toHaveBeenCalledWith(db, "projects");
+      expect(getDocs).toHaveBeenCalled();
       expect(consoleErrorSpy).toHaveBeenCalledWith(
         "Error reading projects: ",
         error
@@ -70,63 +91,42 @@ describe("getProjectById", () => {
 
   it("should return project when projectId is provided", async () => {
     const result = { projectId, name: "Project 1" };
-    (firestoreMethods.getDocs as Mock).mockResolvedValue({
+    (getDocs as Mock).mockResolvedValue({
       docs: [{ data: () => result }],
     });
     const project = await getProjectById(projectId);
     await waitFor(() => {
-      expect(firestoreMethods.collection).toHaveBeenCalledWith(
-        firebaseConfig.db,
-        "projects"
-      );
-      expect(firestoreMethods.query).toHaveBeenCalled();
-      expect(firestoreMethods.where).toHaveBeenCalledWith(
-        "projectId",
-        "==",
-        projectId
-      );
-      expect(firestoreMethods.getDocs).toHaveBeenCalled();
+      expect(collection).toHaveBeenCalledWith(db, "projects");
+      expect(query).toHaveBeenCalled();
+      expect(where).toHaveBeenCalledWith("projectId", "==", projectId);
+      expect(getDocs).toHaveBeenCalled();
       expect(project).toEqual(result);
     });
   });
   it("should return null and log a message when querySnapshot is empty", async () => {
-    (firestoreMethods.getDocs as Mock).mockResolvedValue({ empty: true });
+    (getDocs as Mock).mockResolvedValue({ empty: true });
     const consoleLogSpy = vi.spyOn(console, "log");
     const project = await getProjectById(projectId);
     await waitFor(() => {
-      expect(firestoreMethods.collection).toHaveBeenCalledWith(
-        firebaseConfig.db,
-        "projects"
-      );
-      expect(firestoreMethods.query).toHaveBeenCalled();
-      expect(firestoreMethods.where).toHaveBeenCalledWith(
-        "projectId",
-        "==",
-        projectId
-      );
-      expect(firestoreMethods.getDocs).toHaveBeenCalled();
+      expect(collection).toHaveBeenCalledWith(db, "projects");
+      expect(query).toHaveBeenCalled();
+      expect(where).toHaveBeenCalledWith("projectId", "==", projectId);
+      expect(getDocs).toHaveBeenCalled();
       expect(consoleLogSpy).toHaveBeenCalledWith("No matching documents.");
       expect(project).toBeNull();
     });
   });
   it("should manage errors correctly", async () => {
     const error = new Error("Test error");
-    (firestoreMethods.getDocs as Mock).mockRejectedValue(error);
+    (getDocs as Mock).mockRejectedValue(error);
     const consoleErrorSpy = vi.spyOn(console, "error");
     const project = await getProjectById(projectId);
 
     await waitFor(() => {
-      expect(firestoreMethods.collection).toHaveBeenCalledWith(
-        firebaseConfig.db,
-        "projects"
-      );
-      expect(firestoreMethods.query).toHaveBeenCalled();
-      expect(firestoreMethods.where).toHaveBeenCalledWith(
-        "projectId",
-        "==",
-        projectId
-      );
-      expect(firestoreMethods.getDocs).toHaveBeenCalled();
+      expect(collection).toHaveBeenCalledWith(db, "projects");
+      expect(query).toHaveBeenCalled();
+      expect(where).toHaveBeenCalledWith("projectId", "==", projectId);
+      expect(getDocs).toHaveBeenCalled();
       expect(consoleErrorSpy).toHaveBeenCalledWith(
         "Error reading project: ",
         error
@@ -141,31 +141,25 @@ describe("getAllProjectIds", () => {
   });
   it("should return all project ids", async () => {
     const projects = [{ projectId: "1" }, { projectId: "2" }];
-    (firestoreMethods.getDocs as Mock).mockResolvedValue({
+    (getDocs as Mock).mockResolvedValue({
       docs: [{ data: () => projects[0] }, { data: () => projects[1] }],
     });
     const projectIds = await getAllProjectIds();
     await waitFor(() => {
-      expect(firestoreMethods.collection).toHaveBeenCalledWith(
-        firebaseConfig.db,
-        "projects"
-      );
-      expect(firestoreMethods.getDocs).toHaveBeenCalled();
+      expect(collection).toHaveBeenCalledWith(db, "projects");
+      expect(getDocs).toHaveBeenCalled();
       expect(projectIds).toBeDefined();
     });
   });
   it("should manage errors correctly", async () => {
     const error = new Error("Test error");
-    (firestoreMethods.getDocs as Mock).mockRejectedValue(error);
+    (getDocs as Mock).mockRejectedValue(error);
     const consoleErrorSpy = vi.spyOn(console, "error");
     const projects = await getAllProjectIds();
 
     await waitFor(() => {
-      expect(firestoreMethods.collection).toHaveBeenCalledWith(
-        firebaseConfig.db,
-        "projects"
-      );
-      expect(firestoreMethods.getDocs).toHaveBeenCalled();
+      expect(collection).toHaveBeenCalledWith(db, "projects");
+      expect(getDocs).toHaveBeenCalled();
       expect(consoleErrorSpy).toHaveBeenCalledWith(
         "Error reading project IDs: ",
         error
@@ -196,15 +190,9 @@ describe("handleCreateProject", () => {
 
   it("should create a new project", async () => {
     await handleCreateProject(values, formikHelpers);
-    const projectsRef = firestoreMethods.collection(
-      firebaseConfig.db,
-      "projects"
-    );
-    const q = firestoreMethods.query(
-      projectsRef,
-      firestoreMethods.where("customerId", "==", values.customerId)
-    );
-    const querySnapshot = await firestoreMethods.getDocs(q);
+    const projectsRef = collection(db, "projects");
+    const q = query(projectsRef, where("customerId", "==", values.customerId));
+    const querySnapshot = await getDocs(q);
     await waitFor(() => {
       expect(querySnapshot.docs[0]).toBeDefined();
       expect(toast.success).toHaveBeenCalledWith("Project created");
@@ -213,16 +201,16 @@ describe("handleCreateProject", () => {
 
     const deletePromises: Promise<void>[] = [];
     querySnapshot.forEach((doc) => {
-      deletePromises.push(firestoreMethods.deleteDoc(doc.ref));
+      deletePromises.push(deleteDoc(doc.ref));
     });
     await Promise.all(deletePromises);
   });
   it("should manage errors correctly", async () => {
     const error = new Error("Test error");
-    (firestoreMethods.addDoc as Mock).mockRejectedValue(error);
+    (addDoc as Mock).mockRejectedValue(error);
     const consoleErrorSpy = vi.spyOn(console, "error");
     await handleCreateProject(values, formikHelpers);
-    expect(firestoreMethods.addDoc).toHaveBeenCalled();
+    expect(addDoc).toHaveBeenCalled();
     expect(consoleErrorSpy).toHaveBeenCalledWith(
       "Error creating customer: ",
       error
@@ -257,31 +245,18 @@ describe("handleEditProject", () => {
       { ...values, customerId },
       formikHelpers
     );
-    const projectsRef = firestoreMethods.collection(
-      firebaseConfig.db,
-      "projects"
-    );
-    const q = firestoreMethods.query(
-      projectsRef,
-      firestoreMethods.where("customerId", "==", customerId)
-    );
-    const querySnapshot = await firestoreMethods.getDocs(q);
+    const projectsRef = collection(db, "projects");
+    const q = query(projectsRef, where("customerId", "==", customerId));
+    const querySnapshot = await getDocs(q);
     await waitFor(() => {
       expect(querySnapshot.empty).toBe(false);
-      expect(firestoreMethods.collection).toHaveBeenCalledWith(
-        firebaseConfig.db,
-        "projects"
-      );
-      expect(firestoreMethods.query).toHaveBeenCalled();
-      expect(firestoreMethods.where).toHaveBeenCalledWith(
-        "projectId",
-        "==",
-        selectedProjectId
-      );
-      expect(firestoreMethods.getDocs).toHaveBeenCalled();
-      expect(firestoreMethods.doc).toHaveBeenCalled();
-      expect(firestoreMethods.updateDoc).toHaveBeenCalled();
-      expect(utilsFunctions.formatDate).toHaveBeenCalled();
+      expect(collection).toHaveBeenCalledWith(db, "projects");
+      expect(query).toHaveBeenCalled();
+      expect(where).toHaveBeenCalledWith("projectId", "==", selectedProjectId);
+      expect(getDocs).toHaveBeenCalled();
+      expect(doc).toHaveBeenCalled();
+      expect(updateDoc).toHaveBeenCalled();
+      expect(formatDate).toHaveBeenCalled();
       expect(toast.success).toHaveBeenCalledWith("Project updated");
       expect(formikHelpers.resetForm).toHaveBeenCalled();
     });
@@ -289,13 +264,13 @@ describe("handleEditProject", () => {
     const updatePromises: Promise<void>[] = [];
     querySnapshot.forEach((doc) => {
       updatePromises.push(
-        firestoreMethods.updateDoc(doc.ref, { customerId: values.customerId })
+        updateDoc(doc.ref, { customerId: values.customerId })
       );
     });
     await Promise.all(updatePromises);
   });
   it("should return null and log a message if query is empty", async () => {
-    (firestoreMethods.getDocs as Mock).mockReturnValue({
+    (getDocs as Mock).mockReturnValue({
       empty: true,
       docs: [],
     });
@@ -306,38 +281,24 @@ describe("handleEditProject", () => {
       formikHelpers
     );
     await waitFor(() => {
-      expect(firestoreMethods.collection).toHaveBeenCalledWith(
-        firebaseConfig.db,
-        "projects"
-      );
-      expect(firestoreMethods.query).toHaveBeenCalled();
-      expect(firestoreMethods.where).toHaveBeenCalledWith(
-        "projectId",
-        "==",
-        selectedProjectId
-      );
-      expect(firestoreMethods.getDocs).toHaveBeenCalled();
+      expect(collection).toHaveBeenCalledWith(db, "projects");
+      expect(query).toHaveBeenCalled();
+      expect(where).toHaveBeenCalledWith("projectId", "==", selectedProjectId);
+      expect(getDocs).toHaveBeenCalled();
       expect(consoleLogSpy).toHaveBeenCalledWith("No matching documents.");
       expect(result).toBeNull();
     });
   });
   it("should manage errors correctly", async () => {
     const error = new Error("Test error");
-    (firestoreMethods.getDocs as Mock).mockRejectedValue(error);
+    (getDocs as Mock).mockRejectedValue(error);
     await handleEditProject(selectedProjectId, values, formikHelpers);
     const consoleErrorSpy = vi.spyOn(console, "error");
     await waitFor(() => {
-      expect(firestoreMethods.collection).toHaveBeenCalledWith(
-        firebaseConfig.db,
-        "projects"
-      );
-      expect(firestoreMethods.query).toHaveBeenCalled();
-      expect(firestoreMethods.where).toHaveBeenCalledWith(
-        "projectId",
-        "==",
-        selectedProjectId
-      );
-      expect(firestoreMethods.getDocs).toHaveBeenCalled();
+      expect(collection).toHaveBeenCalledWith(db, "projects");
+      expect(query).toHaveBeenCalled();
+      expect(where).toHaveBeenCalledWith("projectId", "==", selectedProjectId);
+      expect(getDocs).toHaveBeenCalled();
       expect(consoleErrorSpy).toHaveBeenCalledWith(
         "Error updating customer: ",
         error
@@ -366,68 +327,45 @@ describe("deleteProjectById", () => {
     await deleteProjectById(project.projectId);
 
     await waitFor(() => {
-      expect(firestoreMethods.collection).toHaveBeenCalledWith(
-        firebaseConfig.db,
-        "projects"
-      );
-      expect(firestoreMethods.query).toHaveBeenCalled();
-      expect(firestoreMethods.getDocs).toHaveBeenCalled();
-      expect(firestoreMethods.doc).toHaveBeenCalled();
-      expect(firestoreMethods.deleteDoc).toHaveBeenCalled();
+      expect(collection).toHaveBeenCalledWith(db, "projects");
+      expect(query).toHaveBeenCalled();
+      expect(getDocs).toHaveBeenCalled();
+      expect(doc).toHaveBeenCalled();
+      expect(deleteDoc).toHaveBeenCalled();
       expect(toast.success).toHaveBeenCalledWith("Project deleted");
     });
 
-    const projectsRef = firestoreMethods.collection(
-      firebaseConfig.db,
-      "projects"
-    );
-    await firestoreMethods.addDoc(projectsRef, project);
-    const q = firestoreMethods.query(
-      projectsRef,
-      firestoreMethods.where("projectId", "==", project.projectId)
-    );
-    const querySnapshot = await firestoreMethods.getDocs(q);
+    const projectsRef = collection(db, "projects");
+    await addDoc(projectsRef, project);
+    const q = query(projectsRef, where("projectId", "==", project.projectId));
+    const querySnapshot = await getDocs(q);
     expect(querySnapshot.empty).toBe(false);
   });
   it("should return null and log a message when querySnapshot is empty", async () => {
-    (firestoreMethods.getDocs as Mock).mockResolvedValue({
+    (getDocs as Mock).mockResolvedValue({
       empty: true,
       docs: [],
     });
     const consoleLogSpy = vi.spyOn(console, "log");
     const result = await deleteProjectById(project.projectId);
     await waitFor(() => {
-      expect(firestoreMethods.collection).toHaveBeenCalledWith(
-        firebaseConfig.db,
-        "projects"
-      );
-      expect(firestoreMethods.query).toHaveBeenCalled();
-      expect(firestoreMethods.where).toHaveBeenCalledWith(
-        "projectId",
-        "==",
-        project.projectId
-      );
-      expect(firestoreMethods.getDocs).toHaveBeenCalled();
+      expect(collection).toHaveBeenCalledWith(db, "projects");
+      expect(query).toHaveBeenCalled();
+      expect(where).toHaveBeenCalledWith("projectId", "==", project.projectId);
+      expect(getDocs).toHaveBeenCalled();
       expect(consoleLogSpy).toHaveBeenCalledWith("No matching documents.");
       expect(result).toBeNull();
     });
   });
   it("should manage errors correctly", async () => {
     const error = new Error("Test error");
-    (firestoreMethods.getDocs as Mock).mockRejectedValue(error);
+    (getDocs as Mock).mockRejectedValue(error);
     const consoleErrorSpy = vi.spyOn(console, "error");
     await deleteProjectById(project.projectId);
-    expect(firestoreMethods.collection).toHaveBeenCalledWith(
-      firebaseConfig.db,
-      "projects"
-    );
-    expect(firestoreMethods.query).toHaveBeenCalled();
-    expect(firestoreMethods.where).toHaveBeenCalledWith(
-      "projectId",
-      "==",
-      project.projectId
-    );
-    expect(firestoreMethods.getDocs).toHaveBeenCalled();
+    expect(collection).toHaveBeenCalledWith(db, "projects");
+    expect(query).toHaveBeenCalled();
+    expect(where).toHaveBeenCalledWith("projectId", "==", project.projectId);
+    expect(getDocs).toHaveBeenCalled();
     expect(consoleErrorSpy).toHaveBeenCalledWith(
       "Error deleting project: ",
       error
