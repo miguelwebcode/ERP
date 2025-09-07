@@ -8,9 +8,14 @@ export const getCheckoutSessionDetails = functions
     async (
       data: CheckoutSessionDetailsData
     ): Promise<Stripe.Checkout.Session> => {
-      const session = await stripe.checkout.sessions.retrieve(data.sessionId, {
-        expand: ["customer", "line_items"],
-      });
-      return session;
+      try {
+        const session = await stripe.checkout.sessions.retrieve(data.sessionId, {
+          expand: ["customer", "line_items"],
+        });
+        return session;
+      } catch (error) {
+        console.error("Error getting checkout session details: ", error);
+        throw error;
+      }
     }
   );
