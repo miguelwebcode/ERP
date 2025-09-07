@@ -25,7 +25,7 @@ vi.mock("../repository/customersRepository", () => ({
 describe("fetchCustomerIds", () => {
   let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
   let callback: ReturnType<typeof vi.fn>;
-  
+
   beforeEach(() => {
     vi.clearAllMocks();
     consoleErrorSpy = vi.spyOn(console, "error");
@@ -41,7 +41,7 @@ describe("fetchCustomerIds", () => {
     expect(consoleErrorSpy).not.toHaveBeenCalled();
     expect(result).toBeUndefined();
   });
-  
+
   it("should manage errors correctly", async () => {
     const error = new Error("error message");
     (getAllCustomerIds as Mock).mockRejectedValue(error);
@@ -62,7 +62,7 @@ describe("setCustomerFormValues", () => {
   const selectedCustomerId = "1";
 
   let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
-  
+
   beforeEach(() => {
     vi.clearAllMocks();
     consoleErrorSpy = vi.spyOn(console, "error");
@@ -106,7 +106,7 @@ describe("fetchCustomer", () => {
   const selectedCustomerId = "1";
   let callback: ReturnType<typeof vi.fn>;
   let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
-  
+
   beforeEach(() => {
     vi.clearAllMocks();
     consoleErrorSpy = vi.spyOn(console, "error");
@@ -146,7 +146,7 @@ describe("fetchCustomer", () => {
 describe("fetchAllCustomers", () => {
   let callback: ReturnType<typeof vi.fn>;
   let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
-  
+
   beforeEach(() => {
     vi.clearAllMocks();
     consoleErrorSpy = vi.spyOn(console, "error");
@@ -197,7 +197,7 @@ describe("handleDeleteCustomer", () => {
   const selectedCustomerId = "1";
   let setSelectedCustomerId: ReturnType<typeof vi.fn>;
   let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
-  
+
   beforeEach(() => {
     vi.clearAllMocks();
     consoleErrorSpy = vi.spyOn(console, "error");

@@ -38,7 +38,7 @@ describe("fetchProjectIds", () => {
     expect(consoleErrorSpy).not.toHaveBeenCalled();
     expect(result).toBeUndefined();
   });
-  
+
   it("should manage errors correctly", async () => {
     const error = new Error("error message");
     (getAllProjectIds as Mock).mockRejectedValue(error);
@@ -60,7 +60,7 @@ describe("setProjectFormValues", () => {
   const selectedProjectId = "1";
 
   let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
-  
+
   beforeEach(() => {
     vi.clearAllMocks();
     consoleErrorSpy = vi.spyOn(console, "error");
@@ -107,7 +107,7 @@ describe("fetchProject", () => {
   const selectedProjectId = "1";
   let callback: ReturnType<typeof vi.fn>;
   let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
-  
+
   beforeEach(() => {
     vi.clearAllMocks();
     consoleErrorSpy = vi.spyOn(console, "error");
@@ -150,7 +150,7 @@ describe("fetchProject", () => {
 describe("fetchAllProjects", () => {
   let callback: ReturnType<typeof vi.fn>;
   let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
-  
+
   beforeEach(() => {
     vi.clearAllMocks();
     consoleErrorSpy = vi.spyOn(console, "error");
