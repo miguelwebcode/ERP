@@ -33,13 +33,15 @@ describe("cleanupStripeCustomer", () => {
   let mockStripeCustomersDel: Mock;
   let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
 
+  const stripeCustomerId = "cus_test123";
+
   const mockUser = {
     uid: "test-uid-123",
   };
 
   const mockStripeCustomerDoc = {
     data: () => ({
-      stripeCustomerId: "cus_test123",
+      stripeCustomerId,
     }),
   };
 
@@ -65,7 +67,7 @@ describe("cleanupStripeCustomer", () => {
   ];
 
   beforeEach(() => {
-    vi.clearAllMocks();
+    vi.restoreAllMocks();
     consoleErrorSpy = vi.spyOn(console, "error");
 
     // Setup Firebase mocks
@@ -87,16 +89,18 @@ describe("cleanupStripeCustomer", () => {
   it("should cleanup stripe customer and related data successfully", async () => {
     // Arrange
     mockGet.mockResolvedValue(mockStripeCustomerDoc);
-    mockQueryGet.mockResolvedValueOnce({
+    const subsSnap = {
       forEach: (callback: (doc: any) => void) => {
         mockSubscriptionDocs.forEach(callback);
       },
-    });
-    mockQueryGet.mockResolvedValueOnce({
+    };
+    mockQueryGet.mockResolvedValueOnce(subsSnap);
+    const paysSnap = {
       forEach: (callback: (doc: any) => void) => {
         mockPaymentDocs.forEach(callback);
       },
-    });
+    };
+    mockQueryGet.mockResolvedValueOnce(paysSnap);
 
     // Act - Get the handler function from cleanupStripeCustomer and call it
     const handler = (cleanupStripeCustomer as any)._handler;
@@ -105,20 +109,20 @@ describe("cleanupStripeCustomer", () => {
     // Assert
     expect(mockDoc).toHaveBeenCalledWith("stripeCustomers/test-uid-123");
     expect(mockGet).toHaveBeenCalled();
-    expect(mockStripeCustomersDel).toHaveBeenCalledWith("cus_test123");
+    expect(mockStripeCustomersDel).toHaveBeenCalledWith(stripeCustomerId);
 
     expect(mockCollection).toHaveBeenCalledWith("subscriptions");
     expect(mockWhere).toHaveBeenCalledWith(
       "stripeCustomerId",
       "==",
-      "cus_test123"
+      stripeCustomerId
     );
 
     expect(mockCollection).toHaveBeenCalledWith("payments");
     expect(mockWhere).toHaveBeenCalledWith(
       "stripeCustomerId",
       "==",
-      "cus_test123"
+      stripeCustomerId
     );
 
     // Verify subscription docs were deleted
@@ -148,7 +152,7 @@ describe("cleanupStripeCustomer", () => {
     await handler(mockUser);
 
     // Assert
-    expect(mockDoc).toHaveBeenCalledWith("stripeCustomers/test-uid-123");
+    expect(mockDoc).toHaveBeenCalledWith(`stripeCustomers/${mockUser.uid}`);
     expect(mockGet).toHaveBeenCalled();
     expect(mockStripeCustomersDel).not.toHaveBeenCalled();
 
@@ -169,6 +173,8 @@ describe("cleanupStripeCustomer", () => {
     // Act & Assert
     const handler = (cleanupStripeCustomer as any)._handler;
     const result = await handler(mockUser);
+    expect(mockGet).toHaveBeenCalled();
+    expect(mockStripeCustomersDel).toHaveBeenCalledWith(stripeCustomerId);
     expect(consoleErrorSpy).toHaveBeenCalledWith(
       "Error cleaning up Stripe customer data:",
       error
@@ -184,29 +190,41 @@ describe("cleanupStripeCustomer", () => {
     // Act & Assert
     const handler = (cleanupStripeCustomer as any)._handler;
     const result = await handler(mockUser);
+    expect(mockDoc).toHaveBeenCalled();
+    expect(mockGet).toHaveBeenCalled();
+    expect(mockDoc).toHaveBeenCalledWith(`stripeCustomers/${mockUser.uid}`);
+    expect(mockStripeCustomersDel).not.toHaveBeenCalled();
+    expect(mockCollection).not.toHaveBeenCalled();
+    expect(mockQueryGet).not.toHaveBeenCalled();
+    mockPaymentDocs.forEach((doc) => {
+      expect(doc.ref.delete).not.toHaveBeenCalled();
+    });
+    mockSubscriptionDocs.forEach((doc) => {
+      expect(doc.ref.delete).not.toHaveBeenCalled();
+    });
     expect(consoleErrorSpy).toHaveBeenCalledWith(
       "Error cleaning up Stripe customer data:",
       error
     );
-
-    expect(mockDoc).toHaveBeenCalledWith("stripeCustomers/test-uid-123");
-    expect(mockStripeCustomersDel).not.toHaveBeenCalled();
     expect(result).toBeUndefined();
   });
 
   it("should handle empty subscriptions and payments collections", async () => {
     // Arrange
     mockGet.mockResolvedValue(mockStripeCustomerDoc);
-    mockQueryGet.mockResolvedValue({
-      forEach: vi.fn(), // Empty collections
-    });
+    const subsSnap = { forEach: vi.fn() }; // Empty subscriptions collection
+    mockQueryGet.mockResolvedValueOnce(subsSnap);
+    const paysSnap = { forEach: vi.fn() }; // Empty payments collection
+    mockQueryGet.mockResolvedValueOnce(paysSnap);
 
     // Act
     const handler = (cleanupStripeCustomer as any)._handler;
     await handler(mockUser);
 
     // Assert
-    expect(mockStripeCustomersDel).toHaveBeenCalledWith("cus_test123");
+    expect(mockDoc).toHaveBeenCalledWith(`stripeCustomers/${mockUser.uid}`);
+    expect(mockGet).toHaveBeenCalled();
+    expect(mockStripeCustomersDel).toHaveBeenCalledWith(stripeCustomerId);
     expect(mockCollection).toHaveBeenCalledWith("subscriptions");
     expect(mockCollection).toHaveBeenCalledWith("payments");
     expect(consoleErrorSpy).not.toHaveBeenCalled();
