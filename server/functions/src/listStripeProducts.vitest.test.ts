@@ -119,8 +119,11 @@ describe("listStripeProducts", () => {
     const result = await handler({}, mockContext);
 
     // Assert
-    expect(mockStripeProductsList).toHaveBeenCalledWith({ active: true, limit: 100 });
-    
+    expect(mockStripeProductsList).toHaveBeenCalledWith({
+      active: true,
+      limit: 100,
+    });
+
     expect(mockStripePricesList).toHaveBeenCalledWith({
       product: "prod_test123",
       active: true,
@@ -191,9 +194,9 @@ describe("listStripeProducts", () => {
 
     // Act & Assert
     const handler = (listStripeProducts as any)._handler;
-    await expect(
-      handler({}, unauthenticatedContext)
-    ).rejects.toThrow("Auth required");
+    await expect(handler({}, unauthenticatedContext)).rejects.toThrow(
+      "Auth required"
+    );
   });
 
   it("should handle empty products list", async () => {
@@ -206,7 +209,10 @@ describe("listStripeProducts", () => {
     const result = await handler({}, mockContext);
 
     // Assert
-    expect(mockStripeProductsList).toHaveBeenCalledWith({ active: true, limit: 100 });
+    expect(mockStripeProductsList).toHaveBeenCalledWith({
+      active: true,
+      limit: 100,
+    });
     expect(mockStripePricesList).not.toHaveBeenCalled();
 
     const expected: ListStripeProductsResponse = {
@@ -230,7 +236,7 @@ describe("listStripeProducts", () => {
       ],
     };
     const emptyPrices = { data: [] };
-    
+
     mockStripeProductsList.mockResolvedValue(productWithNoPrices as any);
     mockStripePricesList.mockResolvedValue(emptyPrices as any);
 
@@ -239,7 +245,10 @@ describe("listStripeProducts", () => {
     const result = await handler({}, mockContext);
 
     // Assert
-    expect(mockStripeProductsList).toHaveBeenCalledWith({ active: true, limit: 100 });
+    expect(mockStripeProductsList).toHaveBeenCalledWith({
+      active: true,
+      limit: 100,
+    });
     expect(mockStripePricesList).toHaveBeenCalledWith({
       product: "prod_test123",
       active: true,
@@ -269,8 +278,11 @@ describe("listStripeProducts", () => {
     // Act & Assert
     const handler = (listStripeProducts as any)._handler;
     await expect(handler({}, mockContext)).rejects.toThrow("Stripe API error");
-    
-    expect(mockStripeProductsList).toHaveBeenCalledWith({ active: true, limit: 100 });
+
+    expect(mockStripeProductsList).toHaveBeenCalledWith({
+      active: true,
+      limit: 100,
+    });
     expect(mockStripePricesList).not.toHaveBeenCalled();
   });
 
@@ -283,8 +295,11 @@ describe("listStripeProducts", () => {
     // Act & Assert
     const handler = (listStripeProducts as any)._handler;
     await expect(handler({}, mockContext)).rejects.toThrow("Prices API error");
-    
-    expect(mockStripeProductsList).toHaveBeenCalledWith({ active: true, limit: 100 });
+
+    expect(mockStripeProductsList).toHaveBeenCalledWith({
+      active: true,
+      limit: 100,
+    });
     expect(mockStripePricesList).toHaveBeenCalledWith({
       product: "prod_test123",
       active: true,
@@ -304,7 +319,7 @@ describe("listStripeProducts", () => {
         },
       ],
     };
-    
+
     const pricesWithNull = {
       data: [
         {
@@ -344,7 +359,7 @@ describe("listStripeProducts", () => {
         },
       ],
     };
-    
+
     const oneTimePrices = {
       data: [
         {

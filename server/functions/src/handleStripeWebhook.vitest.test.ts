@@ -144,7 +144,10 @@ describe("stripeWebhook", () => {
       createdAt: 1640995200000,
     });
 
-    expect(consoleLogSpy).toHaveBeenCalledWith("✅ Webhook validado:", "customer.subscription.created");
+    expect(consoleLogSpy).toHaveBeenCalledWith(
+      "✅ Webhook validado:",
+      "customer.subscription.created"
+    );
     expect(mockRes.json).toHaveBeenCalledWith({ received: true });
     expect(consoleErrorSpy).not.toHaveBeenCalled();
   });
@@ -187,7 +190,10 @@ describe("stripeWebhook", () => {
       { merge: true }
     );
 
-    expect(consoleLogSpy).toHaveBeenCalledWith("✅ Webhook validado:", "customer.subscription.updated");
+    expect(consoleLogSpy).toHaveBeenCalledWith(
+      "✅ Webhook validado:",
+      "customer.subscription.updated"
+    );
     expect(mockRes.json).toHaveBeenCalledWith({ received: true });
     expect(consoleErrorSpy).not.toHaveBeenCalled();
   });
@@ -264,7 +270,10 @@ describe("stripeWebhook", () => {
       { merge: true }
     );
 
-    expect(consoleLogSpy).toHaveBeenCalledWith("✅ Webhook validado:", "invoice.payment_succeeded");
+    expect(consoleLogSpy).toHaveBeenCalledWith(
+      "✅ Webhook validado:",
+      "invoice.payment_succeeded"
+    );
     expect(mockRes.json).toHaveBeenCalledWith({ received: true });
     expect(consoleErrorSpy).not.toHaveBeenCalled();
   });
@@ -307,7 +316,10 @@ describe("stripeWebhook", () => {
       createdAt: 1640995200000,
     });
 
-    expect(consoleLogSpy).toHaveBeenCalledWith("✅ Webhook validado:", "payment_intent.succeeded");
+    expect(consoleLogSpy).toHaveBeenCalledWith(
+      "✅ Webhook validado:",
+      "payment_intent.succeeded"
+    );
     expect(mockRes.json).toHaveBeenCalledWith({ received: true });
     expect(consoleErrorSpy).not.toHaveBeenCalled();
   });
@@ -336,8 +348,13 @@ describe("stripeWebhook", () => {
       webhookSecret
     );
 
-    expect(consoleLogSpy).toHaveBeenCalledWith("✅ Webhook validado:", "customer.created");
-    expect(consoleLogSpy).toHaveBeenCalledWith("Unhandled event type customer.created");
+    expect(consoleLogSpy).toHaveBeenCalledWith(
+      "✅ Webhook validado:",
+      "customer.created"
+    );
+    expect(consoleLogSpy).toHaveBeenCalledWith(
+      "Unhandled event type customer.created"
+    );
     expect(mockRes.json).toHaveBeenCalledWith({ received: true });
     expect(mockCollection).not.toHaveBeenCalled();
     expect(consoleErrorSpy).not.toHaveBeenCalled();
@@ -361,9 +378,14 @@ describe("stripeWebhook", () => {
       webhookSecret
     );
 
-    expect(consoleErrorSpy).toHaveBeenCalledWith("❌ Firma inválida:", "Invalid signature");
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "❌ Firma inválida:",
+      "Invalid signature"
+    );
     expect(mockRes.status).toHaveBeenCalledWith(400);
-    expect(mockRes.send).toHaveBeenCalledWith("Webhook Error: Invalid signature");
+    expect(mockRes.send).toHaveBeenCalledWith(
+      "Webhook Error: Invalid signature"
+    );
     expect(mockRes.json).not.toHaveBeenCalled();
     expect(mockCollection).not.toHaveBeenCalled();
   });
@@ -390,7 +412,7 @@ describe("stripeWebhook", () => {
     // Assert
     expect(mockSet).toHaveBeenCalledWith(
       {
-        latestInvoice: "in_test123",
+        latestInvoice: mockEvent.data.object.id,
         lastPaymentAt: undefined,
       },
       { merge: true }

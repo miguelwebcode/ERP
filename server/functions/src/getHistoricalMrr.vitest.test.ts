@@ -27,8 +27,8 @@ describe("getHistoricalMrr", () => {
 
   const mockSubscriptions: Subscription[] = [
     {
-      createdAt: Date.now() - (30 * 24 * 60 * 60 * 1000), // 30 days ago
-      currentPeriodEnd: Date.now() + (30 * 24 * 60 * 60 * 1000), // 30 days from now
+      createdAt: Date.now() - 30 * 24 * 60 * 60 * 1000, // 30 days ago
+      currentPeriodEnd: Date.now() + 30 * 24 * 60 * 60 * 1000, // 30 days from now
       interval: "month",
       amount: 2000, // $20.00 in cents
       latestInvoice: "in_test123",
@@ -38,8 +38,8 @@ describe("getHistoricalMrr", () => {
       status: "active",
     },
     {
-      createdAt: Date.now() - (60 * 24 * 60 * 60 * 1000), // 60 days ago
-      currentPeriodEnd: Date.now() + (30 * 24 * 60 * 60 * 1000), // 30 days from now
+      createdAt: Date.now() - 60 * 24 * 60 * 60 * 1000, // 60 days ago
+      currentPeriodEnd: Date.now() + 30 * 24 * 60 * 60 * 1000, // 30 days from now
       interval: "year",
       amount: 12000, // $120.00 in cents annually
       latestInvoice: "in_test124",
@@ -49,8 +49,8 @@ describe("getHistoricalMrr", () => {
       status: "active",
     },
     {
-      createdAt: Date.now() - (90 * 24 * 60 * 60 * 1000), // 90 days ago
-      currentPeriodEnd: Date.now() - (10 * 24 * 60 * 60 * 1000), // 10 days ago (expired)
+      createdAt: Date.now() - 90 * 24 * 60 * 60 * 1000, // 90 days ago
+      currentPeriodEnd: Date.now() - 10 * 24 * 60 * 60 * 1000, // 10 days ago (expired)
       interval: "month",
       amount: 1500, // $15.00 in cents
       latestInvoice: "in_test125",
@@ -58,7 +58,7 @@ describe("getHistoricalMrr", () => {
       stripeCustomerId: "cus_test125",
       stripeSubscriptionId: "sub_test125",
       status: "active",
-      canceledAt: Date.now() - (5 * 24 * 60 * 60 * 1000), // canceled 5 days ago
+      canceledAt: Date.now() - 5 * 24 * 60 * 60 * 1000, // canceled 5 days ago
     },
   ];
 
@@ -79,7 +79,7 @@ describe("getHistoricalMrr", () => {
   it("should return historical MRR for last 12 months", async () => {
     // Arrange
     const mockSnapshot = {
-      docs: mockSubscriptions.map(subscription => ({
+      docs: mockSubscriptions.map((subscription) => ({
         data: () => subscription,
       })),
     };
@@ -91,12 +91,15 @@ describe("getHistoricalMrr", () => {
 
     // Assert
     expect(mockCollection).toHaveBeenCalledWith("subscriptions");
-    expect(mockWhere).toHaveBeenCalledWith("status", "in", ["active", "past_due"]);
+    expect(mockWhere).toHaveBeenCalledWith("status", "in", [
+      "active",
+      "past_due",
+    ]);
     expect(mockGet).toHaveBeenCalled();
-    
+
     expect(Array.isArray(result)).toBe(true);
     expect(result).toHaveLength(12);
-    
+
     // Each result should have month and revenue
     result.forEach((item: MrrMonth) => {
       expect(item).toHaveProperty("month");
@@ -111,7 +114,7 @@ describe("getHistoricalMrr", () => {
   it("should filter subscriptions by active and past_due status", async () => {
     // Arrange
     const mockSnapshot = {
-      docs: mockSubscriptions.map(subscription => ({
+      docs: mockSubscriptions.map((subscription) => ({
         data: () => subscription,
       })),
     };
@@ -123,7 +126,10 @@ describe("getHistoricalMrr", () => {
 
     // Assert
     expect(mockCollection).toHaveBeenCalledWith("subscriptions");
-    expect(mockWhere).toHaveBeenCalledWith("status", "in", ["active", "past_due"]);
+    expect(mockWhere).toHaveBeenCalledWith("status", "in", [
+      "active",
+      "past_due",
+    ]);
     expect(mockGet).toHaveBeenCalled();
     expect(Array.isArray(result)).toBe(true);
     expect(consoleErrorSpy).not.toHaveBeenCalled();
@@ -142,12 +148,15 @@ describe("getHistoricalMrr", () => {
 
     // Assert
     expect(mockCollection).toHaveBeenCalledWith("subscriptions");
-    expect(mockWhere).toHaveBeenCalledWith("status", "in", ["active", "past_due"]);
+    expect(mockWhere).toHaveBeenCalledWith("status", "in", [
+      "active",
+      "past_due",
+    ]);
     expect(mockGet).toHaveBeenCalled();
-    
+
     expect(Array.isArray(result)).toBe(true);
     expect(result).toHaveLength(12);
-    
+
     // All months should have 0 revenue
     result.forEach((item: MrrMonth) => {
       expect(item.revenue).toBe(0);
@@ -164,18 +173,24 @@ describe("getHistoricalMrr", () => {
     // Act & Assert
     const handler = (getHistoricalMrr as any)._handler;
     await expect(handler({}, {})).rejects.toThrow("Database error");
-    
+
     expect(mockCollection).toHaveBeenCalledWith("subscriptions");
-    expect(mockWhere).toHaveBeenCalledWith("status", "in", ["active", "past_due"]);
+    expect(mockWhere).toHaveBeenCalledWith("status", "in", [
+      "active",
+      "past_due",
+    ]);
     expect(mockGet).toHaveBeenCalled();
-    expect(consoleErrorSpy).toHaveBeenCalledWith("Error getting historical MRR: ", error);
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "Error getting historical MRR: ",
+      error
+    );
   });
 
   it("should normalize annual subscriptions to monthly revenue", async () => {
     // Arrange
     const annualSubscription: Subscription = {
-      createdAt: Date.now() - (30 * 24 * 60 * 60 * 1000), // 30 days ago
-      currentPeriodEnd: Date.now() + (330 * 24 * 60 * 60 * 1000), // 330 days from now (annual)
+      createdAt: Date.now() - 30 * 24 * 60 * 60 * 1000, // 30 days ago
+      currentPeriodEnd: Date.now() + 330 * 24 * 60 * 60 * 1000, // 330 days from now (annual)
       interval: "year",
       amount: 12000, // $120.00 in cents annually = $10.00 monthly
       latestInvoice: "in_test123",
@@ -186,7 +201,7 @@ describe("getHistoricalMrr", () => {
     };
 
     const mockSnapshot = {
-      docs: [annualSubscription].map(subscription => ({
+      docs: [annualSubscription].map((subscription) => ({
         data: () => subscription,
       })),
     };
@@ -206,7 +221,7 @@ describe("getHistoricalMrr", () => {
   it("should return months in chronological order", async () => {
     // Arrange
     const mockSnapshot = {
-      docs: mockSubscriptions.map(subscription => ({
+      docs: mockSubscriptions.map((subscription) => ({
         data: () => subscription,
       })),
     };
@@ -219,7 +234,7 @@ describe("getHistoricalMrr", () => {
     // Assert
     expect(Array.isArray(result)).toBe(true);
     expect(result).toHaveLength(12);
-    
+
     // Check that months are in order (oldest first)
     for (let i = 1; i < result.length; i++) {
       // Each month string should be in format like "Jan24", "Feb24", etc.
@@ -233,8 +248,8 @@ describe("getHistoricalMrr", () => {
   it("should handle subscriptions with canceled status", async () => {
     // Arrange
     const canceledSubscription: Subscription = {
-      createdAt: Date.now() - (60 * 24 * 60 * 60 * 1000), // 60 days ago
-      currentPeriodEnd: Date.now() - (30 * 24 * 60 * 60 * 1000), // 30 days ago
+      createdAt: Date.now() - 60 * 24 * 60 * 60 * 1000, // 60 days ago
+      currentPeriodEnd: Date.now() - 30 * 24 * 60 * 60 * 1000, // 30 days ago
       interval: "month",
       amount: 1000, // $10.00 in cents
       latestInvoice: "in_test123",
@@ -242,11 +257,11 @@ describe("getHistoricalMrr", () => {
       stripeCustomerId: "cus_test123",
       stripeSubscriptionId: "sub_test123",
       status: "active",
-      canceledAt: Date.now() - (30 * 24 * 60 * 60 * 1000), // canceled 30 days ago
+      canceledAt: Date.now() - 30 * 24 * 60 * 60 * 1000, // canceled 30 days ago
     };
 
     const mockSnapshot = {
-      docs: [canceledSubscription].map(subscription => ({
+      docs: [canceledSubscription].map((subscription) => ({
         data: () => subscription,
       })),
     };

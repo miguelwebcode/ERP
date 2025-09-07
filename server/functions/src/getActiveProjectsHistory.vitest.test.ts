@@ -37,7 +37,7 @@ describe("getActiveProjectsHistory", () => {
       createdAt: "2024-01-01",
     },
     {
-      id: "2", 
+      id: "2",
       name: "Project 2",
       startDate: "2024-02-01",
       endDate: "2024-12-31",
@@ -49,7 +49,7 @@ describe("getActiveProjectsHistory", () => {
     },
     {
       id: "3",
-      name: "Project 3", 
+      name: "Project 3",
       startDate: "2024-06-01",
       endDate: "", // ongoing project
       state: "inProgress",
@@ -86,7 +86,7 @@ describe("getActiveProjectsHistory", () => {
   it("should return active projects history for last 12 months", async () => {
     // Arrange
     const mockSnapshot = {
-      docs: mockProjects.map(project => ({
+      docs: mockProjects.map((project) => ({
         data: () => project,
       })),
     };
@@ -99,10 +99,10 @@ describe("getActiveProjectsHistory", () => {
     // Assert
     expect(mockCollection).toHaveBeenCalledWith("projects");
     expect(mockGet).toHaveBeenCalled();
-    
+
     expect(Array.isArray(result)).toBe(true);
     expect(result).toHaveLength(12);
-    
+
     // Each result should have month and activeCount
     result.forEach((item: ActiveProjectsMonth) => {
       expect(item).toHaveProperty("month");
@@ -117,7 +117,7 @@ describe("getActiveProjectsHistory", () => {
   it("should filter projects by active states only", async () => {
     // Arrange
     const mockSnapshot = {
-      docs: mockProjects.map(project => ({
+      docs: mockProjects.map((project) => ({
         data: () => project,
       })),
     };
@@ -149,10 +149,10 @@ describe("getActiveProjectsHistory", () => {
     // Assert
     expect(mockCollection).toHaveBeenCalledWith("projects");
     expect(mockGet).toHaveBeenCalled();
-    
+
     expect(Array.isArray(result)).toBe(true);
     expect(result).toHaveLength(12);
-    
+
     // All months should have 0 active projects
     result.forEach((item: ActiveProjectsMonth) => {
       expect(item.activeCount).toBe(0);
@@ -169,16 +169,19 @@ describe("getActiveProjectsHistory", () => {
     // Act & Assert
     const handler = (getActiveProjectsHistory as any)._handler;
     await expect(handler({}, {})).rejects.toThrow("Database error");
-    
+
     expect(mockCollection).toHaveBeenCalledWith("projects");
     expect(mockGet).toHaveBeenCalled();
-    expect(consoleErrorSpy).toHaveBeenCalledWith("Error getting active projects history: ", error);
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "Error getting active projects history: ",
+      error
+    );
   });
 
   it("should return months in chronological order", async () => {
     // Arrange
     const mockSnapshot = {
-      docs: mockProjects.map(project => ({
+      docs: mockProjects.map((project) => ({
         data: () => project,
       })),
     };
@@ -191,7 +194,7 @@ describe("getActiveProjectsHistory", () => {
     // Assert
     expect(Array.isArray(result)).toBe(true);
     expect(result).toHaveLength(12);
-    
+
     // Check that months are in order (oldest first)
     for (let i = 1; i < result.length; i++) {
       // Each month string should be in format like "Jan24", "Feb24", etc.
@@ -217,9 +220,9 @@ describe("getActiveProjectsHistory", () => {
         createdAt: "2024-01-01",
       },
     ];
-    
+
     const mockSnapshot = {
-      docs: projectsWithNullEndDate.map(project => ({
+      docs: projectsWithNullEndDate.map((project) => ({
         data: () => project,
       })),
     };

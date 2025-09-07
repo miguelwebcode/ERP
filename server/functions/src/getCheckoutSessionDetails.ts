@@ -9,9 +9,12 @@ export const getCheckoutSessionDetails = functions
       data: CheckoutSessionDetailsData
     ): Promise<Stripe.Checkout.Session> => {
       try {
-        const session = await stripe.checkout.sessions.retrieve(data.sessionId, {
-          expand: ["customer", "line_items"],
-        });
+        const session = await stripe.checkout.sessions.retrieve(
+          data.sessionId,
+          {
+            expand: ["customer", "line_items"],
+          }
+        );
         return session;
       } catch (error) {
         console.error("Error getting checkout session details: ", error);

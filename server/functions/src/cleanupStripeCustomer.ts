@@ -28,6 +28,6 @@ export const cleanupStripeCustomer = functions
         .get();
       paysSnap.forEach((doc) => doc.ref.delete());
     } catch (error: any) {
-      console.error('Error cleaning up Stripe customer data:', error);
+      console.error("Error cleaning up Stripe customer data:", error);
     }
   });

@@ -134,7 +134,9 @@ describe("createStripeCustomer", () => {
 
     // Act & Assert
     const handler = (createStripeCustomer as any)._handler;
-    await expect(handler(userWithoutEmail)).rejects.toThrow("Email is required");
+    await expect(handler(userWithoutEmail)).rejects.toThrow(
+      "Email is required"
+    );
 
     expect(mockStripeCustomersCreate).toHaveBeenCalledWith({
       email: null,
@@ -148,7 +150,7 @@ describe("createStripeCustomer", () => {
       uid: "",
       email: "test@example.com",
     };
-    
+
     mockStripeCustomersCreate.mockResolvedValue(mockStripeCustomer as any);
     mockSet.mockResolvedValue(undefined);
 

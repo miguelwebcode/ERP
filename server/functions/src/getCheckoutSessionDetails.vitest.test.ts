@@ -92,11 +92,14 @@ describe("getCheckoutSessionDetails", () => {
     // Act & Assert
     const handler = (getCheckoutSessionDetails as any)._handler;
     await expect(handler(mockSessionData)).rejects.toThrow("Stripe API error");
-    
+
     expect(mockStripeCheckoutRetrieve).toHaveBeenCalledWith("cs_test123", {
       expand: ["customer", "line_items"],
     });
-    expect(consoleErrorSpy).toHaveBeenCalledWith("Error getting checkout session details: ", stripeError);
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "Error getting checkout session details: ",
+      stripeError
+    );
   });
 
   it("should handle invalid session ID", async () => {
@@ -109,12 +112,20 @@ describe("getCheckoutSessionDetails", () => {
 
     // Act & Assert
     const handler = (getCheckoutSessionDetails as any)._handler;
-    await expect(handler(invalidData)).rejects.toThrow("No such checkout session");
-    
-    expect(mockStripeCheckoutRetrieve).toHaveBeenCalledWith("invalid_session_id", {
-      expand: ["customer", "line_items"],
-    });
-    expect(consoleErrorSpy).toHaveBeenCalledWith("Error getting checkout session details: ", stripeError);
+    await expect(handler(invalidData)).rejects.toThrow(
+      "No such checkout session"
+    );
+
+    expect(mockStripeCheckoutRetrieve).toHaveBeenCalledWith(
+      "invalid_session_id",
+      {
+        expand: ["customer", "line_items"],
+      }
+    );
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "Error getting checkout session details: ",
+      stripeError
+    );
   });
 
   it("should handle empty session ID", async () => {
@@ -128,11 +139,14 @@ describe("getCheckoutSessionDetails", () => {
     // Act & Assert
     const handler = (getCheckoutSessionDetails as any)._handler;
     await expect(handler(emptyData)).rejects.toThrow("Session ID is required");
-    
+
     expect(mockStripeCheckoutRetrieve).toHaveBeenCalledWith("", {
       expand: ["customer", "line_items"],
     });
-    expect(consoleErrorSpy).toHaveBeenCalledWith("Error getting checkout session details: ", stripeError);
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "Error getting checkout session details: ",
+      stripeError
+    );
   });
 
   it("should expand customer and line_items correctly", async () => {
@@ -156,7 +170,7 @@ describe("getCheckoutSessionDetails", () => {
     expect(mockStripeCheckoutRetrieve).toHaveBeenCalledWith("cs_test123", {
       expand: ["customer", "line_items"],
     });
-    
+
     expect(result.customer).toBeDefined();
     expect((result.customer as Stripe.Customer).email).toBe("test@example.com");
     expect(result.line_items).toBeDefined();
@@ -171,10 +185,13 @@ describe("getCheckoutSessionDetails", () => {
     // Act & Assert
     const handler = (getCheckoutSessionDetails as any)._handler;
     await expect(handler(mockSessionData)).rejects.toThrow("Request timeout");
-    
+
     expect(mockStripeCheckoutRetrieve).toHaveBeenCalledWith("cs_test123", {
       expand: ["customer", "line_items"],
     });
-    expect(consoleErrorSpy).toHaveBeenCalledWith("Error getting checkout session details: ", timeoutError);
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "Error getting checkout session details: ",
+      timeoutError
+    );
   });
 });
