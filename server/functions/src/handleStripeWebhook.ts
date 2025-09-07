@@ -62,7 +62,10 @@ export const stripeWebhook = functions
           .set(
             {
               latestInvoice: data.id,
-              lastPaymentAt: data.status_transitions?.paid_at * 1000,
+              lastPaymentAt:
+                typeof data.status_transitions?.paid_at === "number"
+                  ? data.status_transitions?.paid_at * 1000
+                  : undefined,
             },
             { merge: true }
           );
