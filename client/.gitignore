@@ -143,3 +143,19 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Agent / Claude local outputs & state
+/.claude/
+/agents/logs/
+/agents/patches/
+/agents/response.json
+/agents/*.response.json
+/agents/.cache/
+/agents/artifacts/
+
+# YOLO enable file (local only)
+.claude_yolo
+
+# Local Claude CLI files / caches (nombres de ejemplo)
+.claude-cli/
+.claude_tokens/

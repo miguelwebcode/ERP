@@ -1,0 +1,164 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://claude-agents.erp.com/schemas/task-input.json",
+  "title": "Agent Task Input Schema",
+  "description": "Standardized input format for agent tasks",
+  "type": "object",
+  "required": ["task_id", "agent", "action"],
+  "properties": {
+    "task_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique identifier for this task"
+    },
+    "agent": {
+      "type": "string",
+      "pattern": "^[a-z-]+agent$",
+      "description": "Target agent to execute the task"
+    },
+    "action": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Specific action for the agent to perform"
+    },
+    "priority": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "critical"],
+      "default": "medium",
+      "description": "Task priority level"
+    },
+    "timeout": {
+      "type": "number",
+      "minimum": 1000,
+      "maximum": 3600000,
+      "default": 300000,
+      "description": "Maximum execution time in milliseconds"
+    },
+    "context": {
+      "type": "object",
+      "description": "Agent-specific context and configuration",
+      "properties": {
+        "repo_root": {
+          "type": "string",
+          "description": "Root directory of the repository"
+        },
+        "target_files": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Files to target for the operation"
+        },
+        "environment": {
+          "type": "string",
+          "enum": ["development", "staging", "production"],
+          "default": "development"
+        }
+      },
+      "additionalProperties": true
+    },
+    "requirements": {
+      "type": "string",
+      "description": "Detailed requirements and specifications for the task"
+    },
+    "constraints": {
+      "type": "object",
+      "description": "Constraints and limitations for task execution",
+      "properties": {
+        "max_file_size": {
+          "type": "number",
+          "description": "Maximum file size to process in bytes"
+        },
+        "allowed_libraries": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "List of allowed libraries to use"
+        },
+        "forbidden_patterns": {
+          "type": "array", 
+          "items": {"type": "string"},
+          "description": "Code patterns to avoid"
+        },
+        "performance_budget": {
+          "type": "object",
+          "properties": {
+            "max_bundle_size": {"type": "string"},
+            "max_execution_time": {"type": "string"}
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "parent_task_id": {
+      "type": "string",
+      "description": "ID of parent task if this is a subtask"
+    },
+    "chain_context": {
+      "type": "object",
+      "description": "Context passed from previous agent in chain",
+      "additionalProperties": true
+    },
+    "user_preferences": {
+      "type": "object",
+      "description": "User-specific preferences and settings",
+      "properties": {
+        "code_style": {
+          "type": "string",
+          "enum": ["airbnb", "standard", "prettier"]
+        },
+        "test_framework": {
+          "type": "string",
+          "enum": ["jest", "vitest", "cypress"]
+        },
+        "documentation_level": {
+          "type": "string", 
+          "enum": ["minimal", "standard", "comprehensive"]
+        }
+      },
+      "additionalProperties": true
+    },
+    "retry_config": {
+      "type": "object",
+      "description": "Retry configuration for failed tasks",
+      "properties": {
+        "max_retries": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 5,
+          "default": 3
+        },
+        "retry_delay": {
+          "type": "number",
+          "minimum": 1000,
+          "default": 5000,
+          "description": "Delay between retries in milliseconds"
+        },
+        "exponential_backoff": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "description": "Validation requirements for task output",
+      "properties": {
+        "required_tests": {
+          "type": "boolean",
+          "default": true
+        },
+        "code_quality_check": {
+          "type": "boolean",
+          "default": true
+        },
+        "security_scan": {
+          "type": "boolean",
+          "default": false
+        },
+        "performance_check": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

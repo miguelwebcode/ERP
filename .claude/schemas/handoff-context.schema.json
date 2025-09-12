@@ -1,0 +1,182 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://claude-agents.erp.com/schemas/handoff-context.json",
+  "title": "Agent Handoff Context Schema",
+  "description": "Context data structure for passing information between agents",
+  "type": "object",
+  "properties": {
+    "from_agent": {
+      "type": "string",
+      "pattern": "^[a-z-]+agent$",
+      "description": "Agent that initiated the handoff"
+    },
+    "to_agent": {
+      "type": "string", 
+      "pattern": "^[a-z-]+agent$",
+      "description": "Target agent for the handoff"
+    },
+    "handoff_type": {
+      "type": "string",
+      "enum": ["sequential", "parallel", "conditional", "fan_out"],
+      "description": "Type of handoff pattern"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the handoff occurred"
+    },
+    "component_context": {
+      "type": "object",
+      "description": "Context for component-related handoffs",
+      "properties": {
+        "component_name": {"type": "string"},
+        "component_path": {"type": "string"},
+        "props_interface": {"type": "string"},
+        "styling_requirements": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "accessibility_requirements": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "test_scenarios": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "api_context": {
+      "type": "object",
+      "description": "Context for API-related handoffs",
+      "properties": {
+        "endpoint_path": {"type": "string"},
+        "http_method": {"type": "string"},
+        "controller_function": {"type": "string"},
+        "validation_schema": {"type": "object"},
+        "authentication_required": {"type": "boolean"},
+        "rate_limiting": {"type": "object"},
+        "database_operations": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "database_context": {
+      "type": "object",
+      "description": "Context for database-related handoffs",
+      "properties": {
+        "collection_name": {"type": "string"},
+        "schema_changes": {
+          "type": "array",
+          "items": {"type": "object"}
+        },
+        "indexes_required": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "security_rules": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "migration_scripts": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "test_context": {
+      "type": "object",
+      "description": "Context for test-related handoffs",
+      "properties": {
+        "test_type": {
+          "type": "string",
+          "enum": ["unit", "component", "integration", "e2e"]
+        },
+        "target_coverage": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "test_scenarios": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "mock_requirements": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "fixtures_needed": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "build_context": {
+      "type": "object",
+      "description": "Context for build and deployment handoffs",
+      "properties": {
+        "build_artifacts": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "environment_config": {"type": "object"},
+        "deployment_target": {"type": "string"},
+        "performance_requirements": {"type": "object"},
+        "rollback_plan": {"type": "object"}
+      }
+    },
+    "documentation_context": {
+      "type": "object",
+      "description": "Context for documentation handoffs",
+      "properties": {
+        "doc_type": {
+          "type": "string",
+          "enum": ["jsdoc", "component", "api", "readme"]
+        },
+        "functions_to_document": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "examples_needed": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "integration_points": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "quality_metrics": {
+      "type": "object",
+      "description": "Quality metrics to maintain across handoffs",
+      "properties": {
+        "code_coverage": {"type": "number"},
+        "performance_score": {"type": "number"},
+        "security_score": {"type": "number"},
+        "accessibility_score": {"type": "number"},
+        "maintainability_index": {"type": "number"}
+      }
+    },
+    "dependencies": {
+      "type": "object",
+      "description": "Dependencies and requirements for next agent",
+      "properties": {
+        "required_tools": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "environment_variables": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "external_services": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

@@ -47,7 +47,7 @@ const CustomerForm = ({
 
   const fieldDisabled = useMemo(
     () => canBeDisabled && selectedCustomerId === "",
-    [selectedCustomerId]
+    [canBeDisabled, selectedCustomerId]
   );
 
   return (
@@ -110,6 +110,7 @@ const CustomerForm = ({
           type="submit"
           className="w-full bg-ds-primary-500 text-ds-white mt-8 py-3 px-4 rounded hover:bg-ds-primary-600 uppercase font-bold disabled:bg-ds-grey-400"
           disabled={fieldDisabled}
+          data-testid="submit-button"
         >
           <p className="text-xl">{submitButtonText}</p>
         </button>

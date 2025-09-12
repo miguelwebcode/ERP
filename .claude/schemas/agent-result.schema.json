@@ -1,0 +1,155 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://claude-agents.erp.com/schemas/agent-result.json",
+  "title": "Agent Result Schema",
+  "description": "Standardized result format for all Claude agents",
+  "type": "object",
+  "required": ["status", "agent", "task_id", "timestamp"],
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["success", "error", "partial", "blocked"],
+      "description": "Overall status of the agent execution"
+    },
+    "agent": {
+      "type": "string",
+      "pattern": "^[a-z-]+agent$",
+      "description": "Name of the agent that executed the task"
+    },
+    "task_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique identifier for this task"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO timestamp of task completion"
+    },
+    "execution_time": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Task execution time in milliseconds"
+    },
+    "files_created": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of files created by the agent"
+    },
+    "files_modified": {
+      "type": "array", 
+      "items": {
+        "type": "string"
+      },
+      "description": "List of files modified by the agent"
+    },
+    "files_deleted": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of files deleted by the agent"
+    },
+    "next_agent": {
+      "type": "string",
+      "pattern": "^[a-z-]+agent$",
+      "description": "Suggested next agent in the workflow chain"
+    },
+    "handoff_context": {
+      "type": "object",
+      "description": "Context data to pass to the next agent",
+      "properties": {
+        "component_name": {"type": "string"},
+        "api_endpoint": {"type": "string"},
+        "test_scenarios": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "dependencies_added": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      },
+      "additionalProperties": true
+    },
+    "error": {
+      "type": "object",
+      "description": "Error information if status is 'error'",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Error code for categorization"
+        },
+        "message": {
+          "type": "string",
+          "description": "Human-readable error message"
+        },
+        "details": {
+          "type": "object",
+          "description": "Additional error details"
+        },
+        "stack_trace": {
+          "type": "string",
+          "description": "Error stack trace for debugging"
+        },
+        "rollback_actions": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Actions needed to rollback changes"
+        }
+      },
+      "required": ["code", "message"]
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "code": {"type": "string"},
+          "message": {"type": "string"},
+          "severity": {
+            "type": "string",
+            "enum": ["low", "medium", "high"]
+          }
+        },
+        "required": ["code", "message", "severity"]
+      },
+      "description": "Non-blocking warnings from agent execution"
+    },
+    "metrics": {
+      "type": "object",
+      "description": "Performance and quality metrics",
+      "properties": {
+        "lines_of_code": {"type": "number", "minimum": 0},
+        "test_coverage": {"type": "number", "minimum": 0, "maximum": 100},
+        "complexity_score": {"type": "number", "minimum": 0},
+        "performance_score": {"type": "number", "minimum": 0, "maximum": 100}
+      },
+      "additionalProperties": true
+    },
+    "human_review_required": {
+      "type": "boolean",
+      "description": "Whether human review is needed before proceeding"
+    },
+    "approval_gates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "gate_type": {
+            "type": "string",
+            "enum": ["security", "performance", "design", "architecture"]
+          },
+          "description": {"type": "string"},
+          "required_approvers": {
+            "type": "array",
+            "items": {"type": "string"}
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}
