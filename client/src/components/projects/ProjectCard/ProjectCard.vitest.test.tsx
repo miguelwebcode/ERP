@@ -12,12 +12,20 @@ describe("ProjectCard", () => {
       startDate: "2024-01-01",
       endDate: "2024-12-31",
       state: "In Progress",
-      developer: "John Doe",
       createdAt: "2023-01-01",
       updatedAt: "2024-02-01",
+      id: "",
+      employeeId: "",
     };
 
-    render(<ProjectCard project={project} />);
+    render(
+      <ProjectCard
+        project={project}
+        onButtonClick={function (): Promise<void> {
+          throw new Error("Function not implemented.");
+        }}
+      />
+    );
 
     expect(screen.getByText("Name")).toBeInTheDocument();
     expect(screen.getByText("Project Alpha")).toBeInTheDocument();
@@ -32,7 +40,6 @@ describe("ProjectCard", () => {
     expect(screen.getByText("End Date")).toBeInTheDocument();
     expect(screen.getByText("2024-12-31")).toBeInTheDocument();
     expect(screen.getByText("Developer")).toBeInTheDocument();
-    expect(screen.getByText("John Doe")).toBeInTheDocument();
     expect(screen.getByText("Created at")).toBeInTheDocument();
     expect(screen.getByText("2024-01-01")).toBeInTheDocument();
     expect(screen.getByText("Updated at")).toBeInTheDocument();
@@ -47,12 +54,19 @@ describe("ProjectCard", () => {
       startDate: "2024-02-01",
       endDate: "2024-11-30",
       state: "Completed",
-      developer: "Jane Doe",
       createdAt: "2024-02-01",
-      // No updatedAt
+      id: "",
+      employeeId: "",
     };
 
-    render(<ProjectCard project={project} />);
+    render(
+      <ProjectCard
+        project={project}
+        onButtonClick={function (): Promise<void> {
+          throw new Error("Function not implemented.");
+        }}
+      />
+    );
 
     expect(screen.queryByText("Updated at")).not.toBeInTheDocument();
   });

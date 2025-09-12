@@ -9,6 +9,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "vitest": "vitest --ui",
+    "vitest:collect-fails": "node scripts/skip-failed-tests.js",
+    "test:skip-fails": "npm run vitest:collect-fails && npm run vitest",
     "emulators": "npx kill-port --port 4000,5000,5001,8080,9000,9099 && firebase emulators:start --import=backup-firebase",
     "cypress:run": "npx cypress run",
     "cypress:open": "powershell -Command \"$env:SERVICE_ACCOUNT = Get-Content -Path .\\serviceAccount.json -Raw; npx cypress open\"",

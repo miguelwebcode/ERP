@@ -17,7 +17,14 @@ describe("CustomerCard", () => {
       updatedAt: undefined,
     };
 
-    render(<CustomerCard customer={customer} />);
+    render(
+      <CustomerCard
+        customer={customer}
+        onButtonClick={function (): Promise<void> {
+          throw new Error("Function not implemented.");
+        }}
+      />
+    );
 
     expect(screen.getByText(/street/i)).toBeInTheDocument();
     expect(screen.getByText("Corp")).toBeInTheDocument();
@@ -40,7 +47,14 @@ describe("CustomerCard", () => {
       updatedAt: "2025-02-03 23:24",
     };
 
-    render(<CustomerCard customer={customer} />);
+    render(
+      <CustomerCard
+        customer={customer}
+        onButtonClick={function (): Promise<void> {
+          throw new Error("Function not implemented.");
+        }}
+      />
+    );
 
     expect(screen.getByText(/street/i)).toBeInTheDocument();
     expect(screen.getByText("Corp")).toBeInTheDocument();

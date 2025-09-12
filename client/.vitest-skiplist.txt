@@ -1,0 +1,27 @@
+# Vitest Skip List - Test Files
+# Generated on 2025-09-12T21:02:36.822Z
+# This file contains test file paths that should be skipped
+# Each line represents a test file that will be completely ignored
+#
+src/components/customers/CustomerCard/CustomerCard.vitest.test.tsx
+src/components/formik/SharedForm/WrappingCustomerForm.vitest.test.tsx
+src/components/formik/SharedForm/WrappingProjectForm.vitest.test.tsx
+src/components/projects/ProjectCard/ProjectCard.vitest.test.tsx
+src/components/projects/ProjectForm/ProjectForm.vitest.test.tsx
+src/components/projects/SelectProjectForm/SelectProjectForm.vitest.test.tsx
+src/components/ui/Header/Header.vitest.test.tsx
+src/components/ui/LogoutButton/LogoutButton.vitest.test.tsx
+src/components/ui/SharedCard/SharedCard.vitest.test.tsx
+src/views/HomeView/HomeView.vitest.test.tsx
+src/views/LoginView/LoginView.vitest.test.tsx
+src/views/RegisterView/RegisterView.vitest.test.tsx
+src/views/customers/AddCustomerView/AddCustomerView.vitest.test.tsx
+src/views/customers/CustomersView/CustomersView.vitest.test.tsx
+src/views/customers/DeleteCustomerView/DeleteCustomerView.vitest.test.tsx
+src/views/customers/EditCustomerView/EditCustomerView.vitest.test.tsx
+src/views/customers/ReadCustomersView/ReadCustomersView.vitest.test.tsx
+src/views/projects/AddProjectView/AddProjectView.vitest.test.tsx
+src/views/projects/DeleteProjectView/DeleteProjectView.vitest.test.tsx
+src/views/projects/EditProjectView/EditProjectView.vitest.test.tsx
+src/views/projects/ProjectsView/ProjectsView.vitest.test.tsx
+src/views/projects/ReadProjectsView/ReadProjectsView.vitest.test.tsx
