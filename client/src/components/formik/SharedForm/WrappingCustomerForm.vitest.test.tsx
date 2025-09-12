@@ -12,7 +12,6 @@ describe("SharedForm wrapping CustomerFormValue, Happy paths", () => {
     email: "email@em.com",
     name: "name",
     phone: "123456789",
-    project: "project",
   };
 
   const mockOnSubmit = vi.fn();
@@ -104,9 +103,6 @@ describe("SharedForm wrapping CustomerFormValue, Happy paths", () => {
     const inputPhone = screen.getByLabelText("Phone") as HTMLInputElement;
     expect(inputPhone.value).toBe(initialValues.phone);
 
-    const inputProject = screen.getByLabelText("Project") as HTMLInputElement;
-    expect(inputProject.value).toBe(initialValues.project);
-
     const button = screen.getByText("Button text");
     expect(button).toBeInTheDocument();
   });
@@ -131,7 +127,6 @@ describe("SharedForm wrapping CustomerFormValue, validate error messages", () =>
       email: "",
       name: "",
       phone: "",
-      project: "",
     };
 
     const mockOnSubmit = vi.fn();
@@ -231,7 +226,6 @@ describe("SharedForm wrapping CustomerFormValue, validate error messages", () =>
       email: "c",
       name: "d",
       phone: "e",
-      project: "f",
     };
 
     const mockOnSubmit = vi.fn();

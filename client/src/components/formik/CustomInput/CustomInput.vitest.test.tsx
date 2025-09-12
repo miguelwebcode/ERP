@@ -69,6 +69,6 @@ describe("CustomInput", () => {
     render(<CustomInput label="Name" name="name" type="input" disabled />);
     const errorMessage = screen.getByText("Name is required");
     expect(errorMessage).toBeDefined();
-    expect(errorMessage).toHaveClass("text-red-500");
+    expect(errorMessage).toHaveClass("text-ds-accent1-500");
   });
 });

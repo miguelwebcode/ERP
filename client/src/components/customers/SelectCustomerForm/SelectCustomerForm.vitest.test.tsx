@@ -1,19 +1,30 @@
-vi.mock("react", () => ({
-  useState: vi.fn(),
-  useEffect: vi.fn(),
+vi.mock("../../../services/customers/service/customersService", () => ({
+  fetchAllCustomers: vi.fn(),
+}));
+
+vi.mock("../../../stores/app-store", () => ({
+  useAppStore: vi.fn(() => ""),
 }));
 
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import { describe, it, expect, vi, Mock } from "vitest";
-import { useState } from "react";
+import { describe, it, expect, vi, beforeEach } from "vitest";
 import SelectCustomerForm from "./SelectCustomerForm";
+import { fetchAllCustomers } from "../../../services/customers/service/customersService";
+
+const mockCustomers = [
+  { id: "customer1", name: "Customer 1" },
+  { id: "customer2", name: "Customer 2" },
+  { id: "customer3", name: "Customer 3" },
+];
 
 describe("SelectCustomerForm", () => {
   beforeEach(() => {
     vi.clearAllMocks();
 
-    const mockCustomerIds = ["customer1", "customer2", "customer3"];
-    (useState as Mock).mockReturnValue([mockCustomerIds]);
+    // Mock fetchAllCustomers to call the setter with mock data
+    (fetchAllCustomers as any).mockImplementation((setCustomers: any) => {
+      setCustomers(mockCustomers);
+    });
   });
   it("check correct texts: title, label, select options, buttonText", () => {
     const mockOnSubmit = vi.fn();
