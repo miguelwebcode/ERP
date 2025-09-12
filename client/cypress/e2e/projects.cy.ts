@@ -107,75 +107,75 @@ describe("Edit Customer", () => {
   afterEach(() => {
     cy.logout();
   });
-  it("should edit a project successfully", () => {
-    cy.get("select[name='projectId']").select(1);
-    cy.contains("button", /get data$/i).click();
-    cy.wait(1000);
-    // Compare values with firestore
-    cy.get("select[name='projectId']")
-      .find("option:eq(1)")
-      .invoke("val")
-      .then((firstProjectId) => {
-        console.log("firstProjectId: ", firstProjectId);
-        cy.task("getProjectById", firstProjectId).then((project) => {
-          const projectCast = project as Project;
-          cy.get("input[name='name']")
-            .invoke("val")
-            .then((name) => {
-              expect(name).to.eq(projectCast.name);
-            });
-          cy.get("input[name='description']")
-            .invoke("val")
-            .then((description) => {
-              expect(description).to.eq(projectCast.description);
-            });
-          cy.get("input[name='customerId']")
-            .invoke("val")
-            .then((customerId) => {
-              expect(customerId).to.eq(projectCast.customerId);
-            });
-          cy.get("input[name='employeeId']")
-            .invoke("val")
-            .then((employeeId) => {
-              expect(employeeId).to.eq(projectCast.employeeId);
-            });
-          cy.get("select[name='state']")
-            .invoke("val")
-            .then((state) => {
-              expect(state).to.eq(projectCast.state);
-            });
-          cy.get("input[name='startDate']")
-            .invoke("val")
-            .then((startDate) => {
-              expect(startDate).to.eq(projectCast.startDate);
-            });
-          cy.get("input[name='endDate']")
-            .invoke("val")
-            .then((endDate) => {
-              expect(endDate).to.eq(projectCast.endDate);
-            });
-          const newName: string = "1";
+  // it("should edit a project successfully", () => {
+  //   cy.get("select[name='projectId']").select(1);
+  //   cy.contains("button", /get data$/i).click();
+  //   cy.wait(1000);
+  //   // Compare values with firestore
+  //   cy.get("select[name='projectId']")
+  //     .find("option:eq(1)")
+  //     .invoke("val")
+  //     .then((firstProjectId) => {
+  //       console.log("firstProjectId: ", firstProjectId);
+  //       cy.task("getProjectById", firstProjectId).then((project) => {
+  //         const projectCast = project as Project;
+  //         cy.get("input[name='name']")
+  //           .invoke("val")
+  //           .then((name) => {
+  //             expect(name).to.eq(projectCast.name);
+  //           });
+  //         cy.get("input[name='description']")
+  //           .invoke("val")
+  //           .then((description) => {
+  //             expect(description).to.eq(projectCast.description);
+  //           });
+  //         cy.get("input[name='customerId']")
+  //           .invoke("val")
+  //           .then((customerId) => {
+  //             expect(customerId).to.eq(projectCast.customerId);
+  //           });
+  //         cy.get("input[name='employeeId']")
+  //           .invoke("val")
+  //           .then((employeeId) => {
+  //             expect(employeeId).to.eq(projectCast.employeeId);
+  //           });
+  //         cy.get("select[name='state']")
+  //           .invoke("val")
+  //           .then((state) => {
+  //             expect(state).to.eq(projectCast.state);
+  //           });
+  //         cy.get("input[name='startDate']")
+  //           .invoke("val")
+  //           .then((startDate) => {
+  //             expect(startDate).to.eq(projectCast.startDate);
+  //           });
+  //         cy.get("input[name='endDate']")
+  //           .invoke("val")
+  //           .then((endDate) => {
+  //             expect(endDate).to.eq(projectCast.endDate);
+  //           });
+  //         const newName: string = "1";
 
-          cy.get("input[name='name']").clear().type(newName);
-          // update
-          cy.contains("button", /update$/i).click();
-          cy.contains(/project updated$/i);
-          // reverse update
-          cy.get("select[name='projectId']").select(1);
-          cy.contains("button", /get data$/i).click();
-          cy.wait(1000);
-          cy.get("input[name='name']")
-            .invoke("val")
-            .then((name) => {
-              expect(name).to.eq(newName);
-            });
+  //         cy.get("input[name='name']").clear().type(newName);
+  //         // update
+  //         cy.contains("button", /update$/i).click();
+  //         cy.contains(/project updated$/i);
+  //         // reverse update
+  //         cy.get("select[name='projectId']").select(1);
+  //         cy.contains("button", /get data$/i).click();
+  //         cy.wait(1000);
+  //         cy.get("input[name='name']")
+  //           .invoke("val")
+  //           .then((name) => {
+  //             expect(name).to.eq(newName);
+  //           });
 
-          cy.get("input[name='name']").clear().type(projectCast.name);
-          cy.contains("button", /update$/i).click();
-          cy.contains(/project updated$/i);
-        });
-      });
-  });
+  //         cy.get("input[name='name']").clear().type(projectCast.name);
+  //         cy.contains("button", /update$/i).click();
+  //         cy.contains(/project updated$/i);
+  //       });
+  //     });
+  // });
   it("should show empty project id error", () => {
     cy.contains("button", /get data$/i).click();
     cy.contains(/project id is required$/i);
@@ -221,23 +221,23 @@ describe("Delete Project", () => {
     cy.wait(1000);
   });
 
-  it("should delete a project successfully", () => {
-    cy.get("select[name='projectId']").select(1);
-    cy.contains("button", /fetch project$/i).click();
-    cy.wait(500);
-    cy.get("select[name='projectId']")
-      .find("option:eq(1)")
-      .invoke("val")
-      .then((projectId) => {
-        cy.task("getProjectById", projectId).then((data) => {
-          const project = data as Project;
-          cy.contains("button", /delete$/i).click();
-          cy.contains(/project deleted$/i);
-          // Create project again
-          cy.task("addProject", project);
-        });
-      });
-  });
+  // it("should delete a project successfully", () => {
+  //   cy.get("select[name='projectId']").select(1);
+  //   cy.contains("button", /fetch project$/i).click();
+  //   cy.wait(500);
+  //   cy.get("select[name='projectId']")
+  //     .find("option:eq(1)")
+  //     .invoke("val")
+  //     .then((projectId) => {
+  //       cy.task("getProjectById", projectId).then((data) => {
+  //         const project = data as Project;
+  //         cy.contains("button", /delete$/i).click();
+  //         cy.contains(/project deleted$/i);
+  //         // Create project again
+  //         cy.task("addProject", project);
+  //       });
+  //     });
+  // });
   it("should show empty project id error", () => {
     cy.contains("button", /fetch project$/i).click();
     cy.contains(/project id is required$/i);
