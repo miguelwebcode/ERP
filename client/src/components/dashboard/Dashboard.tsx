@@ -1,4 +1,3 @@
-import { employeesGraphColors } from "@/data";
 import { formatCurrency } from "@/lib/utils";
 import { fetchCustomerIds } from "@/services/customers/service/customersService";
 import {
@@ -34,13 +33,11 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-  CartesianGrid,
   BarChart,
   Bar,
   PieChart,
   Pie,
   Cell,
-  Legend,
   ResponsiveContainer,
 } from "recharts";
 
@@ -217,7 +214,7 @@ export const Dashboard = () => {
       {/* KPI Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
         {kpiData.map((kpi, index) => (
-          <Card key={kpi.title} className="bg-white rounded-lg p-6 shadow-lg">
+          <Card key={index} className="bg-white rounded-lg p-6 shadow-lg">
             <div className="flex flex-col items-center text-center">
               <h3 className="text-gray-600 text-sm font-medium mb-2">
                 {kpi.title}
@@ -375,7 +372,7 @@ export const Dashboard = () => {
             </h3>
             <div className="flex-grow overflow-auto">
               {allEmployees.length > 0 ? (
-                <div className="rounded-lg overflow-hidden">
+                <div className="rounded-lg overflow-hidden overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="bg-blue-600 text-white">
@@ -451,7 +448,7 @@ export const Dashboard = () => {
                               setCurrentPage((prev) => Math.max(prev - 1, 1))
                             }
                             disabled={currentPage === 1}
-                            className="flex items-center text-gray-400 hover:text-gray-600 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors duration-200"
+                            className="flex items-center text-blue-600 hover:text-blue-700 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors duration-200"
                           >
                             <svg
                               className="w-4 h-4 mr-1"
@@ -487,7 +484,7 @@ export const Dashboard = () => {
                               currentPage ===
                               Math.ceil(allEmployees.length / employeesPerPage)
                             }
-                            className="flex items-center text-gray-400 hover:text-gray-600 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors duration-200"
+                            className="flex items-center text-blue-600 hover:text-blue-700 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors duration-200"
                           >
                             Next
                             <svg
@@ -529,7 +526,7 @@ export const Dashboard = () => {
             </h3>
             <div className="flex-grow overflow-auto">
               {allProjects.length > 0 ? (
-                <div className="rounded-lg overflow-hidden">
+                <div className="rounded-lg overflow-hidden overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="bg-blue-600 text-white">
@@ -543,13 +540,10 @@ export const Dashboard = () => {
                           State
                         </th>
                         <th className="text-left py-3 px-4 font-medium">
-                          Customer ID
-                        </th>
-                        <th className="text-left py-3 px-4 font-medium">
-                          Employee ID
-                        </th>
-                        <th className="text-left py-3 px-4 font-medium">
                           Start Date
+                        </th>
+                        <th className="text-left py-3 px-4 font-medium">
+                          End Date
                         </th>
                       </tr>
                     </thead>
@@ -572,17 +566,14 @@ export const Dashboard = () => {
                             <td className="py-3 px-4 text-gray-900 font-medium">
                               {project.name}
                             </td>
-                            <td className="py-3 px-4 text-gray-700">
+                            <td className="py-3 px-4 text-blue-600 font-medium">
                               {project.state}
                             </td>
                             <td className="py-3 px-4 text-gray-700">
-                              {project.customerId}
+                              {project.startDate}
                             </td>
                             <td className="py-3 px-4 text-gray-700">
-                              {project.employeeId}
-                            </td>
-                            <td className="py-3 px-4 text-blue-600 font-medium">
-                              {project.startDate}
+                              {project.endDate}
                             </td>
                           </tr>
                         ))}
@@ -608,7 +599,7 @@ export const Dashboard = () => {
                               )
                             }
                             disabled={projectsCurrentPage === 1}
-                            className="flex items-center text-gray-400 hover:text-gray-600 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors duration-200"
+                            className="flex items-center text-blue-600 hover:text-blue-700 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors duration-200"
                           >
                             <svg
                               className="w-4 h-4 mr-1"
@@ -644,7 +635,7 @@ export const Dashboard = () => {
                               projectsCurrentPage ===
                               Math.ceil(allProjects.length / projectsPerPage)
                             }
-                            className="flex items-center text-gray-400 hover:text-gray-600 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors duration-200"
+                            className="flex items-center text-blue-600 hover:text-blue-700 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors duration-200"
                           >
                             Next
                             <svg

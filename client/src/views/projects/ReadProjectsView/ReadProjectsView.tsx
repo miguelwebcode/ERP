@@ -79,7 +79,7 @@ export const ReadProjectsView = () => {
     <>
       {projects.length ? (
         <div className="container mx-auto md:mx-10 py-10">
-          <div className="rounded-lg overflow-hidden">
+          <div className="rounded-lg overflow-hidden overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
                 <tr className="bg-blue-600 text-white">
@@ -100,6 +100,9 @@ export const ReadProjectsView = () => {
                   </th>
                   <th className="text-left py-3 px-4 font-medium">
                     Employee ID
+                  </th>
+                  <th className="text-left py-3 px-4 font-medium">
+                    Created At
                   </th>
                 </tr>
               </thead>
@@ -137,8 +140,11 @@ export const ReadProjectsView = () => {
                       <td className="py-3 px-4 text-gray-700">
                         {project.customerId}
                       </td>
-                      <td className="py-3 px-4 text-blue-600 font-medium">
+                      <td className="py-3 px-4 text-gray-700">
                         {project.employeeId}
+                      </td>
+                      <td className="py-3 px-4 text-gray-700">
+                        {project.createdAt}
                       </td>
                     </tr>
                   ))}
@@ -158,7 +164,7 @@ export const ReadProjectsView = () => {
                         setCurrentPage((prev) => Math.max(prev - 1, 1))
                       }
                       disabled={currentPage === 1}
-                      className="flex items-center text-gray-400 hover:text-gray-600 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors duration-200"
+                      className="flex items-center text-blue-600 hover:text-blue-700 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors duration-200"
                     >
                       <svg
                         className="w-4 h-4 mr-1"
@@ -192,7 +198,7 @@ export const ReadProjectsView = () => {
                         currentPage ===
                         Math.ceil(projects.length / projectsPerPage)
                       }
-                      className="flex items-center text-gray-400 hover:text-gray-600 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors duration-200"
+                      className="flex items-center text-blue-600 hover:text-blue-700 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors duration-200"
                     >
                       Next
                       <svg
