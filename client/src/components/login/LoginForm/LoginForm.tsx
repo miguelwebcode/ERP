@@ -49,11 +49,8 @@ const LoginForm = () => {
 
           <div className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Email
-              </label>
               <CustomInput
-                label=""
+                label="Email"
                 name="email"
                 type="email"
                 placeholder="Enter your email"
@@ -61,12 +58,9 @@ const LoginForm = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Password
-              </label>
               <div className="relative">
                 <CustomInput
-                  label=""
+                  label="Password"
                   name="password"
                   type="password"
                   placeholder="Enter your password"
