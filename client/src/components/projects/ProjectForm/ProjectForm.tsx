@@ -68,10 +68,12 @@ const ProjectForm = ({
       onSubmit={handleSubmit}
       innerRef={formikRef}
     >
-      <div className="flex flex-col items-center justify-center bg-ds-white p-8 rounded shadow-ds-2">
-        <h1 className="text-2xl font-bold mb-8">{titleText}</h1>
-        <div className="grid grid-cols-2 gap-y-5 gap-x-5">
-          <div className="col-span-2 sm:col-span-1">
+      <div className="w-fullpx-8">
+        <h1 className="text-2xl font-bold mb-8 text-center text-gray-800">
+          {titleText}
+        </h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
             <CustomInput
               type="text"
               label="Name"
@@ -80,7 +82,7 @@ const ProjectForm = ({
               disabled={fieldDisabled}
             />
           </div>
-          <div className="col-span-2 sm:col-span-1">
+          <div>
             <CustomSelect
               label="Project State"
               name="state"
@@ -98,7 +100,7 @@ const ProjectForm = ({
               })}
             </CustomSelect>
           </div>
-          <div className="col-span-2 sm:col-span-1">
+          <div className="md:col-span-2">
             <CustomInput
               type="text"
               label="Description"
@@ -107,7 +109,7 @@ const ProjectForm = ({
               disabled={fieldDisabled}
             />
           </div>
-          <div className="col-span-2 sm:col-span-1">
+          <div>
             <CustomInput
               type="date"
               label="Start Date"
@@ -116,16 +118,7 @@ const ProjectForm = ({
               disabled={fieldDisabled}
             />
           </div>
-          <div className="col-span-2 sm:col-span-1">
-            <CustomInput
-              type="text"
-              label="Customer ID"
-              name="customerId"
-              placeholder="Enter project's customer"
-              disabled={fieldDisabled}
-            />
-          </div>
-          <div className="col-span-2 sm:col-span-1">
+          <div>
             <CustomInput
               type="date"
               label="End Date"
@@ -134,7 +127,16 @@ const ProjectForm = ({
               disabled={fieldDisabled}
             />
           </div>
-          <div className="col-span-2 sm:col-span-1">
+          <div>
+            <CustomInput
+              type="text"
+              label="Customer ID"
+              name="customerId"
+              placeholder="Enter project's customer"
+              disabled={fieldDisabled}
+            />
+          </div>
+          <div>
             <CustomInput
               type="text"
               label="Employee ID"
@@ -146,7 +148,7 @@ const ProjectForm = ({
         </div>
         <button
           type="submit"
-          className="w-full bg-ds-primary-500 text-ds-white mt-8 py-3 px-4 rounded hover:bg-ds-primary-600 uppercase font-bold disabled:bg-ds-grey-400"
+          className="w-full bg-blue-500 hover:bg-blue-700 text-white mt-8 py-3 px-6 rounded-lg transition-colors duration-200 font-medium disabled:bg-gray-400"
           disabled={fieldDisabled}
         >
           <p className="text-xl">{submitButtonText}</p>

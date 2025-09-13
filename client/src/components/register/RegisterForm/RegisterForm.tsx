@@ -55,7 +55,7 @@ const RegisterForm = () => {
         validationSchema={registerFormValidationSchema}
         onSubmit={handleSubmit}
       >
-        <div className="w-full px-8">
+        <div className="w-3/12 px-8">
           <div className="text-center mb-8">
             <h1 className="text-2xl font-bold text-gray-800 mb-2">Register</h1>
             <p className="text-gray-600 text-sm">

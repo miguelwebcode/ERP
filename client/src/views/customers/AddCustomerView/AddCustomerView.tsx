@@ -17,11 +17,13 @@ export const AddCustomerView = () => {
   return (
     <>
       {isRenderDone && (
-        <CustomerForm
-          titleText="NEW CUSTOMER"
-          submitButtonText="CREATE"
-          onSubmit={handleCreateCustomer}
-        />
+        <div className="w-3/5">
+          <CustomerForm
+            titleText="NEW CUSTOMER"
+            submitButtonText="CREATE"
+            onSubmit={handleCreateCustomer}
+          />
+        </div>
       )}
     </>
   );

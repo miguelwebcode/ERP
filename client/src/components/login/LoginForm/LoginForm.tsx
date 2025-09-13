@@ -32,7 +32,7 @@ const LoginForm = () => {
         validationSchema={loginFormValidationSchema}
         onSubmit={handleSubmit}
       >
-        <div className="w-full max-w-2xl px-8">
+        <div className="w-3/12 px-8">
           <div className="text-center mb-8">
             <h1 className="text-2xl font-bold text-gray-800 mb-2">Login</h1>
             <p className="text-gray-600 text-sm">

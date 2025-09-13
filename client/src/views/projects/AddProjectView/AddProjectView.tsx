@@ -17,11 +17,13 @@ export const AddProjectView = () => {
   return (
     <>
       {isRenderDone && (
-        <ProjectForm
-          titleText="NEW PROJECT"
-          submitButtonText="CREATE"
-          onSubmit={handleCreateProject}
-        />
+        <div className="w-3/5">
+          <ProjectForm
+            titleText="NEW PROJECT"
+            submitButtonText="CREATE"
+            onSubmit={handleCreateProject}
+          />
+        </div>
       )}
     </>
   );

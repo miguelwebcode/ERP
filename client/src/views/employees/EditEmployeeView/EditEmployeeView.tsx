@@ -55,7 +55,7 @@ export const EditEmployeeView = () => {
   return (
     <>
       {employees.length ? (
-        <div className="flex flex-col gap-8 justify-center px-5">
+        <div className="w-3/5 flex flex-col gap-8 justify-center px-5">
           <SelectEmployeeForm buttonText="GET DATA" onSubmit={handleSubmit} />
           <EmployeeForm
             titleText="EDIT EMPLOYEE"

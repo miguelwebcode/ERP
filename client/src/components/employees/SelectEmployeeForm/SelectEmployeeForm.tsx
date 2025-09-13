@@ -38,23 +38,24 @@ const SelectEmployeeForm = ({
       validationSchema={selectEmployeeFormValidationSchema}
       onSubmit={handleSubmit}
     >
-      <div className="flex flex-col md:flex-row justify-between">
-        <div className="flex flex-col items-center justify-center bg-ds-white p-5 rounded shadow-ds-2 h-fit w-96">
-          <h1 className="text-2xl font-bold mb-4">Select Employee</h1>
-          <CustomSelect label="Employee ID" name="employeeId">
-            <option value="" className="text-center">
-              -- Select employee ID --
+      <div className="w-full max-w-md px-8">
+        <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">Select Employee</h1>
+        <CustomSelect label="Employee ID" name="employeeId">
+          <option value="" className="text-center">
+            -- Select employee ID --
+          </option>
+          {employees.map((employee, index) => (
+            <option key={index} value={employee.id}>
+              {`${employee.name}: ${employee.id}`}
             </option>
-            {employees.map((employee, index) => (
-              <option key={index} value={employee.id}>
-                {`${employee.name}: ${employee.id}`}
-              </option>
-            ))}
-          </CustomSelect>
-          <button type="submit" className="form-button mt-5">
-            <p className="text-xl">{buttonText}</p>
-          </button>
-        </div>
+          ))}
+        </CustomSelect>
+        <button
+          type="submit"
+          className="w-full bg-blue-500 hover:bg-blue-700 text-white mt-6 py-3 px-6 rounded-lg transition-colors duration-200 font-medium"
+        >
+          <p className="text-xl">{buttonText}</p>
+        </button>
       </div>
     </SharedForm>
   );

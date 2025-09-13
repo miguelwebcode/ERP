@@ -1,8 +1,10 @@
 export const CustomersView = () => {
   return (
-    <p className="font-bold text-xl text-ds-grey-600 text-center">
-      Select an option to{" "}
-      <span className="text-ds-primary-500">manage customers</span>
-    </p>
+    <div className="text-center">
+      <p className="text-xl font-semibold text-gray-600">
+        Select an option to{" "}
+        <span className="text-blue-500 font-bold">manage customers</span>
+      </p>
+    </div>
   );
 };

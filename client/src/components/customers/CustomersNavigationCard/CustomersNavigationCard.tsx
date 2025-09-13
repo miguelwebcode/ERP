@@ -1,22 +1,43 @@
 import { FaPlus } from "react-icons/fa";
 import { IoReader } from "react-icons/io5";
 import { MdEdit, MdDeleteForever } from "react-icons/md";
-import { NavButton } from "../../ui/NavButton/NavButton";
 
 export const CustomersNavigationCard = () => {
   return (
-    <div className="flex flex-col gap-6 bg-ds-white p-8 rounded shadow-ds-2 w-64">
-      <h3 className="uppercase text-xl font-bold text-center ">
+    <div className="flex flex-col gap-6 rounded-lg  p-8 w-80 ">
+      <h3 className="text-xl font-bold text-center text-gray-800 mb-4">
         MANAGE CUSTOMERS
       </h3>
-      <NavButton text="CREATE" Icon={FaPlus} route="/customers/add" />
-      <NavButton text="READ" Icon={IoReader} route="/customers/read" />
-      <NavButton text="UPDATE" Icon={MdEdit} route="/customers/edit" />
-      <NavButton
-        text="DELETE"
-        Icon={MdDeleteForever}
-        route="/customers/delete"
-      />
+      <div className="space-y-4">
+        <a
+          href="/customers/add"
+          className="w-full bg-blue-500 hover:bg-blue-700 text-white py-3 px-6 rounded-lg transition-colors duration-200 font-medium flex items-center justify-center gap-3 shadow-md"
+        >
+          <FaPlus className="text-lg" />
+          CREATE
+        </a>
+        <a
+          href="/customers/read"
+          className="w-full bg-blue-500 hover:bg-blue-700 text-white py-3 px-6 rounded-lg transition-colors duration-200 font-medium flex items-center justify-center gap-3 shadow-md"
+        >
+          <IoReader className="text-lg" />
+          READ
+        </a>
+        <a
+          href="/customers/edit"
+          className="w-full bg-blue-500 hover:bg-blue-700 text-white py-3 px-6 rounded-lg transition-colors duration-200 font-medium flex items-center justify-center gap-3 shadow-md"
+        >
+          <MdEdit className="text-lg" />
+          UPDATE
+        </a>
+        <a
+          href="/customers/delete"
+          className="w-full bg-blue-500 hover:bg-blue-700 text-white py-3 px-6 rounded-lg transition-colors duration-200 font-medium flex items-center justify-center gap-3 shadow-md"
+        >
+          <MdDeleteForever className="text-lg" />
+          DELETE
+        </a>
+      </div>
     </div>
   );
 };

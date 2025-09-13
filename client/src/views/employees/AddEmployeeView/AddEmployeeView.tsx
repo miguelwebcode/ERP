@@ -17,11 +17,13 @@ export const AddEmployeeView = () => {
   return (
     <>
       {isRenderDone && (
-        <EmployeeForm
-          titleText="NEW EMPLOYEE"
-          submitButtonText="CREATE"
-          onSubmit={handleCreateEmployee}
-        />
+        <div className="w-3/5">
+          <EmployeeForm
+            titleText="NEW EMPLOYEE"
+            submitButtonText="CREATE"
+            onSubmit={handleCreateEmployee}
+          />
+        </div>
       )}
     </>
   );
