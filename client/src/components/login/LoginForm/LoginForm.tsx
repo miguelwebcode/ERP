@@ -26,47 +26,64 @@ const LoginForm = () => {
   };
 
   return (
-    <SharedForm<LoginFormValues>
-      initialValues={initialValues}
-      validationSchema={loginFormValidationSchema}
-      onSubmit={handleSubmit}
-    >
-      <div className="flex flex-col items-center justify-center bg-ds-white p-6 rounded shadow-ds-2 w-96">
-        <h1 className="text-3xl font-bold mb-4">Login</h1>
+    <div className="h-full flex items-center justify-center">
+      <SharedForm<LoginFormValues>
+        initialValues={initialValues}
+        validationSchema={loginFormValidationSchema}
+        onSubmit={handleSubmit}
+      >
+        <div className="w-full max-w-2xl px-8">
+          <div className="text-center mb-8">
+            <h1 className="text-2xl font-bold text-gray-800 mb-2">Login</h1>
+            <p className="text-gray-600 text-sm">
+              Don't have an account?{" "}
+              <button
+                type="button"
+                className="text-blue-600 hover:underline"
+                onClick={() => navigate("/register")}
+              >
+                Register
+              </button>
+            </p>
+          </div>
 
-        <div className="w-4/5 flex flex-col gap-4">
-          <CustomInput
-            label="Email"
-            name="email"
-            type="text"
-            placeholder="Enter your email"
-          />
-          <CustomInput
-            label="Password"
-            name="password"
-            type="password"
-            placeholder="Enter your password"
-          />
-        </div>
-        <button
-          type="submit"
-          className="w-4/5 bg-ds-primary-500 text-white py-2 px-4 mt-6 mb-4 rounded hover:bg-ds-primary-600"
-        >
-          <p className="text-xl font-semibold">Login</p>
-        </button>
-        <div>
-          <span>Don't have an account? </span>
+          <div className="space-y-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Email
+              </label>
+              <CustomInput
+                label=""
+                name="email"
+                type="email"
+                placeholder="Enter your email"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Password
+              </label>
+              <div className="relative">
+                <CustomInput
+                  label=""
+                  name="password"
+                  type="password"
+                  placeholder="Enter your password"
+                />
+              </div>
+            </div>
+          </div>
+
           <button
-            className="text-blue-500"
-            onClick={() => {
-              navigate("/register");
-            }}
+            type="submit"
+            className="w-full bg-blue-800 text-white py-3 px-4 rounded-lg mt-8 hover:bg-blue-900 transition-colors duration-200 font-medium"
           >
-            Register
+            Login
           </button>
         </div>
-      </div>
-    </SharedForm>
+      </SharedForm>
+    </div>
   );
 };
 

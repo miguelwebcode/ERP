@@ -23,9 +23,9 @@ export const CustomInput = ({ label, ...props }: CustomInputProps) => {
           {...field}
           {...props}
           id={props.name}
-          className={`w-full p-2 border rounded ${
+          className={`w-full p-3 border-2 border-blue-300 rounded-full focus:border-blue-500 focus:outline-none transition-colors duration-200 ${
             meta.error && meta.touched && "border-ds-accent1-500"
-          } ${isDatePlaceholder ? "text-ds-grey-400" : "text-ds-black"}`}
+          } ${isDatePlaceholder ? "text-gray-400" : "text-gray-800"}`}
         />
         {meta.error && meta.touched && (
           <div className="text-ds-accent1-500 text-sm text-left mt-1">
