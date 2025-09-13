@@ -17,7 +17,7 @@ export const AddEmployeeView = () => {
   return (
     <>
       {isRenderDone && (
-        <div className="w-3/5">
+        <div className="w-full max-w-[700px]">
           <EmployeeForm
             titleText="NEW EMPLOYEE"
             submitButtonText="CREATE"
