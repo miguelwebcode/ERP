@@ -1,12 +1,9 @@
 import {
-  Home,
   Users,
   FolderKanban,
   UserCircle,
   LucideLogOut,
   DollarSign,
-  Box,
-  Globe,
 } from "lucide-react";
 
 import {
@@ -19,24 +16,23 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarMenuSub,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { logout } from "@/services/auth/service/authService";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@radix-ui/react-collapsible";
-import { openCustomerPortal } from "@/services/stripe/service/stripeService";
 import { useLocation } from "react-router-dom";
+import { MdDashboardCustomize } from "react-icons/md";
 
 // Menu items.
 const items = [
   {
-    title: "Home",
+    title: "Stripe",
+    url: "/stripe/products",
+    icon: DollarSign,
+  },
+  {
+    title: "Dashboard",
     url: "/",
-    icon: Home,
+    icon: MdDashboardCustomize,
   },
   {
     title: "Customers",
@@ -73,53 +69,17 @@ export function AppSidebar() {
   };
 
   return (
-    <Sidebar collapsible="icon" className="bg-blue-700 border-r-0">
-      <SidebarHeader className="hidden md:block bg-blue-700">
-        <SidebarTrigger className="text-white hover:bg-blue-700" />
+    <Sidebar collapsible="icon" className="bg-blue-900 border-r-0">
+      <SidebarHeader className="hidden md:block bg-blue-900">
+        <SidebarTrigger className="text-white hover:bg-blue-900" />
       </SidebarHeader>
-      <SidebarContent className="bg-blue-700">
+      <SidebarContent className="bg-blue-900">
         <SidebarGroup>
           <SidebarGroupLabel className="text-white font-semibold">
             FIRERP
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              <Collapsible>
-                <SidebarMenuItem>
-                  <CollapsibleTrigger asChild>
-                    <SidebarMenuButton className="text-white hover:bg-white hover:text-blue-800 data-[state=open]:bg-blue-700">
-                      <DollarSign className="ml-[4px] mr-[4px]" />
-                      Stripe
-                    </SidebarMenuButton>
-                  </CollapsibleTrigger>
-                  <CollapsibleContent>
-                    <SidebarMenuSub>
-                      <a href="/stripe/products">
-                        <SidebarMenuButton
-                          className={`text-white ml-4 ${
-                            isActive("/stripe/products")
-                              ? "bg-blue-600 hover:bg-blue-600"
-                              : "hover:bg-white hover:text-blue-800"
-                          }`}
-                        >
-                          <Box />
-                          Products
-                        </SidebarMenuButton>
-                      </a>
-                      <a
-                        onClick={() => {
-                          openCustomerPortal();
-                        }}
-                      >
-                        <SidebarMenuButton className="text-white hover:bg-white hover:text-blue-800 ml-4">
-                          <Globe />
-                          Portal
-                        </SidebarMenuButton>
-                      </a>
-                    </SidebarMenuSub>
-                  </CollapsibleContent>
-                </SidebarMenuItem>
-              </Collapsible>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
