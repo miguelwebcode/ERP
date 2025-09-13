@@ -88,7 +88,7 @@ export function AppSidebar() {
                 <SidebarMenuItem>
                   <CollapsibleTrigger asChild>
                     <SidebarMenuButton className="text-white hover:bg-white hover:text-blue-800 data-[state=open]:bg-blue-700">
-                      <DollarSign />
+                      <DollarSign className="ml-[4px] mr-[4px]" />
                       Stripe
                     </SidebarMenuButton>
                   </CollapsibleTrigger>
