@@ -16,7 +16,7 @@ export const CustomSelect = ({
 
   return (
     <div className="flex flex-col w-full">
-      <label htmlFor={props.name} className="block text-sm font-medium">
+      <label htmlFor={props.name} className="block text-sm font-medium mb-1">
         {label}
       </label>
       <div className="relative">
@@ -31,15 +31,23 @@ export const CustomSelect = ({
           {children}
         </select>
         <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-          <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          <svg
+            className="w-5 h-5 text-gray-400"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M19 9l-7 7-7-7"
+            />
           </svg>
         </div>
       </div>
       {meta.error && meta.touched && (
-        <div className="text-red-500 text-sm text-left mt-1">
-          {meta.error}
-        </div>
+        <div className="text-red-500 text-sm text-left mt-1">{meta.error}</div>
       )}
     </div>
   );
