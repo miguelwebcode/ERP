@@ -25,26 +25,41 @@ export const StripeProductCard = ({
       console.error("Error al crear sesión: ", error);
     }
   };
-  return (
-    <div className="border flex flex-col items-center justify-between w-96 lg:w-2/6 rounded-lg p-4 gap-3 shadow-md bg-white mb-4">
-      <p className="text-lg font-bold mb-2">{name}</p>
-      <p className="text-green-600 text-base mb-2">
-        {`${formatCurrency(price.amount / 100, "EUR", "es-ES")}`}{" "}
-        {price.type === "recurring" ? (
-          <span className="text-sm text-gray-600">{`/ every ${price.recurring?.interval_count} ${price.recurring?.interval}s`}</span>
-        ) : (
-          <span className="text-sm text-gray-600">/ unique payment</span>
-        )}
-      </p>
+  const getPricingText = () => {
+    if (price.type === "recurring") {
+      const intervalCount = price.recurring?.interval_count || 1;
+      if (intervalCount === 1) {
+        return "every month";
+      } else {
+        return `every ${intervalCount} months`;
+      }
+    }
+    return "unique payment";
+  };
 
-      <button
-        className="bg-blue-500 text-white font-semibold py-2 px-4 w-full rounded hover:bg-blue-600 transition duration-300"
-        onClick={() => {
-          handleCheckout(price.priceId, selectedProjectId, price.type);
-        }}
-      >
-        PAY
-      </button>
+  return (
+    <div className="flex items-center justify-between py-6 px-4 hover:bg-gray-50 transition-colors duration-200">
+      <div className="flex-1">
+        <h3 className="text-lg font-bold text-gray-800 mb-1">{name}</h3>
+      </div>
+      <div className="flex items-center gap-6">
+        <div className="text-right">
+          <p className="text-xl font-bold text-green-600">
+            {formatCurrency(price.amount / 100, "EUR", "es-ES")}
+          </p>
+          <p className="text-sm text-gray-600">
+            / {getPricingText()}
+          </p>
+        </div>
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-6 rounded-lg transition-colors duration-200 font-medium whitespace-nowrap"
+          onClick={() => {
+            handleCheckout(price.priceId, selectedProjectId, price.type);
+          }}
+        >
+          PAY
+        </button>
+      </div>
     </div>
   );
 };

@@ -21,7 +21,7 @@ export const StripeProductsView = () => {
     const fetchProducts = async () => {
       try {
         const data = await fetchStripeProducts();
-        setProducts(data.products);
+        setProducts(data!.products);
       } catch (error) {
         console.error("Error loading stripe products: ", error);
       } finally {
@@ -49,29 +49,33 @@ export const StripeProductsView = () => {
   };
 
   return (
-    <>
+    <div className="flex flex-col items-center gap-8 p-6">
       <SelectProjectForm buttonText="SUBMIT" onSubmit={handleSubmit} />
 
       {selectedProjectId && isLoading ? (
-        <div className="flex justify-center items-center mt-40">
-          <p>Loading Stripe Products...</p>
+        <div className="flex justify-center items-center mt-20">
+          <p className="text-lg text-gray-600">Loading Stripe Products...</p>
         </div>
       ) : (
-        <div className="flex flex-wrap justify-center gap-3 mt-5">
-          {selectedProjectId &&
-            products.map((product, index) => {
-              const firstPrice = product.prices[0];
-              return (
-                <StripeProductCard
-                  key={index}
-                  name={product.name}
-                  price={firstPrice}
-                  selectedProjectId={selectedProjectId}
-                />
-              );
-            })}
-        </div>
+        selectedProjectId && (
+          <div className="w-full max-w-3xl">
+            <div className="space-y-0">
+              {products.map((product, index) => {
+                const firstPrice = product.prices[0];
+                return (
+                  <div key={index} className={`${index !== products.length - 1 ? 'border-b border-gray-200' : ''}`}>
+                    <StripeProductCard
+                      name={product.name}
+                      price={firstPrice}
+                      selectedProjectId={selectedProjectId}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )
       )}
-    </>
+    </div>
   );
 };

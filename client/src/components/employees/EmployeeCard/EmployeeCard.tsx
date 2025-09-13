@@ -5,7 +5,6 @@ import { IoLocationOutline } from "react-icons/io5";
 import { LuUserRound } from "react-icons/lu";
 import { MdOutlineCategory } from "react-icons/md";
 import { TbPigMoney } from "react-icons/tb";
-import "@/styles/DataCard.css";
 
 type EmployeeCardProps = {
   employee: Employee;
@@ -16,13 +15,13 @@ export const EmployeeCard = ({
   onButtonClick: handleButtonClick,
 }: EmployeeCardProps) => {
   return (
-    <div className="card-container">
-      <div className="card-id-section">
-        <p>
-          <span>ID</span>: {employee.id}
+    <div className="w-full max-w-md p-6">
+      <div className="mb-4 pb-3 border-b border-gray-200">
+        <p className="text-sm font-medium text-gray-600">
+          <span className="font-semibold">ID</span>: {employee.id}
         </p>
       </div>
-      <div className="card-grid">
+      <div className="grid grid-cols-1 gap-4 mb-6">
         <CardField label="Name" value={employee.name} Icon={LuUserRound} />
         <CardField
           label="Role"
@@ -46,8 +45,11 @@ export const EmployeeCard = ({
           Icon={TbPigMoney}
         />
       </div>
-      <div className="flex justify-center mb-6 mx-5">
-        <button className="form-button" onClick={() => handleButtonClick()}>
+      <div className="flex justify-center">
+        <button
+          className="w-full bg-red-500 hover:bg-red-700 text-white py-3 px-6 rounded-lg transition-colors duration-200 font-medium"
+          onClick={() => handleButtonClick()}
+        >
           <p className="text-xl">DELETE</p>
         </button>
       </div>

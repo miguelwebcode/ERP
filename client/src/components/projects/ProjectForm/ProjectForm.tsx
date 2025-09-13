@@ -68,7 +68,7 @@ const ProjectForm = ({
       onSubmit={handleSubmit}
       innerRef={formikRef}
     >
-      <div className="w-fullpx-8">
+      <div className="w-full px-8">
         <h1 className="text-2xl font-bold mb-8 text-center text-gray-800">
           {titleText}
         </h1>

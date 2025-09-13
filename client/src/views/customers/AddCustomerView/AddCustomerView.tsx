@@ -17,7 +17,7 @@ export const AddCustomerView = () => {
   return (
     <>
       {isRenderDone && (
-        <div className="w-3/5">
+        <div className="w-full max-w-[700px]">
           <CustomerForm
             titleText="NEW CUSTOMER"
             submitButtonText="CREATE"
