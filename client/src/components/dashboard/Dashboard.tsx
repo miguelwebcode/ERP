@@ -4,13 +4,14 @@ import { fetchCustomerIds } from "@/services/customers/service/customersService"
 import {
   fetchEmployeeIds,
   countEmployeesByRole,
+  fetchAllEmployees,
 } from "@/services/employees/service/employeesService";
 import {
   fetchActiveProjectsHistory,
   fetchProjectIds,
 } from "@/services/projects/service/projectsService";
 import { fetchHistoricalMrr } from "@/services/subscriptions/service/subscriptionsService";
-import { ActiveProjectsMonth, MrrMonth } from "@/types";
+import { ActiveProjectsMonth, MrrMonth, Employee } from "@/types";
 import Card from "@mui/material/Card";
 import { useEffect, useState } from "react";
 
@@ -41,6 +42,13 @@ export const Dashboard = () => {
   const [activeProjects, setActiveProjects] = useState<ActiveProjectsMonth[]>(
     []
   );
+  const [hoveredRole, setHoveredRole] = useState<{
+    name: string;
+    value: number;
+  } | null>(null);
+  const [allEmployees, setAllEmployees] = useState<Employee[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const employeesPerPage = 5;
 
   // Blue color palette for pie chart
   const blueColors = [
@@ -57,6 +65,7 @@ export const Dashboard = () => {
     fetchProjectIds(setProjects);
     fetchHistoricalMrr(setMrr);
     fetchActiveProjectsHistory(setActiveProjects);
+    fetchAllEmployees(setAllEmployees);
 
     // Actualiza employeesByRole
     countEmployeesByRole((roleCounts) => {
@@ -90,63 +99,11 @@ export const Dashboard = () => {
 
   return (
     <div className="min-h-screen p-6">
-      {/* Header
-      <div className="mb-8">
-        <div className="flex items-center justify-between bg-white/10 backdrop-blur-sm rounded-lg p-4 mb-6">
-          <h1 className="text-white text-2xl font-bold">ERP Dashboard</h1>
-          <div className="flex items-center space-x-4">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Search..."
-                className="bg-white/20 text-white placeholder-white/70 rounded-full px-4 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-white/30"
-              />
-              <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                <svg
-                  className="w-4 h-4 text-white/70"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
-              </div>
-            </div>
-            <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
-              <svg
-                className="w-5 h-5 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 17h5l-5 5-5-5h5v-5h5v5z"
-                />
-              </svg>
-            </div>
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-white/20 rounded-full"></div>
-              <span className="text-white text-sm">Welcome, User!</span>
-            </div>
-          </div>
-        </div>
-
-        <h2 className="text-white text-xl font-semibold mb-4">Sales</h2>
-      </div> */}
-
       {/* KPI Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         {kpiData.map((kpi, index) => (
           <Card key={kpi.title} className="bg-white rounded-lg p-6 shadow-lg">
-            <div className="flex flex-col">
+            <div className="flex flex-col items-center text-center">
               <h3 className="text-gray-600 text-sm font-medium mb-2">
                 {kpi.title}
               </h3>
@@ -172,22 +129,16 @@ export const Dashboard = () => {
                   dataKey="month"
                   axisLine={false}
                   tickLine={false}
-                  tick={{ fontSize: 10 }}
+                  tick={{ fontSize: 14 }}
                 />
                 <YAxis
                   axisLine={false}
                   tickLine={false}
-                  tick={{ fontSize: 10 }}
+                  tick={{ fontSize: 14 }}
                 />
                 <Tooltip />
                 <defs>
-                  <linearGradient
-                    id="colorRevenue"
-                    x1="0"
-                    y1="0"
-                    x2="0"
-                    y2="1"
-                  >
+                  <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3} />
                     <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
                   </linearGradient>
@@ -205,115 +156,256 @@ export const Dashboard = () => {
         </div>
       </Card>
 
-      {/* Second Row: Active Projects and Employees by Department */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Active Projects Bar Chart */}
-        <Card className="bg-white rounded-lg p-6 shadow-lg">
+      {/* Third Row: Employees by Department (1/4) + Human Resources Table (3/4) */}
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        {/* Employees by Department Pie Chart - 1/4 width */}
+        <Card className="bg-white rounded-lg p-4 shadow-lg lg:col-span-1">
           <div className="flex flex-col h-full">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">
-              Active Projects
+              Employees by Department
             </h3>
-            <div className="flex-grow">
-              <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={activeProjects}>
-                  <XAxis
-                    dataKey="month"
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fontSize: 10 }}
-                  />
-                  <YAxis
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fontSize: 10 }}
-                  />
-                  <Tooltip />
-                  <defs>
-                    <linearGradient
-                      id="barGradient"
-                      x1="0"
-                      y1="0"
-                      x2="0"
-                      y2="1"
-                    >
-                      <stop offset="0%" stopColor="#3b82f6" />
-                      <stop offset="100%" stopColor="#1d4ed8" />
-                    </linearGradient>
-                  </defs>
-                  <Bar
-                    dataKey="activeCount"
-                    name="Active Projects"
-                    fill="url(#barGradient)"
-                    radius={[4, 4, 0, 0]}
-                  />
-                </BarChart>
-              </ResponsiveContainer>
+            <div className="flex-grow flex items-center justify-center">
+              <div className="flex flex-col items-center gap-4">
+                <div className="relative">
+                  <ResponsiveContainer width={200} height={200}>
+                    <PieChart>
+                      <Pie
+                        data={employeesByRole}
+                        dataKey="value"
+                        nameKey="name"
+                        cx="50%"
+                        cy="50%"
+                        outerRadius={80}
+                        innerRadius={50}
+                      >
+                        {employeesByRole.map((role, index) => (
+                          <Cell
+                            key={index}
+                            fill={blueColors[index % blueColors.length]}
+                            onMouseEnter={() => setHoveredRole(role)}
+                            onMouseLeave={() => setHoveredRole(null)}
+                            style={{ cursor: "pointer" }}
+                          />
+                        ))}
+                      </Pie>
+                    </PieChart>
+                  </ResponsiveContainer>
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div className="text-center">
+                      <p className="text-xl font-bold">{employees.length}</p>
+                      <p className="text-xs text-gray-500">Total</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* External Tooltip */}
+                <div className="h-12 flex items-center justify-center">
+                  {hoveredRole ? (
+                    <div className="bg-white border border-gray-200 rounded-lg p-2 shadow-lg">
+                      <p className="text-xs font-medium text-gray-900">
+                        {hoveredRole.name}
+                      </p>
+                      <p className="text-sm font-bold text-blue-500">
+                        {hoveredRole.value} employee
+                        {hoveredRole.value === 1 ? "" : "s"}
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="text-xs text-gray-400 text-center">
+                      Hover over segments
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+            <div className="mt-4">
+              {employeesByRole.map((role, index) => (
+                <div
+                  key={role.name}
+                  className="flex items-center justify-between py-1.5"
+                >
+                  <div className="flex items-center">
+                    <div
+                      className="w-3 h-3 rounded-full mr-3"
+                      style={{
+                        backgroundColor: blueColors[index % blueColors.length],
+                      }}
+                    ></div>
+                    <span className="text-sm font-medium">{role.name}</span>
+                  </div>
+                  <div className="text-md font-medium">
+                    {Math.round((role.value / employees.length) * 100)}%
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </Card>
 
-        {/* Employees by Department Pie Chart */}
-        <Card className="bg-white rounded-lg p-6 shadow-lg">
-        <div className="flex flex-col h-full">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">
-            Employees by Department
-          </h3>
-          <div className="flex-grow flex items-center justify-center">
-            <div className="relative">
-              <ResponsiveContainer width={300} height={300}>
-                <PieChart>
-                  <Pie
-                    data={employeesByRole}
-                    dataKey="value"
-                    nameKey="name"
-                    cx="50%"
-                    cy="50%"
-                    outerRadius={100}
-                    innerRadius={60}
-                  >
-                    {employeesByRole.map((_, index) => (
-                      <Cell
-                        key={index}
-                        fill={blueColors[index % blueColors.length]}
-                      />
-                    ))}
-                  </Pie>
-                  <Tooltip />
-                </PieChart>
-              </ResponsiveContainer>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center">
-                  <p className="text-2xl font-bold">{employees.length}</p>
-                  <p className="text-sm text-gray-500">Total Number</p>
-                  <p className="text-sm text-gray-500">Of Employees</p>
+        {/* Human Resources Table - 3/4 width */}
+        <Card className="bg-white rounded-lg p-4 shadow-lg lg:col-span-3">
+          <div className="flex flex-col h-full">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+              Human Resources
+            </h3>
+            <div className="flex-grow overflow-auto">
+              {allEmployees.length > 0 ? (
+                <div className="rounded-lg overflow-hidden">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="bg-blue-600 text-white">
+                        <th className="text-left py-3 px-4 font-medium">
+                          Full Name
+                        </th>
+                        <th className="text-left py-3 px-4 font-medium">
+                          Position
+                        </th>
+                        <th className="text-left py-3 px-4 font-medium">
+                          Phone
+                        </th>
+                        <th className="text-left py-3 px-4 font-medium">
+                          Email
+                        </th>
+                        <th className="text-left py-3 px-4 font-medium">
+                          Salary
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {allEmployees
+                        .slice(
+                          (currentPage - 1) * employeesPerPage,
+                          currentPage * employeesPerPage
+                        )
+                        .map((employee, index) => (
+                          <tr
+                            key={employee.id || index}
+                            className={
+                              index % 2 === 0 ? "bg-white" : "bg-blue-50"
+                            }
+                          >
+                            <td className="py-3 px-4 text-gray-900 font-medium">
+                              {employee.name}
+                            </td>
+                            <td className="py-3 px-4 text-gray-700">
+                              {employee.role}
+                            </td>
+                            <td className="py-3 px-4 text-gray-700">
+                              {employee.phone}
+                            </td>
+                            <td className="py-3 px-4 text-gray-700">
+                              {employee.email}
+                            </td>
+                            <td className="py-3 px-4 text-blue-600 font-medium">
+                              {employee.salary} €
+                            </td>
+                          </tr>
+                        ))}
+                    </tbody>
+                  </table>
+                  {allEmployees.length > 0 && (
+                    <div className="border-t border-gray-200">
+                      <div className="flex items-center justify-between py-3 px-4 text-sm text-gray-500">
+                        <div>
+                          Showing {(currentPage - 1) * employeesPerPage + 1}-
+                          {Math.min(
+                            currentPage * employeesPerPage,
+                            allEmployees.length
+                          )}{" "}
+                          of {allEmployees.length} employees
+                        </div>
+                        <div className="flex items-center space-x-4">
+                          <button
+                            onClick={() =>
+                              setCurrentPage((prev) => Math.max(prev - 1, 1))
+                            }
+                            disabled={currentPage === 1}
+                            className="flex items-center text-gray-400 hover:text-gray-600 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors duration-200"
+                          >
+                            <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                            </svg>
+                            Previous
+                          </button>
+                          <span className="text-gray-600">
+                            Page {currentPage} of{" "}
+                            {Math.ceil(allEmployees.length / employeesPerPage)}
+                          </span>
+                          <button
+                            onClick={() =>
+                              setCurrentPage((prev) =>
+                                Math.min(
+                                  prev + 1,
+                                  Math.ceil(
+                                    allEmployees.length / employeesPerPage
+                                  )
+                                )
+                              )
+                            }
+                            disabled={
+                              currentPage ===
+                              Math.ceil(allEmployees.length / employeesPerPage)
+                            }
+                            className="flex items-center text-gray-400 hover:text-gray-600 disabled:text-gray-300 disabled:cursor-not-allowed transition-colors duration-200"
+                          >
+                            Next
+                            <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
-              </div>
+              ) : (
+                <div className="text-center text-gray-500 py-8">
+                  No employees found
+                </div>
+              )}
             </div>
           </div>
-          <div className="mt-4">
-            {employeesByRole.map((role, index) => (
-              <div
-                key={role.name}
-                className="flex items-center justify-between py-1"
-              >
-                <div className="flex items-center">
-                  <div
-                    className="w-3 h-3 rounded-full mr-2"
-                    style={{
-                      backgroundColor: blueColors[index % blueColors.length],
-                    }}
-                  ></div>
-                  <span className="text-sm">{role.name}</span>
-                </div>
-                <div className="text-sm font-medium">
-                  {Math.round((role.value / employees.length) * 100)}%
-                </div>
-              </div>
-            ))}
+        </Card>
+      </div>
+
+      {/* Fourth Row: Active Projects - Full Width */}
+      <Card className="bg-white rounded-lg p-6 shadow-lg mb-8">
+        <div className="flex flex-col h-full">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            Active Projects
+          </h3>
+          <div className="flex-grow">
+            <ResponsiveContainer width="100%" height={300}>
+              <BarChart data={activeProjects}>
+                <XAxis
+                  dataKey="month"
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fontSize: 14 }}
+                />
+                <YAxis
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fontSize: 14 }}
+                />
+                <Tooltip />
+                <defs>
+                  <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#3b82f6" />
+                    <stop offset="100%" stopColor="#1d4ed8" />
+                  </linearGradient>
+                </defs>
+                <Bar
+                  dataKey="activeCount"
+                  name="Active Projects"
+                  fill="url(#barGradient)"
+                  radius={[4, 4, 0, 0]}
+                />
+              </BarChart>
+            </ResponsiveContainer>
           </div>
         </div>
       </Card>
-      </div>
     </div>
   );
 };
