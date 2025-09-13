@@ -24,7 +24,7 @@ export const CustomSelect = ({
           {...field}
           {...props}
           id={props.name}
-          className={`w-full p-3 pr-10 border-2 border-blue-300 rounded-full focus:border-blue-500 focus:outline-none transition-colors duration-200 appearance-none ${
+          className={`w-full p-3 pr-10 border-2 border-blue-300 rounded-lg focus:border-blue-500 focus:outline-none transition-colors duration-200 appearance-none ${
             meta.error && meta.touched && "border-red-500"
           }`}
         >
