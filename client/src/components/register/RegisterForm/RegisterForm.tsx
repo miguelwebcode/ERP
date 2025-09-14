@@ -46,7 +46,7 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className="h-full w-full flex items-center justify-center">
+    <div className="h-full flex items-start justify-center pt-32">
       <SharedForm<RegisterFormValues>
         initialValues={initialValues}
         validationSchema={registerFormValidationSchema}

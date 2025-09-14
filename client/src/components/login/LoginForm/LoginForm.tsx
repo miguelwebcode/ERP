@@ -26,7 +26,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="h-full flex items-center justify-center">
+    <div className="h-full flex items-start justify-center pt-32">
       <SharedForm<LoginFormValues>
         initialValues={initialValues}
         validationSchema={loginFormValidationSchema}
