@@ -16,7 +16,7 @@ export const SuccessView = () => {
     if (!sessionId) return;
     // Llama a tu backend o Stripe API (mediante callable) para recuperar detalles
     fetchCheckoutSession(sessionId).then((data) => {
-      setSession(data);
+      setSession(data as Stripe.Checkout.Session);
       setLoading(false);
     });
   }, [sessionId]);
@@ -44,7 +44,7 @@ export const SuccessView = () => {
 
   return (
     <div className="mx-auto max-w-lg p-6 bg-white rounded-lg shadow">
-      <h1 className="text-2xl font-bold mb-4">Payment Successful!</h1>
+      <h1 className="text-2xl font-bold mb-4">Successful Payment!</h1>
       <p className="mb-2">
         Thank you, <strong>{customerName}</strong>.
       </p>
