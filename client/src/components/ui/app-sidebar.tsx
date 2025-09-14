@@ -25,11 +25,6 @@ import { MdDashboardCustomize } from "react-icons/md";
 // Menu items.
 const items = [
   {
-    title: "Stripe",
-    url: "/stripe/products",
-    icon: DollarSign,
-  },
-  {
     title: "Dashboard",
     url: "/",
     icon: MdDashboardCustomize,
@@ -48,6 +43,11 @@ const items = [
     title: "Employees",
     url: "/employees",
     icon: UserCircle,
+  },
+  {
+    title: "Stripe",
+    url: "/stripe/products",
+    icon: DollarSign,
   },
   {
     title: "Logout",
